@@ -1,0 +1,12 @@
+.brand{
+  position: relative;
+  color: steelblue;
+  top: 15px;
+  right: 45px;
+}
+
+.brand-mini{
+  position: relative;
+  color: steelblue;
+  top: 15px;
+}
