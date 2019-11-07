@@ -1,3 +1,42 @@
-<p>
-  login works!
-</p>
+<div class="page-body-wrapper full-page-wrapper auth-page">
+  <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
+    <div class="row w-100">
+      <div class="col-lg-4 mx-auto">
+        <h2 class="text-center mb-4" style="color: white;">Ingresar</h2>
+
+        <div *ngIf="error" class="alert alert-danger d-flex justify-content-center" role="alert">
+          <p>Oops, hubo un problema: <b>{{error}}</b></p>
+        </div>
+
+        <div class="auto-form-wrapper">
+          <form #f="ngForm" (ngSubmit)="login(f)">
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="Email" ngModel name="email" placeholder="Email"
+                required>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="*********" ngModel name="password"
+                placeholder="Password" required>
+            </div>
+            <div class="form-group">
+              <button *ngIf="!cargando" class="btn btn-primary submit-btn btn-block"
+                [disabled]="!f.valid">Login</button>
+              <button *ngIf="cargando" class="btn btn-primary submit-btn btn-block" [disabled]="true"> <i
+                  class="fa fa-spin fa-sync"></i> Iniciando sesion...</button>
+            </div>
+
+
+            <div class="text-block text-center my-3">
+              <span class="text-small font-weight-semibold">No estas registrado? </span>
+              <br>
+              <a routerLink="/register" class="text-black text-small">Crear una cuenta</a>
+            </div>
+          </form>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+</div>

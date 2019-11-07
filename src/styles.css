@@ -3,3 +3,69 @@
 .cursor {
   cursor: pointer;
 }
+
+.notification {
+  position: relative;
+  left: 2px;
+  bottom: 2px;
+}
+
+.btnInfo {
+  width: 40px;
+  height: 38px;
+  padding: 5px 10px;
+  margin: 3px;
+  background-color: steelblue;
+  color: white;
+  border: none;
+  border-radius: 50%;
+}
+
+.btnInfo:hover {
+  background-color: rgb(47, 112, 165);
+}
+
+.btnSuccess {
+  width: 40px;
+  height: 38px;
+  padding: 5px 10px;
+  margin: 3px;
+  background-color: rgb(39, 165, 1);
+  color: white;
+  border: none;
+  border-radius: 50%;
+}
+
+.btnSuccess:hover {
+  background-color: rgb(34, 145, 2);
+}
+
+.btnDanger {
+  width: 40px;
+  height: 38px;
+  padding: 5px 10px;
+  margin: 3px;
+  background-color: rgb(205, 0, 0);
+  color: white;
+  border: none;
+  border-radius: 50%;
+}
+
+.btnDanger:hover {
+  background-color: rgb(182, 0, 0);
+}
+
+.btnAdd {
+  width: 40px;
+  height: 38px;
+  padding: 5px 10px;
+  margin: 3px;
+  background-color: rgb(252, 164, 0);
+  color: white;
+  border: none;
+  border-radius: 50%;
+}
+
+.btnAdd:hover {
+  background-color: rgb(241, 137, 1);
+}
