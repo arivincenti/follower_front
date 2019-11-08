@@ -42,7 +42,7 @@ export class OrganizationCardComponent implements OnInit, OnDestroy
 
   selectOrganization(organization: OrganizationModel)
   {
-    this.router.navigate(['app/organizations', organization._id]);
+    this.router.navigate(['app/organizations/profile', organization._id]);
   }
 
   deleteOrganization(organization: OrganizationModel)

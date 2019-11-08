@@ -1,0 +1,21 @@
+<ng-container *ngIf="memberAreas$ | async as memberAreas">
+
+  <div class="card-text mt-5">
+    <div class="card-subtitle d-flex align-items-center">
+      <i class="fa fa-tags mr-1" aria-hidden="true"></i>
+      Mis Áreas
+    </div>
+    <hr>
+    <span class="text-muted " *ngIf="!memberAreas.length">No es miembro de ningún área</span>
+    <app-loading *ngIf="loading"></app-loading>
+    <table class="table table-striped" *ngIf="memberAreas.length">
+      <tr>
+        <th>Área</th>
+        <th>Responsable</th>
+        <th>Creada</th>
+        <th></th>
+      </tr>
+      <tr app-area-list-item *ngFor="let memberArea of memberAreas" [area]="memberArea.area" [user]="user"></tr>
+    </table>
+  </div>
+</ng-container>

@@ -69,3 +69,7 @@
 .btnAdd:hover {
   background-color: rgb(241, 137, 1);
 }
+
+span{
+  font-size: 14px;
+}

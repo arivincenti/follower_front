@@ -1,0 +1,23 @@
+<ng-container *ngIf="areas$ | async as areas">
+  <span class="text-muted" *ngIf="!areas">La organización todavia no tiene áreas</span>
+  <div class="card-text mt-5" *ngIf="areas">
+    <div class="card-subtitle d-flex align-items-center">
+      <i class="fa fa-tags mr-1" aria-hidden="true"></i>
+      Áreas de la organización
+      <button class="btn btn-xs btn-info btn-rounded ml-2 py-0 d-flex justify-content-center align-items-center"
+        (click)="addOrganization()"> <i class="fa fa-tag" aria-hidden="true"></i> Agregar Área
+      </button>
+    </div>
+    <hr>
+    <app-loading *ngIf="loading"></app-loading>
+    <table class="table table-striped" *ngIf="!loading">
+      <tr>
+        <th>Área</th>
+        <th>Responsable</th>
+        <th>Creada</th>
+        <th></th>
+      </tr>
+      <tr app-area-list-item *ngFor="let area of areas" [area]="area" [user]="user"></tr>
+    </table>
+  </div>
+</ng-container>

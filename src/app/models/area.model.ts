@@ -3,6 +3,7 @@ import { UserModel } from './user.model';
 export class AreaModel
 {
   constructor(
+    public _id: string,
     public name: string,
     public organization: string,
     public members: UserModel[],
