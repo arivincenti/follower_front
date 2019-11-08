@@ -36,7 +36,7 @@ export class OrganizationListComponent implements OnInit, OnDestroy
   ngOnDestroy()
   {
     this.userSubscription.unsubscribe();
-    this.store.dispatch(OrganizationsActions.clearState());
+    // this.store.dispatch(OrganizationsActions.clearState());
   }
 
 }

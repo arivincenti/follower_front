@@ -7,7 +7,8 @@ import { AreaModel } from 'src/app/models/area.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { ActivatedRoute } from '@angular/router';
-import * as OrganizationActions from '../../../store/actions/organizations/organization.actions';
+import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-organization-profile',
@@ -39,15 +40,15 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
       organization_id = param.id
     });
 
-    this.store.dispatch(OrganizationActions.getOrganization({ payload: organization_id }));
-    this.organization$ = this.store.select(state => state.organization.organization);    
+    this.store.dispatch(OrganizationsActions.getOrganization({ payload: organization_id }));
+    this.organization$ = this.store.select(state => state.organizations.organization.organization.organization);
 
   }
 
   ngOnDestroy()
   {
     this.paramSubscription.unsubscribe();
-    this.store.dispatch(OrganizationActions.clearState());
+    this.store.dispatch(OrganizationsActions.clearState());
   }
 
 }

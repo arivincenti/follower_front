@@ -21,15 +21,21 @@ export class OrganizationsService
 
   getOrganizationAreas(organization: string)
   {
-    return this.http.get(`${environment.path}/organizations/${organization}/areas`);
+    return this.http.get(`${environment.path}/organizations/${organization}/areas`)
+    .pipe(map((data: any) => data['data']));
   }
 
   getOrganizationMembers(organization: OrganizationModel)
   {
-    return this.http.get(`${environment.path}/organizations/${organization._id}/members`).pipe(
+    return this.http.get(`${environment.path}/organizations/${organization._id}/members`).pipe(map((data: any) => data['data']));
+  }
+
+  getOrganizationUserAreasMember(user_id: string, organization_id: string)
+  {
+    return this.http.get(`${environment.path}/users/${user_id}/organizations/${organization_id}/areas`).pipe(
       map((data: any) =>
       {
-        return data['data'];
+        return data.data;
       })
     );
   }

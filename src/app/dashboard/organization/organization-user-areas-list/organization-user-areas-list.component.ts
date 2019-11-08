@@ -4,6 +4,9 @@ import { OrganizationModel } from 'src/app/models/organization.model';
 import { Observable } from 'rxjs';
 import { MemberModel } from 'src/app/models/member.model';
 import { UsersService } from 'src/app/services/users/users.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
+import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
 
 @Component({
   selector: 'app-organization-user-areas-list',
@@ -18,12 +21,14 @@ export class OrganizationUserAreasListComponent implements OnInit
   memberAreas$: Observable<MemberModel[]>;
 
   constructor(
-    private _userService: UsersService
+    private store: Store<AppState>
   ) { }
 
   ngOnInit()
   {
-    this.memberAreas$ = this._userService.getUserOrganizationAreas(this.user._id, this.organization._id);
+    this.store.dispatch(OrganizationsActions.getOrganizationUserAreaMember({user: this.user._id, organization: this.organization._id}))
+
+    this.memberAreas$ = this.store.select(state => state.organizations.organization.organizationUserAreasMember.areasMember);
   }
 
 }

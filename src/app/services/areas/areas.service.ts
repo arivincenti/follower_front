@@ -13,12 +13,6 @@ export class AreasService
     private http: HttpClient
   ) { }
 
-
-  getOrganizationAreas(organizationId: string)
-  {
-    return this.http.get(`${environment.path}/organizations/${organizationId}/areas`);
-  }
-
   getAreaResponsibleMembers(areaId: string)
   {
     return this.http.get(`${environment.path}/areas/${areaId}/responsibleMembers`).pipe(map((data: any) => data.data));

@@ -7,6 +7,8 @@ import { MemberModel } from 'src/app/models/member.model';
 import { OrganizationsService } from 'src/app/services/organizations/organizations.service';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'app-organization-card',
@@ -23,15 +25,15 @@ export class OrganizationCardComponent implements OnInit, OnDestroy
   subscription: Subscription = new Subscription();
 
   constructor(
+    private store: Store<AppState>,
     private _organizationService: OrganizationsService,
     private router: Router
   ) { }
 
   ngOnInit()
   {
-    this.areas$ = this._organizationService.getOrganizationAreas(this.organization._id).pipe(
-      map((data: any) => data.data)
-    );
+    this.areas$ = this._organizationService.getOrganizationAreas(this.organization._id);
+
     this.members$ = this._organizationService.getOrganizationMembers(this.organization);
   }
 
