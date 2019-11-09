@@ -30,7 +30,7 @@ export class OrganizationsService
     return this.http.get(`${environment.path}/organizations/${organization._id}/members`).pipe(map((data: any) => data['data']));
   }
 
-  getOrganizationUserAreasMember(user_id: string, organization_id: string)
+  getOrganizationUserAreas(user_id: string, organization_id: string)
   {
     return this.http.get(`${environment.path}/users/${user_id}/organizations/${organization_id}/areas`).pipe(
       map((data: any) =>
@@ -45,6 +45,13 @@ export class OrganizationsService
     return this.http.get(`${environment.path}/organizations/${organization}`).pipe(
       map(data => data['data'])
     )
+  }
+
+  createOrganization(payload: any){
+
+    return this.http.post(`${environment.path}/organizations`, payload).pipe(
+      map((data: any) => data.data)
+    );
   }
 
   deleteOrganization(organization: OrganizationModel)

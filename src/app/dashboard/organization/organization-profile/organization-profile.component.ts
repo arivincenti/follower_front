@@ -8,7 +8,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { ActivatedRoute } from '@angular/router';
 import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
-import { map } from 'rxjs/operators';
+import * as OrganizationActions from '../../../store/actions/organization/organization.actions';
+
 
 @Component({
   selector: 'app-organization-profile',
@@ -40,15 +41,16 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
       organization_id = param.id
     });
 
-    this.store.dispatch(OrganizationsActions.getOrganization({ payload: organization_id }));
-    this.organization$ = this.store.select(state => state.organizations.organization.organization.organization);
+    this.store.dispatch(OrganizationActions.getOrganization({ payload: organization_id }));
+    
+    this.organization$ = this.store.select(state => state.organizationSelected.organization);
 
   }
 
   ngOnDestroy()
   {
     this.paramSubscription.unsubscribe();
-    this.store.dispatch(OrganizationsActions.clearState());
+    this.store.dispatch(OrganizationActions.clearState());
   }
 
 }

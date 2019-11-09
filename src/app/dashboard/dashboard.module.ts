@@ -15,6 +15,7 @@ import { OrganizationUserAreasListComponent } from './organization/organization-
 import { UserComponent } from './user/user/user.component';
 import { OrganizationCreateComponent } from './organization/organization-create/organization-create.component';
 import { OrganizationProfileComponent } from './organization/organization-profile/organization-profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,8 @@ import { OrganizationProfileComponent } from './organization/organization-profil
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     SharedModule
   ]
 })

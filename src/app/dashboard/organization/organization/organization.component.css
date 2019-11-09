@@ -1,0 +1,10 @@
+.btn{
+  font-size: .8em;
+  color: rgb(255, 221, 221)
+}
+
+.btn:hover{
+  font-size: .8em;
+  color: rgb(255, 255, 255);
+  transition: all .3s;
+}

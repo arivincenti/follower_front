@@ -4,9 +4,31 @@
 
 .owner-icon{
   position: relative;
-  top: 1px;
+  bottom: 2px;
+}
+
+.member-icon{
+  position: relative;
+  bottom: 3px;
 }
 
 .organization-card-info{
   font-size: 14px;
+}
+
+.btn{
+  font-size: .8em;
+  background-color: rgb(255, 153, 0);
+  color: rgb(253, 234, 198)
+}
+
+.btn:hover{
+  font-size: .8em;
+  background-color: rgb(255, 136, 0);
+  color: rgb(255, 255, 255);
+  transition: all .3s;
+}
+
+.card{
+  min-width: 300px;
 }

@@ -3,7 +3,6 @@ import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { OrganizationModel } from 'src/app/models/organization.model';
-import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
 import { Subscription, Observable } from 'rxjs';
 
 @Component({
@@ -11,13 +10,10 @@ import { Subscription, Observable } from 'rxjs';
   templateUrl: './organization-list.component.html',
   styleUrls: ['./organization-list.component.css']
 })
-export class OrganizationListComponent implements OnInit, OnDestroy
+export class OrganizationListComponent implements OnInit
 {
-  userSubscription: Subscription = new Subscription();
-  organizationsSubscription: Subscription = new Subscription();
-
-  user: UserModel;
   organizations$: Observable<OrganizationModel[]>;
+  user$: Observable<UserModel>;
   loading$: Observable<boolean>;
   error$: Observable<string>;
 
@@ -27,16 +23,8 @@ export class OrganizationListComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-    this.userSubscription = this.store.select(state => state.auth.user).subscribe((user: any) => this.user = user);
-
-    this.store.dispatch(OrganizationsActions.getOrganizations({ payload: this.user._id }));
-    this.organizations$ = this.store.select(state => state.organizations.organizations);
-  }
-
-  ngOnDestroy()
-  {
-    this.userSubscription.unsubscribe();
-    // this.store.dispatch(OrganizationsActions.clearState());
+    this.user$ = this.store.select(state => state.auth.user);
+    this.organizations$ = this.store.select(state => state.userOrganizations.organizations);
   }
 
 }

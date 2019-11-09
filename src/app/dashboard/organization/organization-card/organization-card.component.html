@@ -7,9 +7,9 @@
         <span *ngIf="organization.created_by !== user._id" class="text-info mr-2 member-icon" title="Miembro">
           <i class="fa fa-child" aria-hidden="true"></i>
         </span>
-        <h4>
+        <h6 class="text-muted">
           {{organization.name}}
-        </h4>
+        </h6>
       </div>
       <div class="card-body">
         <div class="card-text">
@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class="card-footer d-flex justify-content-center">
-        <button class="btn btn-sm btn-info btn-rounded d-flex justify-content-center align-items-center"
+        <button class="btn btn-sm btn-block btn-rounded d-flex justify-content-center align-items-center"
           (click)="selectOrganization(organization)"> <i class="fa fa-sign-in" aria-hidden="true"></i> Ingresar</button>
       </div>
     </div>

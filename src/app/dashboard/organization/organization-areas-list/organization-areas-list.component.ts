@@ -4,10 +4,9 @@ import { Observable, Subscription } from 'rxjs';
 import { AreaModel } from 'src/app/models/area.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
+import * as OrganizationAreasActions from '../../../store/actions/organization/organizationAreas.actions';
 import { UserModel } from 'src/app/models/user.model';
 import { MemberModel } from 'src/app/models/member.model';
-import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-organization-areas-list',
@@ -30,14 +29,14 @@ export class OrganizationAreasListComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-    this.store.dispatch(OrganizationsActions.getOrganizationAreas({ organization: this.organization._id }));
+    this.store.dispatch(OrganizationAreasActions.getOrganizationAreas({ organization: this.organization._id }));
 
-    this.areas$ = this.store.select(state => state.organizations.organization.organizationAreas.areas);
+    this.areas$ = this.store.select(state => state.organizationAreas.areas);
   }
 
   ngOnDestroy()
   {
-    
+    this.store.dispatch(OrganizationAreasActions.clearState());
   }
 
 }

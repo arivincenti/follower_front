@@ -1,4 +1,6 @@
-<div class="row animated fadeIn">
-  <app-organization-card *ngFor="let organization of organizations$ | async" [organization]="organization" [user]="user">
-  </app-organization-card>
-</div>
+<ng-container *ngIf="user$ | async as user">
+  <div class="row animated fadeIn">
+    <app-organization-card *ngFor="let organization of organizations$ | async" [organization]="organization" [user]="user">
+    </app-organization-card>
+  </div>
+</ng-container>
