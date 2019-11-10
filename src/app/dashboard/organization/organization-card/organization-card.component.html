@@ -1,4 +1,4 @@
-  <div class="col-md-12">
+  <div class="col-md-12 animated fadeIn">
     <div class="card bg-light m-3">
       <div class="card-header d-flex justify-content-center">
         <span *ngIf="organization.created_by === user._id" class="text-warning mr-2 owner-icon">
@@ -15,20 +15,29 @@
         <div class="card-text">
           <span class="text-muted organization-card-info" *ngIf="areas$ | async as areas">
             <i class="fa fa-tags mr-1" aria-hidden="true"></i>
-            {{areas.length}}
-            <span *ngIf="areas.length < 2">área</span>
-            <span *ngIf="areas.length > 1">áreas</span>
+            Áreas / {{areas.length}}
           </span>
-          <br>
+        </div>
+        <div class="card-text">
           <span class="text-muted organization-card-info" *ngIf="members$ | async as members">
             <i class="fa fa-users mr-1" aria-hidden="true"></i>
-            {{members.length}}
-            <span *ngIf="members.length < 2">Miembro</span>
-            <span *ngIf="members.length > 1">Miembros</span>
+            Miembros / {{members.length}}
           </span>
-          <br>
+        </div>
+        <div class="card-text">
           <span class="text-muted organization-card-info">
-            <i class="fa fa-calendar-o mr-1" aria-hidden="true"></i> {{organization.created_at | date:'dd-MM-yyyy'}}
+            <i class="fa fa-calendar-o mr-1" aria-hidden="true"></i> Creada el /
+            <span class="text-success">
+              {{organization.created_at | date:'dd-MM-yyyy'}}
+            </span>
+          </span>
+        </div>
+        <div class="card-text" *ngIf="organization.deleted_at">
+          <span class="text-muted organization-card-info">
+            <i class="fa fa-calendar-times-o mr-1" aria-hidden="true"></i> Dada de baja el /
+            <span class="text-danger">
+              {{organization.deleted_at | date:'dd-MM-yyyy'}}
+            </span>
           </span>
         </div>
       </div>

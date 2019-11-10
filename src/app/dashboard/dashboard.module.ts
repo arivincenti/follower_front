@@ -13,7 +13,6 @@ import { AreaComponent } from './area/area/area.component';
 import { AreaListItemComponent } from './area/area-list-item/area-list-item.component';
 import { OrganizationUserAreasListComponent } from './organization/organization-user-areas-list/organization-user-areas-list.component';
 import { UserComponent } from './user/user/user.component';
-import { OrganizationCreateComponent } from './organization/organization-create/organization-create.component';
 import { OrganizationProfileComponent } from './organization/organization-profile/organization-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -29,7 +28,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OrganizationAreasListComponent,
     OrganizationUserAreasListComponent,
     UserComponent,
-    OrganizationCreateComponent,
     OrganizationProfileComponent
   ],
   imports: [

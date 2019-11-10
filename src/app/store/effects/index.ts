@@ -1,3 +1,4 @@
+import { UiEffects } from './ui/ui.effects';
 import { AuthEffects } from './auth/auth.effects';
 import { OrganizationsEffects } from './organizations/organizations.effects';
 import { OrganizationEffects } from './organization/organization.effects';
@@ -6,6 +7,7 @@ import { OrganizationUserAreasEffects } from './organization/organizationUserAre
 
 
 export const effects: any[] = [
+  UiEffects,
   AuthEffects,
   OrganizationsEffects,
   OrganizationEffects,
@@ -13,6 +15,7 @@ export const effects: any[] = [
   OrganizationUserAreasEffects,
 ];
 
+export * from './ui/ui.effects';
 export * from './auth/auth.effects';
 export * from './organizations/organizations.effects';
 export * from './organization/organization.effects';

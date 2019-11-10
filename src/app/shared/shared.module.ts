@@ -5,23 +5,29 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { LoadingComponent } from './loading/loading.component';
+import { OrganizationModalComponent } from './modals/organization-modal/organization-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    OrganizationModalComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    OrganizationModalComponent
   ]
 })
 export class SharedModule { }

@@ -19,9 +19,10 @@ import * as OrganizationActions from '../../../store/actions/organization/organi
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   paramSubscription: Subscription = new Subscription();
+  userSubscription: Subscription = new Subscription();
   organization$: Observable<OrganizationModel>;
-  userAreas$: Observable<MemberModel[]>
-  user$: Observable<UserModel>;
+  userAreas$: Observable<AreaModel[]>
+  user: UserModel;
   areas$: Observable<AreaModel[]>;
 
 
@@ -32,7 +33,9 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit()
   {
-    this.user$ = this.store.select(state => state.auth.user);
+    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => {
+      this.user = user;
+    });
 
     let organization_id;
 
@@ -41,7 +44,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
       organization_id = param.id
     });
 
-    this.store.dispatch(OrganizationActions.getOrganization({ payload: organization_id }));
+    this.store.dispatch(OrganizationActions.getOrganization({ organization: organization_id, user: this.user._id }));
     
     this.organization$ = this.store.select(state => state.organizationSelected.organization);
 
@@ -50,7 +53,12 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   ngOnDestroy()
   {
     this.paramSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
     this.store.dispatch(OrganizationActions.clearState());
+  }
+
+  deleteOrganization(organization: OrganizationModel){
+    this.store.dispatch(OrganizationsActions.deleteOrganization({organization: organization._id}));
   }
 
 }

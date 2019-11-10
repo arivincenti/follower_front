@@ -4,7 +4,6 @@ import * as OrganizationAreasActions from '../../actions/organization/organizati
 import { mergeMap, catchError, map, tap, switchMap } from 'rxjs/operators';
 import { OrganizationsService } from 'src/app/services/organizations/organizations.service';
 import { of } from 'rxjs';
-import { AreaModel } from 'src/app/models/area.model';
 
 @Injectable()
 export class OrganizationAreasEffects

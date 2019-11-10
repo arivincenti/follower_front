@@ -16,6 +16,36 @@ export const getOrganizationsFail = createAction(
   props<{ payload: any }>()
 );
 
+export const createOrganization = createAction(
+  '[Organization Actions] Create Organization',
+  props<{ payload: any }>()
+);
+
+export const createOrganizationSuccess = createAction(
+  '[Organization Actions] Create Organization Success',
+  props<{ organization: OrganizationModel }>()
+);
+
+export const createOrganizationFail = createAction(
+  '[Organization Actions] Create Organization Fail',
+  props<{ payload: any }>()
+);
+
+export const deleteOrganization = createAction(
+  '[Organization Actions] Delete Organization',
+  props<{ organization: string }>()
+);
+
+export const deleteOrganizationSuccess = createAction(
+  '[Organization Actions] Delete Organization Success',
+  props<{ organization: OrganizationModel }>()
+);
+
+export const deleteOrganizationFail = createAction(
+  '[Organization Actions] Delete Organization Fail',
+  props<{ payload: any }>()
+);
+
 export const clearState = createAction(
   '[Organizations Actions] Clear State'
 );

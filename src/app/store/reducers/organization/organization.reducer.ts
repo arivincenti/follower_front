@@ -44,31 +44,6 @@ export const organizationReducer = createReducer(
       error: { ...payload }
     }
   )),
-  on(OrganizationActions.createOrganization, (state) => (
-    {
-      ...state,
-      loading: true,
-      loaded: false,
-      error: null
-    }
-  )),
-  on(OrganizationActions.createOrganizationSuccess, (state, { payload }) => (
-    {
-      ...state,
-      organization: { ...payload },
-      loading: false,
-      loaded: true,
-      error: null
-    }
-  )),
-  on(OrganizationActions.createOrganizationFail, (state, { payload }) => (
-    {
-      ...state,
-      loading: false,
-      loaded: true,
-      error: { ...payload }
-    }
-  )),
   on(OrganizationActions.clearState, (state) => (
     {
       ...state,

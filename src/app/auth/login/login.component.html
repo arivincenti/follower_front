@@ -12,7 +12,7 @@
           <form #f="ngForm" (ngSubmit)="login(f)">
             <div class="form-group">
               <input type="email" class="form-control" placeholder="Email" ngModel name="email" placeholder="Email"
-                required>
+              autocomplete="off" required>
             </div>
             <div class="form-group">
               <input type="password" class="form-control" placeholder="*********" ngModel name="password"

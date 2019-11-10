@@ -1,4 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AppState } from '../store/app.reducer';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +11,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class DashboardComponent implements OnInit
 {
 
-  constructor() { }
+  organizationModal$: Observable<boolean>;
+
+  constructor(
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit()
   {
+    this.organizationModal$ = this.store.select(state => state.ui.organizationModal);
   }
 
 }

@@ -14,21 +14,44 @@ export class OrganizationsService
     private http: HttpClient
   ) { }
 
+  // ==================================================
+  // Get one organization
+  // ==================================================
+  getOrganization(organization: string)
+  {
+    return this.http.get(`${environment.path}/organizations/${organization}`).pipe(
+      map(data => data['data'])
+    )
+  }
+
+  // ==================================================
+  // Get user organizations
+  // ==================================================
   getUserOrganizations(UserId: string)
   {
     return this.http.get(`${environment.path}/users/${UserId}/organizations`);
   }
 
+  // ==================================================
+  // Get all organization`s areas
+  // ==================================================
   getOrganizationAreas(organization: string)
   {
     return this.http.get(`${environment.path}/organizations/${organization}/areas`)
-    .pipe(map((data: any) => data['data']));
+      .pipe(map((data: any) => data['data']));
   }
 
+  // ==================================================
+  // Get all organization`s members
+  // ==================================================
   getOrganizationMembers(organization: OrganizationModel)
   {
     return this.http.get(`${environment.path}/organizations/${organization._id}/members`).pipe(map((data: any) => data['data']));
   }
+
+  // ==================================================
+  // Get all user organization areas
+  // ==================================================
 
   getOrganizationUserAreas(user_id: string, organization_id: string)
   {
@@ -40,22 +63,23 @@ export class OrganizationsService
     );
   }
 
-  getOrganization(organization: string)
-  {
-    return this.http.get(`${environment.path}/organizations/${organization}`).pipe(
-      map(data => data['data'])
-    )
-  }
+  // ==================================================
+  // Create an organization
+  // ==================================================
 
-  createOrganization(payload: any){
+  createOrganization(payload: any)
+  {
 
     return this.http.post(`${environment.path}/organizations`, payload).pipe(
       map((data: any) => data.data)
     );
   }
 
-  deleteOrganization(organization: OrganizationModel)
+  // ==================================================
+  // Delete an orgnization
+  // ==================================================
+  deleteOrganization(organization: string)
   {
-    return this.http.delete(`${environment.path}/organizations/${organization._id}`)
+    return this.http.delete(`${environment.path}/organizations/${organization}`)
   }
 }

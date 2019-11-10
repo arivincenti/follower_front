@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
+import * as UiActions from '../../../store/actions/ui/ui.actions';
 import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
 
 
@@ -19,7 +20,7 @@ export class OrganizationComponent implements OnInit, OnDestroy
   organizationsSubscription: Subscription = new Subscription();
 
   user: UserModel;
-  
+
   constructor(
     private router: Router,
     private store: Store<AppState>
@@ -34,7 +35,8 @@ export class OrganizationComponent implements OnInit, OnDestroy
 
   createOrganization()
   {
-    this.router.navigate(['app/organizations/create']);
+    this.store.dispatch(UiActions.showOrganizationModal());
+    // this.router.navigate(['app/organizations/create']);
   }
 
   ngOnDestroy(){

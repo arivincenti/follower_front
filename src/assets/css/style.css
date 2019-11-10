@@ -12691,6 +12691,7 @@ input:focus {
 
 /* Navbar */
 .navbar.default-layout {
+  z-index: 1;
   font-family: "Poppins", sans-serif;
   background: steelblue;
   transition: background 0.25s ease;
