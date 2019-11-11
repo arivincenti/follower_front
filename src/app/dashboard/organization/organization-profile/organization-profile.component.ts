@@ -44,9 +44,9 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
       organization_id = param.id
     });
 
-    this.store.dispatch(OrganizationActions.getOrganization({ organization: organization_id, user: this.user._id }));
+    this.store.dispatch(OrganizationsActions.getOrganization({ organization: organization_id, user: this.user._id }));
     
-    this.organization$ = this.store.select(state => state.organizationSelected.organization);
+    this.organization$ = this.store.select(state => state.userOrganizations.organizationSelected.organization.organization);
 
   }
 
@@ -54,11 +54,11 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   {
     this.paramSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
-    this.store.dispatch(OrganizationActions.clearState());
+    this.store.dispatch(OrganizationsActions.clearSelectedOrganizationState());
   }
 
   deleteOrganization(organization: OrganizationModel){
-    this.store.dispatch(OrganizationsActions.deleteOrganization({organization: organization._id}));
+    this.store.dispatch(OrganizationActions.deleteOrganization({organization: organization._id}));
   }
 
 }

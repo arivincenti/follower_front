@@ -2,17 +2,17 @@ import { createAction, props } from '@ngrx/store';
 import { AreaModel } from '../../../models/area.model';
 
 export const getOrganizationAreas = createAction(
-  '[Organizations Actions] Get Organization Areas',
+  '[Organization Actions] Get Organization Areas',
   props<{ organization: string }>()
 );
 
 export const getOrganizationAreasSuccess = createAction(
-  '[Organizations Actions] Get Organization Areas Success',
+  '[Organization Actions] Get Organization Areas Success',
   props<{ areas: AreaModel[] }>()
 );
 
 export const getOrganizationAreasFail = createAction(
-  '[Organizations Actions] Get Organization Areas Fail',
+  '[Organization Actions] Get Organization Areas Fail',
   props<{ payload: any }>()
 );
 

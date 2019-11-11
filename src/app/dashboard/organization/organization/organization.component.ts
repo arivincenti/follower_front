@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
@@ -18,28 +17,25 @@ export class OrganizationComponent implements OnInit, OnDestroy
 
   userSubscription: Subscription = new Subscription();
   organizationsSubscription: Subscription = new Subscription();
-
   user: UserModel;
 
   constructor(
-    private router: Router,
     private store: Store<AppState>
   ) { }
 
   ngOnInit()
   {
-    this.userSubscription = this.store.select(state => state.auth.user).subscribe((user: any) => this.user = user);
 
-    this.store.dispatch(OrganizationsActions.getOrganizations({ payload: this.user._id }));
   }
 
   createOrganization()
   {
+    //Activamos el modal de carga de una nueva organizacion mediante un efecto
     this.store.dispatch(UiActions.showOrganizationModal());
-    // this.router.navigate(['app/organizations/create']);
   }
 
   ngOnDestroy(){
+    //Nos desuscribimos del store cuando el componente se destruya
     this.userSubscription.unsubscribe();
   }
 

@@ -1,49 +1,99 @@
 import { createAction, props } from '@ngrx/store';
 import { OrganizationModel } from '../../../models/organization.model';
+import { AreaModel } from 'src/app/models/area.model';
 
-export const getOrganizations = createAction(
-  '[Organizations Actions] Get Organizations',
+export const getUserOrganizations = createAction(
+  '[Organizations Actions] Get User Organizations',
   props<{ payload: string }>()
 );
 
-export const getOrganizationsSuccess = createAction(
-  '[Organizations Actions] Get Organizations Success',
+export const getUserOrganizationsSuccess = createAction(
+  '[Organizations Actions] Get User Organizations Success',
   props<{ payload: OrganizationModel[] }>()
 );
 
-export const getOrganizationsFail = createAction(
-  '[Organizations Actions] Get Organizations Fail',
+export const getUserOrganizationsFail = createAction(
+  '[Organizations Actions] Get User Organizations Fail',
+  props<{ payload: any }>()
+);
+
+export const getOrganization = createAction(
+  '[Organizations Actions] Get Organization',
+  props<{ organization: string, user: string }>()
+);
+
+export const getOrganizationSuccess = createAction(
+  '[Organizations Actions] Get Organization Success',
+  props<{ payload: OrganizationModel }>()
+);
+
+export const getOrganizationFail = createAction(
+  '[Organizations Actions] Get Organization Fail',
   props<{ payload: any }>()
 );
 
 export const createOrganization = createAction(
-  '[Organization Actions] Create Organization',
+  '[Organizations Actions] Create Organization',
   props<{ payload: any }>()
 );
 
 export const createOrganizationSuccess = createAction(
-  '[Organization Actions] Create Organization Success',
+  '[Organizations Actions] Create Organization Success',
   props<{ organization: OrganizationModel }>()
 );
 
 export const createOrganizationFail = createAction(
-  '[Organization Actions] Create Organization Fail',
+  '[Organizations Actions] Create Organization Fail',
   props<{ payload: any }>()
 );
 
 export const deleteOrganization = createAction(
-  '[Organization Actions] Delete Organization',
+  '[Organizations Actions] Delete Organization',
   props<{ organization: string }>()
 );
 
 export const deleteOrganizationSuccess = createAction(
-  '[Organization Actions] Delete Organization Success',
+  '[Organizations Actions] Delete Organization Success',
   props<{ organization: OrganizationModel }>()
 );
 
 export const deleteOrganizationFail = createAction(
-  '[Organization Actions] Delete Organization Fail',
+  '[Organizations Actions] Delete Organization Fail',
   props<{ payload: any }>()
+);
+
+export const getOrganizationAreas = createAction(
+  '[Organizations Actions] Get Organization Areas',
+  props<{ organization: string }>()
+);
+
+export const getOrganizationAreasSuccess = createAction(
+  '[Organizations Actions] Get Organization Areas Success',
+  props<{ areas: AreaModel[] }>()
+);
+
+export const getOrganizationAreasFail = createAction(
+  '[Organizations Actions] Get Organization Areas Fail',
+  props<{ payload: any }>()
+);
+
+export const getOrganizationUserAreas = createAction(
+  '[Organizations Actions] Get Organization User Areas',
+  props<{ user: string, organization: string }>()
+);
+
+export const getOrganizationUserAreasSuccess = createAction(
+  '[Organizations Actions] Get Organization Areas User Success',
+  props<{ userAreas: AreaModel[] }>()
+);
+
+export const getOrganizationUserAreasFail = createAction(
+  '[Organizations Actions] Get Organization Areas User Fail',
+  props<{ payload: any }>()
+);
+
+export const clearSelectedOrganizationState = createAction(
+  '[Organizations Actions] Clear Selected Organization State'
 );
 
 export const clearState = createAction(

@@ -24,7 +24,7 @@ export class OrganizationListComponent implements OnInit
   ngOnInit()
   {
     this.user$ = this.store.select(state => state.auth.user);
-    this.organizations$ = this.store.select(state => state.userOrganizations.organizations);
+    this.organizations$ = this.store.select(state => state.userOrganizations.organizations.organizations);
   }
 
 }
