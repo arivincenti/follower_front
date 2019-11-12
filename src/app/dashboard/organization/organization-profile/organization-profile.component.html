@@ -1,5 +1,5 @@
 <ng-container *ngIf="organization$ | async as organization">
-  <div class="col-md-12 animated fadeIn">
+  <div class="col-md-12 animated" *ngIf="animation$ | async as animation" [ngClass]="animation[0]">
     <div class="card bg-light m-3">
       <div class="card-header d-flex justify-content-center">
         <h4 class="text-muted">

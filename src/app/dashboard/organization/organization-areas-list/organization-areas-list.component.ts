@@ -18,9 +18,8 @@ export class OrganizationAreasListComponent implements OnInit, OnDestroy
 
   @Input() organization: OrganizationModel;
   @Input() user: UserModel;
-  loadingSubscription: Subscription = new Subscription();
   areas$: Observable<AreaModel[]>;
-  loading: boolean;
+  loading$: Observable<boolean>;
   
   constructor(
     private store: Store<AppState>
@@ -29,6 +28,8 @@ export class OrganizationAreasListComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.areas$ = this.store.select(state => state.userOrganizations.organizationSelected.organizationAreas.organizationAreas);
+
+    this.loading$ = this.store.select(state => state.userOrganizations.organizationSelected.organizationAreas.loading);
   }
 
   ngOnDestroy()

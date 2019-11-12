@@ -25,18 +25,18 @@ export class OrganizationsEffects
         ))
     )));
 
-    getOrganization$ = createEffect(() => this.actions$.pipe(
-      ofType(OrganizationsActions.getOrganization),
-      mergeMap((action) => this._organizationsService.getOrganization(action.organization)
-        .pipe(
-          mergeMap((organization: any) => [
-            OrganizationsActions.getOrganizationSuccess({ payload: organization }),
-            OrganizationsActions.getOrganizationAreas({ organization: organization._id }),
-            OrganizationsActions.getOrganizationUserAreas({ user: action.user, organization: organization._id })
-          ]),
-          catchError(error => of(OrganizationsActions.getOrganizationFail(error.error)))
-        ))
-    ));
+  getOrganization$ = createEffect(() => this.actions$.pipe(
+    ofType(OrganizationsActions.getOrganization),
+    mergeMap((action) => this._organizationsService.getOrganization(action.organization)
+      .pipe(
+        mergeMap((organization: any) => [
+          OrganizationsActions.getOrganizationSuccess({ payload: organization }),
+          OrganizationsActions.getOrganizationAreas({ organization: organization._id }),
+          OrganizationsActions.getOrganizationUserAreas({ user: action.user, organization: organization._id })
+        ]),
+        catchError(error => of(OrganizationsActions.getOrganizationFail(error.error)))
+      ))
+  ));
 
   createOrganization$ = createEffect(() => this.actions$.pipe(
     ofType(OrganizationsActions.createOrganization),
@@ -53,7 +53,7 @@ export class OrganizationsEffects
     mergeMap((action) => this._organizationsService.getOrganizationAreas(action.organization)
       .pipe(
         map((areas: any) => OrganizationsActions.getOrganizationAreasSuccess({ areas })),
-        catchError(error => of(OrganizationsActions.getOrganizationFail({payload: error})))
+        catchError(error => of(OrganizationsActions.getOrganizationFail({ payload: error })))
       ))
   ));
 
@@ -62,18 +62,18 @@ export class OrganizationsEffects
     mergeMap((action) => this._organizationsService.getOrganizationUserAreas(action.user, action.organization)
       .pipe(
         map((userAreas: AreaModel[]) => OrganizationsActions.getOrganizationUserAreasSuccess({ userAreas: userAreas })),
-        catchError(error => of(OrganizationsActions.getOrganizationFail({payload: error})))
+        catchError(error => of(OrganizationsActions.getOrganizationFail({ payload: error })))
       ))
   ));
 
-  // deleteOrganization$ = createEffect(() => this.actions$.pipe(
-  //   ofType(OrganizationsActions.deleteOrganization),
-  //   mergeMap((action) => this._organizationsService.deleteOrganization(action.organization)
-  //     .pipe(
-  //       map((data: any) => OrganizationsActions.deleteOrganizationSuccess({ organization: data.data })),
-  //       catchError(error => of(OrganizationsActions.createOrganizationFail({ payload: error.error })))
-  //     )
-  //   )
-  // ));
+  deleteOrganization$ = createEffect(() => this.actions$.pipe(
+    ofType(OrganizationsActions.deleteOrganization),
+    mergeMap((action) => this._organizationsService.deleteOrganization(action.organization)
+      .pipe(
+        map((data: any) => OrganizationsActions.deleteOrganizationSuccess({ organization: data.data })),
+        catchError(error => of(OrganizationsActions.createOrganizationFail({ payload: error.error })))
+      )
+    )
+  ));
 
 }

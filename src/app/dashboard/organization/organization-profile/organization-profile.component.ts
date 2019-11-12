@@ -24,6 +24,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   userAreas$: Observable<AreaModel[]>
   user: UserModel;
   areas$: Observable<AreaModel[]>;
+  animation$: Observable<string[]>;
 
 
   constructor(
@@ -33,6 +34,8 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit()
   {
+    this.animation$ = this.store.select(state => state.ui.animated);
+    
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => {
       this.user = user;
     });
@@ -58,7 +61,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   }
 
   deleteOrganization(organization: OrganizationModel){
-    this.store.dispatch(OrganizationActions.deleteOrganization({organization: organization._id}));
+    this.store.dispatch(OrganizationsActions.deleteOrganization({organization: organization._id}));
   }
 
 }

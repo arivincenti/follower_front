@@ -9,7 +9,7 @@
     </div>
     <hr>
     <span class="text-muted " *ngIf="!areas.length">La organización aún no posee áreas</span>
-    <app-loading *ngIf="loading"></app-loading>
+    <app-loading  *ngIf="loading$ | async"></app-loading>
     <table class="table table-striped text-muted" *ngIf="areas.length">
       <tr>
         <th>Área</th>

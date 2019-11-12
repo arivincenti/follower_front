@@ -1,15 +1,17 @@
-<div class="row">
-  <div class="col-md-10">
-    <h4 class="text-muted">Mis organizaciones</h4>
+<ng-container *ngIf="animation$ | async as animation">
+  <div class="row animated" [ngClass]="animation[0]">
+    <div class="col-md-10">
+      <h5 class="text-muted">Mis organizaciones</h5>
+    </div>
+    <div class="col-md-2 d-flex justify-content-end">
+      <button class="btn btn-sm btn-rounded btn-danger d-flex justify-content-center align-items-center"
+        (click)="createOrganization()">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> Nueva Organización
+      </button>
+    </div>
   </div>
-  <div class="col-md-2 d-flex justify-content-end">
-    <button class="btn btn-sm btn-rounded btn-danger d-flex justify-content-center align-items-center"
-      (click)="createOrganization()">
-      <i class="fa fa-plus-circle" aria-hidden="true"></i> Nueva Organización
-    </button>
+  <hr>
+  <div class="animated">
+    <app-organization-list></app-organization-list>
   </div>
-</div>
-<hr>
-<div>
-  <app-organization-list></app-organization-list>
-</div>
+</ng-container>

@@ -14,8 +14,11 @@ export class OrganizationListComponent implements OnInit
 {
   organizations$: Observable<OrganizationModel[]>;
   user$: Observable<UserModel>;
+
+  //UI Observables
   loading$: Observable<boolean>;
   error$: Observable<string>;
+  animation$: Observable<string[]>;
 
   constructor(
     private store: Store<AppState>
@@ -23,8 +26,12 @@ export class OrganizationListComponent implements OnInit
 
   ngOnInit()
   {
+    this.animation$ = this.store.select(state => state.ui.animated);
     this.user$ = this.store.select(state => state.auth.user);
+
     this.organizations$ = this.store.select(state => state.userOrganizations.organizations.organizations);
+
+    this.loading$ = this.store.select(state => state.userOrganizations.organizations.loading);
   }
 
 }

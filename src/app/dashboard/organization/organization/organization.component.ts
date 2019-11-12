@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as UiActions from '../../../store/actions/ui/ui.actions';
-import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
 
 
 @Component({
@@ -16,8 +15,10 @@ export class OrganizationComponent implements OnInit, OnDestroy
 {
 
   userSubscription: Subscription = new Subscription();
-  organizationsSubscription: Subscription = new Subscription();
   user: UserModel;
+
+  //UI Observable
+  animation$: Observable<string[]>;
 
   constructor(
     private store: Store<AppState>
@@ -25,7 +26,7 @@ export class OrganizationComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-
+    this.animation$ = this.store.select(state => state.ui.animated);
   }
 
   createOrganization()
@@ -34,7 +35,8 @@ export class OrganizationComponent implements OnInit, OnDestroy
     this.store.dispatch(UiActions.showOrganizationModal());
   }
 
-  ngOnDestroy(){
+  ngOnDestroy()
+  {
     //Nos desuscribimos del store cuando el componente se destruya
     this.userSubscription.unsubscribe();
   }

@@ -207,12 +207,13 @@ export const organizationsReducer = createReducer(
       }
     }
   )),
-  on(OrganizationsActions.deleteOrganizationSuccess, (state, { organization }) => (
-    {
+  on(OrganizationsActions.deleteOrganizationSuccess, (state, { organization }) =>
+  {
+    return {
       ...state,
       organizations: {
         ...state.organizations,
-        organizations: [...state.organizations.organizations, { ...organization }],
+        organizations: [...state.organizations.organizations.filter(data => data._id !== organization._id), { ...organization }],
         loading: false,
         loaded: true
       },
@@ -226,7 +227,7 @@ export const organizationsReducer = createReducer(
         }
       }
     }
-  )),
+  }),
   on(OrganizationsActions.deleteOrganizationFail, (state, { payload }) => (
     {
       ...state,
