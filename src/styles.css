@@ -81,3 +81,16 @@ span{
   background-color: rgba(0, 0, 0, .5);
   z-index: 2;
 }
+
+.boton-orange{
+  font-size: .8em;
+  background-color: rgb(255, 153, 0);
+  color: rgb(253, 234, 198)
+}
+
+.boton-orange:hover{
+  font-size: .8em;
+  background-color: rgb(255, 136, 0);
+  color: rgb(255, 255, 255);
+  transition: all .3s;
+}

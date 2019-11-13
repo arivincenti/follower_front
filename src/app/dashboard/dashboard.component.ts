@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit
 {
 
   organizationModal$: Observable<boolean>;
+  areaModal$: Observable<boolean>;
   userSubscription: Subscription = new Subscription();
   organizationsSubscription: Subscription = new Subscription();
   user: UserModel;
@@ -31,6 +32,7 @@ export class DashboardComponent implements OnInit
     this.store.dispatch(OrganizationsActions.getUserOrganizations({ payload: this.user._id }));
 
     this.organizationModal$ = this.store.select(state => state.ui.organizationModal);
+    this.areaModal$ = this.store.select(state => state.ui.areaModal);
   }
 
 }

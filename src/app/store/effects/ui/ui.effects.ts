@@ -12,13 +12,13 @@ export class UiEffects
   ) { }
 
   showOrganizationModal$ = createEffect(() => this.actions$.pipe(
-    ofType(UiActions.showOrganizationModal),
-    tap((action) => console.log('modal activado'))
+    ofType(UiActions.showOrganizationModal)
   ), { dispatch: false });
 
+  showAreaModal$ = createEffect(() => this.actions$.pipe(
+    ofType(UiActions.showAreaModal)), { dispatch: false });
+
   closeOrganizationModal$ = createEffect(() => this.actions$.pipe(
-    ofType(UiActions.clearState),
-    tap((action) => console.log('modal desactivado'))
-  ), { dispatch: false });
+    ofType(UiActions.clearState)), { dispatch: false });
 
 }

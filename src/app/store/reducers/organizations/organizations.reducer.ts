@@ -285,6 +285,47 @@ export const organizationsReducer = createReducer(
       }
     }
   )),
+  on(OrganizationsActions.createOrganizationArea, (state) => (
+    {
+      ...state,
+      organizationSelected: {
+        ...state.organizationSelected,
+        organizationAreas: {
+          ...state.organizationSelected.organizationAreas,
+          loading: true,
+          loaded: false
+        }
+      }
+    }
+  )),
+  on(OrganizationsActions.createOrganizationAreaSuccess, (state, { area }) => (
+    {
+      ...state,
+      organizationSelected: {
+        ...state.organizationSelected,
+        organizationAreas: {
+          ...state.organizationSelected.organizationAreas,
+          organizationAreas: [...state.organizationSelected.organizationAreas.organizationAreas, {...area} ],
+          loading: false,
+          loaded: true
+        }
+      }
+    }
+  )),
+  on(OrganizationsActions.createOrganizationAreaFail, (state, { payload }) => (
+    {
+      ...state,
+      organizationSelected: {
+        ...state.organizationSelected,
+        organizationAreas: {
+          ...state.organizationSelected.organizationAreas,
+          loading: false,
+          loaded: false,
+          error: { ...payload }
+        }
+      }
+    }
+  )),
   on(OrganizationsActions.getOrganizationUserAreas, (state) => (
     {
       ...state,

@@ -8,7 +8,6 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { ActivatedRoute } from '@angular/router';
 import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
-import * as OrganizationActions from '../../../store/actions/organization/organization.actions';
 
 
 @Component({

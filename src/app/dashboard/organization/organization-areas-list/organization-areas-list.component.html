@@ -3,13 +3,14 @@
     <div class="card-subtitle d-flex align-items-center">
       <i class="fa fa-tags mr-1" aria-hidden="true"></i>
       Áreas de la organización
-      <button *ngIf="!organization.deleted_at" class="btn btn-xs btn-info btn-rounded ml-2 py-0 d-flex justify-content-center align-items-center"
-        (click)="addArea()"> <i class="fa fa-tag" aria-hidden="true"></i> Agregar Área
+      <button *ngIf="!organization.deleted_at"
+        class="btn btn-xs btn-info btn-rounded ml-2 py-0 d-flex justify-content-center align-items-center"
+        (click)="addArea()"> <i class="fa fa-tag" aria-hidden="true" (click)="addArea()"></i> Agregar Área
       </button>
     </div>
     <hr>
     <span class="text-muted " *ngIf="!areas.length">La organización aún no posee áreas</span>
-    <app-loading  *ngIf="loading$ | async"></app-loading>
+    <app-loading *ngIf="loading$ | async"></app-loading>
     <table class="table table-striped text-muted" *ngIf="areas.length">
       <tr>
         <th>Área</th>

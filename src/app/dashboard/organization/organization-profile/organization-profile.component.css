@@ -1,0 +1,14 @@
+.btn{
+  font-size: .7em;
+}
+
+.btn-warning{
+  background-color: rgb(255, 153, 0);
+  color: rgb(253, 234, 198)
+}
+
+.btn-warning:hover{
+  background-color: rgb(255, 136, 0);
+  color: rgb(255, 255, 255);
+  transition: all .3s;
+}

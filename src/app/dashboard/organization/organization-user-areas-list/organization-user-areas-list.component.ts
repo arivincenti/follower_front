@@ -4,7 +4,6 @@ import { OrganizationModel } from 'src/app/models/organization.model';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import * as OrganizationUserAreasActions from '../../../store/actions/organization/organizationUserAreas.actions';
 import { AreaModel } from 'src/app/models/area.model';
 
 @Component({
@@ -25,12 +24,12 @@ export class OrganizationUserAreasListComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-    this.userAreas$ = this.store.select(state => state.userOrganizations.organizationSelected.organizationAreas.organizationAreas);
+    this.userAreas$ = this.store.select(state => state.userOrganizations.organizationSelected.organizationUserAreas.organizationUserAreas);
   }
 
   ngOnDestroy()
   {
-    this.store.dispatch(OrganizationUserAreasActions.clearState());
+    // this.store.dispatch(OrganizationUserAreasActions.clearState());
   }
 
 }

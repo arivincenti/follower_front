@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { LoadingComponent } from './loading/loading.component';
 import { OrganizationModalComponent } from './modals/organization-modal/organization-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AreaModalComponent } from './modals/area-modal/area-modal.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SidebarComponent,
     FooterComponent,
     LoadingComponent,
-    OrganizationModalComponent
+    OrganizationModalComponent,
+    AreaModalComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SidebarComponent,
     FooterComponent,
     LoadingComponent,
-    OrganizationModalComponent
+    OrganizationModalComponent,
+    AreaModalComponent
   ]
 })
 export class SharedModule { }

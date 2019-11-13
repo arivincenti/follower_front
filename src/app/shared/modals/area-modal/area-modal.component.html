@@ -1,0 +1,62 @@
+<!-- Modal -->
+<div class="shared-modal animated fadeIn faster" id="exampleModal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog animated bounceInUp faster" role="document">
+    <div class="modal-content">
+      <div class="modal-header d-flex justify-content-center">
+        <h5 class="text-muted">
+          Nueva Área
+        </h5>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+          <div>
+            <form (ngSubmit)="createArea()">
+              <div class="card-subtitle">
+                <span>Datos de la organizaion</span>
+              </div>
+              <hr>
+              <div class="form-group">
+                <label class="text-muted">Organización</label>
+                <input type="text" class="form-control" name="organization.name" [ngModel]="organization.name"
+                  placeholder="name@example.com" readonly>
+              </div>
+              <br>
+              <div class="card-subtitle">
+                <span>Datos del Área</span>
+              </div>
+              <hr>
+              <div class="form-group">
+                <label class="text-muted">Nombre de área</label>
+                <input type="text" (keyup)="validateName()" class="form-control" name="areaName" [(ngModel)]="areaName"
+                  placeholder="Escriba el nombre del área"
+                  [ngClass]="{'is-valid': avaible && areaName, 'is-invalid': !avaible || !areaName}" autofocus
+                  autocomplete="off">
+                <div class="valid-feedback" *ngIf="avaible">
+                  El nombre está disponible
+                </div>
+                <div class="invalid-feedback" *ngIf="!avaible">
+                  Ya existe un área con ese nombre en esta organización
+                </div>
+                <div class="invalid-feedback" *ngIf="!areaName">
+                  El nombre es obligatorio
+                </div>
+              </div>
+              <hr>
+              <div class="form-group">
+                <div class="col-md-12 d-flex justify-content-end">
+                  <button type="button" class="btn btn-sm btn-rounded btn-danger mr-3"
+                    (click)="closeModal()">Cancelar</button>
+                  <button type="submit" [ngClass]="{'disabled': !avaible || !areaName}"
+                    class="btn btn-sm btn-rounded btn-success d-flex justify-content-center align-items-center">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Crear mi organización
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

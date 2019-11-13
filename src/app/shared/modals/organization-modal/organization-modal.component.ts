@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import * as OrganizationActions from '../../../store/actions/organization/organization.actions';
 import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
 import * as UiActions from '../../../store/actions/ui/ui.actions';
 import { OrganizationModel } from 'src/app/models/organization.model';
@@ -14,7 +13,8 @@ import { OrganizationModel } from 'src/app/models/organization.model';
   templateUrl: './organization-modal.component.html',
   styleUrls: ['./organization-modal.component.css']
 })
-export class OrganizationModalComponent implements OnInit, OnDestroy {
+export class OrganizationModalComponent implements OnInit, OnDestroy
+{
 
   userSubscription: Subscription = new Subscription();
   userOrganizationsSubscription: Subscription = new Subscription();
@@ -23,17 +23,18 @@ export class OrganizationModalComponent implements OnInit, OnDestroy {
   organization: string;
   disponible: boolean = true;
   userOrganizations: OrganizationModel[];
-  
+
   constructor(
     private store: Store<AppState>
   ) { }
 
-  ngOnInit() {
+  ngOnInit()
+  {
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
 
     this.userOrganizationsSubscription = this.store.select(state => state.userOrganizations.organizations.organizations).subscribe(organizations => this.userOrganizations = organizations);
 
-    let user = this.user.name + ' '+ this.user.last_name;
+    let user = this.user.name + ' ' + this.user.last_name;
 
     this.form = new FormGroup({
       user: new FormControl(this.user._id, Validators.required),
@@ -42,7 +43,8 @@ export class OrganizationModalComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy(){
+  ngOnDestroy()
+  {
     console.log('modal destruido');
     this.userSubscription.unsubscribe();
     this.userOrganizationsSubscription.unsubscribe();
@@ -76,7 +78,8 @@ export class OrganizationModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  closeModal(){
+  closeModal()
+  {
     this.store.dispatch(UiActions.clearState());
   }
 

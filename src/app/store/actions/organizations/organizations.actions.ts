@@ -77,24 +77,41 @@ export const getOrganizationAreasFail = createAction(
   props<{ payload: any }>()
 );
 
+export const createOrganizationArea = createAction(
+  '[Organizations Actions] Create Organization Area',
+  props<{ payload: any }>()
+);
+
+export const createOrganizationAreaSuccess = createAction(
+  '[Organizations Actions] Create Organization Area Success',
+  props<{ area: AreaModel }>()
+);
+
+export const createOrganizationAreaFail = createAction(
+  '[Organizations Actions] Create Organization Area Fail',
+  props<{ payload: any }>()
+);
+
 export const getOrganizationUserAreas = createAction(
   '[Organizations Actions] Get Organization User Areas',
   props<{ user: string, organization: string }>()
 );
 
 export const getOrganizationUserAreasSuccess = createAction(
-  '[Organizations Actions] Get Organization Areas User Success',
+  '[Organizations Actions] Get Organization User Areas Success',
   props<{ userAreas: AreaModel[] }>()
 );
 
 export const getOrganizationUserAreasFail = createAction(
-  '[Organizations Actions] Get Organization Areas User Fail',
+  '[Organizations Actions] Get Organization User Areas Fail',
   props<{ payload: any }>()
 );
 
 export const clearSelectedOrganizationState = createAction(
   '[Organizations Actions] Clear Selected Organization State'
 );
+
+
 
 export const clearState = createAction(
   '[Organizations Actions] Clear State'

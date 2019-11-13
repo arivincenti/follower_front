@@ -18,4 +18,9 @@ export class AreasService
     return this.http.get(`${environment.path}/areas/${areaId}/responsibleMembers`).pipe(map((data: any) => data.data));
   }
 
+  createArea(payload: any)
+  {
+    return this.http.post(`${environment.path}/areas`, payload).pipe(map((data: any) => data.data));
+  }
+
 }
