@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { OrganizationModel } from 'src/app/models/organization.model';
-import { MemberModel } from 'src/app/models/member.model';
 import { UserModel } from 'src/app/models/user.model';
 import { AreaModel } from 'src/app/models/area.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { ActivatedRoute } from '@angular/router';
-import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
+import * as OrganizationActions from '../../../store/actions/organizations/organization.actions';
 
 
 @Component({
@@ -15,7 +14,8 @@ import * as OrganizationsActions from '../../../store/actions/organizations/orga
   templateUrl: './organization-profile.component.html',
   styleUrls: ['./organization-profile.component.css']
 })
-export class OrganizationProfileComponent implements OnInit, OnDestroy {
+export class OrganizationProfileComponent implements OnInit, OnDestroy
+{
 
   paramSubscription: Subscription = new Subscription();
   userSubscription: Subscription = new Subscription();
@@ -34,8 +34,9 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   ngOnInit()
   {
     this.animation$ = this.store.select(state => state.ui.animated);
-    
-    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => {
+
+    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user =>
+    {
       this.user = user;
     });
 
@@ -46,9 +47,9 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
       organization_id = param.id
     });
 
-    this.store.dispatch(OrganizationsActions.getOrganization({ organization: organization_id, user: this.user._id }));
-    
-    this.organization$ = this.store.select(state => state.userOrganizations.organizationSelected.organization.organization);
+    this.store.dispatch(OrganizationActions.getOrganization({ organization: organization_id, user: this.user._id }));
+
+    this.organization$ = this.store.select(state => state.selectedOrganization.organization.organization);
 
   }
 
@@ -56,11 +57,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   {
     this.paramSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
-    this.store.dispatch(OrganizationsActions.clearSelectedOrganizationState());
-  }
-
-  deleteOrganization(organization: OrganizationModel){
-    this.store.dispatch(OrganizationsActions.deleteOrganization({organization: organization._id}));
+    // this.store.dispatch(OrganizationsActions.clearSelectedOrganizationState());
   }
 
 }

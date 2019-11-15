@@ -7,6 +7,7 @@ import { UserModel } from 'src/app/models/user.model';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,12 +25,13 @@ export class AreaListItemComponent implements OnInit
 
   constructor(
     private _areaService: AreasService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) { }
 
   ngOnInit()
   {
-    this.organization$ = this.store.select(state => state.userOrganizations.organizationSelected.organization.organization);
+    this.organization$ = this.store.select(state => state.selectedOrganization.organization.organization);
 
     this.responsibleMembers$ = this._areaService.getAreaResponsibleMembers(this.area._id);
   }
@@ -37,6 +39,7 @@ export class AreaListItemComponent implements OnInit
   selectArea()
   {
     // redirigir a la pantalla de administracion del area
+    this.router.navigate(['app/organizations/areas']);
   }
 
 }

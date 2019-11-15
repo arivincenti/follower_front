@@ -1,3 +1,73 @@
-<p>
-  area works!
-</p>
+<ng-container>
+  <div class="col-md-12 animated" *ngIf="animation$ | async as animation" [ngClass]="animation[0]">
+    <div class="card bg-light m-3">
+      <div class="card-header d-flex justify-content-center">
+        <h4 class="text-muted">
+          Area Name
+        </h4>
+      </div>
+      <div class="card-body">
+          <button
+          class="btn btn-xs btn-info btn-rounded d-flex justify-content-center align-items-center py-0 "
+          (click)="volver()"> <i class="fa fa-times-circle" aria-hidden="true"></i> Volver a mi organización
+        </button>
+        <div class="card-subtitle mt-4">
+          <i class="fa fa-info-circle mr-1" aria-hidden="true"></i>
+          Información del area
+        </div>
+        <hr>
+        <div class="card-text">
+          <span class="text-muted organization-card-info">
+            <i class="fa fa-user-circle mr-1" aria-hidden="true"></i> Creada por / Alguien
+          </span>
+        </div>
+        <div class="card-text">
+          <span class="text-muted organization-card-info">
+            <i class="fa fa-calendar-o mr-1" aria-hidden="true"></i> Creada el /
+            <span class="text-success">
+              Algun dia
+            </span>
+          </span>
+        </div>
+        <!-- <div class="card-text" *ngIf="organization.deleted_at"> -->
+        <div class="card-text">
+          <span class="text-muted organization-card-info">
+            <i class="fa fa-calendar-times-o mr-1" aria-hidden="true"></i> Dada de baja el /
+            <span class="text-danger">
+              Algun otro dia
+            </span>
+          </span>
+        </div>
+        <div class="card-text">
+          <!-- <div class="d-flex justify-content-start mt-2" *ngIf="organization.created_by === user._id"> -->
+          <div class="d-flex justify-content-start mt-2">
+            <!-- <button *ngIf="!organization.deleted_at"
+              class="btn btn-xs btn-warning btn-rounded d-flex justify-content-center align-items-center mr-2 py-0"
+              (click)="updateOrganization(organization)"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar
+            </button>
+            <button *ngIf="!organization.deleted_at"
+              class="btn btn-xs btn-danger btn-rounded d-flex justify-content-center align-items-center py-0 "
+              (click)="deleteOrganization(organization)"> <i class="fa fa-times-circle" aria-hidden="true"></i> Dar de
+              baja
+            </button> -->
+          </div>
+        </div>
+        <div class="card-text mt-5">
+          <div class="card-subtitle d-flex align-items-center">
+            <i class="fa fa-ticket mr-1" aria-hidden="true"></i>
+            Estadisticas del area
+          </div>
+          <hr>
+          <div class="card text">Tickets Pendientes</div>
+          <div class="card text">Tickets Finalizados</div>
+          <div class="card text">Tickets Despachados</div>
+        </div>
+        <div>
+          Miembros del Area
+          <!-- <app-organization-user-areas-list [organization]="organization" [user]="user">
+          </app-organization-user-areas-list> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

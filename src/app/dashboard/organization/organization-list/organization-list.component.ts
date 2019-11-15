@@ -29,9 +29,9 @@ export class OrganizationListComponent implements OnInit
     this.animation$ = this.store.select(state => state.ui.animated);
     this.user$ = this.store.select(state => state.auth.user);
 
-    this.organizations$ = this.store.select(state => state.userOrganizations.organizations.organizations);
+    this.organizations$ = this.store.select(state => state.userOrganizations.organizations);
 
-    this.loading$ = this.store.select(state => state.userOrganizations.organizations.loading);
+    this.loading$ = this.store.select(state => state.userOrganizations.loading);
   }
 
 }

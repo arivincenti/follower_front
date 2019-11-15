@@ -32,7 +32,7 @@ export class OrganizationModalComponent implements OnInit, OnDestroy
   {
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
 
-    this.userOrganizationsSubscription = this.store.select(state => state.userOrganizations.organizations.organizations).subscribe(organizations => this.userOrganizations = organizations);
+    this.userOrganizationsSubscription = this.store.select(state => state.userOrganizations.organizations).subscribe(organizations => this.userOrganizations = organizations);
 
     let user = this.user.name + ' ' + this.user.last_name;
 

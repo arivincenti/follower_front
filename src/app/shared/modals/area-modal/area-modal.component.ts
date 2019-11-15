@@ -6,6 +6,7 @@ import { AreaModel } from 'src/app/models/area.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
+import * as OrganizationActions from '../../../store/actions/organizations/organization.actions';
 import * as UiActions from '../../../store/actions/ui/ui.actions';
 import { OrganizationModel } from 'src/app/models/organization.model';
 
@@ -14,7 +15,8 @@ import { OrganizationModel } from 'src/app/models/organization.model';
   templateUrl: './area-modal.component.html',
   styleUrls: ['./area-modal.component.css']
 })
-export class AreaModalComponent implements OnInit {
+export class AreaModalComponent implements OnInit
+{
 
   userSubscription: Subscription = new Subscription();
   userOrganizationSubscription: Subscription = new Subscription();
@@ -24,23 +26,25 @@ export class AreaModalComponent implements OnInit {
   areaName: string = '';
   avaible: boolean = true;
   organizationAreas: AreaModel[];
-  
+
   constructor(
     private store: Store<AppState>
   ) { }
 
-  ngOnInit() {
+  ngOnInit()
+  {
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
 
-    this.userOrganizationSubscription = this.store.select(state => state.userOrganizations.organizationSelected.organization.organization).subscribe(organization => this.organization = organization);
+    this.userOrganizationSubscription = this.store.select(state => state.selectedOrganization.organization.organization).subscribe(organization => this.organization = organization);
 
-    this.userOrganizationAreasSubscription = this.store.select(state => state.userOrganizations.organizationSelected.organizationAreas.organizationAreas).subscribe(areas => this.organizationAreas = areas);
+    this.userOrganizationAreasSubscription = this.store.select(state => state.selectedOrganization.organizationAreas.organizationAreas.areas).subscribe(areas => this.organizationAreas = areas);
 
     //Seleccionar las areas de la organization
 
   }
 
-  ngOnDestroy(){
+  ngOnDestroy()
+  {
     this.userSubscription.unsubscribe();
     this.userOrganizationSubscription.unsubscribe();
   }
@@ -54,10 +58,10 @@ export class AreaModalComponent implements OnInit {
       name: this.areaName.toUpperCase()
     }
 
-    if(!this.avaible) return;
+    if (!this.avaible) return;
 
     console.log(payload);
-    this.store.dispatch(OrganizationsActions.createOrganizationArea({ payload }));
+    this.store.dispatch(OrganizationActions.createOrganizationArea({ payload }));
     this.closeModal();
   }
 
@@ -70,14 +74,16 @@ export class AreaModalComponent implements OnInit {
       {
         this.avaible = false;
         return;
-      }else{
+      } else
+      {
         this.avaible = true;
       }
     });
 
   }
 
-  closeModal(){
+  closeModal()
+  {
     this.store.dispatch(UiActions.clearState());
   }
 

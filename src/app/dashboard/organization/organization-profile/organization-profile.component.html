@@ -45,17 +45,6 @@
             <i class="fa fa-child mr-1" aria-hidden="true"></i>
             Miembro
           </span>
-          <div class="d-flex justify-content-start mt-2" *ngIf="organization.created_by === user._id">
-            <button *ngIf="!organization.deleted_at"
-              class="btn btn-xs btn-warning btn-rounded d-flex justify-content-center align-items-center mr-2 py-0"
-              (click)="updateOrganization(organization)"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar
-            </button>
-            <button *ngIf="!organization.deleted_at"
-              class="btn btn-xs btn-danger btn-rounded d-flex justify-content-center align-items-center py-0 "
-              (click)="deleteOrganization(organization)"> <i class="fa fa-times-circle" aria-hidden="true"></i> Dar de
-              baja
-            </button>
-          </div>
         </div>
         <div class="card-text mt-5">
           <div class="card-subtitle d-flex align-items-center">

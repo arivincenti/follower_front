@@ -25,15 +25,51 @@ h6{
   font-size: 14px;
 }
 
-.btn{
+.btn-warning{
   font-size: .8em;
   background-color: rgb(255, 153, 0);
   color: rgb(253, 234, 198)
 }
 
-.btn:hover{
+.btn-warning:hover{
   font-size: .8em;
   background-color: rgb(255, 136, 0);
   color: rgb(255, 255, 255);
   transition: all .3s;
+}
+
+.btn-info{
+  font-size: .8em;
+}
+
+
+.btn-danger{
+  font-size: .8em;
+}
+
+.icon-container{
+  position: relative;
+  top: 5px;
+  bottom: 20px;
+}
+
+.btn-trash{
+  border: none;
+  color: rgb(189, 0, 0);
+}
+.btn-trash:hover{
+  color: rgb(240, 0, 0);
+  transition: all .4s;
+}
+
+.btn-edit{
+  position: relative;
+  left: 5px;
+  border: none;
+  color: steelblue;
+}
+
+.btn-edit:hover{
+  color: rgb(112, 175, 226);
+  transition: all .4s;
 }
