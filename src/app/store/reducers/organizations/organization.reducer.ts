@@ -19,30 +19,34 @@ export const InitialStateAreas = {
   error: null
 }
 
-export interface SelectedArea
+// export interface SelectedArea
+// {
+//   area: AreaModel,
+//   loading: boolean,
+//   loaded: boolean,
+//   error: any
+// }
+
+// export const InitialStateSelectedArea = {
+//   area: null,
+//   loading: false,
+//   loaded: false,
+//   error: null
+// }
+
+export interface OrganizationAreas
 {
-  area: AreaModel,
+  areas: AreaModel[],
   loading: boolean,
   loaded: boolean,
   error: any
 }
 
-export const InitialStateSelectedArea = {
-  area: null,
+export const InitialStateOrganizationAreas = {
+  areas: [],
   loading: false,
   loaded: false,
   error: null
-}
-
-export interface OrganizationAreas
-{
-  organizationAreas: Areas,
-  selectedArea: SelectedArea
-}
-
-export const InitialStateOrganizationAreas = {
-  organizationAreas: InitialStateAreas,
-  selectedArea: InitialStateSelectedArea
 }
 
 export interface OrganizationUserAreas
@@ -130,27 +134,22 @@ export const organizationReducer = createReducer(
       ...state,
       organizationAreas: {
         ...state.organizationAreas,
-        organizationAreas: {
-          ...state.organizationAreas.organizationAreas,
-          areas: [],
-          loading: true,
-          loaded: false,
-          error: null
-        }
+        areas: [],
+        loading: true,
+        loaded: false,
+        error: null
       }
     }
   )),
-  on(OrganizationActions.getOrganizationAreasSuccess, (state, { areas }) => (
+  on(OrganizationActions.getOrganizationAreasSuccess, (state, { payload }) => (
     {
       ...state,
       organizationAreas: {
         ...state.organizationAreas,
-        organizationAreas: {
-          areas: [...areas],
-          loading: false,
-          loaded: true,
-          error: null
-        }
+        areas: [...payload],
+        loading: false,
+        loaded: true,
+        error: null
       }
     }
   )),
@@ -159,12 +158,10 @@ export const organizationReducer = createReducer(
       ...state,
       organizationAreas: {
         ...state.organizationAreas,
-        organizationAreas: {
-          areas: [],
-          loading: false,
-          loaded: true,
-          error: { ...payload }
-        }
+        areas: [],
+        loading: false,
+        loaded: true,
+        error: { ...payload }
       }
     }
   )),
@@ -173,26 +170,33 @@ export const organizationReducer = createReducer(
       ...state,
       organizationAreas: {
         ...state.organizationAreas,
-        organizationAreas: {
-          areas: [...state.organizationAreas.organizationAreas.areas],
-          loading: true,
-          loaded: false,
-          error: null
-        }
+        areas: [...state.organizationAreas.areas],
+        loading: true,
+        loaded: false,
+        error: null
       }
     }
   )),
-  on(OrganizationActions.createOrganizationAreaSuccess, (state, { area }) => (
+  on(OrganizationActions.createOrganizationAreaSuccess, (state, { payload }) => (
     {
       ...state,
       organizationAreas: {
         ...state.organizationAreas,
-        organizationAreas: {
-          ...state.organizationAreas.organizationAreas,
-          areas: [...state.organizationAreas.organizationAreas.areas, { ...area }],
-          loading: false,
-          loaded: true
-        }
+        areas: [...state.organizationAreas.areas, { ...payload }],
+        loading: false,
+        loaded: true
+      }
+    }
+  )),
+  on(OrganizationActions.createOrganizationAreaFail, (state, { payload }) => (
+    {
+      ...state,
+      organizationAreas: {
+        ...state.organizationAreas,
+        areas: [...state.organizationAreas.areas],
+        loading: false,
+        loaded: false,
+        error: {...payload}
       }
     }
   )),
@@ -208,12 +212,12 @@ export const organizationReducer = createReducer(
       }
     }
   )),
-  on(OrganizationActions.getOrganizationUserAreasSuccess, (state, { userAreas }) => (
+  on(OrganizationActions.getOrganizationUserAreasSuccess, (state, { payload }) => (
     {
       ...state,
       organizationUserAreas: {
         ...state.organizationUserAreas,
-        areas: [...userAreas],
+        areas: [...payload],
         loading: false,
         loaded: true
       }

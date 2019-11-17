@@ -37,7 +37,7 @@ export class AreaModalComponent implements OnInit
 
     this.userOrganizationSubscription = this.store.select(state => state.selectedOrganization.organization.organization).subscribe(organization => this.organization = organization);
 
-    this.userOrganizationAreasSubscription = this.store.select(state => state.selectedOrganization.organizationAreas.organizationAreas.areas).subscribe(areas => this.organizationAreas = areas);
+    this.userOrganizationAreasSubscription = this.store.select(state => state.selectedOrganization.organizationAreas.areas).subscribe(areas => this.organizationAreas = areas);
 
     //Seleccionar las areas de la organization
 

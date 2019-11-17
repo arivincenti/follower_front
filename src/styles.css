@@ -94,3 +94,58 @@ span{
   color: rgb(255, 255, 255);
   transition: all .3s;
 }
+
+.btn-back{
+  font-size: 1em;
+  border: none;
+  background-color: rgba(0, 0, 0, .0);
+  position: relative;
+  bottom: 20px;
+  right: 12px;
+  color: rgba(0, 0, 0, .4)
+}
+
+.btn-back:hover{
+  color: rgba(0, 0, 0, .6);
+  transition: all .4s ease;
+}
+
+.btn-trash{
+  position: relative;
+  bottom: 1px;
+  border: none;
+  color: rgb(189, 0, 0);
+  background-color: rgba(0, 0, 0, .0);
+}
+.btn-trash:hover{
+  color: rgb(240, 0, 0);
+  transition: all .4s;
+}
+
+.btn-edit{
+  position: relative;
+  left: 5px;
+  border: none;
+  color: steelblue;
+  background-color: rgba(0, 0, 0, .0);
+}
+
+.btn-edit:hover{
+  color: rgb(112, 175, 226);
+  transition: all .4s;
+}
+
+.btn-in{
+  position: relative;
+  left: 5px;
+  bottom: 1px;
+  border: none;
+  color: rgb(1, 151, 1);
+  background-color: rgba(0, 0, 0, .0);
+}
+
+.btn-in:hover{
+  color: rgb(112, 175, 226);
+  color: rgb(0, 194, 0);
+  transition: all .4s;
+}

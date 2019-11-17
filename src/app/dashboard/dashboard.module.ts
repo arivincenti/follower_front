@@ -15,6 +15,9 @@ import { OrganizationUserAreasListComponent } from './organization/organization-
 import { UserComponent } from './user/user/user.component';
 import { OrganizationProfileComponent } from './organization/organization-profile/organization-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AreaProfileComponent } from './area/area-profile/area-profile.component';
+import { AreaMembersListComponent } from './area/area-members-list/area-members-list.component';
+import { AreaMembersListItemComponent } from './area/area-members-list-item/area-members-list-item.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OrganizationAreasListComponent,
     OrganizationUserAreasListComponent,
     UserComponent,
-    OrganizationProfileComponent
+    OrganizationProfileComponent,
+    AreaProfileComponent,
+    AreaMembersListComponent,
+    AreaMembersListItemComponent
   ],
   imports: [
     CommonModule,

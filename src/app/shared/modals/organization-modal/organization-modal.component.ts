@@ -21,7 +21,7 @@ export class OrganizationModalComponent implements OnInit, OnDestroy
   form: FormGroup;
   user: UserModel;
   organization: string;
-  disponible: boolean = true;
+  avaible: boolean = true;
   userOrganizations: OrganizationModel[];
 
   constructor(
@@ -35,7 +35,6 @@ export class OrganizationModalComponent implements OnInit, OnDestroy
     this.userOrganizationsSubscription = this.store.select(state => state.userOrganizations.organizations).subscribe(organizations => this.userOrganizations = organizations);
 
     let user = this.user.name + ' ' + this.user.last_name;
-
     this.form = new FormGroup({
       user: new FormControl(this.user._id, Validators.required),
       user_name: new FormControl(user, Validators.required),
@@ -60,6 +59,8 @@ export class OrganizationModalComponent implements OnInit, OnDestroy
       name: organization.toUpperCase()
     }
 
+    if (!this.avaible || this.form.invalid) return;
+
     this.store.dispatch(OrganizationsActions.createOrganization({ payload }));
     this.closeModal();
   }
@@ -67,14 +68,10 @@ export class OrganizationModalComponent implements OnInit, OnDestroy
   validateName()
   {
     var organizationName: string = this.form.value.name;
-    this.disponible = true;
+    this.avaible = true;
     this.userOrganizations.forEach(organization =>
     {
-      if (organization.name === organizationName.toUpperCase())
-      {
-        this.disponible = false;
-        return
-      }
+      if (organization.name.toUpperCase() === organizationName.toUpperCase()) this.avaible = false;
     });
   }
 

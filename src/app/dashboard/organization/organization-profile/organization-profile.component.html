@@ -14,8 +14,8 @@
         <hr>
         <div class="card-text">
           <span class="text-muted organization-card-info">
-            <i class="fa fa-user-circle mr-1" aria-hidden="true"></i> Creada por / {{organization.created_by.last_name}}
-            {{organization.created_by.name}}
+            <i class="fa fa-user-circle mr-1" aria-hidden="true"></i> Creada por / 
+            {{organization.created_by.name}} {{organization.created_by.last_name}}
           </span>
         </div>
         <div class="card-text">
@@ -37,11 +37,11 @@
         <div class="card-text">
           <span class="text-muted organization-card-info">
             <i class="fa fa-heart mr-1" aria-hidden="true"></i> Relación / </span>
-          <span *ngIf="organization.created_by === user._id" class="text-warning mr-2 owner-icon">
+          <span *ngIf="organization.created_by._id === user._id" class="text-warning mr-2 owner-icon">
             <i class="fa fa-star mr-1" aria-hidden="true"></i>
             Propietario
           </span>
-          <span *ngIf="organization.created_by !== user._id" class="text-info member-icon" title="Miembro">
+          <span *ngIf="organization.created_by._id !== user._id" class="text-info member-icon" title="Miembro">
             <i class="fa fa-child mr-1" aria-hidden="true"></i>
             Miembro
           </span>
@@ -52,7 +52,7 @@
             Mis Tickets
             <button *ngIf="!organization.deleted_at"
               class="btn btn-xs btn-info btn-rounded ml-2 py-0 d-flex justify-content-center align-items-center"
-              (click)="selectOrganization(organization)"> <i class="fa fa-ticket" aria-hidden="true"></i> Generar Ticket
+              (click)="newTicket()"> <i class="fa fa-ticket" aria-hidden="true"></i> Generar Ticket
             </button>
           </div>
           <hr>

@@ -4,6 +4,7 @@ import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as UiActions from '../../../store/actions/ui/ui.actions';
+import { OrganizationModel } from 'src/app/models/organization.model';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class OrganizationComponent implements OnInit, OnDestroy
 {
 
   userSubscription: Subscription = new Subscription();
+  organizations$: Observable<OrganizationModel[]>;
   user: UserModel;
 
   //UI Observable
@@ -27,6 +29,7 @@ export class OrganizationComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.animation$ = this.store.select(state => state.ui.animated);
+    this.organizations$ = this.store.select(state => state.userOrganizations.organizations);
   }
 
   createOrganization()

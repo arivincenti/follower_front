@@ -1,4 +1,4 @@
-  <div class="col-md-12">
+  <div class="col-md-12 animated fadeIn">
     <div class="card bg-light m-3">
       <div class="card-header d-flex justify-content-center">
         <span *ngIf="organization.created_by === user._id" class="text-warning mr-2 owner-icon">
@@ -7,19 +7,19 @@
         <span *ngIf="organization.created_by !== user._id" class="text-info mr-2 member-icon" title="Miembro">
           <i class="fa fa-child" aria-hidden="true"></i>
         </span>
-        <h6 class="text-muted">
+        <h6 class="text-muted title" [title]="organization.name">
           {{organization.name}}
         </h6>
       </div>
 
       <div class="d-flex justify-content-end align-items-top icon-container"
         *ngIf="organization.created_by === user._id">
-        <button *ngIf="!organization.deleted_at" class="btn-edit d-flex justify-content-center align-items-center py-0"
-          (click)="updateOrganization(organization)"> <i class="fa fa-pencil" aria-hidden="true"></i>
+        <button *ngIf="!organization.deleted_at" class="btn-edit"
+          (click)="updateOrganization(organization)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
         </button>
         <button *ngIf="!organization.deleted_at"
-          class="btn-trash d-flex justify-content-center align-items-center py-0 "
-          (click)="deleteOrganization(organization)"> <i class="fa fa-trash" aria-hidden="true"></i>
+          class="btn-trash"
+          (click)="deleteOrganization(organization)"> <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button>
       </div>
       <div class="card-body">

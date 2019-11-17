@@ -36,10 +36,10 @@ export class AreaListItemComponent implements OnInit
     this.responsibleMembers$ = this._areaService.getAreaResponsibleMembers(this.area._id);
   }
 
-  selectArea()
+  selectArea(area: AreaModel)
   {
     // redirigir a la pantalla de administracion del area
-    this.router.navigate(['app/organizations/areas']);
+    this.router.navigate(['app/organizations/areas/profile', area._id]);
   }
 
 }

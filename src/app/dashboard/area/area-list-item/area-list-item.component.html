@@ -12,19 +12,34 @@
       </span>
     </ng-container>
   </td>
-  <td>{{area.created_at | date:'dd-MM-yyyy'}}</td>
+  <td class="text-success">{{area.created_at | date:'dd-MM-yyyy'}}</td>
+  <td class="text-danger">{{area.deleted_at | date:'dd-MM-yyyy'}}</td>
   <ng-container *ngIf="organization$ | async as organization">
     <td class="d-flex justify-content-end align-items-center">
-      <ng-container *ngIf="organization.created_by === user._id && !organization.deleted_at">
-        <button class="btn btn-success btn-rounded ml-2 py-0 d-flex justify-content-center align-items-center"
-          (click)="selectArea()"> <i class="fa fa-line-chart" aria-hidden="true"></i> Administrar
+      <ng-container *ngIf="organization.created_by._id === user._id && !organization.deleted_at">
+        <button class="btn-in"
+          (click)="selectArea(area)"> <i class="fa fa-arrow-right" aria-hidden="true"></i>
+        </button>
+        <button *ngIf="!area.deleted_at" class="btn-edit"
+          (click)="updateArea(area)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>
+        <button *ngIf="!area.deleted_at"
+          class="btn-trash"
+          (click)="deleteArea(area)"> <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button>
       </ng-container>
       <ng-container *ngFor="let responsibleMember of responsibleMembers">
-        <button class="btn btn-xs btn-success btn-rounded ml-2 py-0 d-flex justify-content-center align-items-center"
-          (click)="selectArea()"
-          *ngIf="responsibleMember.user._id === user._id && organization.created_by !== user._id && !organization.deleted_at">
-          <i class="fa fa-line-chart" aria-hidden="true"></i> Administrar
+        <button class="btn-in"
+          (click)="selectArea(area)"
+          *ngIf="responsibleMember.user._id === user._id && organization.created_by._id !== user._id && !organization.deleted_at">
+          <i class="fa fa-arrow-right" aria-hidden="true"></i>
+        </button>
+        <button *ngIf="responsibleMember.user._id === user._id && organization.created_by._id !== user._id && !organization.deleted_at" class="btn-edit"
+          (click)="updateArea(area)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>
+        <button *ngIf="responsibleMember.user._id === user._id && organization.created_by._id !== user._id && !organization.deleted_at"
+          class="btn-trash"
+          (click)="deleteArea(area)"> <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button>
       </ng-container>
     </td>

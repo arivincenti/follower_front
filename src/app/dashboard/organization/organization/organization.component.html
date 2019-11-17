@@ -11,7 +11,12 @@
     </div>
   </div>
   <hr>
-  <div class="animated ">
-    <app-organization-list></app-organization-list>
-  </div>
+  <ng-container *ngIf="organizations$ | async as organizations">
+    <div class="animated text-muted d-flex align-items-center justify-content-center" *ngIf="!organizations.length">
+    <span>Todavia no es propietario de ninguna organziación</span>
+    </div>
+    <div class="animated" *ngIf="organizations.length">
+      <app-organization-list></app-organization-list>
+    </div>
+  </ng-container>
 </ng-container>

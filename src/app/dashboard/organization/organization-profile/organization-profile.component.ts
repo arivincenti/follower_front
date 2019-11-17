@@ -28,7 +28,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
   constructor(
     private store: Store<AppState>,
-    private actiavtedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit()
@@ -40,9 +40,9 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
       this.user = user;
     });
 
-    let organization_id;
+    let organization_id: string;
 
-    this.paramSubscription = this.actiavtedRoute.params.subscribe(param =>
+    this.paramSubscription = this.activatedRoute.params.subscribe(param =>
     {
       organization_id = param.id
     });

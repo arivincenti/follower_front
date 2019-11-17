@@ -25,7 +25,7 @@ export class OrganizationEffects
       .pipe(
         mergeMap((organization: any) => [
           OrganizationActions.getOrganizationSuccess({ payload: organization }),
-          OrganizationActions.getOrganizationAreas({ organization: organization._id }),
+          OrganizationActions.getOrganizationAreas({ payload: organization._id }),
           OrganizationActions.getOrganizationUserAreas({ user: action.user, organization: organization._id })
         ]),
         catchError(error => of(OrganizationActions.getOrganizationFail(error.error)))
@@ -35,9 +35,9 @@ export class OrganizationEffects
 
   getOrganizationAreas$ = createEffect(() => this.actions$.pipe(
     ofType(OrganizationActions.getOrganizationAreas),
-    mergeMap((action) => this._organizationsService.getOrganizationAreas(action.organization)
+    mergeMap((action) => this._organizationsService.getOrganizationAreas(action.payload)
       .pipe(
-        map((areas: any) => OrganizationActions.getOrganizationAreasSuccess({ areas })),
+        map((areas: any) => OrganizationActions.getOrganizationAreasSuccess({ payload: areas })),
         catchError(error => of(OrganizationActions.getOrganizationAreasFail({ payload: error })))
       ))
   ));
@@ -57,7 +57,7 @@ export class OrganizationEffects
             showConfirmButton: false,
             timer: 2500
           });
-          return OrganizationActions.createOrganizationAreaSuccess({ area })
+          return OrganizationActions.createOrganizationAreaSuccess({ payload: area })
         }),
         catchError(error => of(OrganizationActions.createOrganizationAreaFail({ payload: error })))
       ))
@@ -67,7 +67,7 @@ export class OrganizationEffects
     ofType(OrganizationActions.getOrganizationUserAreas),
     mergeMap((action) => this._organizationsService.getOrganizationUserAreas(action.user, action.organization)
       .pipe(
-        map((userAreas: AreaModel[]) => OrganizationActions.getOrganizationUserAreasSuccess({ userAreas: userAreas })),
+        map((userAreas: AreaModel[]) => OrganizationActions.getOrganizationUserAreasSuccess({ payload: userAreas })),
         catchError(error => of(OrganizationActions.getOrganizationUserAreasFail({ payload: error })))
       ))
   ));

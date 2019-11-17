@@ -12,26 +12,17 @@
         <div class="card-body">
           <div>
             <form (ngSubmit)="createArea()">
-              <div class="card-subtitle">
-                <span>Datos de la organizaion</span>
-              </div>
-              <hr>
               <div class="form-group">
                 <label class="text-muted">Organización</label>
                 <input type="text" class="form-control" name="organization.name" [ngModel]="organization.name"
                   placeholder="name@example.com" readonly>
               </div>
-              <br>
-              <div class="card-subtitle">
-                <span>Datos del Área</span>
-              </div>
-              <hr>
               <div class="form-group">
                 <label class="text-muted">Nombre de área</label>
                 <input type="text" (keyup)="validateName()" class="form-control" name="areaName" [(ngModel)]="areaName"
                   placeholder="Escriba el nombre del área"
-                  [ngClass]="{'is-valid': avaible && areaName, 'is-invalid': !avaible || !areaName}" autofocus
-                  autocomplete="off">
+                  [ngClass]="{'is-valid': avaible && areaName, 'is-invalid': !avaible || !areaName}"
+                  autocomplete="off" autofocus>
                 <div class="valid-feedback" *ngIf="avaible">
                   El nombre está disponible
                 </div>

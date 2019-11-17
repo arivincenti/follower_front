@@ -20,12 +20,12 @@ export const getOrganizationFail = createAction(
 
 export const getOrganizationAreas = createAction(
   '[Organizations Actions] Get Organization Areas',
-  props<{ organization: string }>()
+  props<{ payload: string }>()
 );
 
 export const getOrganizationAreasSuccess = createAction(
   '[Organizations Actions] Get Organization Areas Success',
-  props<{ areas: AreaModel[] }>()
+  props<{ payload: AreaModel[] }>()
 );
 
 export const getOrganizationAreasFail = createAction(
@@ -40,7 +40,7 @@ export const createOrganizationArea = createAction(
 
 export const createOrganizationAreaSuccess = createAction(
   '[Organizations Actions] Create Organization Area Success',
-  props<{ area: AreaModel }>()
+  props<{ payload: AreaModel }>()
 );
 
 export const createOrganizationAreaFail = createAction(
@@ -55,7 +55,7 @@ export const getOrganizationUserAreas = createAction(
 
 export const getOrganizationUserAreasSuccess = createAction(
   '[Organizations Actions] Get Organization User Areas Success',
-  props<{ userAreas: AreaModel[] }>()
+  props<{ payload: AreaModel[] }>()
 );
 
 export const getOrganizationUserAreasFail = createAction(

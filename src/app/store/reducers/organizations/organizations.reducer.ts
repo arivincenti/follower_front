@@ -212,7 +212,7 @@ export const organizationsReducer = createReducer(
   on(OrganizationsActions.deleteOrganization, (state) => (
     {
       ...state,
-      loading: true,
+      loading: false,
       loaded: false,
       error: null
     }

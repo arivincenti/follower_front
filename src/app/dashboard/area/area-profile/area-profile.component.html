@@ -1,0 +1,90 @@
+<ng-container *ngIf="animation$ | async as animation">
+  <app-loading *ngIf="loading$ | async" [elemento]="['datos del área']"></app-loading>
+  <div class="col-md-12 animated" *ngIf="area$ | async as area" [ngClass]="animation[0]">
+    <div class="card bg-light m-3">
+      <div class="card-header d-flex justify-content-center">
+        <h4 class="text-muted">
+          {{ area.name }}
+        </h4>
+      </div>
+      <div class="card-body">
+        <button class="btn-back" (click)="backToLastPage()"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Volver
+        </button>
+        <div class="card-subtitle mt-4">
+          <i class="fa fa-info-circle mr-1" aria-hidden="true"></i>
+          Información del área
+        </div>
+        <hr>
+        <div class="card-text">
+          <span class="text-muted organization-card-info">
+            <i class="fa fa-user-circle mr-1" aria-hidden="true"></i> Creada por / {{ area.created_by.name }}
+            {{ area.created_by.last_name }}
+          </span>
+        </div>
+        <div class="card-text">
+          <span class="text-muted organization-card-info">
+            <i class="fa fa-calendar-o mr-1" aria-hidden="true"></i> Creada el /
+            <span class="text-success">
+              {{ area.created_at | date:'dd-MM-yyyy' }}
+            </span>
+          </span>
+        </div>
+        <div class="card-text" *ngIf="area.deleted_at">
+          <span class="text-muted organization-card-info">
+            <i class="fa fa-calendar-times-o mr-1" aria-hidden="true"></i> Dada de baja el /
+            <span class="text-danger">
+              Algun otro dia
+            </span>
+          </span>
+        </div>
+        <div class="card-text mt-5">
+          <div class="card-subtitle d-flex align-items-center">
+            <i class="fa fa-ticket mr-1" aria-hidden="true"></i>
+            Tickets del área
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-3">
+              <div class="row">
+                <div class="col-12 card-title d-flex justify-content-center text-danger">Pendientes</div>
+                <div class="col-12 d-flex justify-content-center text-muted value">0</div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-12 card-title d-flex justify-content-center text-secondary">Despachados</div>
+                <div class="col-12 d-flex justify-content-center text-muted value">0</div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-12 card-title d-flex justify-content-center text-success">Resueltos</div>
+                <div class="col-12 d-flex justify-content-center text-muted value ">0</div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-12 card-title d-flex justify-content-center text-info">Todos</div>
+                <div class="col-12 d-flex justify-content-center text-muted value ">0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-text mt-5">
+          <div class="card-subtitle d-flex align-items-center">
+            <i class="fa fa-ticket mr-1" aria-hidden="true"></i>
+            Miembros del área
+            <button *ngIf="!area.deleted_at"
+              class="btn btn-xs btn-info btn-rounded ml-2 py-0 d-flex justify-content-center align-items-center"
+              (click)="newMember(area)"> <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo miembro
+            </button>
+          </div>
+          <hr>
+          <div>
+            <app-area-members-list></app-area-members-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

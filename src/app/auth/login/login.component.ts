@@ -36,7 +36,13 @@ export class LoginComponent implements OnInit
 
   login(form: NgForm)
   {
-    var credentials = form.value;
+    let email: string = form.controls.email.value;
+    let password: string = form.controls.password.value;
+    let credentials = {
+      email: email.toUpperCase(),
+      password: password.toUpperCase()
+    };
+
     this.store.dispatch(UserActions.login({ credentials }));
     this.subscription = this.store.select('auth')
       .subscribe(auth =>
