@@ -30,5 +30,8 @@ export class AreasEffects
     ))
   ));
 
+  clearSelectedAreaState$ = createEffect(() => this.actions$.pipe(
+    ofType(AreasActions.clearSelectedAreaState)
+  ), {dispatch: false});
 
 }

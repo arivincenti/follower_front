@@ -100,13 +100,13 @@ span{
   border: none;
   background-color: rgba(0, 0, 0, .0);
   position: relative;
-  bottom: 20px;
+  bottom: 15px;
   right: 12px;
-  color: rgba(0, 0, 0, .4)
+  color: steelblue
 }
 
 .btn-back:hover{
-  color: rgba(0, 0, 0, .6);
+  color: rgb(97, 168, 226);
   transition: all .4s ease;
 }
 
@@ -119,6 +119,18 @@ span{
 }
 .btn-trash:hover{
   color: rgb(240, 0, 0);
+  transition: all .4s;
+}
+
+.btn-reactive{
+  position: relative;
+  bottom: 1px;
+  border: none;
+  color: rgb(255, 136, 0);
+  background-color: rgba(0, 0, 0, .0);
+}
+.btn-reactive:hover{
+  color: orange;
   transition: all .4s;
 }
 
@@ -148,4 +160,20 @@ span{
   color: rgb(112, 175, 226);
   color: rgb(0, 194, 0);
   transition: all .4s;
+}
+
+.delay-300ms{
+  animation-delay: .3s;
+}
+.delay-500ms{
+  animation-delay: .5s;
+}
+.delay-700ms{
+  animation-delay: .7s;
+}
+.delay-900ms{
+  animation-delay: .9s;
+}
+.delay-1300ms{
+  animation-delay: 1300ms;
 }

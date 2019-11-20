@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { AreaModel } from 'src/app/models/area.model';
 import { OrganizationModel } from 'src/app/models/organization.model';
@@ -6,14 +6,13 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as AreasActions from '../../../store/actions/areas/areas.actions';
-import { MemberModel } from 'src/app/models/member.model';
 
 @Component({
   selector: 'app-area-profile',
   templateUrl: './area-profile.component.html',
   styleUrls: ['./area-profile.component.css']
 })
-export class AreaProfileComponent implements OnInit
+export class AreaProfileComponent implements OnInit, OnDestroy
 {
 
   paramSubscription: Subscription = new Subscription();

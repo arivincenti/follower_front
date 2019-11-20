@@ -31,7 +31,6 @@ export class DashboardComponent implements OnInit
     //Cargamos las organizaciones del usuario y quedamos pendientes de modificaciones
     this.store.dispatch(OrganizationsActions.getUserOrganizations({ payload: this.user._id }));
 
-    this.organizationModal$ = this.store.select(state => state.ui.organizationModal);
     this.areaModal$ = this.store.select(state => state.ui.areaModal);
   }
 

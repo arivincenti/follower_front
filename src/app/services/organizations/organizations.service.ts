@@ -52,7 +52,6 @@ export class OrganizationsService
   // ==================================================
   // Get all user organization areas
   // ==================================================
-
   getOrganizationUserAreas(user_id: string, organization_id: string)
   {
     return this.http.get(`${environment.path}/users/${user_id}/organizations/${organization_id}/areas`).pipe(
@@ -66,7 +65,6 @@ export class OrganizationsService
   // ==================================================
   // Create an organization
   // ==================================================
-
   createOrganization(payload: any)
   {
 
@@ -76,10 +74,22 @@ export class OrganizationsService
   }
 
   // ==================================================
+  // Update an orgnization
+  // ==================================================
+  updateOrganization(organization: string, name: string)
+  {
+    return this.http.put(`${environment.path}/organizations/${organization}`, name).pipe(
+      map((data: any) => data.data)
+    );
+  }
+
+  // ==================================================
   // Delete an orgnization
   // ==================================================
   deleteOrganization(organization: string)
   {
-    return this.http.delete(`${environment.path}/organizations/${organization}`)
+    return this.http.delete(`${environment.path}/organizations/${organization}`).pipe(
+      map((data: any) => data.data)
+    );
   }
 }

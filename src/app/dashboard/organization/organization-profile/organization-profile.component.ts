@@ -5,8 +5,9 @@ import { UserModel } from 'src/app/models/user.model';
 import { AreaModel } from 'src/app/models/area.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as OrganizationActions from '../../../store/actions/organizations/organization.actions';
+import * as AreasActions from '../../../store/actions/areas/areas.actions';
 
 
 @Component({
@@ -28,11 +29,13 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
   constructor(
     private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit()
   {
+    this.store.dispatch(AreasActions.clearSelectedAreaState());
     this.animation$ = this.store.select(state => state.ui.animated);
 
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user =>
@@ -40,14 +43,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
       this.user = user;
     });
 
-    let organization_id: string;
-
     this.paramSubscription = this.activatedRoute.params.subscribe(param =>
     {
-      organization_id = param.id
+      this.store.dispatch(OrganizationActions.getOrganization({ organization: param.id, user: this.user._id }));
     });
-
-    this.store.dispatch(OrganizationActions.getOrganization({ organization: organization_id, user: this.user._id }));
 
     this.organization$ = this.store.select(state => state.selectedOrganization.organization.organization);
 
@@ -57,7 +56,11 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
   {
     this.paramSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
-    // this.store.dispatch(OrganizationsActions.clearSelectedOrganizationState());
+  }
+
+  backToLastPage()
+  {
+    this.router.navigate(['app/organizations']);
   }
 
 }

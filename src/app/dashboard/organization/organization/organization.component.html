@@ -15,7 +15,7 @@
     <div class="animated text-muted d-flex align-items-center justify-content-center" *ngIf="!organizations.length">
     <span>Todavia no es propietario de ninguna organziación</span>
     </div>
-    <div class="animated" *ngIf="organizations.length">
+    <div class="animated delay-300ms" [ngClass]="animation[0]" *ngIf="organizations.length">
       <app-organization-list></app-organization-list>
     </div>
   </ng-container>

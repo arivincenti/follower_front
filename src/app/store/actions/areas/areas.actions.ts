@@ -32,3 +32,7 @@ export const getAreaMembersFail = createAction(
   '[Areas Actions] Get Area Members Fail',
   props<{ payload: any }>()
 );
+
+export const clearSelectedAreaState = createAction(
+  '[Areas Actions] Clear Selected Area State'
+);

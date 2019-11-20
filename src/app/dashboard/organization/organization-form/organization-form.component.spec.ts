@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AreaListItemComponent } from './area-list-item.component';
+import { OrganizationFormComponent } from './organization-form.component';
 
-describe('AreaListItemComponent', () => {
-  let component: AreaListItemComponent;
-  let fixture: ComponentFixture<AreaListItemComponent>;
+describe('OrganizationFormComponent', () => {
+  let component: OrganizationFormComponent;
+  let fixture: ComponentFixture<OrganizationFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AreaListItemComponent ]
+      declarations: [ OrganizationFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AreaListItemComponent);
+    fixture = TestBed.createComponent(OrganizationFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

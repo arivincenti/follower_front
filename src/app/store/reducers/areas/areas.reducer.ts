@@ -115,6 +115,12 @@ export const areasReducer = createReducer(
         error: { ...payload }
       }
     }
+  )),
+  on(AreasActions.clearSelectedAreaState, (state) => (
+    {
+      ...state,
+      ...initialAreaState
+    }
   ))
 )
 

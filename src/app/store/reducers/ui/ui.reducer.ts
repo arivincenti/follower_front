@@ -3,25 +3,19 @@ import * as UiActions from '../../actions/ui/ui.actions';
 
 export interface UiState
 {
-  organizationModal: boolean,
+  toggledMenu: boolean,
   areaModal: boolean,
   animated: string[]
 }
 
 export const initialState: UiState = {
-  organizationModal: false,
+  toggledMenu: true,
   areaModal: false,
-  animated: ['fadeInRight faster', 'bounceInRight faster', 'jello']
+  animated: ['fadeInUp faster', 'bounceInRight faster', 'jello']
 }
 
 export const uiReducer = createReducer(
   initialState,
-  on(UiActions.showOrganizationModal, (state) => (
-    {
-      ...state,
-      organizationModal: true
-    }
-  )),
   on(UiActions.showAreaModal, (state) => (
     {
       ...state,

@@ -1,22 +1,22 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AreaModel } from 'src/app/models/area.model';
-import { AreasService } from 'src/app/services/areas/areas.service';
-import { MemberModel } from 'src/app/models/member.model';
-import { Observable } from 'rxjs';
 import { UserModel } from 'src/app/models/user.model';
+import { Observable } from 'rxjs';
+import { MemberModel } from 'src/app/models/member.model';
 import { OrganizationModel } from 'src/app/models/organization.model';
+import { AreasService } from 'src/app/services/areas/areas.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router } from '@angular/router';
 
-
 @Component({
-  selector: 'tr[app-area-list-item]',
-  templateUrl: './area-list-item.component.html',
-  styleUrls: ['./area-list-item.component.css']
+  selector: 'tr[app-organization-areas-list-items]',
+  templateUrl: './organization-areas-list-items.component.html',
+  styleUrls: ['./organization-areas-list-items.component.css']
 })
-export class AreaListItemComponent implements OnInit
+export class OrganizationAreasListItemsComponent implements OnInit
 {
+
   @Input() area: AreaModel;
   @Input() user: UserModel;
   responsibleMembers$: Observable<MemberModel[]>;
@@ -38,8 +38,13 @@ export class AreaListItemComponent implements OnInit
 
   selectArea(area: AreaModel)
   {
-    // redirigir a la pantalla de administracion del area
+    //Redirect to Area Profile
     this.router.navigate(['app/organizations/areas/profile', area._id]);
+  }
+
+  deleteArea(area: AreaModel)
+  {
+    //Make method to update deleted_at property from area
   }
 
 }

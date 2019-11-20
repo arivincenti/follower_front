@@ -11,10 +11,6 @@ export class UiEffects
     private actions$: Actions
   ) { }
 
-  showOrganizationModal$ = createEffect(() => this.actions$.pipe(
-    ofType(UiActions.showOrganizationModal)
-  ), { dispatch: false });
-
   showAreaModal$ = createEffect(() => this.actions$.pipe(
     ofType(UiActions.showAreaModal)), { dispatch: false });
 

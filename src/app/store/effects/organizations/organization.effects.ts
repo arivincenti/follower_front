@@ -72,5 +72,9 @@ export class OrganizationEffects
       ))
   ));
 
+  clearSelectedOrganizationState$ = createEffect(() => this.actions$.pipe(
+    ofType(OrganizationActions.clearSelectedOrganizationState)
+  ), {dispatch: false});
+
 
 }

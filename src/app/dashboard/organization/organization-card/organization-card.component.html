@@ -19,7 +19,11 @@
         </button>
         <button *ngIf="!organization.deleted_at"
           class="btn-trash"
-          (click)="deleteOrganization(organization)"> <i class="fa fa-trash-o" aria-hidden="true"></i>
+          (click)="deleteOrganization(organization)"> <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+        <button *ngIf="organization.deleted_at"
+          class="btn-reactive"
+          (click)="reactiveOrganization(organization)"> <i class="fa fa-heartbeat" aria-hidden="true"></i>
         </button>
       </div>
       <div class="card-body">

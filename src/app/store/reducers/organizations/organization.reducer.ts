@@ -196,7 +196,7 @@ export const organizationReducer = createReducer(
         areas: [...state.organizationAreas.areas],
         loading: false,
         loaded: false,
-        error: {...payload}
+        error: { ...payload }
       }
     }
   )),
@@ -238,9 +238,7 @@ export const organizationReducer = createReducer(
   on(OrganizationActions.clearSelectedOrganizationState, (state) => (
     {
       ...state,
-      selectedOrganization: {
-        ...initialSelectedOrganizationState
-      }
+      ...initialSelectedOrganizationState
     }
   ))
 );

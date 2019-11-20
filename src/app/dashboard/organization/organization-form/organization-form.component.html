@@ -1,0 +1,48 @@
+<ng-container *ngIf="animation$ | async as animation">
+  <div class="card bg-light m-3 animated" [ngClass]="animation[0]">
+    <div class="card-header d-flex justify-content-center">
+      <h5 class="text-muted" *ngIf="param === 'nueva'">
+        Nueva Organización
+      </h5>
+      <h5 class="text-muted" *ngIf="param !== 'nueva'">
+        Editar la Organización
+      </h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="createOrUpdateOrganization()">
+        <div class="form-group">
+          <label class="text-muted">Nombre de la organización</label>
+          <input type="text" (keyup)="validateName()" class="form-control" name="organizationName"
+            [(ngModel)]="organizationName" placeholder="Escriba el nombre de su nueva Organización"
+            [ngClass]="{'is-valid': avaible && organizationName, 'is-invalid': !avaible || !organizationName}"
+            autocomplete="off" autofocus>
+          <div class="valid-feedback" *ngIf="avaible">
+            El nombre está disponible
+          </div>
+          <div class="invalid-feedback" *ngIf="!avaible">
+            Ya es propietario o miembro de una organización con ese nombre
+          </div>
+          <div class="invalid-feedback" *ngIf="!organizationName">
+            El nombre es obligatorio
+          </div>
+        </div>
+        <hr>
+        <div class="form-group">
+          <div class="col-md-12 d-flex justify-content-end">
+            <button type="submit" [ngClass]="{'disabled': !avaible || !organizationName}"
+              class="btn btn-sm btn-rounded btn-success d-flex justify-content-center align-items-center">
+              <span *ngIf="param === 'nueva'">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                Crear mi organización
+              </span>
+              <span *ngIf="param !== 'nueva'">
+                <i class="fa fa-save" aria-hidden="true"></i>
+                Guardar cambios
+              </span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>

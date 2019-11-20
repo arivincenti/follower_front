@@ -6,6 +6,8 @@ import { AreaModel } from 'src/app/models/area.model';
 import { MemberModel } from 'src/app/models/member.model';
 import { OrganizationsService } from 'src/app/services/organizations/organizations.service';
 import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
+import * as OrganizationActions from '../../../store/actions/organizations/organization.actions';
+import * as UiActions from '../../../store/actions/ui/ui.actions';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
@@ -32,7 +34,6 @@ export class OrganizationCardComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-
     //Estas consultas van directo sobre el servicio porque a esta altura de la aplicacion toidavia no se cargaron ls areas de una organizacion
     this.areas$ = this._organizationService.getOrganizationAreas(this.organization._id);
     this.members$ = this._organizationService.getOrganizationMembers(this.organization);
@@ -44,6 +45,11 @@ export class OrganizationCardComponent implements OnInit, OnDestroy
   selectOrganization(organization: OrganizationModel)
   {
     this.router.navigate(['app/organizations/profile', organization._id]);
+  }
+
+  updateOrganization(organization: OrganizationModel)
+  {
+    this.router.navigate(['app/organizations/form', this.organization._id]);
   }
 
   deleteOrganization(organization: OrganizationModel)
