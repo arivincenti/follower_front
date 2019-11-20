@@ -5,7 +5,6 @@ import { UserModel } from 'src/app/models/user.model';
 import { AreaModel } from 'src/app/models/area.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
 import * as OrganizationActions from '../../../store/actions/organizations/organization.actions';
 import * as UiActions from '../../../store/actions/ui/ui.actions';
 import { OrganizationModel } from 'src/app/models/organization.model';

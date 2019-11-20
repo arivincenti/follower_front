@@ -63,6 +63,28 @@ export class OrganizationEffects
       ))
   ));
 
+  updateOrganizationAreas$ = createEffect(() => this.actions$.pipe(
+    ofType(OrganizationActions.updateOrganizationArea),
+    mergeMap((action) => this._areaService.updateArea(action.areaId, action.payload)
+      .pipe(
+        map((area: any) =>
+        {
+          Swal.fire({
+            position: 'top-end',
+            toast: true,
+            icon: 'success',
+            title: 'Genial!!',
+            text: 'El área se modificó con éxito',
+            showConfirmButton: false,
+            timer: 2500
+          });
+          return OrganizationActions.updateOrganizationAreaSuccess({ payload: area })
+        }),
+        catchError(error => of(OrganizationActions.updateOrganizationAreaFail({ payload: error })))
+      ))
+  ));
+
+
   getOrganizationUserAreas$ = createEffect(() => this.actions$.pipe(
     ofType(OrganizationActions.getOrganizationUserAreas),
     mergeMap((action) => this._organizationsService.getOrganizationUserAreas(action.user, action.organization)
@@ -74,7 +96,7 @@ export class OrganizationEffects
 
   clearSelectedOrganizationState$ = createEffect(() => this.actions$.pipe(
     ofType(OrganizationActions.clearSelectedOrganizationState)
-  ), {dispatch: false});
+  ), { dispatch: false });
 
 
 }

@@ -97,6 +97,10 @@ export class OrganizationFormComponent implements OnInit, OnDestroy
     }
   }
 
+  backToLastPage(){
+    this.router.navigate(['app/organizations']);
+  }
+
   // ==================================================
   // Organization Name Validator
   // ==================================================

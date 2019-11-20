@@ -38,6 +38,14 @@ export class AreasService
   }
 
   // ==================================================
+  // Update an area
+  // ==================================================
+  updateArea(areaId: string, payload: any)
+  {
+    return this.http.put(`${environment.path}/areas/${areaId}`, payload).pipe(map((data: any) => data.data));
+  }
+
+  // ==================================================
   // Delete an area
   // ==================================================
   deleteArea(payload: any)

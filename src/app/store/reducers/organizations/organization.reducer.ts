@@ -19,21 +19,6 @@ export const InitialStateAreas = {
   error: null
 }
 
-// export interface SelectedArea
-// {
-//   area: AreaModel,
-//   loading: boolean,
-//   loaded: boolean,
-//   error: any
-// }
-
-// export const InitialStateSelectedArea = {
-//   area: null,
-//   loading: false,
-//   loaded: false,
-//   error: null
-// }
-
 export interface OrganizationAreas
 {
   areas: AreaModel[],
@@ -189,6 +174,43 @@ export const organizationReducer = createReducer(
     }
   )),
   on(OrganizationActions.createOrganizationAreaFail, (state, { payload }) => (
+    {
+      ...state,
+      organizationAreas: {
+        ...state.organizationAreas,
+        areas: [...state.organizationAreas.areas],
+        loading: false,
+        loaded: false,
+        error: { ...payload }
+      }
+    }
+  )),
+  on(OrganizationActions.updateOrganizationArea, (state) => (
+    {
+      ...state,
+      organizationAreas: {
+        ...state.organizationAreas,
+        areas: [...state.organizationAreas.areas],
+        loading: true,
+        loaded: false,
+        error: null
+      }
+    }
+  )),
+  on(OrganizationActions.updateOrganizationAreaSuccess, (state, { payload }) => 
+  {
+    return {
+      ...state,
+      organizationAreas: {
+        ...state.organizationAreas,
+        areas: [...state.organizationAreas.areas.filter(area => area._id !== payload._id), { ...payload }],
+        loading: false,
+        loaded: true
+      }
+    }
+  }
+  ),
+  on(OrganizationActions.updateOrganizationAreaFail, (state, { payload }) => (
     {
       ...state,
       organizationAreas: {

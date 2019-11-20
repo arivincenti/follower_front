@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserModel } from 'src/app/models/user.model';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as UiActions from '../../store/actions/ui/ui.actions';
@@ -13,8 +13,7 @@ import * as UiActions from '../../store/actions/ui/ui.actions';
 })
 export class NavbarComponent implements OnInit, OnDestroy
 {
-  user: UserModel;
-  subscription: Subscription = new Subscription();
+  user$: Observable<UserModel>;
 
   constructor(
     private store: Store<AppState>
@@ -22,15 +21,11 @@ export class NavbarComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-    this.subscription = this.store.select(state => state.auth.user).subscribe(user =>
-    {
-      this.user = user;
-    })
+    this.user$ = this.store.select(state => state.auth.user);
   }
 
   ngOnDestroy()
   {
-    this.subscription.unsubscribe();
   }
 
 }

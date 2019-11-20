@@ -48,6 +48,21 @@ export const createOrganizationAreaFail = createAction(
   props<{ payload: any }>()
 );
 
+export const updateOrganizationArea = createAction(
+  '[Organizations Actions] Update Organization Area',
+  props<{ areaId: string, payload: any }>()
+);
+
+export const updateOrganizationAreaSuccess = createAction(
+  '[Organizations Actions] Update Organization Area Success',
+  props<{ payload: AreaModel }>()
+);
+
+export const updateOrganizationAreaFail = createAction(
+  '[Organizations Actions] Update Organization Area Fail',
+  props<{ payload: any }>()
+);
+
 export const getOrganizationUserAreas = createAction(
   '[Organizations Actions] Get Organization User Areas',
   props<{ user: string, organization: string }>()

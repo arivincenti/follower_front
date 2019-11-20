@@ -6,6 +6,7 @@ import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as UiActions from '../../../store/actions/ui/ui.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-organization-areas-list',
@@ -21,7 +22,8 @@ export class OrganizationAreasListComponent implements OnInit, OnDestroy
   loading$: Observable<boolean>;
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) { }
 
   ngOnInit()
@@ -38,7 +40,7 @@ export class OrganizationAreasListComponent implements OnInit, OnDestroy
 
   addArea()
   {
-    this.store.dispatch(UiActions.showAreaModal());
+    this.router.navigate(['app/organizations/areas/form', 'nueva']);
   }
 
 }

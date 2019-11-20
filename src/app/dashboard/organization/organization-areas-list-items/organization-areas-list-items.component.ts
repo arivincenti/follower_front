@@ -42,6 +42,12 @@ export class OrganizationAreasListItemsComponent implements OnInit
     this.router.navigate(['app/organizations/areas/profile', area._id]);
   }
 
+  updateArea(area: AreaModel)
+  {
+    //Redirect to Area form
+    this.router.navigate(['app/organizations/areas/form', area._id]);
+  }
+
   deleteArea(area: AreaModel)
   {
     //Make method to update deleted_at property from area

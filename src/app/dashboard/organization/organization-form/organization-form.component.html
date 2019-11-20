@@ -9,7 +9,10 @@
       </h5>
     </div>
     <div class="card-body">
-      <form (ngSubmit)="createOrUpdateOrganization()">
+      <button class="btn-back" (click)="backToLastPage()"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Ir a mis
+        organizaciones
+      </button>
+      <form class="mt-3" (ngSubmit)="createOrUpdateOrganization()">
         <div class="form-group">
           <label class="text-muted">Nombre de la organización</label>
           <input type="text" (keyup)="validateName()" class="form-control" name="organizationName"
