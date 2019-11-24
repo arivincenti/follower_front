@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit
 
   cargando: boolean;
   error: string;
-  subscription: Subscription;
+  subscription: Subscription = new Subscription();
 
   constructor(
     private store: Store<AppState>,

@@ -63,6 +63,21 @@ export const updateOrganizationAreaFail = createAction(
   props<{ payload: any }>()
 );
 
+export const deleteOrganizationArea = createAction(
+  '[Organizations Actions] Delete Organization Area',
+  props<{ payload: any }>()
+);
+
+export const deleteOrganizationAreaSuccess = createAction(
+  '[Organizations Actions] Delete Organization Area Success',
+  props<{ payload: AreaModel }>()
+);
+
+export const deleteOrganizationAreaFail = createAction(
+  '[Organizations Actions] Delete Organization Area Fail',
+  props<{ payload: any }>()
+);
+
 export const getOrganizationUserAreas = createAction(
   '[Organizations Actions] Get Organization User Areas',
   props<{ user: string, organization: string }>()

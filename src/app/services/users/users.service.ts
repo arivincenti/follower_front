@@ -22,4 +22,11 @@ export class UsersService
       })
     );
   }
+
+  getUsersByEmail(payload: any)
+  {
+    return this.http.post(`${environment.path}/users/by_email`, payload).pipe(
+      map((data: any) => data['data'])
+    );
+  }
 }

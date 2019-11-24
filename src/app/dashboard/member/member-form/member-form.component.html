@@ -1,0 +1,101 @@
+<ng-container *ngIf="animation$ | async as animation">
+  <div class="card bg-light m-3 animated" [ngClass]="animation[0]">
+    <div class="card-header d-flex justify-content-center">
+      <h5 class="text-muted">
+        Nuevo miembro
+      </h5>
+    </div>
+    <div class="card-body">
+      <button class="btn-back" (click)="backToLastPage()"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Ir al
+        área
+      </button>
+      <form class="mt-3" (ngSubmit)="createMember()">
+        <div class="form-group">
+          <label class="text-muted">Correo electrónico del usuario</label>
+          <input type="text" (keyup)="searchUsers()" class="form-control" name="email" [(ngModel)]="email"
+            placeholder="Escriba el Correo electrónico del usuario que desea buscar" autocomplete="off" autofocus>
+        </div>
+        <div class="row mt-5">
+          <div class="col-sm-6">
+            <div *ngIf="(users$ | async)?.length">
+              <div class="card-text">
+                <div class=" card-subtitle d-flex align-items-center animated delay-300ms" [ngClass]="animation[0]">
+                  <i class="fa fa-users mr-1" aria-hidden="true"></i>
+                  Usuarios encontrados
+                </div>
+                <hr>
+                <table class="table table-hover animated delay-500ms" [ngClass]="animation[0]">
+                  <thead>
+                    <tr class="bg-personalized">
+                      <td>Usuario</td>
+                      <td>Email</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="pointer" *ngFor="let user of users$ | async" (click)="selectUser(user)">
+                      <td>{{user.name}} {{user.last_name}}</td>
+                      <td>{{user.email}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <ng-container *ngIf="selectedUser">
+              <div class="form-group" >
+                <div class="card-text">
+                  <div class=" card-subtitle d-flex align-items-center animated delay-300ms" [ngClass]="animation[0]">
+                    <i class="fa fa-user mr-1" aria-hidden="true"></i>
+                    Datos del usuario seleccionado
+                  </div>
+                  <hr>
+                  <div class="col-md-12 animated delay-500ms" [ngClass]="animation[0]">
+                    <div class="card bg-light m-3">
+                      <div class="card-header d-flex justify-content-center">
+                        <span class="text-info mr-2 member-icon" title="Miembro">
+                          <i class="fa fa-child" aria-hidden="true"></i>
+                        </span>
+                        <h5 class="text-muted title" [title]="selectedUser.name">
+                          {{selectedUser.name}} {{selectedUser.last_name}}
+                        </h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="card-text">
+                          <span class="text-muted organization-card-info">
+                            <i class="fa fa-tag mr-1" aria-hidden="true"></i>
+                            E-mail / {{selectedUser.email}}
+                          </span>
+                        </div>
+                        <div class="card-text">
+                          <span class="text-muted organization-card-info">
+                            <i class="fa fa-calendar-o mr-1" aria-hidden="true"></i> Creado el /
+                            <span class="text-success">
+                              {{selectedUser.created_at | date:'dd-MM-yyyy'}}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group animated" [ngClass]="animation[0]">
+                <div class="col-md-12 d-flex justify-content-end">
+                  <button type="submit"
+                    class="btn btn-sm btn-success btn-block py-1 d-flex justify-content-center align-items-center">
+                    <span>
+                      <i class="fa fa-user-plus" aria-hidden="true"></i>
+                      Agregar como miembro
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>

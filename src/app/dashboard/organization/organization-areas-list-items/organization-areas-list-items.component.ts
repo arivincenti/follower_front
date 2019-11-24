@@ -8,6 +8,7 @@ import { AreasService } from 'src/app/services/areas/areas.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router } from '@angular/router';
+import * as OrganizationActions from '../../../store/actions/organizations/organization.actions';
 
 @Component({
   selector: 'tr[app-organization-areas-list-items]',
@@ -51,6 +52,16 @@ export class OrganizationAreasListItemsComponent implements OnInit
   deleteArea(area: AreaModel)
   {
     //Make method to update deleted_at property from area
+    this.store.dispatch(OrganizationActions.deleteOrganizationArea({ payload: area._id }));
+  }
+
+  activateArea(area: AreaModel)
+  {
+    let payload = {
+      deleted_at: 1
+    }
+
+    this.store.dispatch(OrganizationActions.updateOrganizationArea({ areaId: area._id, payload: payload }));
   }
 
 }

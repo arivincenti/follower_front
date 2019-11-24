@@ -56,4 +56,13 @@ export class OrganizationCardComponent implements OnInit, OnDestroy
   {
     this.store.dispatch(OrganizationsActions.deleteOrganization({ organization: organization._id }));
   }
+
+  reactivateOrganization(organization: OrganizationModel)
+  {
+    let payload = {
+      deleted_at: 1
+    };
+
+    this.store.dispatch(OrganizationsActions.updateOrganization({ organizationId: organization._id, payload: payload }));
+  }
 }

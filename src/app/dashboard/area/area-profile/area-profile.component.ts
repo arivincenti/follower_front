@@ -56,4 +56,9 @@ export class AreaProfileComponent implements OnInit, OnDestroy
     this.router.navigate(['app/organizations/profile', this.organziation._id]);
   }
 
+  newMember(area: AreaModel)
+  {
+    this.router.navigate(['app/organizations/members/form', area._id]);
+  }
+
 }

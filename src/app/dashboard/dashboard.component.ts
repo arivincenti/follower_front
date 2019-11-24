@@ -10,7 +10,7 @@ import * as OrganizationsActions from '../store/actions/organizations/organizati
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit
+export class DashboardComponent implements OnInit, OnDestroy
 {
 
   organizationModal$: Observable<boolean>;
@@ -32,6 +32,10 @@ export class DashboardComponent implements OnInit
     this.store.dispatch(OrganizationsActions.getUserOrganizations({ payload: this.user._id }));
 
     this.areaModal$ = this.store.select(state => state.ui.areaModal);
+  }
+
+  ngOnDestroy(){
+    this.userSubscription.unsubscribe();
   }
 
 }

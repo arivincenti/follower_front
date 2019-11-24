@@ -20,6 +20,7 @@ export class OrganizationAreasListComponent implements OnInit, OnDestroy
   @Input() user: UserModel;
   areas$: Observable<AreaModel[]>;
   loading$: Observable<boolean>;
+  animation$: Observable<string[]>;
 
   constructor(
     private store: Store<AppState>,
@@ -28,6 +29,7 @@ export class OrganizationAreasListComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
+    this.animation$ = this.store.select(state => state.ui.animated);
     this.areas$ = this.store.select(state => state.selectedOrganization.organizationAreas.areas);
 
     this.loading$ = this.store.select(state => state.selectedOrganization.organizationAreas.loading);

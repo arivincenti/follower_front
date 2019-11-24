@@ -1,17 +1,21 @@
 <td>{{member.user.name}}</td>
 <td>{{member.user.last_name}}</td>
-<td>{{member.role}}</td>
+<td>
+  <select (change)="updateMember(member)" class="form-control form-control-sm" name="member.role"
+    [(ngModel)]="member.role">
+    <option value="RESPONSABLE">RESPONSABLE</option>
+    <option value="MIEMBRO">MIEMBRO</option>
+  </select>
+</td>
 <td class="text-success">{{member.created_at | date:'dd-MM-yyyy'}}</td>
-<td class="text-danger">{{member.created_at | date:'dd-MM-yyyy'}}</td>
-<td class="d-flex justify-content-end align-items-center">
-    <button class="btn-in"
-      (click)="selectMember(member)"> <i class="fa fa-arrow-right" aria-hidden="true"></i>
-    </button>
-    <button *ngIf="!member.deleted_at" class="btn-edit"
-      (click)="updateMember(member)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-    </button>
-    <button *ngIf="!member.deleted_at"
-      class="btn-trash"
-      (click)="deleteMember(member)"> <i class="fa fa-trash-o" aria-hidden="true"></i>
-    </button>
+<td class="text-danger">{{member.deleted_at | date:'dd-MM-yyyy'}}</td>
+<td class="d-flex justify-content-end">
+  <button class="btn-in" (click)="selectMember(member)"> <i class="fa fa-arrow-right" aria-hidden="true"></i>
+  </button>
+  <!-- <button *ngIf="!member.deleted_at" class="btn-edit"
+      (click)="updateMember(member)"> <i class="fa fa-save" aria-hidden="true"></i>
+    </button> -->
+  <button *ngIf="!member.deleted_at" class="btn-trash" (click)="deleteMember(member)"> <i class="fa fa-trash-o"
+      aria-hidden="true"></i>
+  </button>
 </td>

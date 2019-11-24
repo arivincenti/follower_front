@@ -136,7 +136,7 @@ span{
 
 .btn-edit{
   position: relative;
-  left: 5px;
+  left: 3px;
   border: none;
   color: steelblue;
   background-color: rgba(0, 0, 0, .0);
@@ -144,6 +144,21 @@ span{
 
 .btn-edit:hover{
   color: rgb(112, 175, 226);
+  transition: all .4s;
+}
+
+.btn-in-organization{
+  position: relative;
+  right: 4px;
+  bottom: 1px;
+  border: none;
+  color: rgb(1, 151, 1);
+  background-color: rgba(0, 0, 0, .0);
+}
+
+.btn-in-organization:hover{
+  color: rgb(112, 175, 226);
+  color: rgb(0, 194, 0);
   transition: all .4s;
 }
 
@@ -176,4 +191,21 @@ span{
 }
 .delay-1300ms{
   animation-delay: 1300ms;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.bg-personalized{
+  background-color: rgba(0, 0, 0, .1);
+  color: rgb(50, 50, 50)
+}
+
+.card-body{
+  background-color: white;
+}
+
+.auth-bg{
+  background-color: steelblue;
 }

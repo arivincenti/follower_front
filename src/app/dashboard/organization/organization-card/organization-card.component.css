@@ -1,8 +1,10 @@
 .card{
-  min-height: 290px;
+  min-height: 273px;
+  min-width: 285px;
+  max-width: 285px;
 }
 
-h6{
+h5{
   width: 200px;
 }
 
@@ -12,7 +14,7 @@ h6{
 
 .owner-icon{
   position: relative;
-  bottom: 2px;
+  top: 1px;
 }
 
 .member-icon{
@@ -24,26 +26,20 @@ h6{
   font-size: 14px;
 }
 
+.btn{
+  font-size: .7em;
+  margin: 3px;
+}
+
 .btn-warning{
-  font-size: .8em;
   background-color: rgb(255, 153, 0);
   color: rgb(253, 234, 198)
 }
 
 .btn-warning:hover{
-  font-size: .8em;
   background-color: rgb(255, 136, 0);
   color: rgb(255, 255, 255);
   transition: all .3s;
-}
-
-.btn-info{
-  font-size: .8em;
-}
-
-
-.btn-danger{
-  font-size: .8em;
 }
 
 .icon-container{

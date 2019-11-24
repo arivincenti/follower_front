@@ -1,4 +1,4 @@
-import { createReducer, on, Action, ActionReducer, combineReducers } from '@ngrx/store';
+import { createReducer, on, Action, ActionReducer, combineReducers, State } from '@ngrx/store';
 import * as OrganizationActions from '../../actions/organizations/organization.actions';
 import { OrganizationModel } from '../../../models/organization.model';
 import { AreaModel } from 'src/app/models/area.model';
@@ -190,7 +190,6 @@ export const organizationReducer = createReducer(
       ...state,
       organizationAreas: {
         ...state.organizationAreas,
-        areas: [...state.organizationAreas.areas],
         loading: true,
         loaded: false,
         error: null
@@ -199,13 +198,33 @@ export const organizationReducer = createReducer(
   )),
   on(OrganizationActions.updateOrganizationAreaSuccess, (state, { payload }) => 
   {
-    return {
-      ...state,
-      organizationAreas: {
-        ...state.organizationAreas,
-        areas: [...state.organizationAreas.areas.filter(area => area._id !== payload._id), { ...payload }],
-        loading: false,
-        loaded: true
+    if (state.organizationUserAreas.areas.filter(area => area._id === payload._id).length)
+    {
+      return {
+        ...state,
+        organizationAreas: {
+          ...state.organizationAreas,
+          areas: [...state.organizationAreas.areas.filter(area => area._id !== payload._id), { ...payload }],
+          loading: false,
+          loaded: true
+        },
+        organizationUserAreas: {
+          ...state.organizationUserAreas,
+          areas: [...state.organizationUserAreas.areas.filter(area => area._id !== payload._id), { ...payload }],
+          loading: false,
+          loaded: true
+        }
+      }
+    } else
+    {
+      return {
+        ...state,
+        organizationAreas: {
+          ...state.organizationAreas,
+          areas: [...state.organizationAreas.areas.filter(area => area._id !== payload._id), { ...payload }],
+          loading: false,
+          loaded: true
+        }
       }
     }
   }
@@ -215,7 +234,61 @@ export const organizationReducer = createReducer(
       ...state,
       organizationAreas: {
         ...state.organizationAreas,
-        areas: [...state.organizationAreas.areas],
+        loading: false,
+        loaded: false,
+        error: { ...payload }
+      }
+    }
+  )),
+  on(OrganizationActions.deleteOrganizationArea, (state) => (
+    {
+      ...state,
+      organizationAreas: {
+        ...state.organizationAreas,
+        loading: true,
+        loaded: false,
+        error: null
+      }
+    }
+  )),
+  on(OrganizationActions.deleteOrganizationAreaSuccess, (state, { payload }) => 
+  {
+    if (state.organizationUserAreas.areas.filter(area => area._id === payload._id).length)
+    {
+      return {
+        ...state,
+        organizationAreas: {
+          ...state.organizationAreas,
+          areas: [...state.organizationAreas.areas.filter(area => area._id !== payload._id), { ...payload }],
+          loading: false,
+          loaded: true
+        },
+        organizationUserAreas: {
+          ...state.organizationUserAreas,
+          areas: [...state.organizationUserAreas.areas.filter(area => area._id !== payload._id), { ...payload }],
+          loading: false,
+          loaded: true
+        }
+      }
+    } else
+    {
+      return {
+        ...state,
+        organizationAreas: {
+          ...state.organizationAreas,
+          areas: [...state.organizationAreas.areas.filter(area => area._id !== payload._id), { ...payload }],
+          loading: false,
+          loaded: true
+        }
+      }
+    }
+  }
+  ),
+  on(OrganizationActions.deleteOrganizationAreaFail, (state, { payload }) => (
+    {
+      ...state,
+      organizationAreas: {
+        ...state.organizationAreas,
         loading: false,
         loaded: false,
         error: { ...payload }

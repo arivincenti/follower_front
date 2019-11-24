@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MemberModel } from 'src/app/models/member.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
+import * as AreasActions from '../../../store/actions/areas/areas.actions';
 
 @Component({
   selector: 'tr[app-area-members-list-item]',
@@ -10,9 +13,15 @@ export class AreaMembersListItemComponent implements OnInit {
 
   @Input() member: MemberModel;
   
-  constructor() { }
+  constructor(
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit() {
+  }
+
+  updateMember(member: MemberModel){
+    this.store.dispatch(AreasActions.updateAreaMember({payload: member}));
   }
 
 }

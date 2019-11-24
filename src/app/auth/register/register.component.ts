@@ -4,6 +4,11 @@ import { NgForm } from "@angular/forms";
 // import { Store } from '@ngrx/store';
 // import { AppState } from 'src/app/app.reducer';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
+import { UserModel } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-register",
@@ -13,32 +18,39 @@ import { Subscription } from 'rxjs';
 export class RegisterComponent implements OnInit
 {
 
-  cargando: boolean;
-  subscription: Subscription = new Subscription();
+  name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  cargando: boolean = false;
 
   constructor(
-    // private _authService: AuthService,
-    // private store: Store<AppState>
+    private _authService: AuthService,
+    private store: Store<AppState>,
+    private router: Router
   ) { }
 
-  ngOnInit()
-  {
-  //  this.subscription = this.store.select('ui').subscribe(ui =>
-  //   {
-  //     this.cargando = ui.isLoading;
-  //   });
-  }
+  ngOnInit() { }
 
-  ngOnDestroy() {
-    // this.subscription.unsubscribe();
-  }
+  ngOnDestroy() { }
 
-  crearUsuario(form: NgForm)
+  crearUsuario()
   {
-    // this._authService.crearUsuario(
-    //   form.value.nombre,
-    //   form.value.email,
-    //   form.value.password
-    // );
+    this.cargando = true;
+    
+    let user = {
+      name: this.name.toUpperCase(),
+      last_name : this.last_name.toUpperCase(),
+      email: this.email.toUpperCase(),
+      password: this.password.toUpperCase()
+    }
+
+    this._authService.register(user).subscribe(user =>
+    {
+      this.router.navigate(['/login']);
+      this.cargando = false;
+    })
+
+    this.cargando = false;
   }
 }

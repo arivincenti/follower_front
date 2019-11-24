@@ -1,15 +1,16 @@
 <ng-container *ngIf="members$ | async as members">
   <span class="text-muted " *ngIf="!members.length">El área aún no posee miembros</span>
   <app-loading *ngIf="membersLoading$ | async"></app-loading>
-  <table class="table table-striped text-muted" *ngIf="members.length">
-    <tr>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <th>Rol</th>
-      <th>Fecha de alta</th>
-      <th>Fecha de baja</th>
-      <th></th>
+  <table class="table text-muted" *ngIf="members.length">
+    <tr class="bg-personalized">
+      <td>Nombre</td>
+      <td>Apellido</td>
+      <td>Rol</td>
+      <td>Fecha de alta</td>
+      <td>Fecha de baja</td>
+      <td></td>
     </tr>
-    <tr app-area-members-list-item *ngFor="let member of members" [member]="member"></tr>
+    <tr [ngClass]="{'table-info': member.role === 'RESPONSABLE'}" app-area-members-list-item
+      *ngFor="let member of members" [member]="member"></tr>
   </table>
 </ng-container>

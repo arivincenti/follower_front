@@ -116,6 +116,78 @@ export const areasReducer = createReducer(
       }
     }
   )),
+  on(AreasActions.createAreaMember, (state) => (
+    {
+      ...state,
+      areaMembers: {
+        ...state.areaMembers,
+        members: [...state.areaMembers.members],
+        loading: true,
+        loaded: false,
+        error: null
+      }
+    }
+  )),
+  on(AreasActions.createAreaMemberSuccess, (state, { payload }) => (
+    {
+      ...state,
+      areaMembers: {
+        ...state.areaMembers,
+        members: [...state.areaMembers.members, {...payload}],
+        loading: false,
+        loaded: true,
+        error: null
+      }
+    }
+  )),
+  on(AreasActions.createAreaMemberFail, (state, { payload }) => (
+    {
+      ...state,
+      areaMembers: {
+        ...state.areaMembers,
+        loading: false,
+        loaded: false,
+        error: { ...payload }
+      }
+    }
+  )),
+  on(AreasActions.updateAreaMember, (state) => (
+    {
+      ...state,
+      areaMembers: {
+        ...state.areaMembers,
+        members: [...state.areaMembers.members],
+        loading: true,
+        loaded: false,
+        error: null
+      }
+    }
+  )),
+  on(AreasActions.updateAreaMemberSuccess, (state, { payload }) =>
+  {
+    return {
+      ...state,
+      areaMembers: {
+        ...state.areaMembers,
+        members: [...state.areaMembers.members.filter(member => member._id !== payload._id), { ...payload }],
+        loading: false,
+        loaded: true,
+        error: null
+      }
+    }
+  }
+  ),
+  on(AreasActions.updateAreaMemberFail, (state, { payload }) => (
+    {
+      ...state,
+      areaMembers: {
+        ...state.areaMembers,
+        loading: false,
+        loaded: false,
+        error: { ...payload }
+      }
+    }
+  )),
   on(AreasActions.clearSelectedAreaState, (state) => (
     {
       ...state,

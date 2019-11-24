@@ -55,7 +55,7 @@ export class OrganizationEffects
             title: 'Genial!!',
             text: 'El área se creó con éxito',
             showConfirmButton: false,
-            timer: 2500
+            timer: 2700
           });
           return OrganizationActions.createOrganizationAreaSuccess({ payload: area })
         }),
@@ -76,7 +76,7 @@ export class OrganizationEffects
             title: 'Genial!!',
             text: 'El área se modificó con éxito',
             showConfirmButton: false,
-            timer: 2500
+            timer: 2700
           });
           return OrganizationActions.updateOrganizationAreaSuccess({ payload: area })
         }),
@@ -84,6 +84,26 @@ export class OrganizationEffects
       ))
   ));
 
+  deleteOrganizationAreas$ = createEffect(() => this.actions$.pipe(
+    ofType(OrganizationActions.deleteOrganizationArea),
+    mergeMap((action) => this._areaService.deleteArea(action.payload)
+      .pipe(
+        map((area: any) =>
+        {
+          Swal.fire({
+            position: 'top-end',
+            toast: true,
+            icon: 'success',
+            title: 'Genial!!',
+            text: 'El área se dio de baja con éxito',
+            showConfirmButton: false,
+            timer: 2700
+          });
+          return OrganizationActions.deleteOrganizationAreaSuccess({ payload: area })
+        }),
+        catchError(error => of(OrganizationActions.deleteOrganizationAreaFail({ payload: error })))
+      ))
+  ));
 
   getOrganizationUserAreas$ = createEffect(() => this.actions$.pipe(
     ofType(OrganizationActions.getOrganizationUserAreas),

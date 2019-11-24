@@ -50,7 +50,7 @@ export class AreasService
   // ==================================================
   deleteArea(payload: any)
   {
-    return this.http.delete(`${environment.path}/areas`, payload).pipe(map((data: any) => data.data));
+    return this.http.delete(`${environment.path}/areas/${payload}`).pipe(map((data: any) => data.data));
   }
 
   // ==================================================

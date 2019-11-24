@@ -11,7 +11,7 @@ export interface UiState
 export const initialState: UiState = {
   toggledMenu: true,
   areaModal: false,
-  animated: ['fadeInUp faster', 'bounceInRight faster', 'jello']
+  animated: ['fadeInUp faster', 'bounceInRight faster', 'jello', 'fadeIn faster']
 }
 
 export const uiReducer = createReducer(

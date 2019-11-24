@@ -33,7 +33,7 @@
         <span class="text-muted organization-card-info">
           <i class="fa fa-calendar-times-o mr-1" aria-hidden="true"></i> Dada de baja el /
           <span class="text-danger">
-            Algun otro dia
+              {{ area.deleted_at | date:'dd-MM-yyyy' }}
           </span>
         </span>
       </div>
@@ -75,7 +75,7 @@
           <i class="fa fa-ticket mr-1" aria-hidden="true"></i>
           Miembros del área
           <button *ngIf="!area.deleted_at"
-            class="btn btn-xs btn-info btn-rounded ml-2 py-0 d-flex justify-content-center align-items-center"
+            class="btn btn-xs btn-info ml-2 py-0 d-flex justify-content-center align-items-center"
             (click)="newMember(area)"> <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo miembro
           </button>
         </div>

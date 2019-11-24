@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import * as OrganizationsActions from '../../store/actions/organizations/organizations.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
+import { UserModel } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,11 @@ export class AuthService
     private router: Router,
     private store: Store<AppState>
   ) { }
+
+  register(user: any)
+  {
+    return this.http.post(`${environment.path}/auth/register`, user);
+  }
 
   login(credentials: any)
   {
