@@ -40,6 +40,17 @@ export class AreasEffects
     mergeMap((action) => this._membersService.createMember(action.payload).pipe(
       map((member) => {
         AreasActions.createAreaMemberSuccess({ payload: member });
+
+        Swal.fire({
+          position: 'top-end',
+          toast: true,
+          icon: 'success',
+          title: 'Genial!!',
+          text: `El miembro "${member.user.name} ${member.user.last_name}" se creó con éxito`,
+          showConfirmButton: false,
+          timer: 2700
+        });
+
         this.router.navigate(['app/organizations/areas/profile', action.payload.area]);
       }),
       catchError(error => of(AreasActions.createAreaMemberFail({ payload: error.error })))

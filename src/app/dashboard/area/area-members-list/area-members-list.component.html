@@ -10,7 +10,7 @@
       <td>Fecha de baja</td>
       <td></td>
     </tr>
-    <tr [ngClass]="{'table-info': member.role === 'RESPONSABLE'}" app-area-members-list-item
+    <tr [ngClass]="{'table-warning': member.role === 'RESPONSABLE'}" app-area-members-list-item
       *ngFor="let member of members" [member]="member"></tr>
   </table>
 </ng-container>

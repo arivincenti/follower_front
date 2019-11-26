@@ -17,7 +17,7 @@ import { effects } from './store/effects';
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any>
 {
-  return localStorageSync({ keys: ['auth', 'selectedOrganization'], rehydrate: true })(reducer);
+  return localStorageSync({ keys: ['auth', 'selectedOrganization', 'selectedArea'], rehydrate: true })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 

@@ -97,7 +97,7 @@ export class AreaFormComponent implements OnInit
       }
 
       this.store.dispatch(OrganizationActions.createOrganizationArea({ payload }));
-      this.router.navigate(['app/organizations/profile', this.organization._id]);
+      
     } else
     {
       let payload = {

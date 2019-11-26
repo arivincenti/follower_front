@@ -44,33 +44,41 @@
         </div>
         <hr>
         <div class="row">
-          <div class="col-3 animated fadeInRight faster delay-300ms">
+          <div class="col-3 animated value-container">
             <div class="row">
               <div class="col-12 card-title d-flex justify-content-center text-danger">Pendientes</div>
-              <div class="col-12 d-flex justify-content-center text-muted value">0</div>
+              <div class="col-12 d-flex justify-content-center">
+                  <span class="value">10</span>
+              </div>
             </div>
           </div>
-          <div class="col-3 animated fadeInRight faster delay-500ms">
+          <div class="col-3 animated value-container">
             <div class="row">
               <div class="col-12 card-title d-flex justify-content-center text-secondary">Despachados</div>
-              <div class="col-12 d-flex justify-content-center text-muted value">0</div>
+              <div class="col-12 d-flex justify-content-center">
+                  <span class="value">5</span>
+              </div>
             </div>
           </div>
-          <div class="col-3 animated fadeInRight faster delay-700ms">
+          <div class="col-3 animated value-container">
             <div class="row">
               <div class="col-12 card-title d-flex justify-content-center text-success">Resueltos</div>
-              <div class="col-12 d-flex justify-content-center text-muted value ">0</div>
+              <div class="col-12 d-flex justify-content-center">
+                <span class="value">25</span>
+              </div>
             </div>
           </div>
-          <div class="col-3 animated fadeInRight faster delay-900ms">
+          <div class="col-3 animated value-container">
             <div class="row">
               <div class="col-12 card-title d-flex justify-content-center text-info">Todos</div>
-              <div class="col-12 d-flex justify-content-center text-muted value ">0</div>
+              <div class="col-12 d-flex justify-content-center">
+                  <span class="value">40</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="card-text mt-5 animated delay-1300ms" [ngClass]="animation[0]">
+      <div class="card-text mt-5 animated" [ngClass]="animation[0]">
         <div class="card-subtitle d-flex align-items-center">
           <i class="fa fa-ticket mr-1" aria-hidden="true"></i>
           Miembros del área

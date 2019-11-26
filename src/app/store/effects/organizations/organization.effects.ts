@@ -8,6 +8,7 @@ import { AreaModel } from '../../../models/area.model';
 import { AreasService } from '../../../services/areas/areas.service';
 import * as OrganizationActions from '../../actions/organizations/organization.actions';
 import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
 
 @Injectable()
 export class OrganizationEffects
@@ -15,7 +16,8 @@ export class OrganizationEffects
   constructor(
     private actions$: Actions,
     private _organizationsService: OrganizationsService,
-    private _areaService: AreasService
+    private _areaService: AreasService,
+    private router: Router
   ) { }
 
 
@@ -57,11 +59,12 @@ export class OrganizationEffects
             showConfirmButton: false,
             timer: 2700
           });
-          return OrganizationActions.createOrganizationAreaSuccess({ payload: area })
+          OrganizationActions.createOrganizationAreaSuccess({ payload: area });
+          this.router.navigate(['app/organizations/profile', action.payload.organization]);
         }),
         catchError(error => of(OrganizationActions.createOrganizationAreaFail({ payload: error })))
       ))
-  ));
+  ), {dispatch: false});
 
   updateOrganizationAreas$ = createEffect(() => this.actions$.pipe(
     ofType(OrganizationActions.updateOrganizationArea),

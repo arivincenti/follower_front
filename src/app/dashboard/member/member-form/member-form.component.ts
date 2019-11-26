@@ -8,6 +8,8 @@ import { UserModel } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users/users.service';
 import * as AreasActions from '../../../store/actions/areas/areas.actions';
 import { AreaModel } from 'src/app/models/area.model';
+import { MemberModel } from 'src/app/models/member.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-member-form',
@@ -22,12 +24,15 @@ export class MemberFormComponent implements OnInit, OnDestroy
   paramSubscription: Subscription = new Subscription();
   userSubscription: Subscription = new Subscription();
   areaSubscription: Subscription = new Subscription();
+  areaMembersSubscription: Subscription = new Subscription();
   param: string;
   email: string;
   selectedUser: UserModel;
   users$: Observable<UserModel[]>;
   avaible: boolean = true;
   area: AreaModel;
+  loading: boolean = false;
+  areaMembers: MemberModel[];
 
   constructor(
     private store: Store<AppState>,
@@ -49,6 +54,7 @@ export class MemberFormComponent implements OnInit, OnDestroy
       this.areaSubscription = this.store.select(state => state.selectedArea.selectedArea.area).subscribe(area => this.area = area);
     });
 
+    this.areaMembersSubscription = this.store.select(state=> state.selectedArea.areaMembers.members).subscribe(members => this.areaMembers = members);
   }
 
   ngOnDestroy()
@@ -56,13 +62,14 @@ export class MemberFormComponent implements OnInit, OnDestroy
     this.userSubscription.unsubscribe();
     this.paramSubscription.unsubscribe();
     this.areaSubscription.unsubscribe();
+    this.areaMembersSubscription.unsubscribe();
   }
 
   searchUsers()
   {
-
     let payload = {
-      email: this.email
+      email: this.email,
+      area: this.area
     }
 
     this.users$ = this._usersService.getUsersByEmail(payload);
@@ -75,6 +82,20 @@ export class MemberFormComponent implements OnInit, OnDestroy
 
   createMember()
   {
+
+    if(this.areaMembers.find(member => member.user._id === this.selectedUser._id)){
+      Swal.fire({
+        position: 'top-end',
+        toast: true,
+        icon: 'warning',
+        title: 'Oops!!',
+        text: `El usuario ${this.selectedUser.name} ${this.selectedUser.last_name} ya es miembro del área`,
+        showConfirmButton: false,
+        timer: 2700
+      });
+      return;
+    }
+
     let payload = {
       organization: this.area.organization,
       area: this.area._id,
@@ -82,6 +103,7 @@ export class MemberFormComponent implements OnInit, OnDestroy
       role: 'MIEMBRO'
     }
 
+    
     this.store.dispatch(AreasActions.createAreaMember({ payload: payload }));
     
   }

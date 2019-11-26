@@ -5,7 +5,7 @@
         <i class="fa fa-tags mr-1" aria-hidden="true"></i>
         Áreas de la organización
         <button *ngIf="!organization.deleted_at"
-          class="btn btn-xs btn-info ml-2 py-0 d-flex justify-content-center align-items-center" (click)="addArea()"> <i
+          class="btn btn-xs btn-danger ml-2 py-0 d-flex justify-content-center align-items-center" (click)="addArea()"> <i
             class="fa fa-tag" aria-hidden="true" (click)="addArea()"></i> Agregar Área
         </button>
       </div>
@@ -18,13 +18,14 @@
             <tr class="bg-personalized">
               <td>Área</td>
               <td>Responsable</td>
+              <td>Miembros</td>
               <td>Fecha de alta</td>
               <td>Fecha de baja</td>
               <td></td>
             </tr>
           </thead>
           <tbody>
-            <tr class="animated" [ngClass]="{'table-warning': area.deleted_at}" app-organization-areas-list-items *ngFor="let area of areas" [area]="area" [user]="user">
+            <tr class="animated" [ngClass]="{'table-danger': area.deleted_at}" app-organization-areas-list-items *ngFor="let area of areas" [area]="area" [user]="user">
             </tr>
           </tbody>
         </table>
