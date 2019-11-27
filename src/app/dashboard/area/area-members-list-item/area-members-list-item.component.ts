@@ -21,7 +21,18 @@ export class AreaMembersListItemComponent implements OnInit {
   }
 
   updateMember(member: MemberModel){
+
     this.store.dispatch(AreasActions.updateAreaMember({payload: member}));
   }
+
+  deleteMember(member: MemberModel){
+    this.store.dispatch(AreasActions.deleteAreaMember({payload: member}));
+  }
+
+  reactiveMember(member: MemberModel){
+    member.deleted_at = new Date();
+    this.store.dispatch(AreasActions.updateAreaMember({payload: member}));
+  }
+
 
 }

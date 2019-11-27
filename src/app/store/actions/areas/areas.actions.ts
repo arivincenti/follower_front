@@ -64,6 +64,22 @@ export const updateAreaMemberFail = createAction(
   props<{ payload: any }>()
 );
 
+export const deleteAreaMember = createAction(
+  '[Areas Actions] Delete Member Area',
+  props<{ payload: MemberModel}>()
+);
+
+export const deleteAreaMemberSuccess = createAction(
+  '[Areas Actions] Delete Area Member Success',
+  props<{ payload: MemberModel }>()
+);
+
+export const deleteAreaMemberFail = createAction(
+  '[Areas Actions] Delete Area Member Fail',
+  props<{ payload: any }>()
+);
+
+
 export const clearSelectedAreaState = createAction(
   '[Areas Actions] Clear Selected Area State'
 );

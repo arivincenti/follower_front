@@ -188,6 +188,43 @@ export const areasReducer = createReducer(
       }
     }
   )),
+  on(AreasActions.deleteAreaMember, (state) => (
+    {
+      ...state,
+      areaMembers: {
+        ...state.areaMembers,
+        members: [...state.areaMembers.members],
+        loading: true,
+        loaded: false,
+        error: null
+      }
+    }
+  )),
+  on(AreasActions.deleteAreaMemberSuccess, (state, { payload }) =>
+  {
+    return {
+      ...state,
+      areaMembers: {
+        ...state.areaMembers,
+        members: [...state.areaMembers.members.filter(member => member._id !== payload._id), { ...payload }],
+        loading: false,
+        loaded: true,
+        error: null
+      }
+    }
+  }
+  ),
+  on(AreasActions.deleteAreaMemberFail, (state, { payload }) => (
+    {
+      ...state,
+      areaMembers: {
+        ...state.areaMembers,
+        loading: false,
+        loaded: false,
+        error: { ...payload }
+      }
+    }
+  )),
   on(AreasActions.clearSelectedAreaState, (state) => (
     {
       ...state,

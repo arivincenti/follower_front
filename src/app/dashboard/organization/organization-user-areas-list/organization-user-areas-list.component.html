@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr [ngClass]="{'table-danger': userArea.deleted_at}"  app-organization-areas-list-items *ngFor="let userArea of userAreas" [area]="userArea" [user]="user">
+        <tr app-organization-areas-list-items *ngFor="let userArea of userAreas" [area]="userArea" [user]="user">
 
         </tr>
       </tbody>

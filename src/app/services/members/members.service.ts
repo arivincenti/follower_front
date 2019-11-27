@@ -26,7 +26,7 @@ export class MembersService
       map(data => data['data'])
     )
   }
-
+  
   updateMember(member: MemberModel)
   {
     return this.http.put(`${environment.path}/members/${member._id}`, member).pipe(
@@ -36,4 +36,15 @@ export class MembersService
       })
     )
   }
+
+  deleteMember(member: MemberModel)
+  {
+    return this.http.delete(`${environment.path}/members/${member._id}`).pipe(
+      map(data => {
+        console.log(data['data']);
+        return data['data']
+      })
+    )
+  }
+
 }

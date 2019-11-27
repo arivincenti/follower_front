@@ -67,7 +67,7 @@ export class AreasEffects
           toast: true,
           icon: 'success',
           title: 'Genial!!',
-          text: `El rol de "${member.user.name} ${member.user.last_name}" se modifió con éxito`,
+          text: `El miembro "${member.user.name} ${member.user.last_name}" se modifió con éxito`,
           showConfirmButton: false,
           timer: 2700
         });
@@ -78,8 +78,30 @@ export class AreasEffects
     ))
   ));
 
+  deleteAreaMember$ = createEffect(() => this.actions$.pipe(
+    ofType(AreasActions.deleteAreaMember),
+    mergeMap((action) => this._membersService.deleteMember(action.payload).pipe(
+      map((member) => {
+
+        Swal.fire({
+          position: 'top-end',
+          toast: true,
+          icon: 'success',
+          title: 'Genial!!',
+          text: `El miembro "${member.user.name} ${member.user.last_name}" se dio de baja con éxito`,
+          showConfirmButton: false,
+          timer: 2700
+        });
+        
+        return AreasActions.deleteAreaMemberSuccess({ payload: member })
+      }),
+      catchError(error => of(AreasActions.deleteAreaMemberFail({ payload: error.error })))
+    ))
+  ));
+
   clearSelectedAreaState$ = createEffect(() => this.actions$.pipe(
     ofType(AreasActions.clearSelectedAreaState)
   ), {dispatch: false});
+
 
 }
