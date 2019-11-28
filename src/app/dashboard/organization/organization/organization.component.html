@@ -1,19 +1,18 @@
 <ng-container *ngIf="animation$ | async as animation">
-  <div class="row animated" [ngClass]="animation[0]">
+  <div class="row animated d-flex align-items-center" [ngClass]="animation[0]">
     <div class="col-md-10">
       <h5 class="text-muted">Mis organizaciones</h5>
     </div>
     <div class="col-md-2 d-flex justify-content-end">
-      <button class="btn btn-sm btn-danger d-flex justify-content-center align-items-center"
-        (click)="createOrganization()">
-        <i class="fa fa-plus-circle" aria-hidden="true"></i> Nueva Organización
+      <button mat-mini-fab color="accent" (click)="createOrganization()">
+         <mat-icon>add</mat-icon>
       </button>
     </div>
   </div>
   <hr>
   <ng-container *ngIf="organizations$ | async as organizations">
     <div class="animated text-muted d-flex align-items-center justify-content-center" *ngIf="!organizations.length">
-    <span>Todavia no es propietario de ninguna organziación</span>
+      <span>Todavia no es propietario de ninguna organziación</span>
     </div>
     <div class="animated delay-300ms" [ngClass]="animation[0]" *ngIf="organizations.length">
       <app-organization-list></app-organization-list>

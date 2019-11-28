@@ -4,7 +4,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import * as AuthActions from '../../actions/auth/auth.actions';
 import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { callNgModuleLifecycle } from '@angular/core/src/view/ng_module';
+
 
 @Injectable()
 export class AuthEffects

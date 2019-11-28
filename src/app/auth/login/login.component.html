@@ -1,42 +1,39 @@
-<div class="page-body-wrapper full-page-wrapper auth-page">
-  <div class="content-wrapper d-flex align-items-center auth auth-bg theme-one">
-    <div class="row w-100">
-      <div class="col-lg-4 mx-auto">
-        <h2 class="text-center mb-4 text-white">Follower</h2>
-
-        <div *ngIf="error" class="alert alert-danger d-flex justify-content-center" role="alert">
-          <p>Oops, hubo un problema: <b>{{error}}</b></p>
-        </div>
-
-        <div class="auto-form-wrapper">
-          <form #f="ngForm" (ngSubmit)="login(f)">
-            <div class="form-group">
-              <input type="email" class="form-control" placeholder="Email" ngModel name="email" placeholder="Email"
-              autocomplete="off" required>
-            </div>
-            <div class="form-group">
-              <input type="password" class="form-control" placeholder="*********" ngModel name="password"
-                placeholder="Password" required>
-            </div>
-            <div class="form-group">
-              <button *ngIf="!cargando" class="btn btn-primary submit-btn btn-block"
-                [disabled]="!f.valid">Login</button>
-              <button *ngIf="cargando" class="btn btn-primary submit-btn btn-block" [disabled]="true"> <i
-                  class="fa fa-spin fa-sync"></i> Iniciando sesion...</button>
-            </div>
-
-
-            <div class="text-block text-center my-3">
-              <span class="text-small font-weight-semibold">No estas registrado? </span>
-              <br>
-              <a routerLink="/register" class="text-black text-small">Crear una cuenta</a>
-            </div>
-          </form>
-        </div>
-
-
+<div class="d-flex align-items-center auth-bg">
+  <div class="row w-100">
+    <div class="col-lg-4 mx-auto">
+      <div *ngIf="error" class="alert alert-danger d-flex justify-content-center" role="alert">
+        <p>Oops, hubo un problema: <b>{{error}}</b></p>
       </div>
+      <mat-card>
+        <mat-card-content class="d-flex justify-content-center title text-info">
+          Follower
+        </mat-card-content>
+        <mat-card-content>
+          <form #f="ngForm" (ngSubmit)="login(f)">
+            <mat-form-field>
+              <input matInput color="warn" type="email" placeholder="Email" ngModel name="email"
+                placeholder="Correo electrónico" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field class="mb-3">
+              <input matInput type="password" placeholder="*********" ngModel name="password" placeholder="Contraseña"
+                required>
+            </mat-form-field>
+
+
+            <button *ngIf="!cargando" mat-raised-button color="primary" class="btn-block" [disabled]="!f.valid">Iniciar
+              sesión</button>
+            <button *ngIf="cargando" mat-raised-button color="accent" class="btn-block" [disabled]="true"> <i
+                class="fa fa-spin fa-sync"></i> Iniciando sesion...</button>
+
+          </form>
+        </mat-card-content>
+        <mat-card-content class="d-flex justify-content-center mt-3">
+          <span class="text-small">
+            <b class="text-muted">No estás registrado? </b>
+            <a routerLink="/register" class="text-info text-small">Create una cuenta</a>
+          </span>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
-  <!-- content-wrapper ends -->
 </div>

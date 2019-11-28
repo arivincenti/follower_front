@@ -14,19 +14,22 @@ import { AppComponent } from './app.component';
 import { appReducers } from './store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { effects } from './store/effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any>
 {
-  return localStorageSync({ keys: ['auth', 'selectedOrganization', 'selectedArea'], rehydrate: true })(reducer);
+  return localStorageSync({ keys: [{'ui': ['theme']}, 'auth', 'selectedOrganization', 'selectedArea'], rehydrate: true })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     AuthModule,
     ServiceModule,

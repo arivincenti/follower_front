@@ -1,33 +1,26 @@
-<nav class="sidebar">
-  <ul class="nav position-fixed">
-    <hr>
-    <li class="nav-item" routerLinkActive="active">
-      <a class="nav-link cursor" routerLink="organizations">
-        <i class="menu-icon fa fa-th-large"></i>
-        <span class="menu-title">Mis Organizaciones</span>
-      </a>
-    </li>
-    <li class="nav-item" routerLinkActive="active">
-      <a class="nav-link cursor d-flex align-items-center">
-        <i class="menu-icon fa fa-bell"></i>
-        <span class="menu-title">
-          Notificaciones
-          <span class="badge badge-danger badge-pill  notification ml-2">36</span>
-        </span>
-      </a>
-    </li>
-    <li class="nav-item" routerLinkActive="active">
-      <a class="nav-link cursor">
-        <i class="menu-icon fa fa-cog"></i>
-        <span class="menu-title">Configuración</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link cursor" (click)=logout()>
-        <i class="menu-icon fa fa-power-off"></i>
-        <span class="menu-title">Cerrar sesión</span>
-      </a>
-    </li>
+<nav class="sidebar position-sticky sticky-left">
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+      <button mat-icon-button color="basic" routerLink="organizations" matTooltip="Mis organizaciones" matTooltipPosition="right">
+        <mat-icon>home</mat-icon>
+      </button>
+    </div>
+  </div>
 
-  </ul>
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+      <button mat-icon-button color="basic" routerLink="organizations" matTooltip="Bandeja de entrada" matTooltipPosition="right">
+        <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-12 d-flex justify-content-center">
+        <button mat-icon-button color="basic" routerLink="organizations" matTooltip="Configuración" matTooltipPosition="right">
+          <mat-icon>build</mat-icon>
+        </button>
+      </div>
+    </div>
+
 </nav>

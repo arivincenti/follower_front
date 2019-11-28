@@ -1,7 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
-export const showAreaModal = createAction(
-  '[UI Actions] Show Area Modal',
+export const selectTheme = createAction(
+  '[UI Actions] Select Theme Modal',
+  props<{ payload: string }>()
 );
 
 export const clearState = createAction(

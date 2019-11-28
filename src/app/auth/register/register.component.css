@@ -1,0 +1,14 @@
+mat-card {
+  padding: 40px 45px;
+}
+
+.title{
+  position: relative;
+  bottom: 15px;
+  font-size: 2em;
+  font-family: 'roboto';
+}
+
+mat-form-field {
+  width: 100%;
+}

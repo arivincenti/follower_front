@@ -3,23 +3,21 @@ import * as UiActions from '../../actions/ui/ui.actions';
 
 export interface UiState
 {
-  toggledMenu: boolean,
-  areaModal: boolean,
+  theme: string,
   animated: string[]
 }
 
 export const initialState: UiState = {
-  toggledMenu: true,
-  areaModal: false,
+  theme: 'default',
   animated: ['fadeInUp faster', 'bounceInRight faster', 'jello', 'fadeIn faster']
 }
 
 export const uiReducer = createReducer(
   initialState,
-  on(UiActions.showAreaModal, (state) => (
+  on(UiActions.selectTheme, (state, {payload}) => (
     {
       ...state,
-      areaModal: true
+      theme: payload
     }
   )),
   on(UiActions.clearState, (state) => (

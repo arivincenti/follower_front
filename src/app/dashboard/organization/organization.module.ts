@@ -10,6 +10,7 @@ import { OrganizationAreasListItemsComponent } from './organization-areas-list-i
 import { SharedModule } from 'src/app/shared/shared.module';
 import { OrganizationFormComponent } from './organization-form/organization-form.component';
 import { FormsModule } from '@angular/forms';
+import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    AngularMaterialModule
   ]
 })
 export class OrganizationModule { }

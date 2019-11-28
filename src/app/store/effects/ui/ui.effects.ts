@@ -12,7 +12,7 @@ export class UiEffects
   ) { }
 
   showAreaModal$ = createEffect(() => this.actions$.pipe(
-    ofType(UiActions.showAreaModal)), { dispatch: false });
+    ofType(UiActions.selectTheme)), { dispatch: false });
 
   closeOrganizationModal$ = createEffect(() => this.actions$.pipe(
     ofType(UiActions.clearState)), { dispatch: false });

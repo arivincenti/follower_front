@@ -41,7 +41,7 @@ export const createAreaMember = createAction(
 
 export const createAreaMemberSuccess = createAction(
   '[Areas Actions] Create Area Member Success',
-  props<{ payload: MemberModel[] }>()
+  props<{ payload: MemberModel }>()
 );
 
 export const createAreaMemberFail = createAction(

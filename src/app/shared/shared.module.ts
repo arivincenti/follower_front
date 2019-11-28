@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { LoadingComponent } from './loading/loading.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AreaModalComponent } from './modals/area-modal/area-modal.component';
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AreaModalComponent } from './modals/area-modal/area-modal.component';
     CommonModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularMaterialModule
   ],
   exports: [
     NavbarComponent,

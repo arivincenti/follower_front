@@ -14,7 +14,6 @@ export class DashboardComponent implements OnInit, OnDestroy
 {
 
   organizationModal$: Observable<boolean>;
-  areaModal$: Observable<boolean>;
   userSubscription: Subscription = new Subscription();
   organizationsSubscription: Subscription = new Subscription();
   user: UserModel;
@@ -31,7 +30,6 @@ export class DashboardComponent implements OnInit, OnDestroy
     //Cargamos las organizaciones del usuario y quedamos pendientes de modificaciones
     this.store.dispatch(OrganizationsActions.getUserOrganizations({ payload: this.user._id }));
 
-    this.areaModal$ = this.store.select(state => state.ui.areaModal);
   }
 
   ngOnDestroy(){

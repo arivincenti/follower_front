@@ -2,37 +2,54 @@
   <div class="content-wrapper d-flex align-items-center auth auth-bg theme-one">
     <div class="row w-100">
       <div class="col-lg-4 mx-auto">
-        <h2 class="text-center mb-4 text-white">Registro</h2>
-        <div class="auto-form-wrapper">
-          <form (ngSubmit)="crearUsuario()">
 
-            <div class="form-group">
-                <input type="text" name="name" [(ngModel)]="name" class="form-control" placeholder="Nombre" required>
-            </div>
+        <mat-card>
+          <mat-card-content class="d-flex justify-content-center title text-info">
+            Registrate
+          </mat-card-content>
+          <mat-card-content>
+            <form (ngSubmit)="crearUsuario()">
 
-            <div class="form-group">
-                <input type="text" name="last_name" [(ngModel)]="last_name" class="form-control" placeholder="Apellido" required>
-            </div>
+              <mat-form-field>
+                <input matInput type="text" name="name" [(ngModel)]="name" placeholder="Nombre" autocomplete="off"
+                  required>
+              </mat-form-field>
 
-            <div class="form-group">
-                <input type="email" name="email" [(ngModel)]="email" class="form-control" placeholder="Email" required>
-            </div>
+              <mat-form-field>
+                <input matInput type="text" name="last_name" [(ngModel)]="last_name" placeholder="Apellido"
+                  autocomplete="off" required>
+              </mat-form-field>
 
-            <div class="form-group">
-                <input type="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Contraseña" required>
-            </div>
+              <mat-form-field>
+                <input matInput type="email" name="email" [(ngModel)]="email" placeholder="Correo electrónico" autocomplete="off"
+                  required>
+              </mat-form-field>
 
-            <div class="form-group">
-              <button type="submit" *ngIf="!cargando" class="btn btn-primary submit-btn btn-block">Crear cuenta</button>
-              <button *ngIf="cargando" class="btn btn-primary submit-btn btn-block" disabled><i class="fa fa-spin fa-sync"></i> Creando cuenta...</button>
-            </div>
-            <div class="text-block text-center my-3">
-              <span class="text-small font-weight-semibold">ya tienes una cuenta?</span>
-              <br>
-              <a routerLink="/login" class="text-black text-small">Login</a>
-            </div>
-          </form>
-        </div>
+              <mat-form-field>
+                <input matInput type="password" name="password" [(ngModel)]="password" placeholder="Contraseña"
+                  autocomplete="off" required>
+              </mat-form-field>
+
+              <div class="mt-3">
+                <button type="submit" *ngIf="!cargando" mat-raised-button color="primary" class="btn-block">Crear
+                  cuenta</button>
+                <button *ngIf="cargando" mat-raised-button color="primary" class="btn-block" disabled><i
+                    class="fa fa-spin fa-sync"></i> Creando cuenta...
+                </button>
+              </div>
+
+            </form>
+          </mat-card-content>
+
+          <mat-card-content class="d-flex justify-content-center mt-3">
+            <span class="text-small">
+              <b class="text-muted">Ya tenés una cuenta? </b>
+              <a routerLink="/login" class="text-info text-small">Iniciá sesión</a>
+            </span>
+          </mat-card-content>
+
+        </mat-card>
+
       </div>
     </div>
   </div>

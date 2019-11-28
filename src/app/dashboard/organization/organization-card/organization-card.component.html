@@ -1,63 +1,77 @@
-  <div class="col-md-12 animated fadeIn">
-    <div class="card bg-light m-3">
-      <div class="card-header d-flex justify-content-center">
-        <span *ngIf="organization.created_by === user._id" class="text-warning mr-2 owner-icon">
-          <i class="fa fa-star" aria-hidden="true"></i>
-        </span>
-        <span *ngIf="organization.created_by !== user._id" class="text-info mr-2 member-icon" title="Miembro">
-          <i class="fa fa-child" aria-hidden="true"></i>
-        </span>
-        <h5 class="text-muted title" [title]="organization.name">
-          {{organization.name}}
-        </h5>
-      </div>
-      <div class="card-body">
-        <div class="card-text">
+  <div class="col-md-12 animated fadeIn mb-4">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>
+          <h5 class="title text-muted" [matTooltip]="organization.name" matTooltipPosition="below">
+            <span *ngIf="organization.created_by === user._id" class="mr-2 icon">
+              <mat-icon color="warn">stars</mat-icon>
+            </span>
+            <span *ngIf="organization.created_by !== user._id" class="mr-2 icon">
+              <mat-icon color="primary">account_circle</mat-icon>
+            </span>
+            {{organization.name}}
+          </h5>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+
+      <mat-card-content class="mt-2">
+        <div class="d-flex justify-content-end">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="selectOrganization(organization)">
+              <mat-icon>arrow_forward</mat-icon>
+              <span>Ingresar a la organización</span>
+            </button>
+            <ng-container *ngIf="organization.created_by === user._id">
+              <button *ngIf="!organization.deleted_at" mat-menu-item (click)="updateOrganization(organization)">
+                <mat-icon>create</mat-icon>
+                <span>Editar nombre</span>
+              </button>
+              <button *ngIf="!organization.deleted_at" mat-menu-item (click)="deleteOrganization(organization)">
+                <mat-icon>delete</mat-icon>
+                <span>Dar de baja</span>
+              </button>
+              <button *ngIf="organization.deleted_at" mat-menu-item (click)="reactivateOrganization(organization)">
+                <mat-icon>history</mat-icon>
+                <span>Restaurar</span>
+              </button>
+            </ng-container>
+          </mat-menu>
+        </div>
+
+        <div class="content d-flex justify-content-start">
           <span class="text-muted organization-card-info" *ngIf="areas$ | async as areas">
-            <i class="fa fa-tags mr-1" aria-hidden="true"></i>
+            <mat-icon class="icon-content">bookmarks</mat-icon>
             Áreas / {{areas.length}}
           </span>
         </div>
-        <div class="card-text">
+        <div class="content d-flex justify-content-start">
           <span class="text-muted organization-card-info" *ngIf="members$ | async as members">
-            <i class="fa fa-users mr-1" aria-hidden="true"></i>
+            <mat-icon class="icon-content">face</mat-icon>
             Miembros / {{members.length}}
           </span>
         </div>
-        <div class="card-text">
+        <div class="content d-flex justify-content-start">
           <span class="text-muted organization-card-info">
-            <i class="fa fa-calendar-o mr-1" aria-hidden="true"></i> Creada el /
+            <mat-icon class="icon-content">watch_later</mat-icon>
+            Creada el /
             <span class="text-success">
               {{organization.created_at | date:'dd-MM-yyyy'}}
             </span>
           </span>
         </div>
-        <div class="card-text" *ngIf="organization.deleted_at">
+        <div class="content d-flex justify-content-start" *ngIf="organization.deleted_at">
           <span class="text-muted organization-card-info">
-            <i class="fa fa-calendar-times-o mr-1" aria-hidden="true"></i> Dada de baja el /
+            <mat-icon class="icon-content">delete</mat-icon> Dada de baja el /
             <span class="text-danger">
               {{organization.deleted_at | date:'dd-MM-yyyy'}}
             </span>
           </span>
         </div>
-      </div>
+      </mat-card-content>
+    </mat-card>
 
-      <div class="card-footer d-flex justify-content-center">
-
-        <button class="btn btn-sm btn-success py-1" (click)="selectOrganization(organization)"> <i class="fa fa-sign-in"
-            aria-hidden="true"></i> Ingresar
-        </button>
-        <ng-container *ngIf="organization.created_by === user._id">
-          <button *ngIf="!organization.deleted_at" class="btn btn-sm btn-info py-1"
-            (click)="updateOrganization(organization)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
-          </button>
-          <button *ngIf="!organization.deleted_at" class="btn btn-sm btn-danger py-1"
-            (click)="deleteOrganization(organization)"> <i class="fa fa-trash" aria-hidden="true"></i> Dar de baja
-          </button>
-          <button *ngIf="organization.deleted_at" class="btn btn-sm btn-warning py-1"
-            (click)="reactivateOrganization(organization)"> <i class="fa fa-history" aria-hidden="true"></i> Reactivar
-          </button>
-        </ng-container>
-      </div>
-    </div>
   </div>

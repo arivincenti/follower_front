@@ -1,0 +1,11 @@
+button{
+  outline: none;
+}
+
+.sidebar{
+  width: 80px;
+}
+
+.row{
+  margin: 30px 0px;
+}
