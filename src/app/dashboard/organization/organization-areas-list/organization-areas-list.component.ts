@@ -23,8 +23,7 @@ export class OrganizationAreasListComponent implements OnInit, OnDestroy
   animation$: Observable<string[]>;
 
   constructor(
-    private store: Store<AppState>,
-    private router: Router
+    private store: Store<AppState>
   ) { }
 
   ngOnInit()
@@ -38,11 +37,6 @@ export class OrganizationAreasListComponent implements OnInit, OnDestroy
   ngOnDestroy()
   {
     // this.store.dispatch(OrganizationAreasActions.clearState());
-  }
-
-  addArea()
-  {
-    this.router.navigate(['app/organizations/areas/form', 'nueva']);
   }
 
 }

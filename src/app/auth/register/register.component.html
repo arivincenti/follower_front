@@ -1,58 +1,52 @@
-<div class="page-body-wrapper full-page-wrapper auth-page">
-  <div class="content-wrapper d-flex align-items-center auth auth-bg theme-one">
-    <div class="row w-100">
-      <div class="col-lg-4 mx-auto">
+ <div class="row w-100">
+   <div class="col-lg-4 mx-auto">
 
-        <mat-card>
-          <mat-card-content class="d-flex justify-content-center title text-info">
-            Registrate
-          </mat-card-content>
-          <mat-card-content>
-            <form (ngSubmit)="crearUsuario()">
+     <mat-card>
+       <mat-card-content class="d-flex justify-content-center title text-info">
+         Registrate
+       </mat-card-content>
+       <mat-card-content>
+         <form (ngSubmit)="crearUsuario()">
 
-              <mat-form-field>
-                <input matInput type="text" name="name" [(ngModel)]="name" placeholder="Nombre" autocomplete="off"
-                  required>
-              </mat-form-field>
+           <mat-form-field>
+             <input matInput type="text" name="name" [(ngModel)]="name" placeholder="Nombre" autocomplete="off"
+               required>
+           </mat-form-field>
 
-              <mat-form-field>
-                <input matInput type="text" name="last_name" [(ngModel)]="last_name" placeholder="Apellido"
-                  autocomplete="off" required>
-              </mat-form-field>
+           <mat-form-field>
+             <input matInput type="text" name="last_name" [(ngModel)]="last_name" placeholder="Apellido"
+               autocomplete="off" required>
+           </mat-form-field>
 
-              <mat-form-field>
-                <input matInput type="email" name="email" [(ngModel)]="email" placeholder="Correo electrónico" autocomplete="off"
-                  required>
-              </mat-form-field>
+           <mat-form-field>
+             <input matInput type="email" name="email" [(ngModel)]="email" placeholder="Correo electrónico"
+               autocomplete="off" required>
+           </mat-form-field>
 
-              <mat-form-field>
-                <input matInput type="password" name="password" [(ngModel)]="password" placeholder="Contraseña"
-                  autocomplete="off" required>
-              </mat-form-field>
+           <mat-form-field>
+             <input matInput type="password" name="password" [(ngModel)]="password" placeholder="Contraseña"
+               autocomplete="off" required>
+           </mat-form-field>
 
-              <div class="mt-3">
-                <button type="submit" *ngIf="!cargando" mat-raised-button color="primary" class="btn-block">Crear
-                  cuenta</button>
-                <button *ngIf="cargando" mat-raised-button color="primary" class="btn-block" disabled><i
-                    class="fa fa-spin fa-sync"></i> Creando cuenta...
-                </button>
-              </div>
+           <div class="mt-3">
+             <button type="submit" *ngIf="!cargando" mat-raised-button color="primary" class="btn-block">Crear
+               cuenta</button>
+             <button *ngIf="cargando" mat-raised-button color="primary" class="btn-block" disabled><i
+                 class="fa fa-spin fa-sync"></i> Creando cuenta...
+             </button>
+           </div>
 
-            </form>
-          </mat-card-content>
+         </form>
+       </mat-card-content>
 
-          <mat-card-content class="d-flex justify-content-center mt-3">
-            <span class="text-small">
-              <b class="text-muted">Ya tenés una cuenta? </b>
-              <a routerLink="/login" class="text-info text-small">Iniciá sesión</a>
-            </span>
-          </mat-card-content>
+       <mat-card-content class="d-flex justify-content-center mt-3">
+         <span class="text-small">
+           <b class="text-muted">Ya tenés una cuenta? </b>
+           <a routerLink="/login" class="text-info text-small">Iniciá sesión</a>
+         </span>
+       </mat-card-content>
 
-        </mat-card>
+     </mat-card>
 
-      </div>
-    </div>
-  </div>
-  <!-- content-wrapper ends -->
-</div>
-<!-- page-body-wrapper ends -->
+   </div>
+ </div>

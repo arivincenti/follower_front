@@ -13,29 +13,44 @@
     </ng-container>
   </td>
   <td>{{areaMembers}}</td>
-  <td class="text-success">{{area.created_at | date:'dd-MM-yyyy'}}</td>
-  <td class="text-danger">{{area.deleted_at | date:'dd-MM-yyyy'}}</td>
+  <td class="text-exito">{{area.created_at | date:'dd-MM-yyyy'}}</td>
+  <td class="text-peligro">{{area.deleted_at | date:'dd-MM-yyyy'}}</td>
   <ng-container *ngIf="organization$ | async as organization">
     <td class="d-flex justify-content-end align-items-center">
-      <ng-container *ngIf="organization.created_by._id === user._id && !organization.deleted_at">
-        <button *ngIf="!area.deleted_at" class="btn-trash" (click)="deleteArea(area)"> <i class="fa fa-trash-o"
-            aria-hidden="true"></i>
-        </button>
-        <button *ngIf="!area.deleted_at" class="btn-edit" (click)="updateArea(area)"> <i class="fa fa-pencil-square-o"
-            aria-hidden="true"></i>
-        </button>
-        <button *ngIf="area.deleted_at" class="btn-reactive" (click)="activateArea(area)"> <i class="fa fa-history"
-            aria-hidden="true"></i>
-        </button>
-        <button class="btn-in" (click)="selectArea(area)"> <i class="fa fa-arrow-right" aria-hidden="true"></i>
-        </button>
-      </ng-container>
-      <ng-container *ngFor="let responsibleMember of responsibleMembers">
-        <button class="btn-in" (click)="selectArea(area)"
-          *ngIf="responsibleMember.user._id === user._id && organization.created_by._id !== user._id && !organization.deleted_at">
-          <i class="fa fa-arrow-right" aria-hidden="true"></i>
-        </button>
-      </ng-container>
+
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <ng-container *ngIf="organization.created_by._id === user._id && !organization.deleted_at">
+          <button mat-menu-item (click)="selectArea(area)">
+            <mat-icon>arrow_forward</mat-icon>
+            <span>Ingresar al área</span>
+          </button>
+          <button *ngIf="!area.deleted_at" mat-menu-item (click)="updateArea(area)">
+            <mat-icon>create</mat-icon>
+            <span>Editar nombre</span>
+          </button>
+          <button *ngIf="!area.deleted_at" mat-menu-item (click)="deleteArea(area)">
+            <mat-icon>delete</mat-icon>
+            <span>Dar de baja</span>
+          </button>
+          <button *ngIf="area.deleted_at" mat-menu-item (click)="activateArea(area)">
+            <mat-icon>history</mat-icon>
+            <span>Restaurar</span>
+          </button>
+        </ng-container>
+
+        <ng-container *ngFor="let responsibleMember of responsibleMembers">
+
+          <button mat-menu-item
+            *ngIf="responsibleMember.user._id === user._id && organization.created_by._id !== user._id && !organization.deleted_at"
+            (click)="selectArea(area)">
+            <mat-icon>arrow_forward</mat-icon>
+            <span>Ingresar al área</span>
+          </button>
+        </ng-container>
+      </mat-menu>
     </td>
   </ng-container>
 </ng-container>

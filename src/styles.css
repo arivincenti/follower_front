@@ -1,214 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-/* .cursor {
-  cursor: pointer;
+html,
+body {
+  height: 100% !important;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.notification {
-  position: relative;
-  left: 2px;
-  bottom: 2px;
+.subtitle{
+  font-size: 1.2em;
 }
 
-.btnInfo {
-  width: 40px;
-  height: 38px;
-  padding: 5px 10px;
-  margin: 3px;
-  background-color: steelblue;
-  color: white;
-  border: none;
-  border-radius: 50%;
-}
-
-.btnInfo:hover {
-  background-color: rgb(47, 112, 165);
-}
-
-.btnSuccess {
-  width: 40px;
-  height: 38px;
-  padding: 5px 10px;
-  margin: 3px;
-  background-color: rgb(39, 165, 1);
-  color: white;
-  border: none;
-  border-radius: 50%;
-}
-
-.btnSuccess:hover {
-  background-color: rgb(34, 145, 2);
-}
-
-.btnDanger {
-  width: 40px;
-  height: 38px;
-  padding: 5px 10px;
-  margin: 3px;
-  background-color: rgb(205, 0, 0);
-  color: white;
-  border: none;
-  border-radius: 50%;
-}
-
-.btnDanger:hover {
-  background-color: rgb(182, 0, 0);
-}
-
-.btnAdd {
-  width: 40px;
-  height: 38px;
-  padding: 5px 10px;
-  margin: 3px;
-  background-color: rgb(252, 164, 0);
-  color: white;
-  border: none;
-  border-radius: 50%;
-}
-
-.btnAdd:hover {
-  background-color: rgb(241, 137, 1);
-}
-
-span{
-  font-size: 14px;
-}
-
-.shared-modal{
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  z-index: 2;
-}
-
-.boton-orange{
-  font-size: .8em;
-  background-color: rgb(255, 153, 0);
-  color: rgb(253, 234, 198)
-}
-
-.boton-orange:hover{
-  font-size: .8em;
-  background-color: rgb(255, 136, 0);
-  color: rgb(255, 255, 255);
-  transition: all .3s;
-}
-
-.btn-back{
-  font-size: .9em;
-  border: none;
-  background-color: rgba(0, 0, 0, .0);
-  position: relative;
-  bottom: 15px;
-  right: 12px;
-  color: steelblue
-}
-
-.btn-back:hover{
-  color: rgb(97, 168, 226);
-  transition: all .4s ease;
-}
-
-.btn-trash{
-  position: relative;
-  bottom: 1px;
-  border: none;
-  color: rgb(189, 0, 0);
-  background-color: rgba(0, 0, 0, .0);
-}
-.btn-trash:hover{
-  color: rgb(240, 0, 0);
-  transition: all .4s;
-}
-
-.btn-reactive{
-  position: relative;
-  bottom: 1px;
-  border: none;
-  color: rgb(255, 136, 0);
-  background-color: rgba(0, 0, 0, .0);
-}
-.btn-reactive:hover{
-  color: orange;
-  transition: all .4s;
-}
-
-.btn-edit{
-  position: relative;
-  left: 3px;
-  border: none;
-  color: steelblue;
-  background-color: rgba(0, 0, 0, .0);
-}
-
-.btn-edit:hover{
-  color: rgb(112, 175, 226);
-  transition: all .4s;
-}
-
-.btn-in-organization{
-  position: relative;
-  right: 4px;
-  bottom: 1px;
-  border: none;
-  color: rgb(1, 151, 1);
-  background-color: rgba(0, 0, 0, .0);
-}
-
-.btn-in-organization:hover{
-  color: rgb(112, 175, 226);
-  color: rgb(0, 194, 0);
-  transition: all .4s;
-}
-
-.btn-in{
-  position: relative;
-  left: 5px;
-  bottom: 1px;
-  border: none;
-  color: rgb(1, 151, 1);
-  background-color: rgba(0, 0, 0, .0);
-}
-
-.btn-in:hover{
-  color: rgb(112, 175, 226);
-  color: rgb(0, 194, 0);
-  transition: all .4s;
-}
 
 .delay-300ms{
-  animation-delay: .3s;
+  animation-delay: 300ms;
 }
+
 .delay-500ms{
-  animation-delay: .5s;
+  animation-delay: 500ms;
 }
+
 .delay-700ms{
-  animation-delay: .7s;
+  animation-delay: 700ms;
 }
+
 .delay-900ms{
-  animation-delay: .9s;
+  animation-delay: 900ms;
 }
-.delay-1300ms{
-  animation-delay: 1300ms;
-}
-
-.pointer{
-  cursor: pointer;
-}
-
-.bg-personalized{
-  background-color: rgba(0, 0, 0, .1);
-  color: rgb(50, 50, 50)
-}
-
-.card-body{
-  background-color: white;
-}
-
-.auth-bg{
-  background-color: steelblue;
-} */

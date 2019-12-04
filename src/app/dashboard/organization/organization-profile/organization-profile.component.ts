@@ -63,4 +63,9 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
     this.router.navigate(['app/organizations']);
   }
 
+  addArea()
+  {
+    this.router.navigate(['app/organizations/areas/form', 'nueva']);
+  }
+
 }

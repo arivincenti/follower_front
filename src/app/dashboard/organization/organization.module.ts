@@ -9,7 +9,7 @@ import { OrganizationProfileComponent } from './organization-profile/organizatio
 import { OrganizationAreasListItemsComponent } from './organization-areas-list-items/organization-areas-list-items.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { OrganizationFormComponent } from './organization-form/organization-form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 
 @NgModule({
@@ -27,6 +27,7 @@ import { AngularMaterialModule } from 'src/app/angular-material/angular-material
     CommonModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularMaterialModule
   ]
 })

@@ -1,6 +1,6 @@
 <ng-container *ngIf="user$ | async as user">
   <app-loading *ngIf="loading$ | async" [elemento]="['Organizaciones']"></app-loading>
-  <div class="row animated" *ngIf="animation$ | async as animation">
+  <div class="row animated mt-4" *ngIf="animation$ | async as animation">
     <app-organization-card *ngFor="let organization of organizations$ | async" [organization]="organization"
       [user]="user">
     </app-organization-card>

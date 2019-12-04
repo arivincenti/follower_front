@@ -1,35 +1,26 @@
 <ng-container *ngIf="areas$ | async as areas">
   <ng-container *ngIf="organization.created_by._id === user._id">
-    <div class="card-text mt-5">
-      <div class="card-subtitle d-flex align-items-center">
-        <i class="fa fa-tags mr-1" aria-hidden="true"></i>
-        Áreas de la organización
-        <button *ngIf="!organization.deleted_at"
-          class="btn btn-xs btn-danger ml-2 py-0 d-flex justify-content-center align-items-center" (click)="addArea()">
-          <i class="fa fa-tag" aria-hidden="true" (click)="addArea()"></i> Agregar Área
-        </button>
-      </div>
-      <hr>
-      <span class="text-muted fadeIn slower" *ngIf="!areas.length">La organización aún no posee áreas</span>
-      <app-loading class="fadeIn slower" *ngIf="loading$ | async"></app-loading>
-      <ng-container *ngIf="animation$ | async as animation">
-        <table class="table text-muted" *ngIf="areas.length">
-          <thead>
-            <tr class="bg-personalized">
-              <td>Área</td>
-              <td>Responsable</td>
-              <td>Miembros</td>
-              <td>Fecha de alta</td>
-              <td>Fecha de baja</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr app-organization-areas-list-items *ngFor="let area of areas" [area]="area" [user]="user">
-            </tr>
-          </tbody>
-        </table>
-      </ng-container>
-    </div>
+
+    <span class="text-muted fadeIn slower mt-4" *ngIf="!areas.length">La organización aún no posee áreas</span>
+    <app-loading class="fadeIn slower" *ngIf="loading$ | async"></app-loading>
+    <ng-container *ngIf="animation$ | async as animation">
+      <table class="table" *ngIf="areas.length">
+        <thead>
+          <tr class="bg-personalized">
+            <td>Área</td>
+            <td>Responsable</td>
+            <td>Miembros</td>
+            <td>Fecha de alta</td>
+            <td>Fecha de baja</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr app-organization-areas-list-items *ngFor="let area of areas" [area]="area" [user]="user">
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+
   </ng-container>
 </ng-container>
