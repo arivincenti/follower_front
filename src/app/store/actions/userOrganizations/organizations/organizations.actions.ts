@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { OrganizationModel } from '../../../models/organization.model';
-import { AreaModel } from 'src/app/models/area.model';
+import { OrganizationModel } from '../../../../models/organization.model';
 
 export const getUserOrganizations = createAction(
   '[Organizations Actions] Get User Organizations',

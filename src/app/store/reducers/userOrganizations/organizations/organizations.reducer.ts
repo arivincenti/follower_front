@@ -1,6 +1,6 @@
-import { createReducer, on, Action, ActionReducer, combineReducers } from '@ngrx/store';
-import * as OrganizationsActions from '../../actions/organizations/organizations.actions';
-import { OrganizationModel } from '../../../models/organization.model';
+import { createReducer, on, Action } from '@ngrx/store';
+import * as OrganizationsActions from '../../../actions/userOrganizations/organizations/organizations.actions';
+import { OrganizationModel } from '../../../../models/organization.model';
 
 
 export interface OrganizationsState

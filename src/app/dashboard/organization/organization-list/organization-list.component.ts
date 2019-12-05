@@ -3,7 +3,7 @@ import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { OrganizationModel } from 'src/app/models/organization.model';
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-organization-list',
@@ -29,9 +29,9 @@ export class OrganizationListComponent implements OnInit
     this.animation$ = this.store.select(state => state.ui.animated);
     this.user$ = this.store.select(state => state.auth.user);
 
-    this.organizations$ = this.store.select(state => state.userOrganizations.organizations);
+    this.organizations$ = this.store.select(state => state.userOrganizations.organizations.organizations);
 
-    this.loading$ = this.store.select(state => state.userOrganizations.loading);
+    this.loading$ = this.store.select(state => state.userOrganizations.organizations.loading);
   }
 
 }

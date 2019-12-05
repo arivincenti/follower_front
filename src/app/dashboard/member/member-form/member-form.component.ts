@@ -51,10 +51,10 @@ export class MemberFormComponent implements OnInit, OnDestroy
     {
       this.param = param.id;
 
-      this.areaSubscription = this.store.select(state => state.selectedArea.selectedArea.area).subscribe(area => this.area = area);
+      // this.areaSubscription = this.store.select(state => state.userOrganizations.selectedArea.selectedArea.area).subscribe(area => this.area = area);
     });
 
-    this.areaMembersSubscription = this.store.select(state=> state.selectedArea.areaMembers.members).subscribe(members => this.areaMembers = members);
+    // this.areaMembersSubscription = this.store.select(state=> state.selectedArea.areaMembers.members).subscribe(members => this.areaMembers = members);
   }
 
   ngOnDestroy()

@@ -19,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any>
 {
-  return localStorageSync({ keys: [{'ui': ['theme']}, 'auth', 'userOrganizations', 'selectedOrganization', 'selectedArea'], rehydrate: true })(reducer);
+  return localStorageSync({ keys: [{'ui': ['theme']}, 'auth', 'userOrganizations'], rehydrate: true })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 

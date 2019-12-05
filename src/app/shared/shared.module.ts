@@ -6,7 +6,6 @@ import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { LoadingComponent } from './loading/loading.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AreaModalComponent } from './modals/area-modal/area-modal.component';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 
 @NgModule({
@@ -14,8 +13,7 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    LoadingComponent,
-    AreaModalComponent
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -28,8 +26,7 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    LoadingComponent,
-    AreaModalComponent
+    LoadingComponent
   ]
 })
 export class SharedModule { }

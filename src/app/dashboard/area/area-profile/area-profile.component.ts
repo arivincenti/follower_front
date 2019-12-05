@@ -38,11 +38,11 @@ export class AreaProfileComponent implements OnInit, OnDestroy
       this.store.dispatch(AreasActions.getAreaMembers({ payload: param.id }));
     });
 
-    this.area$ = this.store.select(state => state.selectedArea.selectedArea.area);
-    this.areaLoading$ = this.store.select(state => state.selectedArea.selectedArea.loading);
+    // this.area$ = this.store.select(state => state.selectedArea.selectedArea.area);
+    // this.areaLoading$ = this.store.select(state => state.selectedArea.selectedArea.loading);
 
 
-    this.organizationSubscription = this.store.select(state => state.selectedOrganization.organization.organization).subscribe(organization => this.organziation = organization);
+    this.organizationSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization).subscribe(organization => this.organziation = organization);
   }
 
   ngOnDestroy()

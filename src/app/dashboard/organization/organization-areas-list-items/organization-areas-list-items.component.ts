@@ -8,8 +8,7 @@ import { AreasService } from 'src/app/services/areas/areas.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router } from '@angular/router';
-import * as OrganizationActions from '../../../store/actions/organizations/organization.actions';
-import * as AreasActions from '../../../store/actions/areas/areas.actions';
+import * as OrganizationAreasActions from '../../../store/actions/userOrganizations/selectedOrganization/organizationAreas.actions';
 
 @Component({
   selector: 'tr[app-organization-areas-list-items]',
@@ -34,7 +33,7 @@ export class OrganizationAreasListItemsComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-    this.organization$ = this.store.select(state => state.selectedOrganization.organization.organization);
+    this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
 
     this.responsibleMembers$ = this._areaService.getAreaResponsibleMembers(this.area._id);
 
@@ -70,7 +69,7 @@ export class OrganizationAreasListItemsComponent implements OnInit, OnDestroy
   deleteArea(area: AreaModel)
   {
     //Make method to update deleted_at property from area
-    this.store.dispatch(OrganizationActions.deleteOrganizationArea({ payload: area._id }));
+    this.store.dispatch(OrganizationAreasActions.deleteOrganizationArea({ payload: area._id }));
   }
 
   activateArea(area: AreaModel)
@@ -79,7 +78,7 @@ export class OrganizationAreasListItemsComponent implements OnInit, OnDestroy
       deleted_at: 1
     }
 
-    this.store.dispatch(OrganizationActions.updateOrganizationArea({ areaId: area._id, payload: payload }));
+    this.store.dispatch(OrganizationAreasActions.updateOrganizationArea({ areaId: area._id, payload: payload }));
   }
 
 }

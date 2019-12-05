@@ -44,6 +44,7 @@ export const initialAreaState: AreasState = {
   areaMembers: initialAreaMembersState
 }
 
+
 export const areasReducer = createReducer(
   initialAreaState,
   on(AreasActions.getArea, (state) => (
@@ -133,7 +134,7 @@ export const areasReducer = createReducer(
       ...state,
       areaMembers: {
         ...state.areaMembers,
-        members: [...state.areaMembers.members, {...payload}],
+        members: [...state.areaMembers.members, { ...payload }],
         loading: false,
         loaded: true,
         error: null

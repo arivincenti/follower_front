@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
-import * as OrganizationsActions from '../../store/actions/organizations/organizations.actions';
+import * as OrganizationsActions from '../../store/actions/userOrganizations/organizations/organizations.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import { UserModel } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'

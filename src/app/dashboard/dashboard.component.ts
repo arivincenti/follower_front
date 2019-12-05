@@ -3,7 +3,7 @@ import { AppState } from '../store/app.reducer';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { UserModel } from '../models/user.model';
-import * as OrganizationsActions from '../store/actions/organizations/organizations.actions';
+import * as OrganizationsActions from '../store/actions/userOrganizations/organizations/organizations.actions';
 
 @Component({
   selector: 'app-dashboard',

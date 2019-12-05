@@ -24,7 +24,7 @@ export class OrganizationUserAreasListComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-    this.userAreas$ = this.store.select(state => state.selectedOrganization.organizationUserAreas.areas);
+    this.userAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.organizationUserAreas.areas);
   }
 
   ngOnDestroy()

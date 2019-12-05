@@ -6,7 +6,7 @@ import { AreaModel } from 'src/app/models/area.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as OrganizationActions from '../../../store/actions/organizations/organization.actions';
+import * as OrganizationActions from '../../../store/actions/userOrganizations/selectedOrganization/organization.actions';
 import * as AreasActions from '../../../store/actions/areas/areas.actions';
 
 
@@ -48,7 +48,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
       this.store.dispatch(OrganizationActions.getOrganization({ organization: param.id, user: this.user._id }));
     });
 
-    this.organization$ = this.store.select(state => state.selectedOrganization.organization.organization);
+    this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
 
   }
 

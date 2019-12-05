@@ -4,9 +4,8 @@ import { mergeMap, catchError, map } from 'rxjs/operators';
 import { OrganizationsService } from 'src/app/services/organizations/organizations.service';
 import { of } from 'rxjs';
 import { OrganizationModel } from 'src/app/models/organization.model';
-import { AreaModel } from 'src/app/models/area.model';
 import { AreasService } from 'src/app/services/areas/areas.service';
-import * as OrganizationsActions from '../../actions/organizations/organizations.actions';
+import * as OrganizationsActions from '../../../actions/userOrganizations/organizations/organizations.actions';
 // import * as AreasActions from '../../actions/areas/areas.actions';
 import Swal from 'sweetalert2'
 

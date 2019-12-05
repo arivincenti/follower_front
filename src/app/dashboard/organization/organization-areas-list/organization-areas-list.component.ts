@@ -5,8 +5,6 @@ import { AreaModel } from 'src/app/models/area.model';
 import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import * as UiActions from '../../../store/actions/ui/ui.actions';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-organization-areas-list',
@@ -29,9 +27,9 @@ export class OrganizationAreasListComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.animation$ = this.store.select(state => state.ui.animated);
-    this.areas$ = this.store.select(state => state.selectedOrganization.organizationAreas.areas);
+    this.areas$ = this.store.select(state => state.userOrganizations.selectedOrganization.organizationAreas.areas);
 
-    this.loading$ = this.store.select(state => state.selectedOrganization.organizationAreas.loading);
+    this.loading$ = this.store.select(state => state.userOrganizations.selectedOrganization.organizationAreas.loading);
   }
 
   ngOnDestroy()

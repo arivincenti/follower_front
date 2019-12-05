@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as OrganizationsActions from '../../../store/actions/organizations/organizations.actions';
+import * as OrganizationsActions from '../../../store/actions/userOrganizations/organizations/organizations.actions';
 import { Subscription, Observable } from 'rxjs';
 import { UserModel } from 'src/app/models/user.model';
 import { OrganizationModel } from 'src/app/models/organization.model';
@@ -45,7 +45,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
 
     //User organizations subscription
-    this.userOrganizationsSubscription = this.store.select(state => state.userOrganizations.organizations).subscribe(organizations => this.userOrganizations = organizations);
+    this.userOrganizationsSubscription = this.store.select(state => state.userOrganizations.organizations.organizations).subscribe(organizations => this.userOrganizations = organizations);
 
     //FORM
     this.form = new FormGroup({

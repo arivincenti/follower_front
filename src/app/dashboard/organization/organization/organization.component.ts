@@ -3,7 +3,7 @@ import { Subscription, Observable } from 'rxjs';
 import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import * as OrganizationActions from '../../../store/actions/organizations/organization.actions';
+import * as OrganizationActions from '../../../store/actions/userOrganizations/selectedOrganization/organization.actions';
 import * as AreasActions from '../../../store/actions/areas/areas.actions';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { Router } from '@angular/router';
@@ -32,7 +32,7 @@ export class OrganizationComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.animation$ = this.store.select(state => state.ui.animated);
-    this.organizations$ = this.store.select(state => state.userOrganizations.organizations);
+    this.organizations$ = this.store.select(state => state.userOrganizations.organizations.organizations);
     this.store.dispatch(OrganizationActions.clearSelectedOrganizationState());
     this.store.dispatch(AreasActions.clearSelectedAreaState());
   }
