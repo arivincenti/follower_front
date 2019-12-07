@@ -1,41 +1,5 @@
 <ng-container *ngIf="organization$ | async as organization">
-  <!-- <div class="card bg-light m-3 animated" *ngIf="animation$ | async as animation" [ngClass]="animation[0]">
-    <div class="card-header d-flex justify-content-center">
-      <h4 class="text-muted">
-        {{organization.name}}
-      </h4>
-    </div>
-    <div class="card-body">
-      <button class="btn-back" (click)="backToLastPage()"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Ir a mis
-        organizaciones
-      </button>
-      <div class="card-subtitle mt-3">
-        <i class="fa fa-info-circle mr-1" aria-hidden="true"></i>
-        Información de la Organización
-      </div>
-      <hr>
-
-
-
-
-
-
-      <div >
-
-        <hr>
-       
-      </div>
-      <div class="animated delay-500ms" [ngClass]="animation[0]">
-        <app-organization-user-areas-list [organization]="organization" [user]="user">
-        </app-organization-user-areas-list>
-      </div>
-      <div class="animated delay-700ms" [ngClass]="animation[0]">
-        <app-organization-areas-list [organization]="organization" [user]="user"></app-organization-areas-list>
-      </div>
-    </div>
-  </div> -->
   <div class="row">
-
     <div class="col-md-12 animated fadeIn mb-4" *ngIf="animation$ | async as animation" [ngClass]="animation[0]">
       <mat-card>
         <mat-card-header>
@@ -88,11 +52,11 @@
         <mat-card-content>
           <mat-icon class="icon">favorite</mat-icon>
           Relación /
-          <span *ngIf="organization.created_by._id === user._id" class="text-warning mr-2">
-            <mat-icon class="icon" color="warn">stars</mat-icon>
+          <span *ngIf="organization.created_by._id === user._id" class="danger">
+            <mat-icon class="icon" color="warn">star</mat-icon>
             Propietario
           </span>
-          <span *ngIf="organization.created_by._id !== user._id" class="text-info" title="Miembro">
+          <span *ngIf="organization.created_by._id !== user._id" class="success" title="Miembro">
             <mat-icon class="icon" color="primary">account_circle</mat-icon>
             Miembro
           </span>
@@ -116,7 +80,7 @@
 
 
         <mat-card-subtitle class="mt-5">
-          <mat-icon class="icon-subtitle">contacts</mat-icon>
+          <mat-icon class="icon-subtitle">bookmark</mat-icon>
           <span class="subtitle">
             Mis Áreas
           </span>
@@ -124,10 +88,9 @@
 
         <mat-divider></mat-divider>
 
-        <mat-card-content class="animated delay-300ms" [ngClass]="animation[0]">
-          <app-organization-user-areas-list [organization]="organization" [user]="user">
-          </app-organization-user-areas-list>
-        </mat-card-content>
+        <mat-card-content class="animated delay-300ms mt-4" [ngClass]="animation[0]">
+            <span class="text-muted">Aún no es miembro de ningún área</span>
+          </mat-card-content>
 
         <mat-card-subtitle class="mt-5">
           <mat-icon class="icon-subtitle">bookmarks</mat-icon>
@@ -141,8 +104,8 @@
 
         <mat-divider></mat-divider>
 
-        <mat-card-content class="animated delay-300ms" [ngClass]="animation[0]">
-            <app-organization-areas-list [organization]="organization" [user]="user"></app-organization-areas-list>
+        <mat-card-content class="animated delay-300ms mt-4" [ngClass]="animation[0]">
+            <app-areas-list [organization]="organization" [user]="user"></app-areas-list>
         </mat-card-content>
 
       </mat-card>
@@ -150,13 +113,3 @@
   </div>
 
 </ng-container>
-
-
-
-
-
-
-<!-- BOTONES
-<div class="d-flex justify-content-end">
-  
-</div> -->

@@ -5,7 +5,7 @@ import { OrganizationModel } from 'src/app/models/organization.model';
 import { AreaModel } from 'src/app/models/area.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import * as OrganizationAreasActions from '../../../store/actions/userOrganizations/selectedOrganization/organizationAreas.actions';
+import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions';
 import { AreasService } from 'src/app/services/areas/areas.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationsService } from 'src/app/services/organizations/organizations.service';
@@ -58,7 +58,7 @@ export class AreaFormComponent implements OnInit
     this.userOrganizationSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization).subscribe(organization => this.organization = organization);
 
     //Search organizations areas
-    this.organizationAreasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.organizationAreas.areas).subscribe(areas => this.organizationAreas = areas);
+    this.organizationAreasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas).subscribe(areas => this.organizationAreas = areas);
 
     //Check if param is not a new area, then search it
     if (this.param !== 'nueva')
@@ -96,7 +96,7 @@ export class AreaFormComponent implements OnInit
         name: this.areaName.toUpperCase()
       }
 
-      this.store.dispatch(OrganizationAreasActions.createOrganizationArea({ payload }));
+      this.store.dispatch(AreasActions.createArea({ payload }));
       
     } else
     {
@@ -104,7 +104,7 @@ export class AreaFormComponent implements OnInit
         name: this.areaName.toUpperCase()
       }
 
-      this.store.dispatch(OrganizationAreasActions.updateOrganizationArea({ areaId: this.area._id, payload: payload }));
+      this.store.dispatch(AreasActions.updateArea({ areaId: this.area._id, payload: payload }));
 
       this.router.navigate(['app/organizations/profile', this.organization._id]);
     }

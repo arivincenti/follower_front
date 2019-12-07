@@ -1,18 +1,17 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { OrganizationModel } from 'src/app/models/organization.model';
+import { UserModel } from 'src/app/models/user.model';
 import { Observable } from 'rxjs';
 import { AreaModel } from 'src/app/models/area.model';
-import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 
 @Component({
-  selector: 'app-organization-areas-list',
-  templateUrl: './organization-areas-list.component.html',
-  styleUrls: ['./organization-areas-list.component.css']
+  selector: 'app-areas-list',
+  templateUrl: './areas-list.component.html',
+  styleUrls: ['./areas-list.component.css']
 })
-export class OrganizationAreasListComponent implements OnInit, OnDestroy
-{
+export class AreasListComponent implements OnInit, OnDestroy {
 
   @Input() organization: OrganizationModel;
   @Input() user: UserModel;
@@ -24,12 +23,11 @@ export class OrganizationAreasListComponent implements OnInit, OnDestroy
     private store: Store<AppState>
   ) { }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.animation$ = this.store.select(state => state.ui.animated);
-    this.areas$ = this.store.select(state => state.userOrganizations.selectedOrganization.organizationAreas.areas);
+    this.areas$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas);
 
-    this.loading$ = this.store.select(state => state.userOrganizations.selectedOrganization.organizationAreas.loading);
+    this.loading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.loading);
   }
 
   ngOnDestroy()

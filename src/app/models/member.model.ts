@@ -7,7 +7,7 @@ export class MemberModel
   constructor(
     public _id: string,
     public organization: OrganizationModel,
-    public area: AreaModel,
+    public areas: AreaModel[],
     public user: UserModel,
     public created_at: Date,
     public updated_at?: Date,

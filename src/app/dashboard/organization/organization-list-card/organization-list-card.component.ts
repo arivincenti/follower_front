@@ -11,11 +11,11 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 
 @Component({
-  selector: 'app-organization-card',
-  templateUrl: './organization-card.component.html',
-  styleUrls: ['./organization-card.component.css']
+  selector: 'app-organization-list-card',
+  templateUrl: './organization-list-card.component.html',
+  styleUrls: ['./organization-list-card.component.css']
 })
-export class OrganizationCardComponent implements OnInit, OnDestroy
+export class OrganizationListCardComponent implements OnInit, OnDestroy
 {
 
   @Input() organization: OrganizationModel;

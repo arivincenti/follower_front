@@ -1,14 +1,31 @@
-mat-card {
-  padding: 40px 45px;
-}
-
-.title{
-  position: relative;
-  bottom: 15px;
-  font-size: 2em;
-  font-family: 'roboto';
-}
 
 mat-form-field {
   width: 100%;
+}
+
+.auth{
+  height: 100vh;
+  background-color: #0288D1;
+}
+
+.title {
+  position: relative;
+  bottom: 15px;
+  font-size: 2em;
+  font-family: "roboto";
+}
+
+
+.general-content{
+  position: relative;
+  top: 25vh;
+}
+
+.content-info{
+  padding: 20px;
+  background-color: red;
+}
+
+.content-login{
+  background-color: white;
 }

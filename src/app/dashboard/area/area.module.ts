@@ -6,6 +6,9 @@ import { AreaMembersListComponent } from './area-members-list/area-members-list.
 import { AreaMembersListItemComponent } from './area-members-list-item/area-members-list-item.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AreaFormComponent } from './area-form/area-form.component';
+import { AreasListComponent } from './areas-list/areas-list.component';
+import { AreasListCardComponent } from './areas-list-card/areas-list-card.component';
+import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 
 @NgModule({
   declarations: [
@@ -13,11 +16,18 @@ import { AreaFormComponent } from './area-form/area-form.component';
     AreaMembersListComponent,
     AreaMembersListItemComponent,
     AreaFormComponent,
+    AreasListComponent,
+    AreasListCardComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    AngularMaterialModule
+  ],
+  exports: [
+    AreasListComponent,
+    AreasListCardComponent
   ]
 })
 export class AreaModule { }

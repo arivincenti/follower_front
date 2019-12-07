@@ -3,8 +3,8 @@ import { AuthEffects } from './auth/auth.effects';
 import { AreasEffects } from './areas/areas.effects';
 import { OrganizationsEffects } from './userOrganizations/organizations/organizations.effects';
 import { OrganizationEffects } from './userOrganizations/selectedOrganization/organization.effects';
-import { OrganizationAreasEffects } from './userOrganizations/selectedOrganization/organizationAreas.effects';
-import { OrganizationUserAreasEffects } from './userOrganizations/selectedOrganization/organizationUserAreas.effects';
+import { OrganizationAreasEffects } from './userOrganizations/selectedOrganization/Areas.effects';
+import { OrganizationUserAreasEffects } from './userOrganizations/selectedOrganization/UserAreas.effects';
 
 
 export const effects: any[] = [
@@ -22,5 +22,5 @@ export * from './auth/auth.effects';
 export * from './areas/areas.effects';
 export * from './userOrganizations/organizations/organizations.effects';
 export * from './userOrganizations/selectedOrganization/organization.effects';
-export * from './userOrganizations/selectedOrganization/organizationAreas.effects';
-export * from './userOrganizations/selectedOrganization/organizationUserAreas.effects';
+export * from './userOrganizations/selectedOrganization/Areas.effects';
+export * from './userOrganizations/selectedOrganization/UserAreas.effects';

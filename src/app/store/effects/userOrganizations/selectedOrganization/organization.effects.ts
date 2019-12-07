@@ -4,8 +4,8 @@ import { mergeMap, catchError } from 'rxjs/operators';
 import { OrganizationsService } from '../../../../services/organizations/organizations.service';
 import { of } from 'rxjs';
 import * as OrganizationActions from '../../../actions/userOrganizations/selectedOrganization/organization.actions';
-import * as OrganizationAreasActions from '../../../actions/userOrganizations/selectedOrganization/organizationAreas.actions';
-import * as OrganizationUserAreasActions from '../../../actions/userOrganizations/selectedOrganization/organizationUserAreas.actions';
+import * as AreasActions from '../../../actions/userOrganizations/selectedOrganization/areas/areas.actions';
+import * as UserAreasActions from '../../../actions/userOrganizations/selectedOrganization/areas/userAreas.actions';
 
 @Injectable()
 export class OrganizationEffects
@@ -22,8 +22,8 @@ export class OrganizationEffects
       .pipe(
         mergeMap((organization: any) => [
           OrganizationActions.getOrganizationSuccess({ payload: organization }),
-          OrganizationAreasActions.getOrganizationAreas({ payload: organization._id }),
-          OrganizationUserAreasActions.getOrganizationUserAreas({ user: action.user, organization: organization._id })
+          AreasActions.getAreas({ payload: organization._id }),
+          UserAreasActions.getUserAreas({ user: action.user, organization: organization._id })
         ]),
         catchError(error => of(OrganizationActions.getOrganizationFail(error.error)))
       ))

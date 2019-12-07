@@ -1,0 +1,13 @@
+<ng-container *ngIf="areas$ | async as areas">
+  <ng-container *ngIf="organization.created_by._id === user._id">
+    <span class="text-muted fadeIn slower mt-4" *ngIf="!areas.length">La organización aún no posee áreas</span>
+    <app-loading class="fadeIn slower" *ngIf="loading$ | async"></app-loading>
+    <ng-container *ngIf="animation$ | async as animation">
+      <div class="row mt-4" *ngFor="let area of areas">
+        <div class="col-md-12">
+          <app-areas-list-card [organization]="organization" [area]="area" [user]="user"></app-areas-list-card>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>

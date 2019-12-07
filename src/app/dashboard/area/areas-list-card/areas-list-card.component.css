@@ -1,0 +1,23 @@
+button{
+  outline: none;
+}
+
+.area-title{
+  font-size: .9em;
+}
+
+.icon-subtitle{
+  font-size: 1.6em;
+  position: relative;
+  top: 6px;
+}
+
+.icon{
+  position: relative;
+  top: 4px;
+  font-size: 1.4em;
+}
+
+.background-content-card{
+  background-color: rgba(200, 200, 200, .2);
+}

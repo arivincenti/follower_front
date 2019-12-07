@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import * as AreasActions from '../../actions/areas/areas.actions';
+import * as AreaActions from '../../actions/userOrganizations/selectedOrganization/areas/area.actions';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { AreasService } from 'src/app/services/areas/areas.service';
 import { of } from 'rxjs';
@@ -20,88 +20,88 @@ export class AreasEffects
 
 
   getSelectedArea$ = createEffect(() => this.actions$.pipe(
-    ofType(AreasActions.getArea),
+    ofType(AreaActions.getArea),
     mergeMap((action) => this._areasService.getselectedArea(action.payload).pipe(
-      map((areas) => AreasActions.getAreaSuccess({ payload: areas })),
-      catchError(error => of(AreasActions.getAreaFail({ payload: error.error })))
+      map((areas) => AreaActions.getAreaSuccess({ payload: areas })),
+      catchError(error => of(AreaActions.getAreaFail({ payload: error.error })))
     ))
   ));
 
-  getSelectedAreaMembers$ = createEffect(() => this.actions$.pipe(
-    ofType(AreasActions.getAreaMembers),
-    mergeMap((action) => this._areasService.getAreaMembers(action.payload).pipe(
-      map((areas) => AreasActions.getAreaMembersSuccess({ payload: areas })),
-      catchError(error => of(AreasActions.getAreaMembersFail({ payload: error.error })))
-    ))
-  ));
+  // getSelectedAreaMembers$ = createEffect(() => this.actions$.pipe(
+  //   ofType(AreasActions.getAreaMembers),
+  //   mergeMap((action) => this._areasService.getAreaMembers(action.payload).pipe(
+  //     map((areas) => AreasActions.getAreaMembersSuccess({ payload: areas })),
+  //     catchError(error => of(AreasActions.getAreaMembersFail({ payload: error.error })))
+  //   ))
+  // ));
 
-  createAreaMember$ = createEffect(() => this.actions$.pipe(
-    ofType(AreasActions.createAreaMember),
-    mergeMap((action) => this._membersService.createMember(action.payload).pipe(
-      map((member) => {
-        AreasActions.createAreaMemberSuccess({ payload: member });
+  // createAreaMember$ = createEffect(() => this.actions$.pipe(
+  //   ofType(AreasActions.createAreaMember),
+  //   mergeMap((action) => this._membersService.createMember(action.payload).pipe(
+  //     map((member) => {
+  //       AreasActions.createAreaMemberSuccess({ payload: member });
 
-        Swal.fire({
-          position: 'top-end',
-          toast: true,
-          icon: 'success',
-          title: 'Genial!!',
-          text: `El miembro "${member.user.name} ${member.user.last_name}" se creó con éxito`,
-          showConfirmButton: false,
-          timer: 2700
-        });
+  //       Swal.fire({
+  //         position: 'top-end',
+  //         toast: true,
+  //         icon: 'success',
+  //         title: 'Genial!!',
+  //         text: `El miembro "${member.user.name} ${member.user.last_name}" se creó con éxito`,
+  //         showConfirmButton: false,
+  //         timer: 2700
+  //       });
 
-        this.router.navigate(['app/organizations/areas/profile', action.payload.area]);
-      }),
-      catchError(error => of(AreasActions.createAreaMemberFail({ payload: error.error })))
-    ))
-  ), {dispatch: false});
+  //       this.router.navigate(['app/organizations/areas/profile', action.payload.area]);
+  //     }),
+  //     catchError(error => of(AreasActions.createAreaMemberFail({ payload: error.error })))
+  //   ))
+  // ), {dispatch: false});
 
-  updateAreaMember$ = createEffect(() => this.actions$.pipe(
-    ofType(AreasActions.updateAreaMember),
-    mergeMap((action) => this._membersService.updateMember(action.payload).pipe(
-      map((member) => {
+  // updateAreaMember$ = createEffect(() => this.actions$.pipe(
+  //   ofType(AreasActions.updateAreaMember),
+  //   mergeMap((action) => this._membersService.updateMember(action.payload).pipe(
+  //     map((member) => {
 
-        Swal.fire({
-          position: 'top-end',
-          toast: true,
-          icon: 'success',
-          title: 'Genial!!',
-          text: `El miembro "${member.user.name} ${member.user.last_name}" se modifió con éxito`,
-          showConfirmButton: false,
-          timer: 2700
-        });
+  //       Swal.fire({
+  //         position: 'top-end',
+  //         toast: true,
+  //         icon: 'success',
+  //         title: 'Genial!!',
+  //         text: `El miembro "${member.user.name} ${member.user.last_name}" se modifió con éxito`,
+  //         showConfirmButton: false,
+  //         timer: 2700
+  //       });
         
-        return AreasActions.updateAreaMemberSuccess({ payload: member })
-      }),
-      catchError(error => of(AreasActions.updateAreaMemberFail({ payload: error.error })))
-    ))
-  ));
+  //       return AreasActions.updateAreaMemberSuccess({ payload: member })
+  //     }),
+  //     catchError(error => of(AreasActions.updateAreaMemberFail({ payload: error.error })))
+  //   ))
+  // ));
 
-  deleteAreaMember$ = createEffect(() => this.actions$.pipe(
-    ofType(AreasActions.deleteAreaMember),
-    mergeMap((action) => this._membersService.deleteMember(action.payload).pipe(
-      map((member) => {
+  // deleteAreaMember$ = createEffect(() => this.actions$.pipe(
+  //   ofType(AreasActions.deleteAreaMember),
+  //   mergeMap((action) => this._membersService.deleteMember(action.payload).pipe(
+  //     map((member) => {
 
-        Swal.fire({
-          position: 'top-end',
-          toast: true,
-          icon: 'success',
-          title: 'Genial!!',
-          text: `El miembro "${member.user.name} ${member.user.last_name}" se dio de baja con éxito`,
-          showConfirmButton: false,
-          timer: 2700
-        });
+  //       Swal.fire({
+  //         position: 'top-end',
+  //         toast: true,
+  //         icon: 'success',
+  //         title: 'Genial!!',
+  //         text: `El miembro "${member.user.name} ${member.user.last_name}" se dio de baja con éxito`,
+  //         showConfirmButton: false,
+  //         timer: 2700
+  //       });
         
-        return AreasActions.deleteAreaMemberSuccess({ payload: member })
-      }),
-      catchError(error => of(AreasActions.deleteAreaMemberFail({ payload: error.error })))
-    ))
-  ));
+  //       return AreasActions.deleteAreaMemberSuccess({ payload: member })
+  //     }),
+  //     catchError(error => of(AreasActions.deleteAreaMemberFail({ payload: error.error })))
+  //   ))
+  // ));
 
-  clearSelectedAreaState$ = createEffect(() => this.actions$.pipe(
-    ofType(AreasActions.clearSelectedAreaState)
-  ), {dispatch: false});
+  // clearSelectedAreaState$ = createEffect(() => this.actions$.pipe(
+  //   ofType(AreasActions.clearSelectedAreaState)
+  // ), {dispatch: false});
 
 
 }

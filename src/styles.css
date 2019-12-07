@@ -12,7 +12,6 @@ body {
   font-size: 1.2em;
 }
 
-
 .delay-300ms{
   animation-delay: 300ms;
 }
@@ -28,3 +27,4 @@ body {
 .delay-900ms{
   animation-delay: 900ms;
 }
+

@@ -6,20 +6,22 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+$success: mat-color($mat-light-blue, A700);
+$danger: mat-color($mat-amber, 700);
 
-.text-exito{
-  color: green;
+.success{
+  color: $success;
 }
 
-.text-peligro{
-  color: red;
+.danger{
+  color: $danger;
 }
 
 $candy-app-primary: mat-palette($mat-light-blue, A700);
-$candy-app-accent: mat-palette($mat-blue, 900);
+$candy-app-accent: mat-palette($mat-deep-orange, A400);
 
 // The warn palette is optional (defaults to red).
-$candy-app-warn: mat-palette($mat-red, A400);
+$candy-app-warn: mat-palette($mat-amber, 700);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $candy-app-theme: mat-light-theme(
@@ -64,25 +66,25 @@ $candy-app-theme: mat-light-theme(
 
 .dark-pink {
   $dark-pink-primary: mat-palette($mat-pink, A400);
-  $dark-pink-accent: mat-palette($mat-amber, 500);
+  $dark-pink-accent: mat-palette($mat-light-blue, 100);
 
   // The warn palette is optional (defaults to red).
-  $dark-pink-warn: mat-palette($mat-lime, A400);
+  $dark-pink-warn: mat-palette($mat-amber, 500);
 
   // Create the theme object (a Sass map containing all of the palettes).
   $dark-pink-theme: mat-dark-theme($dark-pink-primary, $dark-pink-accent, $dark-pink-warn);
   @include angular-material-theme($dark-pink-theme);
 
-  .text-exito{
-    color: mat-color($mat-cyan, A400);
-  }
+  $success: mat-color($mat-lime, A400);
+  $danger: mat-color($mat-amber, 500);
 
-  .text-peligro{
-    color: mat-color($mat-pink, A200);
+  .success{
+    color: $success;
   }
-
-  .table{
-    color: white;
+  
+  .danger{
+    color: $danger;
   }
+  
 }
 

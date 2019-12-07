@@ -1,9 +1,9 @@
-import * as OrganizationAreasActions from '../../../actions/userOrganizations/selectedOrganization/organizationAreas.actions';
+import * as AreasActions from '../../../../actions/userOrganizations/selectedOrganization/areas/areas.actions';
 import { createReducer, on, Action } from '@ngrx/store';
 import { AreaModel } from 'src/app/models/area.model';
 
 
-export interface OrganizationAreasState
+export interface AreasState
 {
   areas: AreaModel[],
   loading: boolean,
@@ -11,16 +11,16 @@ export interface OrganizationAreasState
   error: any
 }
 
-export const InitialStateOrganizationAreas = {
+export const InitialStateAreas = {
   areas: [],
   loading: false,
   loaded: false,
   error: null
 }
 
-export const organizationAreasReducer = createReducer(
-  InitialStateOrganizationAreas,
-  on(OrganizationAreasActions.getOrganizationAreas, (state) => (
+export const areasReducer = createReducer(
+  InitialStateAreas,
+  on(AreasActions.getAreas, (state) => (
     {
       ...state,
       areas: [],
@@ -29,7 +29,7 @@ export const organizationAreasReducer = createReducer(
       error: null
     }
   )),
-  on(OrganizationAreasActions.getOrganizationAreasSuccess, (state, { payload }) => (
+  on(AreasActions.getAreasSuccess, (state, { payload }) => (
     {
       ...state,
       areas: [...payload],
@@ -38,7 +38,7 @@ export const organizationAreasReducer = createReducer(
       error: null
     }
   )),
-  on(OrganizationAreasActions.getOrganizationAreasFail, (state, { payload }) => (
+  on(AreasActions.getAreasFail, (state, { payload }) => (
     {
       ...state,
       areas: [],
@@ -47,7 +47,7 @@ export const organizationAreasReducer = createReducer(
       error: { ...payload }
     }
   )),
-  on(OrganizationAreasActions.createOrganizationArea, (state) => (
+  on(AreasActions.createArea, (state) => (
     {
       ...state,
       areas: [...state.areas],
@@ -56,7 +56,7 @@ export const organizationAreasReducer = createReducer(
       error: null
     }
   )),
-  on(OrganizationAreasActions.createOrganizationAreaSuccess, (state, { payload }) => (
+  on(AreasActions.createAreaSuccess, (state, { payload }) => (
     {
       ...state,
       areas: [...state.areas, { ...payload }],
@@ -64,7 +64,7 @@ export const organizationAreasReducer = createReducer(
       loaded: true
     }
   )),
-  on(OrganizationAreasActions.createOrganizationAreaFail, (state, { payload }) => (
+  on(AreasActions.createAreaFail, (state, { payload }) => (
     {
       ...state,
       areas: [...state.areas],
@@ -73,7 +73,7 @@ export const organizationAreasReducer = createReducer(
       error: { ...payload }
     }
   )),
-  on(OrganizationAreasActions.updateOrganizationArea, (state) => (
+  on(AreasActions.updateArea, (state) => (
     {
       ...state,
       loading: true,
@@ -81,7 +81,7 @@ export const organizationAreasReducer = createReducer(
       error: null
     }
   )),
-  on(OrganizationAreasActions.updateOrganizationAreaSuccess, (state, { payload }) =>
+  on(AreasActions.updateAreaSuccess, (state, { payload }) =>
   {
     return {
       ...state,
@@ -91,7 +91,7 @@ export const organizationAreasReducer = createReducer(
     }
   }
   ),
-  on(OrganizationAreasActions.updateOrganizationAreaFail, (state, { payload }) => (
+  on(AreasActions.updateAreaFail, (state, { payload }) => (
     {
       ...state,
       loading: false,
@@ -99,7 +99,7 @@ export const organizationAreasReducer = createReducer(
       error: { ...payload }
     }
   )),
-  on(OrganizationAreasActions.deleteOrganizationArea, (state) => (
+  on(AreasActions.deleteArea, (state) => (
     {
       ...state,
       loading: true,
@@ -107,7 +107,7 @@ export const organizationAreasReducer = createReducer(
       error: null
     }
   )),
-  on(OrganizationAreasActions.deleteOrganizationAreaSuccess, (state, { payload }) =>
+  on(AreasActions.deleteAreaSuccess, (state, { payload }) =>
   {
     return {
       ...state,
@@ -117,7 +117,7 @@ export const organizationAreasReducer = createReducer(
     }
   }
   ),
-  on(OrganizationAreasActions.deleteOrganizationAreaFail, (state, { payload }) => (
+  on(AreasActions.deleteAreaFail, (state, { payload }) => (
     {
       ...state,
       loading: false,
@@ -127,7 +127,7 @@ export const organizationAreasReducer = createReducer(
   ))
 );
 
-export function OrganizationAreasReducer(state: OrganizationAreasState | undefined, action: Action)
+export function AreasReducer(state: AreasState | undefined, action: Action)
 {
-  return organizationAreasReducer(state, action);
+  return areasReducer(state, action);
 }

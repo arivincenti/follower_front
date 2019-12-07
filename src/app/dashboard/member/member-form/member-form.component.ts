@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MembersService } from 'src/app/services/members/members.service';
 import { UserModel } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users/users.service';
-import * as AreasActions from '../../../store/actions/areas/areas.actions';
+import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions';
 import { AreaModel } from 'src/app/models/area.model';
 import { MemberModel } from 'src/app/models/member.model';
 import Swal from 'sweetalert2';
@@ -80,33 +80,33 @@ export class MemberFormComponent implements OnInit, OnDestroy
     this.selectedUser = user;
   }
 
-  createMember()
-  {
+  // createMember()
+  // {
 
-    if(this.areaMembers.find(member => member.user._id === this.selectedUser._id)){
-      Swal.fire({
-        position: 'top-end',
-        toast: true,
-        icon: 'warning',
-        title: 'Oops!!',
-        text: `El usuario ${this.selectedUser.name} ${this.selectedUser.last_name} ya es miembro del área`,
-        showConfirmButton: false,
-        timer: 2700
-      });
-      return;
-    }
+  //   if(this.areaMembers.find(member => member.user._id === this.selectedUser._id)){
+  //     Swal.fire({
+  //       position: 'top-end',
+  //       toast: true,
+  //       icon: 'warning',
+  //       title: 'Oops!!',
+  //       text: `El usuario ${this.selectedUser.name} ${this.selectedUser.last_name} ya es miembro del área`,
+  //       showConfirmButton: false,
+  //       timer: 2700
+  //     });
+  //     return;
+  //   }
 
-    let payload = {
-      organization: this.area.organization,
-      area: this.area._id,
-      user: this.selectedUser._id,
-      role: 'MIEMBRO'
-    }
+  //   let payload = {
+  //     organization: this.area.organization,
+  //     area: this.area._id,
+  //     user: this.selectedUser._id,
+  //     role: 'MIEMBRO'
+  //   }
 
     
-    this.store.dispatch(AreasActions.createAreaMember({ payload: payload }));
+  //   this.store.dispatch(AreasActions.createAreaMember({ payload: payload }));
     
-  }
+  // }
 
   backToLastPage()
   {

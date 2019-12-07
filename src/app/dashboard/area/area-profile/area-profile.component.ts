@@ -5,7 +5,7 @@ import { OrganizationModel } from 'src/app/models/organization.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as AreasActions from '../../../store/actions/areas/areas.actions';
+import * as AreaActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/area.actions';
 
 @Component({
   selector: 'app-area-profile',
@@ -34,8 +34,8 @@ export class AreaProfileComponent implements OnInit, OnDestroy
 
     this.paramSubscription = this.activatedRoute.params.subscribe(param =>
     {
-      this.store.dispatch(AreasActions.getArea({ payload: param.id }));
-      this.store.dispatch(AreasActions.getAreaMembers({ payload: param.id }));
+      this.store.dispatch(AreaActions.getArea({ payload: param.id }));
+      // this.store.dispatch(AreasActions.getAreaMembers({ payload: param.id }));
     });
 
     // this.area$ = this.store.select(state => state.selectedArea.selectedArea.area);

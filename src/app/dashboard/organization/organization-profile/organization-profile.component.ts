@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as OrganizationActions from '../../../store/actions/userOrganizations/selectedOrganization/organization.actions';
-import * as AreasActions from '../../../store/actions/areas/areas.actions';
+import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions';
 
 
 @Component({
@@ -35,7 +35,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-    this.store.dispatch(AreasActions.clearSelectedAreaState());
+    // this.store.dispatch(AreasActions.clearSelectedAreaState());
     this.animation$ = this.store.select(state => state.ui.animated);
 
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user =>

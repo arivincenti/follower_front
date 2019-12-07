@@ -1,6 +1,6 @@
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { createReducer, on, Action } from '@ngrx/store';
-import * as OrganizationActions from '../../../actions/userOrganizations/selectedOrganization/organization.actions';
+import * as OrganizationActions from '../../../../actions/userOrganizations/selectedOrganization/organization.actions';
 
 export interface OrganizationState
 {

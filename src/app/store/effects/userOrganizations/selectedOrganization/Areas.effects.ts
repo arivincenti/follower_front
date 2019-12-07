@@ -4,7 +4,7 @@ import { mergeMap, catchError, map } from 'rxjs/operators';
 import { OrganizationsService } from '../../../../services/organizations/organizations.service';
 import { of } from 'rxjs';
 import { AreasService } from '../../../../services/areas/areas.service';
-import * as OrganizationAreasActions from '../../../actions/userOrganizations/selectedOrganization/organizationAreas.actions';
+import * as AreasActions from '../../../actions/userOrganizations/selectedOrganization/areas/areas.actions';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
 
@@ -19,17 +19,17 @@ export class OrganizationAreasEffects
   ) { }
 
 
-  getOrganizationAreas$ = createEffect(() => this.actions$.pipe(
-    ofType(OrganizationAreasActions.getOrganizationAreas),
+  getAreas$ = createEffect(() => this.actions$.pipe(
+    ofType(AreasActions.getAreas),
     mergeMap((action) => this._organizationsService.getOrganizationAreas(action.payload)
       .pipe(
-        map((areas: any) => OrganizationAreasActions.getOrganizationAreasSuccess({ payload: areas })),
-        catchError(error => of(OrganizationAreasActions.getOrganizationAreasFail({ payload: error })))
+        map((areas: any) => AreasActions.getAreasSuccess({ payload: areas })),
+        catchError(error => of(AreasActions.getAreasFail({ payload: error })))
       ))
   ));
 
   createOrganizationAreas$ = createEffect(() => this.actions$.pipe(
-    ofType(OrganizationAreasActions.createOrganizationArea),
+    ofType(AreasActions.createArea),
     mergeMap((action) => this._areaService.createArea(action.payload)
       .pipe(
         map((area: any) =>
@@ -43,15 +43,15 @@ export class OrganizationAreasEffects
             showConfirmButton: false,
             timer: 2700
           });
-          OrganizationAreasActions.createOrganizationAreaSuccess({ payload: area });
+          AreasActions.createAreaSuccess({ payload: area });
           this.router.navigate(['app/organizations/profile', action.payload.organization]);
         }),
-        catchError(error => of(OrganizationAreasActions.createOrganizationAreaFail({ payload: error })))
+        catchError(error => of(AreasActions.createAreaFail({ payload: error })))
       ))
   ), {dispatch: false});
 
   updateOrganizationAreas$ = createEffect(() => this.actions$.pipe(
-    ofType(OrganizationAreasActions.updateOrganizationArea),
+    ofType(AreasActions.updateArea),
     mergeMap((action) => this._areaService.updateArea(action.areaId, action.payload)
       .pipe(
         map((area: any) =>
@@ -65,14 +65,14 @@ export class OrganizationAreasEffects
             showConfirmButton: false,
             timer: 2700
           });
-          return OrganizationAreasActions.updateOrganizationAreaSuccess({ payload: area })
+          return AreasActions.updateAreaSuccess({ payload: area })
         }),
-        catchError(error => of(OrganizationAreasActions.updateOrganizationAreaFail({ payload: error })))
+        catchError(error => of(AreasActions.updateAreaFail({ payload: error })))
       ))
   ));
 
   deleteOrganizationAreas$ = createEffect(() => this.actions$.pipe(
-    ofType(OrganizationAreasActions.deleteOrganizationArea),
+    ofType(AreasActions.deleteArea),
     mergeMap((action) => this._areaService.deleteArea(action.payload)
       .pipe(
         map((area: any) =>
@@ -86,9 +86,9 @@ export class OrganizationAreasEffects
             showConfirmButton: false,
             timer: 2700
           });
-          return OrganizationAreasActions.deleteOrganizationAreaSuccess({ payload: area })
+          return AreasActions.deleteAreaSuccess({ payload: area })
         }),
-        catchError(error => of(OrganizationAreasActions.deleteOrganizationAreaFail({ payload: error })))
+        catchError(error => of(AreasActions.deleteAreaFail({ payload: error })))
       ))
   ));
 

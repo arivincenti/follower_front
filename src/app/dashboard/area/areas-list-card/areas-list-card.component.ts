@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { AreaModel } from 'src/app/models/area.model';
 import { UserModel } from 'src/app/models/user.model';
 import { Observable, Subscription } from 'rxjs';
@@ -8,22 +8,22 @@ import { AreasService } from 'src/app/services/areas/areas.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router } from '@angular/router';
-import * as OrganizationAreasActions from '../../../store/actions/userOrganizations/selectedOrganization/organizationAreas.actions';
+import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions';
 
 @Component({
-  selector: 'tr[app-organization-areas-list-items]',
-  templateUrl: './organization-areas-list-items.component.html',
-  styleUrls: ['./organization-areas-list-items.component.css']
+  selector: 'app-areas-list-card',
+  templateUrl: './areas-list-card.component.html',
+  styleUrls: ['./areas-list-card.component.css']
 })
-export class OrganizationAreasListItemsComponent implements OnInit, OnDestroy
-{
+export class AreasListCardComponent implements OnInit, OnDestroy {
 
+  @Input() organization: OrganizationModel;
   @Input() area: AreaModel;
   @Input() user: UserModel;
   responsibleMembers$: Observable<MemberModel[]>;
   organization$: Observable<OrganizationModel>;
   subscriptionAreaMembers: Subscription = new Subscription();
-  areaMembers: number;
+  members: number;
 
   constructor(
     private _areaService: AreasService,
@@ -31,8 +31,8 @@ export class OrganizationAreasListItemsComponent implements OnInit, OnDestroy
     private router: Router
   ) { }
 
-  ngOnInit()
-  {
+  ngOnInit() {
+
     this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
 
     this.responsibleMembers$ = this._areaService.getAreaResponsibleMembers(this.area._id);
@@ -41,10 +41,10 @@ export class OrganizationAreasListItemsComponent implements OnInit, OnDestroy
     {
       if (members)
       {
-        this.areaMembers = members.length;
+        this.members = members.length;
       } else
       {
-        this.areaMembers = 0;
+        this.members = 0;
       }
     });
   }
@@ -69,7 +69,7 @@ export class OrganizationAreasListItemsComponent implements OnInit, OnDestroy
   deleteArea(area: AreaModel)
   {
     //Make method to update deleted_at property from area
-    this.store.dispatch(OrganizationAreasActions.deleteOrganizationArea({ payload: area._id }));
+    this.store.dispatch(AreasActions.deleteArea({ payload: area._id }));
   }
 
   activateArea(area: AreaModel)
@@ -78,7 +78,7 @@ export class OrganizationAreasListItemsComponent implements OnInit, OnDestroy
       deleted_at: 1
     }
 
-    this.store.dispatch(OrganizationAreasActions.updateOrganizationArea({ areaId: area._id, payload: payload }));
+    this.store.dispatch(AreasActions.updateArea({ areaId: area._id, payload: payload }));
   }
 
 }

@@ -4,7 +4,7 @@ import { mergeMap, catchError, map } from 'rxjs/operators';
 import { OrganizationsService } from '../../../../services/organizations/organizations.service';
 import { of } from 'rxjs';
 import { AreaModel } from '../../../../models/area.model';
-import * as OrganizationUserAreasActions from '../../../actions/userOrganizations/selectedOrganization/organizationUserAreas.actions';
+import * as UserAreasActions from '../../../actions/userOrganizations/selectedOrganization/areas/userAreas.actions';
 
 
 @Injectable()
@@ -17,11 +17,11 @@ export class OrganizationUserAreasEffects
 
 
   getOrganizationUserAreas$ = createEffect(() => this.actions$.pipe(
-    ofType(OrganizationUserAreasActions.getOrganizationUserAreas),
+    ofType(UserAreasActions.getUserAreas),
     mergeMap((action) => this._organizationsService.getOrganizationUserAreas(action.user, action.organization)
       .pipe(
-        map((userAreas: AreaModel[]) => OrganizationUserAreasActions.getOrganizationUserAreasSuccess({ payload: userAreas })),
-        catchError(error => of(OrganizationUserAreasActions.getOrganizationUserAreasFail({ payload: error })))
+        map((userAreas: AreaModel[]) => UserAreasActions.getUserAreasSuccess({ payload: userAreas })),
+        catchError(error => of(UserAreasActions.getUserAreasFail({ payload: error })))
       ))
   ));
 
