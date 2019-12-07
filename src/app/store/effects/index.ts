@@ -5,6 +5,7 @@ import { OrganizationsEffects } from './userOrganizations/organizations/organiza
 import { OrganizationEffects } from './userOrganizations/selectedOrganization/organization.effects';
 import { OrganizationAreasEffects } from './userOrganizations/selectedOrganization/Areas.effects';
 import { OrganizationUserAreasEffects } from './userOrganizations/selectedOrganization/UserAreas.effects';
+import { MembersEffects } from './userOrganizations/selectedOrganization/members/members.effects';
 
 
 export const effects: any[] = [
@@ -14,7 +15,8 @@ export const effects: any[] = [
   OrganizationsEffects,
   OrganizationEffects,
   OrganizationAreasEffects,
-  OrganizationUserAreasEffects
+  OrganizationUserAreasEffects,
+  MembersEffects
 ];
 
 export * from './ui/ui.effects';
@@ -24,3 +26,4 @@ export * from './userOrganizations/organizations/organizations.effects';
 export * from './userOrganizations/selectedOrganization/organization.effects';
 export * from './userOrganizations/selectedOrganization/Areas.effects';
 export * from './userOrganizations/selectedOrganization/UserAreas.effects';
+export * from './userOrganizations/selectedOrganization/members/members.effects';

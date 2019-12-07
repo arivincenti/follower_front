@@ -26,6 +26,12 @@ button {
   font-size: 1.3em;
 }
 
+.icon-content-in {
+  position: relative;
+  top: 4px;
+  font-size: 1em;
+}
+
 .title {
   overflow: hidden;
   white-space: nowrap;

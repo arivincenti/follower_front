@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { UserModel } from 'src/app/models/user.model';
+import { OrganizationModel } from 'src/app/models/organization.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,11 @@ export class MembersService
     private http: HttpClient
   ) { }
 
-  selectMember(member: MemberModel)
+  getMembers(organization: OrganizationModel)
   {
-
+    return this.http.get(`${environment.path}/organizations/${organization._id}/members`).pipe(
+      map((data: any) => data.data)
+    )
   }
 
   createMember(member: any)
@@ -26,11 +29,12 @@ export class MembersService
       map(data => data['data'])
     )
   }
-  
+
   updateMember(member: MemberModel)
   {
     return this.http.put(`${environment.path}/members/${member._id}`, member).pipe(
-      map(data => {
+      map(data =>
+      {
         console.log(data['data']);
         return data['data']
       })
@@ -40,7 +44,8 @@ export class MembersService
   deleteMember(member: MemberModel)
   {
     return this.http.delete(`${environment.path}/members/${member._id}`).pipe(
-      map(data => {
+      map(data =>
+      {
         console.log(data['data']);
         return data['data']
       })

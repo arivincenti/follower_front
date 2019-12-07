@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import * as OrganizationActions from '../../../actions/userOrganizations/selectedOrganization/organization.actions';
 import * as AreasActions from '../../../actions/userOrganizations/selectedOrganization/areas/areas.actions';
 import * as UserAreasActions from '../../../actions/userOrganizations/selectedOrganization/areas/userAreas.actions';
+import * as MembersActions from '../../../actions/userOrganizations/selectedOrganization/members/members.actions';
 
 @Injectable()
 export class OrganizationEffects
@@ -23,7 +24,8 @@ export class OrganizationEffects
         mergeMap((organization: any) => [
           OrganizationActions.getOrganizationSuccess({ payload: organization }),
           AreasActions.getAreas({ payload: organization._id }),
-          UserAreasActions.getUserAreas({ user: action.user, organization: organization._id })
+          UserAreasActions.getUserAreas({ user: action.user, organization: organization._id }),
+          MembersActions.getMembers({payload: organization})
         ]),
         catchError(error => of(OrganizationActions.getOrganizationFail(error.error)))
       ))

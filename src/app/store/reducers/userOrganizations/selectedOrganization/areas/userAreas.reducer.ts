@@ -2,7 +2,7 @@ import { AreaModel } from 'src/app/models/area.model';
 import * as UserAreasActions from '../../../../actions/userOrganizations/selectedOrganization/areas/userAreas.actions';
 import { createReducer, Action, on } from '@ngrx/store';
 
-export interface UserAreas
+export interface UserAreasState
 {
   areas: AreaModel[],
   loading: boolean,
@@ -10,7 +10,7 @@ export interface UserAreas
   error: any
 }
 
-export const InitialStateUserAreas: UserAreas = {
+export const InitialStateUserAreas: UserAreasState = {
   areas: [],
   loading: false,
   loaded: false,
@@ -46,11 +46,10 @@ export const userAreasReducer = createReducer(
       loaded: false,
       error: { ...payload }
     }
-
   ))
 );
 
-export function UserAreasReducer(state: UserAreas | undefined, action: Action)
+export function UserAreasReducer(state: UserAreasState | undefined, action: Action)
 {
   return userAreasReducer(state, action);
 }

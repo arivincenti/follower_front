@@ -9,3 +9,7 @@
   top: 4px;
   font-size: 1.4em;
 }
+
+button{
+  outline: none;
+}

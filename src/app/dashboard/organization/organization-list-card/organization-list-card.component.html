@@ -21,10 +21,10 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="selectOrganization(organization)">
+            <!-- <button mat-menu-item (click)="selectOrganization(organization)">
               <mat-icon>arrow_forward</mat-icon>
               <span>Ingresar a la organización</span>
-            </button>
+            </button> -->
             <ng-container *ngIf="organization.created_by === user._id">
               <button *ngIf="!organization.deleted_at" mat-menu-item (click)="updateOrganization(organization)">
                 <mat-icon>create</mat-icon>
@@ -72,6 +72,13 @@
           </span>
         </div>
       </mat-card-content>
+      <mat-card-footer style="padding: 10px;">
+        <button class="btn btn-block" mat-button color="primary" (click)="selectOrganization(organization)">
+          <span>Ingresar</span>
+          <mat-icon class="icon-content-in">arrow_forward_ios</mat-icon>
+        </button>
+      </mat-card-footer>
+
     </mat-card>
 
   </div>

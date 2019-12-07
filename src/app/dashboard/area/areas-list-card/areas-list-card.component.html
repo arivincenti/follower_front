@@ -30,10 +30,6 @@
                 <mat-icon>delete</mat-icon>
                 <span>Dar de baja</span>
               </button>
-              <button *ngIf="area.deleted_at" mat-menu-item (click)="activateArea(area)">
-                <mat-icon>history</mat-icon>
-                <span>Restaurar</span>
-              </button>
             </ng-container>
           </ng-container>
 
@@ -42,6 +38,10 @@
               <mat-icon>arrow_forward</mat-icon>
               <span>Ingresar al área</span>
             </button>
+            <button *ngIf="area.deleted_at" mat-menu-item (click)="activateArea(area)">
+                <mat-icon>history</mat-icon>
+                <span>Restaurar</span>
+              </button>
           </ng-container>
         </mat-menu>
       </div>
