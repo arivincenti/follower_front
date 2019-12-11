@@ -20,14 +20,11 @@ export class MemberListCardComponent implements OnInit
     private router: Router
   ) { }
 
-  ngOnInit()
-  {
-    console.log(this.organization);
-  }
+  ngOnInit() { }
 
   selectMember(member)
   {
-    this.router.navigate(['app/organizations/members/', member._id]);
+    this.router.navigate(['app/organizations/members/profile', member._id]);
   }
 
 }

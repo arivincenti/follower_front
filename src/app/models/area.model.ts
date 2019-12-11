@@ -13,7 +13,6 @@ export class AreaModel
     public deleted_by?: UserModel,
     public created_at?: Date,
     public updated_at?: Date,
-    public deleted_at?: Date,
-    public checked?: boolean,
+    public deleted_at?: Date
   ) { }
 }

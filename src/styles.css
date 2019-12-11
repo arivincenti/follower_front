@@ -28,3 +28,10 @@ body {
   animation-delay: 900ms;
 }
 
+
+/* //////////////////////////////////// */
+.example-header-image {
+  position: relative;
+  right: 10px;
+  background-size: cover;
+}

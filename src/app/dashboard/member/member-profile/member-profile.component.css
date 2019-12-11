@@ -10,6 +10,15 @@
   font-size: 1.4em;
 }
 
+h4{
+  position: relative;
+  top: 7px;
+}
+
 button{
   outline: none;
+}
+
+.areasForm{
+  width: 100%;
 }

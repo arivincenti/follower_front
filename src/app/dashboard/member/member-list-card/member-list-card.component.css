@@ -3,6 +3,8 @@ button{
 }
 
 .area-title{
+  position: relative;
+  top:5px;
   font-size: .9em;
 }
 

@@ -24,7 +24,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy
   paramSubscription: Subscription = new Subscription();
   areasSubscription: Subscription = new Subscription();
   memberSubscription: Subscription = new Subscription();
-  areas: any[];
+  areas: AreaModel[];
   memberAreas: any;
   member: MemberModel;
 
@@ -63,7 +63,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy
 
       this.member.areas.forEach(a =>
       {
-        if (area._id === a)
+        if (area._id === a.toString())
         {
           boolean = true;
         }
@@ -93,7 +93,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy
 
   backToLastPage()
   {
-    this.router.navigate(['app/organizations',])
+    this.router.navigate(['app/organizations/profile', this.member.organization]);
   }
 
 }

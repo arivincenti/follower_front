@@ -2,7 +2,14 @@
       <mat-card-header class="d-flex justify-content-between">
         <!-- <div mat-card-avatar class="example-header-image"></div> -->
         <mat-card-title>
-          <span class="area-title">{{member.user.name}} {{member.user.last_name}}</span>
+          <div class="row">
+            <div class="col-md-2 d-flex justify-content-start">
+                <img mat-card-avatar class="example-header-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="">
+            </div>
+            <div class="col-md-10">
+              <span class="area-title">{{member.user.name}} {{member.user.last_name}}</span>
+            </div>
+          </div>
         </mat-card-title>
         <div class="d-flex justify-content-end" *ngIf="organization.created_by._id === user._id">
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones">
@@ -13,7 +20,7 @@
               <ng-container *ngIf="!member.deleted_at">
                 <button mat-menu-item (click)="selectMember(member)">
                   <mat-icon>arrow_forward</mat-icon>
-                  <span>Ingresar al perfil</span>
+                  <span>Ingresar al perfil del miembro</span>
                 </button>
                 <button *ngIf="!member.deleted_at" mat-menu-item (click)="deleteMember(member)">
                   <mat-icon>delete</mat-icon>
@@ -35,29 +42,28 @@
           </mat-menu>
         </div>
       </mat-card-header>
-      <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
       <mat-divider></mat-divider>
-
       <mat-card-content class="mt-2">
+        <span>
           <mat-icon class="icon">bookmarks
           </mat-icon>
           Áreas /
           <span>
             {{member.areas.length}}
           </span>
-        </mat-card-content>
-      <mat-card-content class="mt-2">
-        <mat-icon class="icon">watch_later</mat-icon>
-        Creado el /
-        <span class="success">
-          {{member.created_at | date:'dd-MM-yyyy'}}
+        </span>
+        <span class="ml-4">
+          <mat-icon class="icon">watch_later</mat-icon>
+          Creado el /
+          <span class="success">
+            {{member.created_at | date:'dd-MM-yyyy'}}
+          </span>
+        </span>
+        <span class="ml-4" *ngIf="member.deleted_at">
+          <mat-icon class="icon">delete</mat-icon> Dada de baja el /
+          <span class="danger">
+            {{member.deleted_at | date:'dd-MM-yyyy'}}
+          </span>
         </span>
       </mat-card-content>
-      <mat-card-content class="mt-2" *ngIf="member.deleted_at">
-        <mat-icon class="icon">delete</mat-icon> Dada de baja el /
-        <span class="danger">
-          {{member.deleted_at | date:'dd-MM-yyyy'}}
-        </span>
-      </mat-card-content>
-
     </mat-card>
