@@ -1,6 +1,6 @@
-import * as MembersActions from '../../../../actions/userOrganizations/selectedOrganization/members/members.actions';
+import * as MembersActions from '../../../../../actions/userOrganizations/selectedOrganization/members/members.actions';
 import { createReducer, on, Action } from '@ngrx/store';
-import { MemberModel } from '../../../../../models/member.model';
+import { MemberModel } from '../../../../../../models/member.model';
 
 
 export interface MembersState

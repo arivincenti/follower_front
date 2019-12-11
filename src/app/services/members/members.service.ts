@@ -16,9 +16,17 @@ export class MembersService
     private http: HttpClient
   ) { }
 
+
   getMembers(organization: OrganizationModel)
   {
-    return this.http.get(`${environment.path}/organizations/${organization._id}/members`).pipe(
+    return this.http.get(`${environment.path}/members/organization/${organization._id}`).pipe(
+      map((data: any) => data.data)
+    )
+  }
+
+  getMember(memberId: string)
+  {
+    return this.http.get(`${environment.path}/members/${memberId}`).pipe(
       map((data: any) => data.data)
     )
   }

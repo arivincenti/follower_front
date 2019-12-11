@@ -9,6 +9,8 @@ import * as OrganizationsActions from '../../../store/actions/userOrganizations/
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
+import { AreasService } from 'src/app/services/areas/areas.service';
+import { MembersService } from 'src/app/services/members/members.service';
 
 @Component({
   selector: 'app-organization-list-card',
@@ -25,7 +27,8 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
 
 
   constructor(
-    private _organizationService: OrganizationsService,
+    private _membersService: MembersService,
+    private _areasService: AreasService,
     private router: Router,
     private store: Store<AppState>
   ) { }
@@ -33,8 +36,8 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     //Estas consultas van directo sobre el servicio porque a esta altura de la aplicacion toidavia no se cargaron ls areas de una organizacion
-    this.areas$ = this._organizationService.getOrganizationAreas(this.organization._id);
-    this.members$ = this._organizationService.getOrganizationMembers(this.organization);
+    this.areas$ = this._areasService.getAreas(this.organization);
+    this.members$ = this._membersService.getMembers(this.organization);
 
   }
 

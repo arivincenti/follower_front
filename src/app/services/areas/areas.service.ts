@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
+import { OrganizationModel } from 'src/app/models/organization.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,16 @@ export class AreasService
   constructor(
     private http: HttpClient
   ) { }
+
+
+  // ==================================================
+  // Get all areas
+  // ==================================================
+  getAreas(organization: OrganizationModel)
+  {
+    return this.http.get(`${environment.path}/areas/${organization._id}`)
+      .pipe(map((data: any) => data.data));
+  }
 
   // ==================================================
   // Get Responsible Member

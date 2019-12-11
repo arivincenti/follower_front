@@ -33,23 +33,6 @@ export class OrganizationsService
   }
 
   // ==================================================
-  // Get all organization`s areas
-  // ==================================================
-  getOrganizationAreas(organization: string)
-  {
-    return this.http.get(`${environment.path}/organizations/${organization}/areas`)
-      .pipe(map((data: any) => data['data']));
-  }
-
-  // ==================================================
-  // Get all organization`s members
-  // ==================================================
-  getOrganizationMembers(organization: OrganizationModel)
-  {
-    return this.http.get(`${environment.path}/organizations/${organization._id}/members`).pipe(map((data: any) => data['data']));
-  }
-
-  // ==================================================
   // Get all user organization areas
   // ==================================================
   getOrganizationUserAreas(user_id: string, organization_id: string)

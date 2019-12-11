@@ -14,5 +14,6 @@ export class AreaModel
     public created_at?: Date,
     public updated_at?: Date,
     public deleted_at?: Date,
+    public checked?: boolean,
   ) { }
 }

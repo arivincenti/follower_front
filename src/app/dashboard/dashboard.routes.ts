@@ -5,6 +5,7 @@ import { OrganizationProfileComponent } from './organization/organization-profil
 import { AreaProfileComponent } from './area/area-profile/area-profile.component';
 import { AreaFormComponent } from './area/area-form/area-form.component';
 import { MemberFormComponent } from './member/member-form/member-form.component';
+import { MemberProfileComponent } from './member/member-profile/member-profile.component';
 
 
 export const dashboardRoutes: Routes = [
@@ -15,4 +16,5 @@ export const dashboardRoutes: Routes = [
   { path: 'organizations/areas/form/:id', component: AreaFormComponent },
   { path: 'organizations/areas/profile/:id', component: AreaProfileComponent },
   { path: 'organizations/members/form/:id', component: MemberFormComponent },
+  { path: 'organizations/members/:id', component: MemberProfileComponent },
 ];

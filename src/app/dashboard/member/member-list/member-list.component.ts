@@ -27,7 +27,7 @@ export class MemberListComponent implements OnInit
   {
     this.animation$ = this.store.select(state => state.ui.animated);
 
-    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members);
+    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members);
   }
 
 }

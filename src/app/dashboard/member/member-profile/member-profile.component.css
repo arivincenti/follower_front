@@ -1,0 +1,15 @@
+.icon-subtitle{
+  font-size: 1.6em;
+  position: relative;
+  top: 6px;
+}
+
+.icon{
+  position: relative;
+  top: 4px;
+  font-size: 1.4em;
+}
+
+button{
+  outline: none;
+}

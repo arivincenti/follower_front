@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import * as MembersActions from '../../../../actions/userOrganizations/selectedOrganization/members/members.actions';
+import * as MemberActions from '../../../../actions/userOrganizations/selectedOrganization/members/member.actions';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { MembersService } from 'src/app/services/members/members.service';
 import { of } from 'rxjs';
@@ -19,6 +20,15 @@ export class MembersEffects
       .pipe(
         map((members: any) => MembersActions.getMembersSuccess({ payload: members })),
         catchError(error => of(MembersActions.getMembersFail({payload: error})))
+      ))
+  ));
+
+  getMember$ = createEffect(() => this.actions$.pipe(
+    ofType(MemberActions.getMember),
+    mergeMap((action) => this._membersService.getMember(action.payload)
+      .pipe(
+        map((member: any) => MemberActions.getMemberSuccess({ payload: member })),
+        catchError(error => of(MemberActions.getMemberFail({payload: error})))
       ))
   ));
 

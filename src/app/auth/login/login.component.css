@@ -10,6 +10,7 @@ h1 {
   height: 100vh;
   background-color: rgba(245, 245, 245);
 }
+
 .content-info {
   min-height: 300px;
   padding: 30px;
@@ -22,13 +23,21 @@ h1 {
   padding: 10px;
 }
 
-p {
+.content-text {
   font-size: 0.8em;
   font-family: "roboto";
+  color: rgba(255, 255, 255, .7);
 }
 
 .foot {
   font-size: 0.8em;
+}
+
+.general-content-child{
+  border-radius: 20px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 5px 8px 15px rgba(0, 0, 0, .4);
 }
 
 /* 
@@ -77,10 +86,8 @@ font-size: .8em;
     min-height: 300px;
   }
 
-  .general-content-child {
-    background-color: white;
-    overflow: hidden;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  .general-content-child{
+    border-radius: 0px;
   }
 
   .content-info {
@@ -106,11 +113,9 @@ font-size: .8em;
     position: relative;
     top: 0vh;
   }
-
-  .general-content-child {
-    background-color: white;
-    overflow: hidden;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  
+  .general-content-child{
+    border-radius: 0px;
   }
 
   .content-info {
@@ -142,13 +147,6 @@ font-size: .8em;
     top: 15vh;
   }
 
-  .general-content-child {
-    border-radius: 20px;
-    background-color: white;
-    overflow: hidden;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  }
-
   .content-info {
     min-height: 300px;
     padding: 40px;
@@ -178,13 +176,6 @@ font-size: .8em;
     top: 15vh;
   }
 
-  .general-content-child {
-    border-radius: 20px;
-    background-color: white;
-    overflow: hidden;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  }
-
   .content-info {
     min-height: 300px;
     padding: 40px;
@@ -212,13 +203,6 @@ font-size: .8em;
   .general-content {
     position: relative;
     top: 20vh;
-  }
-
-  .general-content-child {
-    border-radius: 20px;
-    background-color: white;
-    overflow: hidden;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
   }
 
   .content-info {

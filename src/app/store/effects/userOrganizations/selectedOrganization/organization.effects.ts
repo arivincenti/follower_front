@@ -23,7 +23,7 @@ export class OrganizationEffects
       .pipe(
         mergeMap((organization: any) => [
           OrganizationActions.getOrganizationSuccess({ payload: organization }),
-          AreasActions.getAreas({ payload: organization._id }),
+          AreasActions.getAreas({ payload: organization }),
           UserAreasActions.getUserAreas({ user: action.user, organization: organization._id }),
           MembersActions.getMembers({payload: organization})
         ]),
