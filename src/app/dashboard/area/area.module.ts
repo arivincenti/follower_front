@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AreaProfileComponent } from './area-profile/area-profile.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AreaFormComponent } from './area-form/area-form.component';
@@ -19,6 +19,7 @@ import { AngularMaterialModule } from 'src/app/angular-material/angular-material
     CommonModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularMaterialModule
   ],
   exports: [

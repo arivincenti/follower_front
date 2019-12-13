@@ -1,58 +1,33 @@
-<ng-container *ngIf="animation$ | async as animation">
-  <div class="card bg-light m-3 animated" [ngClass]="animation[0]">
-    <div class="card-header d-flex justify-content-center">
-      <h5 class="text-muted" *ngIf="param === 'nueva'">
-        Nueva Área
-      </h5>
-      <h5 class="text-muted" *ngIf="param !== 'nueva'">
-        Editar el Área
-      </h5>
+<div class="col-md-12">
+  <h5 *ngIf="data.area === 'nueva'">
+    Nueva Área
+  </h5>
+  <h5 *ngIf="data.area !== 'nueva'">
+    Editar el Área
+  </h5>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-content class="mt-3">
+  <form [formGroup]="form" (ngSubmit)="createOrUpdateArea()">
+    <div class="col-md-12 d-flex justify-content-end">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Nombre del Área" formControlName="area" name="area"
+          autocomplete="off">
+        <mat-error *ngIf="form.controls['area'].errors?.avaible">
+          Ya <strong>existe</strong> un área con este nombre en esta organización.<strong>
+            Por favor elije otro.</strong>
+        </mat-error>
+        <mat-error *ngIf="form.controls['area'].errors?.required">
+          <strong>No olvides</strong> escribir arriba un nombre para el área tu organización.
+        </mat-error>
+      </mat-form-field>
     </div>
-    <div class="card-body">
-      <button class="btn-back" (click)="backToLastPage()"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Ir a mi
-        organización
+
+    <div class="col-md-12 d-flex justify-content-end mt-4">
+      <button type="submit" mat-raised-button color="accent" [disabled]="form.invalid">
+        <mat-icon>save</mat-icon>
+        <span> Guardar</span>
       </button>
-      <div class="mt-3">
-        <form (ngSubmit)="createArea()">
-          <div class="form-group">
-            <label class="text-muted">Organización</label>
-            <input type="text" class="form-control" name="organization.name" [ngModel]="organization.name"
-              placeholder="name@example.com" readonly>
-          </div>
-          <div class="form-group">
-            <label class="text-muted">Nombre de área</label>
-            <input type="text" (keyup)="validateName()" class="form-control" name="areaName" [(ngModel)]="areaName"
-              placeholder="Escriba el nombre del área"
-              [ngClass]="{'is-valid': avaible && areaName, 'is-invalid': !avaible || !areaName}" autocomplete="off"
-              autofocus>
-            <div class="valid-feedback" *ngIf="avaible">
-              El nombre está disponible
-            </div>
-            <div class="invalid-feedback" *ngIf="!avaible">
-              Ya existe un área con ese nombre en esta organización
-            </div>
-            <div class="invalid-feedback" *ngIf="!areaName">
-              El nombre es obligatorio
-            </div>
-          </div>
-          <hr>
-          <div class="form-group">
-            <div class="col-md-12 d-flex justify-content-end">
-              <button type="submit" [ngClass]="{'disabled': !avaible || !areaName}"
-                class="btn btn-sm btn-success d-flex justify-content-center align-items-center">
-                <span *ngIf="param === 'nueva'">
-                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                  Crear nueva Área
-                </span>
-                <span *ngIf="param !== 'nueva'">
-                  <i class="fa fa-save" aria-hidden="true"></i>
-                  Guardar cambios
-                </span>
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
     </div>
-  </div>
-</ng-container>
+  </form>
+</div>

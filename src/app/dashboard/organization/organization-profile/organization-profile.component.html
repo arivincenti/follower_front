@@ -114,7 +114,7 @@
               <div class="container">
                 <div class="row d-flex align-items-center">
                   <div class="col-md-12 d-flex justify-content-start">
-                    <button mat-raised-button color="primary" *ngIf="!organization.deleted_at" (click)="addArea()"
+                    <button mat-raised-button color="primary" *ngIf="!organization.deleted_at" (click)="createArea()"
                       matTooltip="Agregar área" matTooltipPosition="right" class="m-3">
                       <span>
                         Agregar área
@@ -136,7 +136,7 @@
               </ng-template>
               <div class="row d-flex align-items-center">
                 <div class="col-md-12 d-flex justify-content-start">
-                  <button mat-raised-button color="primary" *ngIf="!organization.deleted_at" (click)="newTicket()"
+                  <button mat-raised-button color="primary" *ngIf="!organization.deleted_at" (click)="createMember()"
                     matTooltip="Agregar miembro" matTooltipPosition="right" class="m-3">
                     <span>Agregar miembro</span>
                   </button>

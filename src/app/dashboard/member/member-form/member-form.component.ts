@@ -1,15 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MembersService } from 'src/app/services/members/members.service';
 import { UserModel } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users/users.service';
-import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions';
-import { AreaModel } from 'src/app/models/area.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogDataMember } from '../../../models/interfaces/dialogDataMember';
+import * as MembersActions from '../../../store/actions/userOrganizations/selectedOrganization/members/members.actions';
 import { MemberModel } from 'src/app/models/member.model';
-import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-member-form',
@@ -21,96 +21,88 @@ export class MemberFormComponent implements OnInit, OnDestroy
   //UI Observable
   animation$: Observable<string[]>;
 
-  paramSubscription: Subscription = new Subscription();
   userSubscription: Subscription = new Subscription();
-  areaSubscription: Subscription = new Subscription();
-  areaMembersSubscription: Subscription = new Subscription();
-  param: string;
-  email: string;
-  selectedUser: UserModel;
+  membersSubscription: Subscription = new Subscription();
+  errorSubscription: Subscription = new Subscription();
+  form: FormGroup;
   users$: Observable<UserModel[]>;
-  avaible: boolean = true;
-  area: AreaModel;
-  loading: boolean = false;
-  areaMembers: MemberModel[];
+  user: UserModel;
+  members: MemberModel[];
+
+  email = new FormControl();
 
   constructor(
     private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private _membersService: MembersService,
-    private _usersService: UsersService
+    private _usersService: UsersService,
+    private dialogRef: MatDialogRef<MemberFormComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: DialogDataMember
   ) { }
+
 
   ngOnInit()
   {
-    this.animation$ = this.store.select(state => state.ui.animated);
+    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
 
-    //Params subscription
-    this.paramSubscription = this.activatedRoute.params.subscribe(param =>
-    {
-      this.param = param.id;
-
-      // this.areaSubscription = this.store.select(state => state.userOrganizations.selectedArea.selectedArea.area).subscribe(area => this.area = area);
+    this.form = new FormGroup({
+      email: new FormControl('', Validators.required),
+      user: new FormControl('')
     });
 
-    // this.areaMembersSubscription = this.store.select(state=> state.selectedArea.areaMembers.members).subscribe(members => this.areaMembers = members);
+    //Mark as touched
+    this.form.controls['email'].markAsTouched();
+
+    this.animation$ = this.store.select(state => state.ui.animated);
   }
 
   ngOnDestroy()
   {
     this.userSubscription.unsubscribe();
-    this.paramSubscription.unsubscribe();
-    this.areaSubscription.unsubscribe();
-    this.areaMembersSubscription.unsubscribe();
+    this.membersSubscription.unsubscribe();
+    this.errorSubscription.unsubscribe();
   }
 
   searchUsers()
   {
     let payload = {
-      email: this.email,
-      area: this.area
+      email: this.form.controls['email'].value
     }
-
     this.users$ = this._usersService.getUsersByEmail(payload);
   }
 
-  selectUser(user: UserModel)
+  createMember()
   {
-    this.selectedUser = user;
-  }
+    let member;
 
-  // createMember()
-  // {
+    this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).subscribe(members => this.members = members);
 
-  //   if(this.areaMembers.find(member => member.user._id === this.selectedUser._id)){
-  //     Swal.fire({
-  //       position: 'top-end',
-  //       toast: true,
-  //       icon: 'warning',
-  //       title: 'Oops!!',
-  //       text: `El usuario ${this.selectedUser.name} ${this.selectedUser.last_name} ya es miembro del área`,
-  //       showConfirmButton: false,
-  //       timer: 2700
-  //     });
-  //     return;
-  //   }
+    if (this.members.includes(this.form.controls['email'].value))
+    {
+      console.log('El miembro ya existe en la organizaion');
+      return;
+    }
 
-  //   let payload = {
-  //     organization: this.area.organization,
-  //     area: this.area._id,
-  //     user: this.selectedUser._id,
-  //     role: 'MIEMBRO'
-  //   }
+    let payload = {
+      email: this.form.controls['email'].value,
+    }
 
-    
-  //   this.store.dispatch(AreasActions.createAreaMember({ payload: payload }));
-    
-  // }
+    this._usersService.getUsersByEmail(payload).subscribe(user =>
+    {
+      if (!user.length)
+      {
+        console.log('No se encontro el usuario');
+        return;
+      };
 
-  backToLastPage()
-  {
-    this.router.navigate(['app/organizations/areas/profile', this.param]);
+      let payload = {
+        organization: this.data.organization,
+        user: user[0]._id,
+        created_by: this.user._id
+      }
+
+      this.store.dispatch(MembersActions.createMember({ payload }));
+    });
+
+    this.dialogRef.close();
   }
 
 }

@@ -4,13 +4,14 @@ import { OrganizationModel } from 'src/app/models/organization.model';
 import { UserModel } from 'src/app/models/user.model';
 import { AreaModel } from 'src/app/models/area.model';
 import { MemberModel } from 'src/app/models/member.model';
-import { OrganizationsService } from 'src/app/services/organizations/organizations.service';
 import * as OrganizationsActions from '../../../store/actions/userOrganizations/organizations/organizations.actions';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { AreasService } from 'src/app/services/areas/areas.service';
 import { MembersService } from 'src/app/services/members/members.service';
+import { OrganizationFormComponent } from '../organization-form/organization-form.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-organization-list-card',
@@ -30,7 +31,8 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
     private _membersService: MembersService,
     private _areasService: AreasService,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit()
@@ -48,9 +50,14 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
     this.router.navigate(['app/organizations/profile', organization._id]);
   }
 
-  updateOrganization(organization: OrganizationModel)
+  updateOrganization(organization: OrganizationModel): void
   {
-    this.router.navigate(['app/organizations/form', this.organization._id]);
+    this.dialog.open(OrganizationFormComponent, {
+      width: '600px',
+      data: {
+        organization: organization._id,
+      }
+    });
   }
 
   deleteOrganization(organization: OrganizationModel)

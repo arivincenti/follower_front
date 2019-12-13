@@ -41,12 +41,11 @@ export class OrganizationAreasEffects
             showConfirmButton: false,
             timer: 2700
           });
-          AreasActions.createAreaSuccess({ payload: area });
-          this.router.navigate(['app/organizations/profile', action.payload.organization]);
+          return AreasActions.createAreaSuccess({ payload: area });
         }),
         catchError(error => of(AreasActions.createAreaFail({ payload: error })))
       ))
-  ), {dispatch: false});
+  ));
 
   updateArea$ = createEffect(() => this.actions$.pipe(
     ofType(AreasActions.updateArea),

@@ -5,6 +5,7 @@ import * as MemberActions from '../../../../actions/userOrganizations/selectedOr
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { MembersService } from 'src/app/services/members/members.service';
 import { of } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class MembersEffects
@@ -36,8 +37,19 @@ export class MembersEffects
     ofType(MembersActions.createMember),
     mergeMap((action) => this._membersService.createMember(action.payload)
       .pipe(
-        map((member: any) => MembersActions.createMemberSuccess({ payload: member })),
-        catchError(error => of(MembersActions.createMemberFail({payload: error})))
+        map((member: any) => {
+          Swal.fire({
+            position: 'top-end',
+            toast: true,
+            icon: 'success',
+            title: 'Genial!!',
+            text: 'El miembro de la organización se creó con éxito',
+            showConfirmButton: false,
+            timer: 2500
+          });
+          return MembersActions.createMemberSuccess({ payload: member })
+        }),
+        catchError(error => of(MembersActions.createMemberFail({payload: error.error})))
       ))
   ));
 

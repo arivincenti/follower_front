@@ -1,43 +1,32 @@
-<ng-container *ngIf="animation$ | async as animation">
-  <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
-    <div class="col-md-12">
-      <h5 *ngIf="param === 'nueva'">
-        Nueva Organización
-      </h5>
-      <h5 *ngIf="param !== 'nueva'">
-        Editar la Organización
-      </h5>
+<div class="col-md-12">
+  <h5 *ngIf="data.organization === 'nueva'">
+    Nueva Organización
+  </h5>
+  <h5 *ngIf="data.organization !== 'nueva'">
+    Editar la Organización
+  </h5>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-content class="mt-3">
+  <form [formGroup]="form" class="mt-3" (ngSubmit)="createOrUpdateOrganization()">
+    <div class="col-md-12 d-flex justify-content-end">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Nombre de la organización" formControlName="name" name="name"
+          autocomplete="off">
+        <mat-error *ngIf="form.controls['name'].errors?.avaible">
+          Ya eres <strong>propietario</strong> o <strong>perteneces</strong> a una organización con este nombre.<strong>
+            Por favor elije otro.</strong>
+        </mat-error>
+        <mat-error *ngIf="form.controls['name'].errors?.required">
+          <strong>No olvides</strong> escribir arriba un nombre para tu organización.
+        </mat-error>
+      </mat-form-field>
     </div>
-  </div>
-  <mat-divider></mat-divider>
-  <mat-card class="mt-4 animated" [ngClass]="animation[0]">
-    <mat-card-content>
-      <button mat-icon-button color="accent" (click)="backToLastPage()">
-        <mat-icon>arrow_back</mat-icon>
-        Ir a mis organizaciones
+    <div class="col-md-12 d-flex justify-content-end mt-4">
+      <button type="submit" mat-raised-button color="accent" [disabled]="form.invalid">
+        <mat-icon>save</mat-icon>
+        <span> Guardar</span>
       </button>
-
-      <form [formGroup]="form" class="mt-3" (ngSubmit)="createOrUpdateOrganization()">
-        <div class="col-md-12 d-flex justify-content-end">
-          <mat-form-field>
-            <input matInput type="text" placeholder="Nombre de la organización"
-              formControlName="name" name="name" autocomplete="off">
-            <mat-error *ngIf="form.controls['name'].errors?.avaible">
-              Ya eres <strong>propietario</strong>  o <strong>perteneces</strong> a una organización con este nombre.<strong> Por favor elije otro.</strong>
-            </mat-error>
-            <mat-error *ngIf="form.controls['name'].errors?.required">
-              <strong>No olvides</strong> escribir arriba un nombre para tu organización.
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-md-12 d-flex justify-content-end mt-3">
-          <button type="submit" mat-raised-button color="accent" [disabled]="form.invalid">
-            <mat-icon>save</mat-icon>
-            <span> Guardar</span>
-          </button>
-        </div>
-      </form>
-    </mat-card-content>
-  </mat-card>
-</ng-container>
+    </div>
+  </form>
+</div>

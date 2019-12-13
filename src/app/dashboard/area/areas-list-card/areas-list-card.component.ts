@@ -9,6 +9,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router } from '@angular/router';
 import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions';
+import { MatDialog } from '@angular/material';
+import { AreaFormComponent } from '../area-form/area-form.component';
 
 @Component({
   selector: 'app-areas-list-card',
@@ -28,7 +30,8 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
   constructor(
     private _areaService: AreasService,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -62,8 +65,14 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
 
   updateArea(area: AreaModel)
   {
-    //Redirect to Area form
-    this.router.navigate(['app/organizations/areas/form', area._id]);
+    console.log(area);
+    this.dialog.open(AreaFormComponent, {
+      width: '600px',
+      data: {
+        organization: this.organization,
+        area: area._id
+      }
+    });
   }
 
   deleteArea(area: AreaModel)

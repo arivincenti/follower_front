@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { UserModel } from 'src/app/models/user.model';
 import { OrganizationModel } from 'src/app/models/organization.model';
@@ -7,8 +7,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions';
 import { AreasService } from 'src/app/services/areas/areas.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OrganizationsService } from 'src/app/services/organizations/organizations.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogDataArea } from 'src/app/models/interfaces/dialogDataArea';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-area-form',
@@ -17,40 +18,26 @@ import { OrganizationsService } from 'src/app/services/organizations/organizatio
 })
 export class AreaFormComponent implements OnInit
 {
+  form: FormGroup;
 
-  //UI Observable
-  animation$: Observable<string[]>;
-
-  paramSubscription: Subscription = new Subscription();
   userSubscription: Subscription = new Subscription();
   userOrganizationSubscription: Subscription = new Subscription();
   organizationAreasSubscription: Subscription = new Subscription();
   user: UserModel;
   organization: OrganizationModel;
-  areaName: string = '';
   avaible: boolean = true;
   organizationAreas: AreaModel[];
   area: AreaModel;
-  param: string;
 
   constructor(
     private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
     private _areasService: AreasService,
-    private _organizationService: OrganizationsService
+    private dialogRef: MatDialogRef<AreaFormComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: DialogDataArea
   ) { }
 
   ngOnInit()
   {
-    this.animation$ = this.store.select(state => state.ui.animated);
-
-    //Params subscription
-    this.paramSubscription = this.activatedRoute.params.subscribe(param =>
-    {
-      this.param = param.id;
-    });
-
     //User Subscription    
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
 
@@ -60,21 +47,28 @@ export class AreaFormComponent implements OnInit
     //Search organizations areas
     this.organizationAreasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas).subscribe(areas => this.organizationAreas = areas);
 
+
+    //FORM
+    this.form = new FormGroup({
+      area: new FormControl(null, Validators.required, this.avaibleName.bind(this)),
+    });
+
+    //Mark as touched
+    this.form.controls['area'].markAsTouched();
+
     //Check if param is not a new area, then search it
-    if (this.param !== 'nueva')
+    if (this.data.area !== 'nueva')
     {
-      this._areasService.getselectedArea(this.param).subscribe((area: AreaModel) =>
+      this._areasService.getSelectedArea(this.data.area).subscribe((area: AreaModel) =>
       {
+        this.form.controls['area'].setValue(area.name);
         this.area = area;
-        this.areaName = area.name;
-        this.validateName();
       })
     }
   }
 
   ngOnDestroy()
   {
-    this.paramSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
     this.userOrganizationSubscription.unsubscribe();
     this.organizationAreasSubscription.unsubscribe();
@@ -83,55 +77,52 @@ export class AreaFormComponent implements OnInit
   // ==================================================
   // Create a new Area or Update one
   // ==================================================
-  createArea()
+  createOrUpdateArea()
   {
+    // Validation name before create or update an organization
+    if (this.form.invalid) return;
 
-    if (!this.avaible || !this.areaName) return;
-
-    if (this.param === 'nueva')
+    if (this.data.area === 'nueva')
     {
       let payload = {
         user: this.user._id,
         organization: this.organization._id,
-        name: this.areaName.toUpperCase()
+        name: this.form.controls['area'].value.toUpperCase()
       }
-
       this.store.dispatch(AreasActions.createArea({ payload }));
-      
     } else
     {
       let payload = {
-        name: this.areaName.toUpperCase()
+        name: this.form.controls['area'].value.toUpperCase()
       }
-
       this.store.dispatch(AreasActions.updateArea({ areaId: this.area._id, payload: payload }));
-
-      this.router.navigate(['app/organizations/profile', this.organization._id]);
     }
-
+    this.dialogRef.close();
   }
 
   // ==================================================
-  // Back to last page
+  // Organization Name Validator
   // ==================================================
-  backToLastPage()
+  avaibleName(control: FormControl): Promise<any> | Observable<any>
   {
-    this.router.navigate(['app/organizations/profile', this.organization._id]);
-  }
-
-  // ==================================================
-  // Area name validator
-  // ==================================================
-  validateName()
-  {
-    this.avaible = true;
-    this.organizationAreas.forEach(area =>
+    let promise = new Promise((resolve, reject) =>
     {
-      if (area.name.toUpperCase() === this.areaName.toUpperCase())
+      let nombre = '';
+      this.organizationAreas.forEach(area =>
       {
-        this.avaible = false;
+        if (area.name.toUpperCase() === this.form.controls['area'].value.toUpperCase()) nombre = area.name.toUpperCase();
+      });
+
+      if (control.value.toUpperCase() === nombre)
+      {
+        resolve({ avaible: true });
+      } else
+      {
+        resolve(null)
       }
     });
+
+    return promise;
   }
 
 }

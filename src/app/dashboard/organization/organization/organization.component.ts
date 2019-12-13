@@ -6,7 +6,8 @@ import { AppState } from 'src/app/store/app.reducer';
 import * as OrganizationActions from '../../../store/actions/userOrganizations/selectedOrganization/organization.actions';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { Router } from '@angular/router';
-
+import { OrganizationFormComponent } from '../organization-form/organization-form.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-organization',
@@ -25,7 +26,7 @@ export class OrganizationComponent implements OnInit, OnDestroy
 
   constructor(
     private store: Store<AppState>,
-    private router: Router
+    private dialog: MatDialog    
   ) { }
 
   ngOnInit()
@@ -36,10 +37,13 @@ export class OrganizationComponent implements OnInit, OnDestroy
     // this.store.dispatch(AreasActions.clearSelectedAreaState());
   }
 
-  createOrganization()
-  {
-    //Activamos el modal de carga de una nueva organizacion mediante un efecto
-    this.router.navigate(['app/organizations/form', 'nueva']);
+  createOrganization(): void {
+    this.dialog.open(OrganizationFormComponent, {
+      width: '600px',
+      data: {
+        organization: 'nueva',
+      }
+    });
   }
 
   ngOnDestroy()

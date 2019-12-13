@@ -44,15 +44,18 @@ export class MemberProfileComponent implements OnInit, OnDestroy
     this.paramSubscription = this.activatedRoute.params.subscribe(param =>
     {
       this.store.dispatch(MemberActions.getMember({ payload: param.id }));
+
       this.memberSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.selectedMember.member).subscribe(member =>
-      {
-        this.member = member;
-      });
+        {
+          this.member = member;
+        });
     });
 
     this.form = this.formBuilder.group({
       areas: this.buildAreas()
     });
+
+
   }
 
   buildAreas()

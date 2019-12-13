@@ -1,3 +1,10 @@
-.tr-valid{
-  border: green solid 1px;
+mat-option{
+  padding: 5px;
+}
+mat-form-field{
+  width: 100%;
+}
+
+button{
+  outline: none;
 }

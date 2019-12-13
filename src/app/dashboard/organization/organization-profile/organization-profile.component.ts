@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { UserModel } from 'src/app/models/user.model';
@@ -7,8 +7,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as OrganizationActions from '../../../store/actions/userOrganizations/selectedOrganization/organization.actions';
-import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions';
-
+import { MatDialog } from '@angular/material';
+import { AreaFormComponent } from '../../area/area-form/area-form.component';
+import { MemberFormComponent } from '../../member/member-form/member-form.component';
 
 @Component({
   selector: 'app-organization-profile',
@@ -18,6 +19,7 @@ import * as AreasActions from '../../../store/actions/userOrganizations/selected
 export class OrganizationProfileComponent implements OnInit, OnDestroy
 {
 
+  organizationSubscription: Subscription = new Subscription();
   paramSubscription: Subscription = new Subscription();
   userSubscription: Subscription = new Subscription();
   organization$: Observable<OrganizationModel>;
@@ -25,13 +27,16 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
   user: UserModel;
   areas$: Observable<AreaModel[]>;
   animation$: Observable<string[]>;
+  organization: OrganizationModel;
 
 
   constructor(
     private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
+
 
   ngOnInit()
   {
@@ -50,22 +55,40 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
     this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
 
+    this.organizationSubscription = this.organization$.subscribe(organization => this.organization = organization);
+
   }
 
   ngOnDestroy()
   {
+    this.organizationSubscription.unsubscribe();
     this.paramSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
+  }
+
+
+  createArea(): void {
+    this.dialog.open(AreaFormComponent, {
+      width: '600px',
+      data: {
+        organization: this.organization,
+        area: 'nueva'
+      }
+    });
+  }
+
+  createMember(): void {
+    this.dialog.open(MemberFormComponent, {
+      width: '600px',
+      data: {
+        organization: this.organization
+      }
+    });
   }
 
   backToLastPage()
   {
     this.router.navigate(['app/organizations']);
-  }
-
-  addArea()
-  {
-    this.router.navigate(['app/organizations/areas/form', 'nueva']);
   }
 
 }

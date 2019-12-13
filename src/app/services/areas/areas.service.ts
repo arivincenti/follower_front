@@ -20,7 +20,7 @@ export class AreasService
   // ==================================================
   getAreas(organization: OrganizationModel)
   {
-    return this.http.get(`${environment.path}/areas/${organization._id}`)
+    return this.http.get(`${environment.path}/areas/organization/${organization._id}`)
       .pipe(map((data: any) => data.data));
   }
 
@@ -35,7 +35,7 @@ export class AreasService
   // ==================================================
   // Get Selcted Area
   // ==================================================
-  getselectedArea(areaId: string)
+  getSelectedArea(areaId: string)
   {
     return this.http.get(`${environment.path}/areas/${areaId}`).pipe(map((data: any) => data.data));
   }

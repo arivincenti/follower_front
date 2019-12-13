@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import * as OrganizationsActions from '../../../store/actions/userOrganizations/organizations/organizations.actions';
 import { Subscription, Observable } from 'rxjs';
 import { UserModel } from 'src/app/models/user.model';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OrganizationsService } from 'src/app/services/organizations/organizations.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { OrganizationsService } from 'src/app/services/organizations/organizations.service';
+import { DialogDataOrganization } from '../../../models/interfaces/dialogDataOrganization';
 
 @Component({
   selector: 'app-organization-form',
@@ -29,17 +30,16 @@ export class OrganizationFormComponent implements OnInit, OnDestroy
 
   constructor(
     private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private _organizationsService: OrganizationsService
+    private _organizationsService: OrganizationsService,
+    private dialogRef: MatDialogRef<OrganizationFormComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: DialogDataOrganization
   ) { }
 
   ngOnInit()
   {
-    this.animation$ = this.store.select(state => state.ui.animated);
+    console.log(this.data);
 
-    //Params subscription
-    this.paramSubscription = this.activatedRoute.params.subscribe(param => this.param = param.id);
+    this.animation$ = this.store.select(state => state.ui.animated);
 
     //User subscription
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
@@ -52,13 +52,14 @@ export class OrganizationFormComponent implements OnInit, OnDestroy
       name: new FormControl(null, Validators.required, this.avaibleName.bind(this)),
       user: new FormControl(this.user._id)
     });
+
     //Mark as touched
     this.form.controls['name'].markAsTouched();
 
     //Check if param is not a new organization
-    if (this.param !== 'nueva')
+    if (this.data.organization !== 'nueva')
     {
-      this._organizationsService.getOrganization(this.param).subscribe((organization: OrganizationModel) => this.form.controls['name'].setValue(organization.name))
+      this._organizationsService.getOrganization(this.data.organization).subscribe((organization: OrganizationModel) => this.form.controls['name'].setValue(organization.name))
     }
   }
 
@@ -74,15 +75,10 @@ export class OrganizationFormComponent implements OnInit, OnDestroy
   // ==================================================
   createOrUpdateOrganization()
   {
-    console.log(this.form.value);
-
     // Validation name before create or update an organization
-    if (this.form.invalid)
-    {
-      return
-    }
+    if (this.form.invalid) return;
 
-    if (this.param === 'nueva')
+    if (this.data.organization === 'nueva')
     {
       let payload = {
         user: this.user._id,
@@ -90,20 +86,15 @@ export class OrganizationFormComponent implements OnInit, OnDestroy
       }
 
       this.store.dispatch(OrganizationsActions.createOrganization({ payload }));
-      this.router.navigate(['app/organizations']);
     } else
     {
       let payload = {
         name: this.form.controls['name'].value.toUpperCase()
       }
-      this.store.dispatch(OrganizationsActions.updateOrganization({ organizationId: this.param, payload: payload }));
-      this.router.navigate(['app/organizations']);
+      this.store.dispatch(OrganizationsActions.updateOrganization({ organizationId: this.data.organization, payload: payload }));
     }
-  }
 
-  backToLastPage()
-  {
-    this.router.navigate(['app/organizations']);
+    this.dialogRef.close();
   }
 
   // ==================================================

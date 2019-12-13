@@ -1,23 +1,21 @@
-mat-card-content {
-  min-width: 315px;
-  max-width: 315px;
-}
-
-mat-card-content {
-  min-height: 190px;
-}
-
-h5 {
-  width: 230px;
-}
 
 button {
   outline: none;
 }
 
+mat-card-title{
+  position: relative;
+  bottom: 5px;
+}
+
+.button {
+  position: relative;
+  bottom: 7px;
+}
+
 .icon {
   position: relative;
-  top: 3px;
+  top: 4px;
 }
 
 .icon-content {
@@ -38,10 +36,23 @@ button {
   text-overflow: ellipsis;
 }
 
-.content {
+/* .content {
   margin-bottom: 10px;
-}
+} */
 
 .organization-card-info {
   font-size: 1.1em;
+  margin-right: 20px;
 }
+
+.background-content-card{
+  background-color: rgba(220, 220, 220, .2);
+}
+
+@media(max-width: 990px){
+  h5 {
+    width: 200px;
+  }
+}
+
+
