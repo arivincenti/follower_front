@@ -35,3 +35,7 @@ body {
   right: 10px;
   background-size: cover;
 }
+
+.mat-paginator-navigation-next, .mat-paginator-navigation-previous{
+  outline: none !important;
+}

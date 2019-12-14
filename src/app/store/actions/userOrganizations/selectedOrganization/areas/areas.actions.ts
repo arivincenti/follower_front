@@ -4,7 +4,7 @@ import { OrganizationModel } from 'src/app/models/organization.model';
 
 export const getAreas = createAction(
   '[Areas Actions] Get Areas',
-  props<{ payload: OrganizationModel }>()
+  props<{ payload: OrganizationModel, since: number, size:number }>()
 );
 
 export const getAreasSuccess = createAction(

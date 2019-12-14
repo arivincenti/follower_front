@@ -23,9 +23,9 @@ export class OrganizationEffects
       .pipe(
         mergeMap((organization: any) => [
           OrganizationActions.getOrganizationSuccess({ payload: organization }),
-          AreasActions.getAreas({ payload: organization }),
+          AreasActions.getAreas({ payload: organization, since: 0, size: 0 }),
           UserAreasActions.getUserAreas({ user: action.user, organization: organization._id }),
-          MembersActions.getMembers({payload: organization})
+          MembersActions.getMembers({ payload: organization })
         ]),
         catchError(error => of(OrganizationActions.getOrganizationFail(error.error)))
       ))

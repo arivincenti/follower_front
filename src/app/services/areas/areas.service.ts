@@ -18,9 +18,9 @@ export class AreasService
   // ==================================================
   // Get all areas
   // ==================================================
-  getAreas(organization: OrganizationModel)
+  getAreas(organization: OrganizationModel, since:number = 0, size:number = 0)
   {
-    return this.http.get(`${environment.path}/areas/organization/${organization._id}`)
+    return this.http.get(`${environment.path}/areas/organization/${organization._id}?since=${since}&size=${size}`)
       .pipe(map((data: any) => data.data));
   }
 

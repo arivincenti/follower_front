@@ -7,6 +7,7 @@ import { AreaFormComponent } from './area-form/area-form.component';
 import { AreasListComponent } from './areas-list/areas-list.component';
 import { AreasListCardComponent } from './areas-list-card/areas-list-card.component';
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
+import { AreasPaginatorPipe } from 'src/app/pipes/areas/areas-paginator.pipe';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { AngularMaterialModule } from 'src/app/angular-material/angular-material
     AreaFormComponent,
     AreasListComponent,
     AreasListCardComponent,
+    AreasPaginatorPipe
   ],
   imports: [
     CommonModule,

@@ -19,7 +19,7 @@ export class OrganizationAreasEffects
 
   getAreas$ = createEffect(() => this.actions$.pipe(
     ofType(AreasActions.getAreas),
-    mergeMap((action) => this._areasService.getAreas(action.payload)
+    mergeMap((action) => this._areasService.getAreas(action.payload, action.since, action.size)
       .pipe(
         map((areas: any) => AreasActions.getAreasSuccess({ payload: areas })),
         catchError(error => of(AreasActions.getAreasFail({ payload: error })))

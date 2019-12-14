@@ -70,7 +70,6 @@
               <ng-template mat-tab-label>
                 <mat-icon class="icon mr-2">chat</mat-icon>
                 Mis Tickets
-                <mat-icon class="icon-tab" matBadge="0" matBadgeColor="accent"></mat-icon>
               </ng-template>
               <div class="container">
                 <div class="row d-flex align-items-center">
@@ -93,7 +92,6 @@
               <ng-template mat-tab-label *ngIf="userAreas$ | async as userAreas">
                 <mat-icon class="icon mr-2">bookmark</mat-icon>
                 Mis Áreas
-                <mat-icon class="icon-tab" [matBadge]="userAreas.length" matBadgeColor="accent"></mat-icon>
               </ng-template>
               <mat-divider></mat-divider>
               <div class="container">
@@ -111,7 +109,6 @@
               <ng-template mat-tab-label>
                 <mat-icon class="icon mr-2">bookmarks</mat-icon>
                 Áreas de la organización
-                <mat-icon class="icon-tab" [matBadge]="areas.length" matBadgeColor="accent"></mat-icon>
               </ng-template>
 
               <div class="container">
@@ -124,11 +121,20 @@
                       </span>
                     </button>
                   </div>
-
                   <div class="col-md-4 d-flex justify-content-end">
-                    <button mat-button color="primary" (click)="filtrar('all')">Todas</button>
-                    <button mat-button color="primary" (click)="filtrar('active')">Activas</button>
-                    <button mat-button color="primary" (click)="filtrar('deleted_at')">Inactivas</button>
+                    <button class="ml-2" mat-button [matBadge]="areas | stateAreaCounter:'all'" matBadgeSize="small"
+                      matBadgePosition="after" matBadgeColor="primary" (click)="filtrar('all')">
+                      Todas
+                    </button>
+                    <button class="ml-2" mat-button [matBadge]="areas | stateAreaCounter:'active'" matBadgeSize="small"
+                      matBadgePosition="after" matBadgeColor="primary" (click)="filtrar('active')">
+                      Activas
+                    </button>
+                    <button class="ml-2" mat-button [matBadge]="areas | stateAreaCounter:'inactive'"
+                      matBadgeSize="small" matBadgePosition="after" matBadgeColor="accent"
+                      (click)="filtrar('inactive')">
+                      Inactivas
+                    </button>
                   </div>
                 </div>
                 <mat-divider></mat-divider>
@@ -137,11 +143,11 @@
                 </mat-card-content>
               </div>
             </mat-tab>
-            <mat-tab [disabled]="user._id !== organization.created_by._id" label="Miembros de la organización" *ngIf="members$ | async as members">
+            <mat-tab [disabled]="user._id !== organization.created_by._id" label="Miembros de la organización"
+              *ngIf="members$ | async as members">
               <ng-template mat-tab-label>
                 <mat-icon class="icon mr-2">supervised_user_circle</mat-icon>
                 Miembros de la organización
-                <mat-icon class="icon-tab" [matBadge]="members.length" matBadgeColor="accent"></mat-icon>
               </ng-template>
               <div class="row d-flex align-items-center">
                 <div class="col-md-12 d-flex justify-content-start">

@@ -43,10 +43,8 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
     private dialog: MatDialog
   ) { }
 
-
   ngOnInit()
   {
-    // this.store.dispatch(AreasActions.clearSelectedAreaState());
     this.animation$ = this.store.select(state => state.ui.animated);
 
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user =>
@@ -58,7 +56,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
     this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
 
-    this.organizationSubscription = this.organization$.subscribe(organization => this.organization = organization);
+    this.organizationSubscription = this.organization$.subscribe(organization =>
+    {
+      this.organization = organization;
+    });
 
     this.areasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas).subscribe(areas =>
     {
@@ -70,6 +71,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
     this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members);
 
+    //Limpiamos el store un escalon por encima
     this.store.dispatch(MemberActions.clearSelectedMemberState());
   }
 
@@ -84,7 +86,6 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
   createArea(): void
   {
-
     this.filtrar('all');
     this.dialog.open(AreaFormComponent, {
       width: '600px',
@@ -109,9 +110,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
   {
     switch (filter)
     {
-      case 'deleted_at': {
+      case 'inactive': {
         this.filterAreas = this.areas;
         this.filterAreas = this.areas.filter(area => area.deleted_at);
+        this
       };
         break;
       case 'active': {
