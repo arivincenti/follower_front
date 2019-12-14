@@ -46,6 +46,12 @@ export const memberReducer = createReducer(
       loaded: true,
       error: { ...payload }
     }
+  )),
+  on(MemberActions.clearSelectedMemberState, (state) => (
+    {
+      ...state,
+      ...InitialStateMember
+    }
   ))
 );
 

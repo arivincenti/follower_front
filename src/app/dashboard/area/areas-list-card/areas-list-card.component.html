@@ -8,18 +8,17 @@
         <span *ngIf="area.responsible">{{area.responsible}}</span>
         <span *ngIf="!area.responsible">Sin responsable</span>
       </mat-card-subtitle>
-      <div class="d-flex justify-content-end"
-        *ngIf="organization.created_by._id === user._id || area.responsible._id === user._id ">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones">
+      <div class="d-flex justify-content-end">
+        <button class="button" mat-icon-button matTooltip="Ingresar al área" matTooltipPosition="above"
+        (click)="selectArea(area)">
+        <mat-icon>meeting_room</mat-icon>
+      </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" *ngIf="organization.created_by._id === user._id || area.responsible._id === user._id ">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
           <ng-container *ngIf="!organization.deleted_at">
             <ng-container *ngIf="!area.deleted_at">
-              <button mat-menu-item (click)="selectArea(area)">
-                <mat-icon>arrow_forward</mat-icon>
-                <span>Ingresar al área</span>
-              </button>
               <button *ngIf="!area.deleted_at" mat-menu-item (click)="updateArea(area)">
                 <mat-icon>create</mat-icon>
                 <span>Editar nombre</span>

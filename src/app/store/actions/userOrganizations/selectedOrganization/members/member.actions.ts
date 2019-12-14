@@ -16,6 +16,21 @@ export const getMemberFail = createAction(
   props<{ payload: any }>()
 );
 
+export const updateMember = createAction(
+  '[Member Actions] Update Member',
+  props<{ payload: MemberModel }>()
+);
+
+export const updateMemberSuccess = createAction(
+  '[Members Actions] Update Member Success',
+  props<{ payload: MemberModel }>()
+);
+
+export const updateMemberFail = createAction(
+  '[Members Actions] Update Member Fail',
+  props<{ payload: any }>()
+);
+
 export const clearSelectedMemberState = createAction(
   '[Members Actions] Clear Selected Member State'
 );

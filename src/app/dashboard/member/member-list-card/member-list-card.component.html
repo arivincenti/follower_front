@@ -11,17 +11,17 @@
             </div>
           </div>
         </mat-card-title>
-        <div class="d-flex justify-content-end" *ngIf="organization.created_by._id === user._id">
-          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones">
+        <div class="d-flex justify-content-end">
+          <button class="button" mat-icon-button matTooltip="Ingresar al perfil" matTooltipPosition="above"
+          (click)="selectMember(member)">
+          <mat-icon>meeting_room</mat-icon>
+        </button>
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" *ngIf="organization.created_by._id === user._id">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
             <ng-container *ngIf="!organization.deleted_at">
               <ng-container *ngIf="!member.deleted_at">
-                <button mat-menu-item (click)="selectMember(member)">
-                  <mat-icon>arrow_forward</mat-icon>
-                  <span>Ingresar al perfil del miembro</span>
-                </button>
                 <button *ngIf="!member.deleted_at" mat-menu-item (click)="deleteMember(member)">
                   <mat-icon>delete</mat-icon>
                   <span>Dar de baja</span>

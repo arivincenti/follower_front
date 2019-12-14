@@ -66,11 +66,11 @@
       <mat-card class="mt-3">
         <mat-card-content>
           <mat-tab-group mat-stretch-tabs>
-
             <mat-tab label="Mis Tickets">
               <ng-template mat-tab-label>
                 <mat-icon class="icon mr-2">chat</mat-icon>
                 Mis Tickets
+                <mat-icon class="icon-tab" matBadge="0" matBadgeColor="accent"></mat-icon>
               </ng-template>
               <div class="container">
                 <div class="row d-flex align-items-center">
@@ -90,9 +90,10 @@
             </mat-tab>
 
             <mat-tab label="Mis Áreas">
-              <ng-template mat-tab-label>
+              <ng-template mat-tab-label *ngIf="userAreas$ | async as userAreas">
                 <mat-icon class="icon mr-2">bookmark</mat-icon>
                 Mis Áreas
+                <mat-icon class="icon-tab" [matBadge]="userAreas.length" matBadgeColor="accent"></mat-icon>
               </ng-template>
               <mat-divider></mat-divider>
               <div class="container">
@@ -106,14 +107,16 @@
               </div>
             </mat-tab>
 
-            <mat-tab>
+            <mat-tab [disabled]="user._id !== organization.created_by._id">
               <ng-template mat-tab-label>
                 <mat-icon class="icon mr-2">bookmarks</mat-icon>
                 Áreas de la organización
+                <mat-icon class="icon-tab" [matBadge]="areas.length" matBadgeColor="accent"></mat-icon>
               </ng-template>
+
               <div class="container">
                 <div class="row d-flex align-items-center">
-                  <div class="col-md-12 d-flex justify-content-start">
+                  <div class="col-md-8 d-flex justify-content-start">
                     <button mat-raised-button color="primary" *ngIf="!organization.deleted_at" (click)="createArea()"
                       matTooltip="Agregar área" matTooltipPosition="right" class="m-3">
                       <span>
@@ -121,18 +124,24 @@
                       </span>
                     </button>
                   </div>
+
+                  <div class="col-md-4 d-flex justify-content-end">
+                    <button mat-button color="primary" (click)="filtrar('all')">Todas</button>
+                    <button mat-button color="primary" (click)="filtrar('active')">Activas</button>
+                    <button mat-button color="primary" (click)="filtrar('deleted_at')">Inactivas</button>
+                  </div>
                 </div>
                 <mat-divider></mat-divider>
                 <mat-card-content class="animated delay-300ms mt-4" [ngClass]="animation[0]">
-                  <app-areas-list [organization]="organization" [user]="user"></app-areas-list>
-
+                  <app-areas-list [organization]="organization" [areas]="filterAreas" [user]="user"></app-areas-list>
                 </mat-card-content>
               </div>
             </mat-tab>
-            <mat-tab [disabled]="false" label="Miembros de la organización">
+            <mat-tab [disabled]="user._id !== organization.created_by._id" label="Miembros de la organización" *ngIf="members$ | async as members">
               <ng-template mat-tab-label>
                 <mat-icon class="icon mr-2">supervised_user_circle</mat-icon>
                 Miembros de la organización
+                <mat-icon class="icon-tab" [matBadge]="members.length" matBadgeColor="accent"></mat-icon>
               </ng-template>
               <div class="row d-flex align-items-center">
                 <div class="col-md-12 d-flex justify-content-start">
@@ -142,13 +151,10 @@
                   </button>
                 </div>
               </div>
-
               <mat-divider></mat-divider>
-
               <mat-card-content class="animated delay-300ms mt-4" [ngClass]="animation[0]">
-                <app-member-list [organization]="organization" [user]="user"></app-member-list>
+                <app-member-list [organization]="organization" [members]="members" [user]="user"></app-member-list>
               </mat-card-content>
-
             </mat-tab>
           </mat-tab-group>
         </mat-card-content>

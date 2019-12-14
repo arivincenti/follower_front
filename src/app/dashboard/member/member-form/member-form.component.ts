@@ -18,18 +18,12 @@ import { MemberModel } from 'src/app/models/member.model';
 })
 export class MemberFormComponent implements OnInit, OnDestroy
 {
-  //UI Observable
-  animation$: Observable<string[]>;
-
   userSubscription: Subscription = new Subscription();
   membersSubscription: Subscription = new Subscription();
-  errorSubscription: Subscription = new Subscription();
   form: FormGroup;
   users$: Observable<UserModel[]>;
   user: UserModel;
   members: MemberModel[];
-
-  email = new FormControl();
 
   constructor(
     private store: Store<AppState>,
@@ -43,22 +37,21 @@ export class MemberFormComponent implements OnInit, OnDestroy
   {
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
 
+    this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).subscribe(members => this.members = members);
+
     this.form = new FormGroup({
-      email: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required, this.avaibleName.bind(this)),
       user: new FormControl('')
     });
 
     //Mark as touched
     this.form.controls['email'].markAsTouched();
-
-    this.animation$ = this.store.select(state => state.ui.animated);
   }
 
   ngOnDestroy()
   {
     this.userSubscription.unsubscribe();
     this.membersSubscription.unsubscribe();
-    this.errorSubscription.unsubscribe();
   }
 
   searchUsers()
@@ -71,16 +64,6 @@ export class MemberFormComponent implements OnInit, OnDestroy
 
   createMember()
   {
-    let member;
-
-    this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).subscribe(members => this.members = members);
-
-    if (this.members.includes(this.form.controls['email'].value))
-    {
-      console.log('El miembro ya existe en la organizaion');
-      return;
-    }
-
     let payload = {
       email: this.form.controls['email'].value,
     }
@@ -103,6 +86,33 @@ export class MemberFormComponent implements OnInit, OnDestroy
     });
 
     this.dialogRef.close();
+  }
+
+
+  // ==================================================
+  // Organization Name Validator
+  // ==================================================
+  avaibleName(control: FormControl): Promise<any> | Observable<any>
+  {
+
+    let promise = new Promise((resolve, reject) =>
+    {
+      let email = '';
+      this.members.forEach(member =>
+      {
+        if (member.user.email.toUpperCase() === this.form.controls['email'].value.toUpperCase()) email = member.user.email.toUpperCase();
+      });
+
+      if (control.value.toUpperCase() === email)
+      {
+        resolve({ avaible: true });
+      } else
+      {
+        resolve(null)
+      }
+    });
+
+    return promise;
   }
 
 }

@@ -15,8 +15,9 @@ export class MemberListComponent implements OnInit
 {
   @Input() organization: OrganizationModel;
   @Input() user: UserModel;
+  @Input() members: MemberModel[];
 
-  members$: Observable<MemberModel[]>;
+  // members$: Observable<MemberModel[]>;
   animation$: Observable<string[]>;
 
   constructor(
@@ -27,7 +28,7 @@ export class MemberListComponent implements OnInit
   {
     this.animation$ = this.store.select(state => state.ui.animated);
 
-    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members);
+    // this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members);
   }
 
 }

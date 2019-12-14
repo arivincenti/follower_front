@@ -1,13 +1,22 @@
-<ng-container *ngIf="areas$ | async as areas">
+<!-- <ng-container *ngIf="areas$ | async as areas"> -->
+  <!-- <div class="row">
+    <div class="col-md-12">
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="bold" (click)="filtrar('all')">Todas</mat-button-toggle>
+        <mat-button-toggle value="italic" (click)="filtrar('deleted_at')">Dadas de baja</mat-button-toggle>
+        <mat-button-toggle value="underline" (click)="filtrar('active')">Activas</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div> -->
   <ng-container *ngIf="organization.created_by._id === user._id">
     <span class="text-muted fadeIn slower mt-4" *ngIf="!areas.length">La organización aún no posee áreas</span>
     <app-loading class="fadeIn slower" *ngIf="loading$ | async"></app-loading>
     <ng-container *ngIf="animation$ | async as animation">
-      <div class="row mt-4" *ngFor="let area of areas">
+      <div class="row mt-4 animated" *ngFor="let area of areas" [ngClass]="animation[0]">
         <div class="col-md-12">
           <app-areas-list-card [organization]="organization" [area]="area" [user]="user"></app-areas-list-card>
         </div>
       </div>
     </ng-container>
   </ng-container>
-</ng-container>
+<!-- </ng-container> -->

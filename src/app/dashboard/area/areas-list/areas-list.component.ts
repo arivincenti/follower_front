@@ -15,7 +15,7 @@ export class AreasListComponent implements OnInit, OnDestroy {
 
   @Input() organization: OrganizationModel;
   @Input() user: UserModel;
-  areas$: Observable<AreaModel[]>;
+  @Input() areas: AreaModel[];
   loading$: Observable<boolean>;
   animation$: Observable<string[]>;
 
@@ -25,9 +25,9 @@ export class AreasListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.animation$ = this.store.select(state => state.ui.animated);
-    this.areas$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas);
 
     this.loading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.loading);
+
   }
 
   ngOnDestroy()

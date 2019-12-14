@@ -7,9 +7,11 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as OrganizationActions from '../../../store/actions/userOrganizations/selectedOrganization/organization.actions';
+import * as MemberActions from '../../../store/actions/userOrganizations/selectedOrganization/members/member.actions';
 import { MatDialog } from '@angular/material';
 import { AreaFormComponent } from '../../area/area-form/area-form.component';
 import { MemberFormComponent } from '../../member/member-form/member-form.component';
+import { MemberModel } from 'src/app/models/member.model';
 
 @Component({
   selector: 'app-organization-profile',
@@ -22,13 +24,17 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
   organizationSubscription: Subscription = new Subscription();
   paramSubscription: Subscription = new Subscription();
   userSubscription: Subscription = new Subscription();
+  areasSubscription: Subscription = new Subscription();
   organization$: Observable<OrganizationModel>;
-  userAreas$: Observable<AreaModel[]>
   user: UserModel;
-  areas$: Observable<AreaModel[]>;
   animation$: Observable<string[]>;
   organization: OrganizationModel;
 
+  //contadores
+  areas: AreaModel[];
+  filterAreas: AreaModel[];
+  userAreas$: Observable<AreaModel[]>;
+  members$: Observable<MemberModel[]>;
 
   constructor(
     private store: Store<AppState>,
@@ -48,15 +54,23 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
       this.user = user;
     });
 
-    this.paramSubscription = this.activatedRoute.params.subscribe(param =>
-    {
-      this.store.dispatch(OrganizationActions.getOrganization({ organization: param.id, user: this.user._id }));
-    });
+    this.paramSubscription = this.activatedRoute.params.subscribe(param => this.store.dispatch(OrganizationActions.getOrganization({ organization: param.id, user: this.user._id })));
 
     this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
 
     this.organizationSubscription = this.organization$.subscribe(organization => this.organization = organization);
 
+    this.areasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas).subscribe(areas =>
+    {
+      this.areas = areas;
+      this.filterAreas = areas;
+    });
+
+    this.userAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.userAreas.areas);
+
+    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members);
+
+    this.store.dispatch(MemberActions.clearSelectedMemberState());
   }
 
   ngOnDestroy()
@@ -64,10 +78,14 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
     this.organizationSubscription.unsubscribe();
     this.paramSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
+    this.areasSubscription.unsubscribe();
   }
 
 
-  createArea(): void {
+  createArea(): void
+  {
+
+    this.filtrar('all');
     this.dialog.open(AreaFormComponent, {
       width: '600px',
       data: {
@@ -77,13 +95,32 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
     });
   }
 
-  createMember(): void {
+  createMember(): void
+  {
     this.dialog.open(MemberFormComponent, {
       width: '600px',
       data: {
         organization: this.organization
       }
     });
+  }
+
+  filtrar(filter: string)
+  {
+    switch (filter)
+    {
+      case 'deleted_at': {
+        this.filterAreas = this.areas;
+        this.filterAreas = this.areas.filter(area => area.deleted_at);
+      };
+        break;
+      case 'active': {
+        this.filterAreas = this.areas;
+        this.filterAreas = this.areas.filter(area => !area.deleted_at);
+      };
+        break;
+      default: this.filterAreas = this.areas;
+    }
   }
 
   backToLastPage()

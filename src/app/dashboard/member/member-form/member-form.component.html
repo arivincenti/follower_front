@@ -17,13 +17,13 @@
             <small>{{user.email | lowercase }}</small>
           </mat-option>
         </mat-autocomplete>
-        <!-- <mat-error *ngIf="form.controls['area'].errors?.avaible">
-            Ya <strong>existe</strong> un área con este nombre en esta organización.<strong>
-              Por favor elije otro.</strong>
-          </mat-error> -->
-          <mat-error *ngIf="form.controls['email'].errors?.required">
-            <strong>No olvides</strong> escribir arriba el email del usuario que deseas buscar.
-          </mat-error>
+        <mat-error *ngIf="form.controls['email'].errors?.avaible">
+          Ya <strong>existe</strong> este miembro en la organización.<strong>
+            Por favor elije otro.</strong>
+        </mat-error>
+        <mat-error *ngIf="form.controls['email'].errors?.required">
+          <strong>No olvides</strong> escribir arriba el email del usuario que deseas buscar.
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-md-12 d-flex justify-content-end mt-4">

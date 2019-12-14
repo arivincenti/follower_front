@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as MemberActions from '../../../store/actions/userOrganizations/selectedOrganization/members/member.actions';
 import { MemberModel } from 'src/app/models/member.model';
 import { map } from 'rxjs/operators';
+import { MembersService } from 'src/app/services/members/members.service';
 
 @Component({
   selector: 'app-member-profile',
@@ -23,15 +24,15 @@ export class MemberProfileComponent implements OnInit, OnDestroy
   form: FormGroup;
   paramSubscription: Subscription = new Subscription();
   areasSubscription: Subscription = new Subscription();
-  memberSubscription: Subscription = new Subscription();
   areas: AreaModel[];
-  memberAreas: any;
   member: MemberModel;
+  param: string;
 
   constructor(
     private store: Store<AppState>,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
+    private _membersService: MembersService,
     private router: Router
   ) { }
 
@@ -39,39 +40,38 @@ export class MemberProfileComponent implements OnInit, OnDestroy
   {
     this.animation$ = this.store.select(state => state.ui.animated);
 
-    this.areasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas).subscribe(areas => this.areas = areas);
+    this.param = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.paramSubscription = this.activatedRoute.params.subscribe(param =>
+    this.store.dispatch(MemberActions.getMember({ payload: this.param }));
+
+    this.areasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas).subscribe(areas =>
     {
-      this.store.dispatch(MemberActions.getMember({ payload: param.id }));
-
-      this.memberSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.selectedMember.member).subscribe(member =>
-        {
-          this.member = member;
-        });
+      this.areas = areas;
     });
 
-    this.form = this.formBuilder.group({
-      areas: this.buildAreas()
-    });
-
+    this._membersService.getMember(this.param).subscribe(member =>
+    {
+      this.member = member;
+      this.form = this.formBuilder.group({
+        areas: this.buildAreas(member)
+      });
+    })
 
   }
 
-  buildAreas()
+  buildAreas(member)
   {
     const values = this.areas.map(area =>
     {
       var boolean = false;
 
-      this.member.areas.forEach(a =>
+      member.areas.forEach(a =>
       {
         if (area._id === a.toString())
         {
           boolean = true;
         }
       });
-
       return new FormControl(boolean);
     });
     return this.formBuilder.array(values);
@@ -83,14 +83,14 @@ export class MemberProfileComponent implements OnInit, OnDestroy
 
     valueSubmit = Object.assign(valueSubmit, { areas: valueSubmit.areas.map((v: any, i: any) => v ? this.areas[i]._id : null).filter((v: any) => v !== null) });
 
-    console.log(valueSubmit);
+    this.member.areas = [...valueSubmit.areas];
+    this.store.dispatch(MemberActions.updateMember({ payload: this.member }));
   }
 
   ngOnDestroy()
   {
     this.areasSubscription.unsubscribe();
     this.paramSubscription.unsubscribe();
-    this.memberSubscription.unsubscribe();
   }
 
 

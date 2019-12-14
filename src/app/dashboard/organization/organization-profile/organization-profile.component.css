@@ -10,6 +10,13 @@
   font-size: 1.4em;
 }
 
+.icon-tab{
+  position: relative;
+  top: 11px;
+  right: 3px;
+}
+
 button{
   outline: none;
 }
+
