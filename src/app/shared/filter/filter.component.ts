@@ -5,16 +5,17 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css']
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent implements OnInit
+{
 
   @Input() originalArray: any[];
   @Output() transformArray = new EventEmitter<any[]>();
 
   filterArray: any[];
-  
+
   constructor() { }
-  
-  ngOnInit() {}
+
+  ngOnInit() { }
 
   filtrar(filter: string)
   {

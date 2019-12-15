@@ -75,9 +75,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
     this.userAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.userAreas.areas);
 
-    this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).subscribe(members => {
-      this.members = members; 
-      this.filterMembers = members; 
+    this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).subscribe(members =>
+    {
+      this.members = members;
+      this.filterMembers = members;
     });
 
     //Limpiamos el store un escalon por encima

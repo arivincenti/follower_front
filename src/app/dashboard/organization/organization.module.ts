@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 import { AreaModule } from '../area/area.module';
 import { MemberModule } from '../member/member.module';
-import { StateAreaCounterPipe } from 'src/app/pipes/areas/state-area-counter.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { StateAreaCounterPipe } from 'src/app/pipes/areas/state-area-counter.pip
     OrganizationUserAreasListComponent,
     OrganizationProfileComponent,
     OrganizationFormComponent,
-    StateAreaCounterPipe,
   ],
   imports: [
     CommonModule,
