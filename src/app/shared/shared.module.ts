@@ -7,13 +7,19 @@ import { RouterModule } from '@angular/router';
 import { LoadingComponent } from './loading/loading.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { FilterComponent } from './filter/filter.component';
+import { StateFilterCounterPipe } from '../pipes/filter/state-filter-counter.pipe';
+
 
 @NgModule({
   declarations: [
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    FilterComponent,
+    StateFilterCounterPipe
+
   ],
   imports: [
     CommonModule,
@@ -26,7 +32,8 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    FilterComponent,
   ]
 })
 export class SharedModule { }

@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { UserModel } from 'src/app/models/user.model';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.reducer';
 import { Observable } from 'rxjs';
 import { MemberModel } from 'src/app/models/member.model';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-member-list',
@@ -16,19 +15,53 @@ export class MemberListComponent implements OnInit
   @Input() organization: OrganizationModel;
   @Input() user: UserModel;
   @Input() members: MemberModel[];
+  @Input() animation: string[];
 
-  // members$: Observable<MemberModel[]>;
   animation$: Observable<string[]>;
 
-  constructor(
-    private store: Store<AppState>
-  ) { }
 
-  ngOnInit()
+    //Paginator variables
+    pageIndex: number = 0;
+    pageSize: number = 3;
+    since: number;
+    until: number;
+    pageSizeOptions: number[] = [3, 6, 10, 25, 100];
+  
+    // MatPaginator Output
+    pageEvent: PageEvent;
+
+  constructor() { }
+
+  ngOnInit(){
+    this.since = this.pageIndex;
+    this.until = this.pageSize;
+  }
+
+    // ==================================================
+  // Set paginator page size
+  // ==================================================
+  setPageSizeOptions(setPageSizeOptionsInput: string)
   {
-    this.animation$ = this.store.select(state => state.ui.animated);
+    this.pageSizeOptions = setPageSizeOptionsInput.split(",").map(str => +str);
+  }
 
-    // this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members);
+    // ==================================================
+  // Change Page
+  // ==================================================
+  changePage($event: PageEvent)
+  {
+    this.pageIndex = $event.pageIndex;
+    this.pageSize = $event.pageSize;
+
+    this.since = this.pageIndex * this.pageSize;
+
+    if (this.pageIndex)
+    {
+      this.until = this.pageIndex * this.pageSize + this.pageSize;
+    } else
+    {
+      this.until = this.pageSize;
+    }
   }
 
 }

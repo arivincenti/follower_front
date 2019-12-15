@@ -1,13 +1,10 @@
-<!-- <ng-container *ngIf="members$ | async as members"> -->
-  <ng-container *ngIf="organization.created_by._id === user._id">
-    <span class="text-muted fadeIn slower mt-4" *ngIf="!members.length">La organización aún no posee miembros</span>
-    <!-- <app-loading class="fadeIn slower" *ngIf="loading$ | async"></app-loading> -->
-    <ng-container *ngIf="animation$ | async as animation">
-      <div class="row mt-4" *ngFor="let member of members">
-        <div class="col-md-12">
-          <app-member-list-card [organization]="organization" [member]="member" [user]="user"></app-member-list-card>
-        </div>
-      </div>
-    </ng-container>
-  </ng-container>
-<!-- </ng-container> -->
+<span class="text-muted fadeIn slower mt-4" *ngIf="!members.length">La organización aún no posee miembros</span>
+
+<div class="row mt-4 animated" *ngFor="let member of members | memberPaginator:since:until" [ngClass]="animation[0]">
+  <div class="col-md-12">
+    <app-member-list-card [organization]="organization" [member]="member" [user]="user"></app-member-list-card>
+  </div>
+</div>
+<mat-paginator [length]="members.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+  (page)="changePage($event)">
+</mat-paginator>

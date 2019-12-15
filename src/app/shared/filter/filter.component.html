@@ -1,0 +1,16 @@
+<div class="col-md-12 d-flex justify-content-end">
+<button class="mr-3" mat-button [matBadge]="originalArray | stateFilterCounter:'all'" matBadgeSize="small"
+  matBadgePosition="after" matBadgeColor="primary" (click)="filtrar('all')">
+  Todo
+</button>
+<mat-divider [vertical]="true"></mat-divider>
+<button class="ml-3 mr-3" mat-button [matBadge]="originalArray | stateFilterCounter:'active'" matBadgeSize="small"
+  matBadgePosition="after" matBadgeColor="accent" (click)="filtrar('active')">
+  Activo
+</button>
+<mat-divider [vertical]="true"></mat-divider>
+<button class="ml-3" mat-button [matBadge]="originalArray | stateFilterCounter:'inactive'" matBadgeSize="small"
+  matBadgePosition="after" matBadgeColor="accent" (click)="filtrar('inactive')">
+  Inactivo
+</button>
+</div>

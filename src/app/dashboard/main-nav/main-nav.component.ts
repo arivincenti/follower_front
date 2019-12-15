@@ -18,7 +18,7 @@ export class MainNavComponent implements OnInit
 
   user$: Observable<UserModel>;
   theme$: Observable<string>;
-  tema: string = 'default';
+  // tema: string = 'default';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

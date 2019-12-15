@@ -20,21 +20,24 @@ import { MemberModel } from 'src/app/models/member.model';
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy
 {
-
+  //Subscriptions
   organizationSubscription: Subscription = new Subscription();
   paramSubscription: Subscription = new Subscription();
   userSubscription: Subscription = new Subscription();
   areasSubscription: Subscription = new Subscription();
+  membersSubscription: Subscription = new Subscription();
+
   organization$: Observable<OrganizationModel>;
   user: UserModel;
   animation$: Observable<string[]>;
   organization: OrganizationModel;
 
-  //contadores
+  //Filter & counter
   areas: AreaModel[];
   filterAreas: AreaModel[];
+  members: MemberModel[];
+  filterMembers: MemberModel[];
   userAreas$: Observable<AreaModel[]>;
-  members$: Observable<MemberModel[]>;
 
   constructor(
     private store: Store<AppState>,
@@ -52,7 +55,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
       this.user = user;
     });
 
-    this.paramSubscription = this.activatedRoute.params.subscribe(param => this.store.dispatch(OrganizationActions.getOrganization({ organization: param.id, user: this.user._id })));
+    this.paramSubscription = this.activatedRoute.params.subscribe(param =>
+    {
+      this.store.dispatch(OrganizationActions.getOrganization({ organization: param.id, user: this.user._id }))
+    });
 
     this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
 
@@ -69,7 +75,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
     this.userAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.userAreas.areas);
 
-    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members);
+    this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).subscribe(members => {
+      this.members = members; 
+      this.filterMembers = members; 
+    });
 
     //Limpiamos el store un escalon por encima
     this.store.dispatch(MemberActions.clearSelectedMemberState());
@@ -81,12 +90,12 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
     this.paramSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
     this.areasSubscription.unsubscribe();
+    this.membersSubscription.unsubscribe();
   }
 
 
   createArea(): void
   {
-    this.filtrar('all');
     this.dialog.open(AreaFormComponent, {
       width: '600px',
       data: {
@@ -104,25 +113,6 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
         organization: this.organization
       }
     });
-  }
-
-  filtrar(filter: string)
-  {
-    switch (filter)
-    {
-      case 'inactive': {
-        this.filterAreas = this.areas;
-        this.filterAreas = this.areas.filter(area => area.deleted_at);
-        this
-      };
-        break;
-      case 'active': {
-        this.filterAreas = this.areas;
-        this.filterAreas = this.areas.filter(area => !area.deleted_at);
-      };
-        break;
-      default: this.filterAreas = this.areas;
-    }
   }
 
   backToLastPage()

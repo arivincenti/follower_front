@@ -8,13 +8,15 @@ import { MemberListComponent } from './member-list/member-list.component';
 
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 import { MemberListCardComponent } from './member-list-card/member-list-card.component';
+import { MemberPaginatorPipe } from 'src/app/pipes/members/member-paginator.pipe';
 
 @NgModule({
   declarations: [
     MemberFormComponent,
     MemberProfileComponent,
     MemberListComponent,
-    MemberListCardComponent
+    MemberListCardComponent,
+    MemberPaginatorPipe
   ],
   imports: [
     CommonModule,

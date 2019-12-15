@@ -1,11 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { AreaModel } from 'src/app/models/area.model';
 
 @Pipe({
   name: 'stateAreaCounter'
 })
-export class StateAreaCounterPipe implements PipeTransform {
+export class StateAreaCounterPipe implements PipeTransform
+{
 
-  transform(areas: any, filter: any): any {
+  transform(areas: AreaModel[], filter: string): number
+  {
     let count = 0;
 
     switch (filter)

@@ -13,7 +13,7 @@
         (click)="selectArea(area)">
         <mat-icon>meeting_room</mat-icon>
       </button>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" *ngIf="organization.created_by._id === user._id || area.responsible._id === user._id ">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" *ngIf="organization.created_by._id === user._id || area.responsible._id === user._id " mat-icon-button matTooltip="Acciones" matTooltipPosition="above">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
