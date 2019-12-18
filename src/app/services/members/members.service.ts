@@ -33,6 +33,16 @@ export class MembersService
     )
   }
 
+  getMemberAreas(user_id: string, organization_id: string)
+  {
+    return this.http.get(`${environment.path}/members/user/${user_id}/organization/${organization_id}/areas`).pipe(
+      map((data: any) =>
+      {
+        return data.data;
+      })
+    );
+  }
+
   createMember(member: any)
   {
     return this.http.post(`${environment.path}/members`, member).pipe(
@@ -45,18 +55,16 @@ export class MembersService
     return this.http.put(`${environment.path}/members/${member._id}`, member).pipe(
       map(data =>
       {
-        console.log(data['data']);
         return data['data']
       })
     )
   }
 
-  deleteMember(member: MemberModel)
+  inactiveMember(member: MemberModel)
   {
     return this.http.delete(`${environment.path}/members/${member._id}`).pipe(
       map(data =>
       {
-        console.log(data['data']);
         return data['data']
       })
     )

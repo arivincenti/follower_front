@@ -77,7 +77,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-12 d-flex justify-content-end">
-                      <button type="submit" class="btn btn-block mt-4" mat-raised-button color="primary">Guardar
+                      <button [disabled]="member.deleted_at" type="submit" class="btn btn-block mt-4" mat-raised-button color="primary">Guardar
                         Áreas</button>
                     </div>
                   </div>
@@ -91,15 +91,6 @@
               Tickets
             </ng-template>
             <div class="container">
-              <div class="row d-flex align-items-center">
-                <!-- <div class="col-md-12 d-flex justify-content-start">
-                    <button mat-raised-button color="primary" *ngIf="!organization.deleted_at" (click)="newTicket()"
-                      matTooltip="Generar ticket" matTooltipPosition="right" class="mt-3 mb-3">
-                      <span>Generar ticket</span>
-                    </button>
-                  </div> -->
-              </div>
-              <mat-divider></mat-divider>
               <mat-card-content class="animated delay-300ms mt-4" [ngClass]="animation[0]">
                 <span class="text-muted">No tiene tickets cargados</span>
               </mat-card-content>

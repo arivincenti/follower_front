@@ -1,4 +1,4 @@
-import * as MembersActions from '../../../../../actions/userOrganizations/selectedOrganization/members/members.actions';
+import * as MembersActions from '../../../../../actions/userOrganizations/selectedOrganization/members/members/members.actions';
 import { createReducer, on, Action } from '@ngrx/store';
 import { MemberModel } from '../../../../../../models/member.model';
 
@@ -73,58 +73,66 @@ export const membersReducer = createReducer(
       error: { ...payload }
     }
   )),
-  // on(AreasActions.updateArea, (state) => (
-  //   {
-  //     ...state,
-  //     loading: true,
-  //     loaded: false,
-  //     error: null
-  //   }
-  // )),
-  // on(AreasActions.updateAreaSuccess, (state, { payload }) =>
-  // {
-  //   return {
-  //     ...state,
-  //     areas: [...state.areas.filter(area => area._id !== payload._id), { ...payload }],
-  //     loading: false,
-  //     loaded: true
-  //   }
-  // }
-  // ),
-  // on(AreasActions.updateAreaFail, (state, { payload }) => (
-  //   {
-  //     ...state,
-  //     loading: false,
-  //     loaded: false,
-  //     error: { ...payload }
-  //   }
-  // )),
-  // on(AreasActions.deleteArea, (state) => (
-  //   {
-  //     ...state,
-  //     loading: true,
-  //     loaded: false,
-  //     error: null
-  //   }
-  // )),
-  // on(AreasActions.deleteAreaSuccess, (state, { payload }) =>
-  // {
-  //   return {
-  //     ...state,
-  //     areas: [...state.areas.filter(area => area._id !== payload._id), { ...payload }],
-  //     loading: false,
-  //     loaded: true
-  //   }
-  // }
-  // ),
-  // on(AreasActions.deleteAreaFail, (state, { payload }) => (
-  //   {
-  //     ...state,
-  //     loading: false,
-  //     loaded: false,
-  //     error: { ...payload }
-  //   }
-  // ))
+  on(MembersActions.updateMember, (state) => (
+    {
+      ...state,
+      members: [...state.members],
+      loading: true,
+      loaded: false,
+      error: null
+    }
+  )),
+  on(MembersActions.updateMemberSuccess, (state, { payload }) =>
+  {
+    var index = state.members.findIndex(data => data._id === payload._id);
+    state.members.splice(index, 1, { ...payload });
+
+    return {
+      ...state,
+      members: [...state.members],
+      loading: false,
+      loaded: true
+    }
+  }),
+  on(MembersActions.updateMemberFail, (state, { payload }) => (
+    {
+      ...state,
+      members: [...state.members],
+      loading: false,
+      loaded: false,
+      error: { ...payload }
+    }
+  )),
+  on(MembersActions.inactiveMember, (state) => (
+    {
+      ...state,
+      members: [...state.members],
+      loading: true,
+      loaded: false,
+      error: null
+    }
+  )),
+  on(MembersActions.inactiveMemberSuccess, (state, { payload }) =>
+  {
+    var index = state.members.findIndex(data => data._id === payload._id);
+    state.members.splice(index, 1, { ...payload });
+
+    return {
+      ...state,
+      members: [...state.members],
+      loading: false,
+      loaded: true
+    }
+  }),
+  on(MembersActions.inactiveMemberFail, (state, { payload }) => (
+    {
+      ...state,
+      members: [...state.members],
+      loading: false,
+      loaded: false,
+      error: { ...payload }
+    }
+  )),
 );
 
 export function MembersReducer(state: MembersState | undefined, action: Action)

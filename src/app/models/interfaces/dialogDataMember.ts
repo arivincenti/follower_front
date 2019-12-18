@@ -1,3 +1,7 @@
+import { OrganizationModel } from '../organization.model';
+import { UserModel } from '../user.model';
+
 export interface DialogDataMember {
-  organization: string;
+  user: UserModel,
+  organization: OrganizationModel;
 }

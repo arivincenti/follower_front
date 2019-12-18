@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { FilterComponent } from './filter/filter.component';
 import { StateFilterCounterPipe } from '../pipes/filter/state-filter-counter.pipe';
+import { AreasPaginatorPipe } from '../pipes/areas/areas-paginator.pipe';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { StateFilterCounterPipe } from '../pipes/filter/state-filter-counter.pip
     FooterComponent,
     LoadingComponent,
     FilterComponent,
-    StateFilterCounterPipe
+    StateFilterCounterPipe,
+    AreasPaginatorPipe
 
   ],
   imports: [
@@ -34,6 +36,7 @@ import { StateFilterCounterPipe } from '../pipes/filter/state-filter-counter.pip
     FooterComponent,
     LoadingComponent,
     FilterComponent,
+    AreasPaginatorPipe
   ]
 })
 export class SharedModule { }

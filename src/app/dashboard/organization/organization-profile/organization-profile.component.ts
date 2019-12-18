@@ -7,11 +7,11 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as OrganizationActions from '../../../store/actions/userOrganizations/selectedOrganization/organization.actions';
-import * as MemberActions from '../../../store/actions/userOrganizations/selectedOrganization/members/member.actions';
 import { MatDialog } from '@angular/material';
 import { AreaFormComponent } from '../../area/area-form/area-form.component';
 import { MemberFormComponent } from '../../member/member-form/member-form.component';
 import { MemberModel } from 'src/app/models/member.model';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-organization-profile',
@@ -26,6 +26,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
   userSubscription: Subscription = new Subscription();
   areasSubscription: Subscription = new Subscription();
   membersSubscription: Subscription = new Subscription();
+  memberAreasSubscription: Subscription = new Subscription();
 
   organization$: Observable<OrganizationModel>;
   user: UserModel;
@@ -35,6 +36,8 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
   //Filter & counter
   areas: AreaModel[];
   filterAreas: AreaModel[];
+  memberAreas: AreaModel[];
+  filterMemberAreas: AreaModel[];
   members: MemberModel[];
   filterMembers: MemberModel[];
   userAreas$: Observable<AreaModel[]>;
@@ -48,6 +51,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
+      
     this.animation$ = this.store.select(state => state.ui.animated);
 
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user =>
@@ -73,7 +77,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
       this.filterAreas = areas;
     });
 
-    this.userAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.userAreas.areas);
+    this.userAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.areas);
 
     this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).subscribe(members =>
     {
@@ -81,8 +85,11 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
       this.filterMembers = members;
     });
 
-    //Limpiamos el store un escalon por encima
-    this.store.dispatch(MemberActions.clearSelectedMemberState());
+    this.memberAreasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.areas).subscribe(areas => {
+      this.memberAreas = areas;
+      this.filterMemberAreas = areas;
+    })
+
   }
 
   ngOnDestroy()
@@ -92,6 +99,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
     this.userSubscription.unsubscribe();
     this.areasSubscription.unsubscribe();
     this.membersSubscription.unsubscribe();
+    this.memberAreasSubscription.unsubscribe();
   }
 
 
@@ -100,6 +108,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
     this.dialog.open(AreaFormComponent, {
       width: '600px',
       data: {
+        user: this.user,
         organization: this.organization,
         area: 'nueva'
       }
@@ -111,6 +120,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
     this.dialog.open(MemberFormComponent, {
       width: '600px',
       data: {
+        user: this.user,
         organization: this.organization
       }
     });

@@ -7,7 +7,7 @@ import { UsersService } from 'src/app/services/users/users.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogDataMember } from '../../../models/interfaces/dialogDataMember';
-import * as MembersActions from '../../../store/actions/userOrganizations/selectedOrganization/members/members.actions';
+import * as MembersActions from '../../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions';
 import { MemberModel } from 'src/app/models/member.model';
 
 
@@ -18,11 +18,9 @@ import { MemberModel } from 'src/app/models/member.model';
 })
 export class MemberFormComponent implements OnInit, OnDestroy
 {
-  userSubscription: Subscription = new Subscription();
   membersSubscription: Subscription = new Subscription();
   form: FormGroup;
   users$: Observable<UserModel[]>;
-  user: UserModel;
   members: MemberModel[];
 
   constructor(
@@ -35,7 +33,6 @@ export class MemberFormComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
 
     this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).subscribe(members => this.members = members);
 
@@ -50,7 +47,6 @@ export class MemberFormComponent implements OnInit, OnDestroy
 
   ngOnDestroy()
   {
-    this.userSubscription.unsubscribe();
     this.membersSubscription.unsubscribe();
   }
 
@@ -77,9 +73,9 @@ export class MemberFormComponent implements OnInit, OnDestroy
       };
 
       let payload = {
-        organization: this.data.organization,
+        organization: this.data.organization._id,
         user: user[0]._id,
-        created_by: this.user._id
+        created_by: this.data.user._id
       }
 
       this.store.dispatch(MembersActions.createMember({ payload }));

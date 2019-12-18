@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { AreaModel } from 'src/app/models/area.model';
 import { UserModel } from 'src/app/models/user.model';
 import { Observable, Subscription } from 'rxjs';
-import { MemberModel } from 'src/app/models/member.model';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { AreasService } from 'src/app/services/areas/areas.service';
 import { Store } from '@ngrx/store';
@@ -22,7 +21,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
   @Input() organization: OrganizationModel;
   @Input() area: AreaModel;
   @Input() user: UserModel;
-  responsibleMembers$: Observable<MemberModel[]>;
+
   organization$: Observable<OrganizationModel>;
   subscriptionAreaMembers: Subscription = new Subscription();
   members: number;
@@ -35,10 +34,8 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-
+    
     this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
-
-    this.responsibleMembers$ = this._areaService.getAreaResponsibleMembers(this.area._id);
 
     this.subscriptionAreaMembers = this._areaService.getAreaMembers(this.area._id).subscribe(members =>
     {
@@ -65,10 +62,10 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
 
   updateArea(area: AreaModel)
   {
-    console.log(area);
     this.dialog.open(AreaFormComponent, {
       width: '600px',
       data: {
+        user: this.user,
         organization: this.organization,
         area: area._id
       }
@@ -77,14 +74,21 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
 
   deleteArea(area: AreaModel)
   {
+    let payload = {
+      area: area._id,
+      organization: this.organization._id,
+      updated_by: this.user._id
+    }
     //Make method to update deleted_at property from area
-    this.store.dispatch(AreasActions.deleteArea({ payload: area._id }));
+    this.store.dispatch(AreasActions.deleteArea({ payload: payload }));
   }
 
   activateArea(area: AreaModel)
   {
     let payload = {
-      deleted_at: 1
+      deleted_at: 1,
+      organization: this.organization._id,
+      updated_by: this.user._id
     }
 
     this.store.dispatch(AreasActions.updateArea({ areaId: area._id, payload: payload }));

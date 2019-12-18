@@ -8,14 +8,14 @@ export interface state
 {
   organization: OrganizationReducer.OrganizationState;
   areas: AreasReducer.AreasState
-  userAreas: UserAreasReducer.UserAreasState;
+  // userAreas: UserAreasReducer.UserAreasState;
   members: MembersIndexReducer.state;
 }
 
 export const initialState: state = {
   organization: OrganizationReducer.InitialStateOrganization,
   areas: AreasReducer.InitialStateAreas,
-  userAreas: UserAreasReducer.InitialStateUserAreas,
+  // userAreas: UserAreasReducer.InitialStateUserAreas,
   members: MembersIndexReducer.initialState
 };
 
@@ -23,7 +23,7 @@ export const selectedOrganizationReducer = combineReducers(
   {
     organization: OrganizationReducer.OrganizationReducer,
     areas: AreasReducer.AreasReducer,
-    userAreas: UserAreasReducer.UserAreasReducer,
+    // userAreas: UserAreasReducer.UserAreasReducer,
     members: MembersIndexReducer.memberIndexReducer
   },
   initialState

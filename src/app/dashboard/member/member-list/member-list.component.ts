@@ -17,27 +17,25 @@ export class MemberListComponent implements OnInit
   @Input() members: MemberModel[];
   @Input() animation: string[];
 
-  animation$: Observable<string[]>;
+  //Paginator variables
+  pageIndex: number = 0;
+  pageSize: number = 3;
+  since: number;
+  until: number;
+  pageSizeOptions: number[] = [3, 6, 10, 25, 100];
 
-
-    //Paginator variables
-    pageIndex: number = 0;
-    pageSize: number = 3;
-    since: number;
-    until: number;
-    pageSizeOptions: number[] = [3, 6, 10, 25, 100];
-  
-    // MatPaginator Output
-    pageEvent: PageEvent;
+  // MatPaginator Output
+  pageEvent: PageEvent;
 
   constructor() { }
 
-  ngOnInit(){
+  ngOnInit()
+  {
     this.since = this.pageIndex;
     this.until = this.pageSize;
   }
 
-    // ==================================================
+  // ==================================================
   // Set paginator page size
   // ==================================================
   setPageSizeOptions(setPageSizeOptionsInput: string)
@@ -45,7 +43,7 @@ export class MemberListComponent implements OnInit
     this.pageSizeOptions = setPageSizeOptionsInput.split(",").map(str => +str);
   }
 
-    // ==================================================
+  // ==================================================
   // Change Page
   // ==================================================
   changePage($event: PageEvent)

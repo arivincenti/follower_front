@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as OrganizationActions from '../../../store/actions/userOrganizations/selectedOrganization/organization.actions';
 import { OrganizationModel } from 'src/app/models/organization.model';
-import { Router } from '@angular/router';
 import { OrganizationFormComponent } from '../organization-form/organization-form.component';
 import { MatDialog } from '@angular/material';
 

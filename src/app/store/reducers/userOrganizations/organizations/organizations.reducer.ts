@@ -20,7 +20,7 @@ export const initialOrganizationsState: OrganizationsState = {
 
 export const organizationsReducer = createReducer(
   initialOrganizationsState,
-  on(OrganizationsActions.getUserOrganizations, (state) => (
+  on(OrganizationsActions.getOrganizations, (state) => (
     {
       ...state,
       organizations: [],
@@ -29,7 +29,7 @@ export const organizationsReducer = createReducer(
       error: null
     }
   )),
-  on(OrganizationsActions.getUserOrganizationsSuccess, (state, { payload }) => (
+  on(OrganizationsActions.getOrganizationsSuccess, (state, { payload }) => (
     {
       ...state,
       organizations: [...payload],
@@ -37,7 +37,7 @@ export const organizationsReducer = createReducer(
       loaded: true
     }
   )),
-  on(OrganizationsActions.getUserOrganizationsFail, (state, { payload }) => (
+  on(OrganizationsActions.getOrganizationsFail, (state, { payload }) => (
     {
       ...state,
       organizations: [],
@@ -80,9 +80,11 @@ export const organizationsReducer = createReducer(
   )),
   on(OrganizationsActions.updateOrganizationSuccess, (state, { organization }) =>
   {
+    var index = state.organizations.findIndex(data => data._id === organization._id);
+    state.organizations.splice(index, 1, { ...organization });
     return {
       ...state,
-      organizations: [...state.organizations.filter(data => data._id !== organization._id), { ...organization }],
+      organizations: [...state.organizations],
       loading: false,
       loaded: true
     }
@@ -105,9 +107,12 @@ export const organizationsReducer = createReducer(
   )),
   on(OrganizationsActions.deleteOrganizationSuccess, (state, { organization }) =>
   {
+    var index = state.organizations.findIndex(data => data._id === organization._id);
+    state.organizations.splice(index, 1, { ...organization });
+    
     return {
       ...state,
-      organizations: [...state.organizations.filter(data => data._id !== organization._id), { ...organization }],
+      organizations: [...state.organizations],
       loading: false,
       loaded: true
     }

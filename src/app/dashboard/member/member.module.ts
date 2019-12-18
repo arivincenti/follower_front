@@ -9,6 +9,9 @@ import { MemberListComponent } from './member-list/member-list.component';
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 import { MemberListCardComponent } from './member-list-card/member-list-card.component';
 import { MemberPaginatorPipe } from 'src/app/pipes/members/member-paginator.pipe';
+import { MemberAreasListComponent } from './memberAreas/member-areas-list/member-areas-list.component';
+import { MemberAreasListCardComponent } from './memberAreas/member-areas-list-card/member-areas-list-card.component';
+import { AreasPaginatorPipe } from 'src/app/pipes/areas/areas-paginator.pipe';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { MemberPaginatorPipe } from 'src/app/pipes/members/member-paginator.pipe
     MemberProfileComponent,
     MemberListComponent,
     MemberListCardComponent,
-    MemberPaginatorPipe
+    MemberPaginatorPipe,
+    MemberAreasListComponent,
+    MemberAreasListCardComponent,
+
   ],
   imports: [
     CommonModule,
@@ -27,7 +33,9 @@ import { MemberPaginatorPipe } from 'src/app/pipes/members/member-paginator.pipe
   ],
   exports: [
     MemberListComponent,
-    MemberListCardComponent
+    MemberListCardComponent,
+    MemberAreasListComponent,
+    MemberAreasListCardComponent
   ]
 })
 export class MemberModule { }

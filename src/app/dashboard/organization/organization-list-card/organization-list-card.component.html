@@ -1,4 +1,5 @@
-    <mat-card class="background-content-card">
+    <mat-card [ngClass]="{'background-content-card-active': !organization.deleted_at, 'background-content-card-inactive': organization.deleted_at,
+    'text-muted': organization.deleted_at}">
       <mat-card-header class="d-flex justify-content-between">
         <mat-card-title>
           <h5 class="title" [matTooltip]="organization.name" matTooltipPosition="right">

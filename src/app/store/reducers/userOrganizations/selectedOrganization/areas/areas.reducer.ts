@@ -76,6 +76,7 @@ export const areasReducer = createReducer(
   on(AreasActions.updateArea, (state) => (
     {
       ...state,
+      areas: [...state.areas],
       loading: true,
       loaded: false,
       error: null
@@ -83,9 +84,12 @@ export const areasReducer = createReducer(
   )),
   on(AreasActions.updateAreaSuccess, (state, { payload }) =>
   {
+    var index = state.areas.findIndex(data => data._id === payload._id);
+    state.areas.splice(index, 1, { ...payload });
+
     return {
       ...state,
-      areas: [...state.areas.filter(area => area._id !== payload._id), { ...payload }],
+      areas: [...state.areas],
       loading: false,
       loaded: true
     }
@@ -94,6 +98,7 @@ export const areasReducer = createReducer(
   on(AreasActions.updateAreaFail, (state, { payload }) => (
     {
       ...state,
+      areas: [...state.areas],
       loading: false,
       loaded: false,
       error: { ...payload }
@@ -102,6 +107,7 @@ export const areasReducer = createReducer(
   on(AreasActions.deleteArea, (state) => (
     {
       ...state,
+      areas: [...state.areas],
       loading: true,
       loaded: false,
       error: null
@@ -109,9 +115,12 @@ export const areasReducer = createReducer(
   )),
   on(AreasActions.deleteAreaSuccess, (state, { payload }) =>
   {
+    var index = state.areas.findIndex(data => data._id === payload._id);
+    state.areas.splice(index, 1, { ...payload });
+
     return {
       ...state,
-      areas: [...state.areas.filter(area => area._id !== payload._id), { ...payload }],
+      areas: [...state.areas],
       loading: false,
       loaded: true
     }

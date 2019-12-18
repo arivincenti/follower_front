@@ -15,7 +15,6 @@ import { AreasPaginatorPipe } from 'src/app/pipes/areas/areas-paginator.pipe';
     AreaFormComponent,
     AreasListComponent,
     AreasListCardComponent,
-    AreasPaginatorPipe
   ],
   imports: [
     CommonModule,

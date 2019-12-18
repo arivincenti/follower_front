@@ -1,4 +1,5 @@
-    <mat-card class="background-content-card">
+    <mat-card [ngClass]="{'background-content-card-active': !member.deleted_at, 'background-content-card-inactive': member.deleted_at,
+    'text-muted': member.deleted_at}">
       <mat-card-header class="d-flex justify-content-between">
         <!-- <div mat-card-avatar class="example-header-image"></div> -->
         <mat-card-title>
@@ -22,7 +23,7 @@
           <mat-menu #menu="matMenu">
             <ng-container *ngIf="!organization.deleted_at">
               <ng-container *ngIf="!member.deleted_at">
-                <button *ngIf="!member.deleted_at" mat-menu-item (click)="deleteMember(member)">
+                <button *ngIf="!member.deleted_at" mat-menu-item (click)="inactiveMember(member)">
                   <mat-icon>delete</mat-icon>
                   <span>Dar de baja</span>
                 </button>
@@ -30,10 +31,6 @@
             </ng-container>
 
             <ng-container>
-              <button mat-menu-item *ngIf="organization.deleted_at || member.deleted_at" (click)="selectArea(area)">
-                <mat-icon>arrow_forward</mat-icon>
-                <span>Ingresar al área</span>
-              </button>
               <button *ngIf="member.deleted_at" mat-menu-item (click)="activateMember(member)">
                 <mat-icon>history</mat-icon>
                 <span>Restaurar</span>

@@ -1,8 +1,5 @@
 //ESTE ARCHIVO NO DEBERIA EXISTIR MAS CON LA MODIFICACION DE LAS AREAS DENTRO DEL MIEMBRO
-
 import { createAction, props } from '@ngrx/store';
-
-
 import { AreaModel } from '../../../../../models/area.model';
 
 export const getUserAreas = createAction(

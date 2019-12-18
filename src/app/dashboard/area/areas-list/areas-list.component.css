@@ -4,3 +4,11 @@ button{
  .btn-filter{
    border-right: 1px solid red;
  }
+
+ form{
+   width: 30%;
+ }
+
+ mat-form-field{
+  width: 100%;
+}

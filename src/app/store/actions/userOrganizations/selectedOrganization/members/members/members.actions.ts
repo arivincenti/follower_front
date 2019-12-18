@@ -31,3 +31,33 @@ export const createMemberFail = createAction(
   '[Members Actions] Create Member Fail',
   props<{ payload: any }>()
 );
+
+export const updateMember = createAction(
+  '[Members Actions] Update Member',
+  props<{ payload: MemberModel }>()
+);
+
+export const updateMemberSuccess = createAction(
+  '[Members Actions] Update Member Success',
+  props<{ payload: MemberModel }>()
+);
+
+export const updateMemberFail = createAction(
+  '[Members Actions] Update Member Fail',
+  props<{ payload: any }>()
+);
+
+export const inactiveMember = createAction(
+  '[Members Actions] Inactive Member',
+  props<{ payload: any }>()
+);
+
+export const inactiveMemberSuccess = createAction(
+  '[Members Actions] Inactive Area Success',
+  props<{ payload: MemberModel }>()
+);
+
+export const inactiveMemberFail = createAction(
+  '[Members Actions] Inactive Member Fail',
+  props<{ payload: any }>()
+);

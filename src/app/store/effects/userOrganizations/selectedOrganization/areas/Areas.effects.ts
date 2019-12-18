@@ -2,10 +2,13 @@ import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { mergeMap, catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { AreasService } from '../../../../services/areas/areas.service';
-import * as AreasActions from '../../../actions/userOrganizations/selectedOrganization/areas/areas.actions';
+import { AreasService } from '../../../../../services/areas/areas.service';
+import * as AreasActions from '../../../../actions/userOrganizations/selectedOrganization/areas/areas.actions';
+import * as MemberAreasActions from '../../../../actions/userOrganizations/selectedOrganization/members/memberAreas/memberAreas.actions';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
 
 @Injectable()
 export class OrganizationAreasEffects
@@ -13,7 +16,7 @@ export class OrganizationAreasEffects
   constructor(
     private actions$: Actions,
     private _areasService: AreasService,
-    private router: Router
+    private store: Store<AppState>
   ) { }
 
 
@@ -62,6 +65,7 @@ export class OrganizationAreasEffects
             showConfirmButton: false,
             timer: 2700
           });
+          this.store.dispatch(MemberAreasActions.getMemberAreas({user: action.payload.updated_by, organization: action.payload.organization}));
           return AreasActions.updateAreaSuccess({ payload: area })
         }),
         catchError(error => of(AreasActions.updateAreaFail({ payload: error })))
@@ -70,7 +74,7 @@ export class OrganizationAreasEffects
 
   deleteArea$ = createEffect(() => this.actions$.pipe(
     ofType(AreasActions.deleteArea),
-    mergeMap((action) => this._areasService.deleteArea(action.payload)
+    mergeMap((action) => this._areasService.deleteArea(action.payload.area)
       .pipe(
         map((area: any) =>
         {
@@ -83,6 +87,7 @@ export class OrganizationAreasEffects
             showConfirmButton: false,
             timer: 2700
           });
+          this.store.dispatch(MemberAreasActions.getMemberAreas({user: action.payload.updated_by, organization: action.payload.organization}));
           return AreasActions.deleteAreaSuccess({ payload: area })
         }),
         catchError(error => of(AreasActions.deleteAreaFail({ payload: error })))

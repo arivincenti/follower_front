@@ -20,6 +20,10 @@ button{
   font-size: 1.4em;
 }
 
-.background-content-card{
+.background-content-card-active{
   background-color: rgba(220, 220, 220, .2);
+}
+
+.background-content-card-inactive{
+  background-color: rgba(160, 160, 160, .2);
 }

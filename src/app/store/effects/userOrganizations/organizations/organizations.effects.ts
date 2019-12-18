@@ -18,12 +18,12 @@ export class OrganizationsEffects
     private _areaService: AreasService
   ) { }
 
-  getUserOrganizations$ = createEffect(() => this.actions$.pipe(
-    ofType(OrganizationsActions.getUserOrganizations),
-    mergeMap(action => this._organizationsService.getUserOrganizations(action.payload)
+  getOrganizations$ = createEffect(() => this.actions$.pipe(
+    ofType(OrganizationsActions.getOrganizations),
+    mergeMap(action => this._organizationsService.getOrganizations(action.payload)
       .pipe(
-        map((data: any) => OrganizationsActions.getUserOrganizationsSuccess({ payload: data.data })),
-        catchError(error => of(OrganizationsActions.getUserOrganizationsFail(error.error))
+        map((data: any) => OrganizationsActions.getOrganizationsSuccess({ payload: data.data })),
+        catchError(error => of(OrganizationsActions.getOrganizationsFail(error.error))
         ))
     )));
 
@@ -95,6 +95,6 @@ export class OrganizationsEffects
 
   clearOrganizationState$ = createEffect(() => this.actions$.pipe(
     ofType(OrganizationsActions.clearState)
-  ), {dispatch: false});
+  ), { dispatch: false });
 
 }

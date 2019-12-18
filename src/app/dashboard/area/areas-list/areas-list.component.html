@@ -1,12 +1,9 @@
-<ng-container *ngIf="organization.created_by._id === user._id">
-  <span class="text-muted fadeIn slower mt-4" *ngIf="!areas.length">La organización aún no posee áreas</span>
-  <app-loading class="fadeIn slower" *ngIf="loading$ | async"></app-loading>
-  <div class="row mt-4 animated" *ngFor="let area of areas | areasPaginator:since:until" [ngClass]="animation[0]">
-    <div class="col-md-12">
-      <app-areas-list-card [organization]="organization" [area]="area" [user]="user"></app-areas-list-card>
-    </div>
+<span class="text-muted fadeIn slower mt-4" *ngIf="!areas.length">La organización aún no posee áreas</span>
+<div class="row mb-3 animated" *ngFor="let area of areas | areasPaginator:since:until" [ngClass]="animation[0]">
+  <div class="col-md-12">
+    <app-areas-list-card [organization]="organization" [area]="area" [user]="user"></app-areas-list-card>
   </div>
-  <mat-paginator [length]="areas.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-    (page)="changePage($event)">
-  </mat-paginator>
-</ng-container>
+</div>
+<mat-paginator [length]="areas.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+  (page)="changePage($event)">
+</mat-paginator>

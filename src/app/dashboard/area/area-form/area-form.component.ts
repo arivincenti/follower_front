@@ -1,7 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { UserModel } from 'src/app/models/user.model';
-import { OrganizationModel } from 'src/app/models/organization.model';
 import { AreaModel } from 'src/app/models/area.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
@@ -20,11 +18,7 @@ export class AreaFormComponent implements OnInit
 {
   form: FormGroup;
 
-  userSubscription: Subscription = new Subscription();
-  userOrganizationSubscription: Subscription = new Subscription();
   organizationAreasSubscription: Subscription = new Subscription();
-  user: UserModel;
-  organization: OrganizationModel;
   avaible: boolean = true;
   organizationAreas: AreaModel[];
   area: AreaModel;
@@ -38,15 +32,8 @@ export class AreaFormComponent implements OnInit
 
   ngOnInit()
   {
-    //User Subscription    
-    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
-
-    //User selected organization subscription
-    this.userOrganizationSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization).subscribe(organization => this.organization = organization);
-
     //Search organizations areas
     this.organizationAreasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas).subscribe(areas => this.organizationAreas = areas);
-
 
     //FORM
     this.form = new FormGroup({
@@ -69,8 +56,6 @@ export class AreaFormComponent implements OnInit
 
   ngOnDestroy()
   {
-    this.userSubscription.unsubscribe();
-    this.userOrganizationSubscription.unsubscribe();
     this.organizationAreasSubscription.unsubscribe();
   }
 
@@ -85,18 +70,21 @@ export class AreaFormComponent implements OnInit
     if (this.data.area === 'nueva')
     {
       let payload = {
-        user: this.user._id,
-        organization: this.organization._id,
+        user: this.data.user._id,
+        organization: this.data.organization._id,
         name: this.form.controls['area'].value.toUpperCase()
       }
       this.store.dispatch(AreasActions.createArea({ payload }));
     } else
     {
       let payload = {
-        name: this.form.controls['area'].value.toUpperCase()
+        name: this.form.controls['area'].value.toUpperCase(),
+        organization: this.data.organization._id,
+        updated_by: this.data.user._id
       }
       this.store.dispatch(AreasActions.updateArea({ areaId: this.area._id, payload: payload }));
     }
+
     this.dialogRef.close();
   }
 

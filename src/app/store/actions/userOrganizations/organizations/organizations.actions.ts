@@ -1,18 +1,18 @@
 import { createAction, props } from '@ngrx/store';
 import { OrganizationModel } from '../../../../models/organization.model';
 
-export const getUserOrganizations = createAction(
-  '[Organizations Actions] Get User Organizations',
+export const getOrganizations = createAction(
+  '[Organizations Actions] Get Organizations',
   props<{ payload: string }>()
 );
 
-export const getUserOrganizationsSuccess = createAction(
-  '[Organizations Actions] Get User Organizations Success',
+export const getOrganizationsSuccess = createAction(
+  '[Organizations Actions] Get Organizations Success',
   props<{ payload: OrganizationModel[] }>()
 );
 
-export const getUserOrganizationsFail = createAction(
-  '[Organizations Actions] Get User Organizations Fail',
+export const getOrganizationsFail = createAction(
+  '[Organizations Actions] Get Organizations Fail',
   props<{ payload: any }>()
 );
 

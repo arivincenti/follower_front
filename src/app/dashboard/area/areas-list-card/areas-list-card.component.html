@@ -1,4 +1,5 @@
-  <mat-card class="background-content-card">
+  <mat-card [ngClass]="{'background-content-card-active': !area.deleted_at, 'background-content-card-inactive': area.deleted_at,
+  'text-muted': area.deleted_at}">
     <mat-card-header class="d-flex justify-content-between">
       <!-- <div mat-card-avatar class="example-header-image"></div> -->
       <mat-card-title>
@@ -13,7 +14,7 @@
         (click)="selectArea(area)">
         <mat-icon>meeting_room</mat-icon>
       </button>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" *ngIf="organization.created_by._id === user._id || area.responsible._id === user._id " mat-icon-button matTooltip="Acciones" matTooltipPosition="above">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" *ngIf="organization.created_by._id === user._id" mat-icon-button matTooltip="Acciones" matTooltipPosition="above">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
@@ -30,10 +31,6 @@
             </ng-container>
           </ng-container>
           <ng-container>
-            <button mat-menu-item *ngIf="organization.deleted_at || area.deleted_at" (click)="selectArea(area)">
-              <mat-icon>arrow_forward</mat-icon>
-              <span>Ingresar al área</span>
-            </button>
             <button *ngIf="area.deleted_at" mat-menu-item (click)="activateArea(area)">
               <mat-icon>history</mat-icon>
               <span>Restaurar</span>

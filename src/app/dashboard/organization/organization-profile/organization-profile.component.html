@@ -98,14 +98,16 @@
                 <div class="row d-flex align-items-center">
                   <div class="col-md-12">
                     <mat-card-content class="animated delay-300ms mt-4" [ngClass]="animation[0]">
-                      <span class="text-muted">Aún no es miembro de ningún área</span>
+                      <app-member-areas-list [organization]="organization" [areas]="filterMemberAreas" [user]="user"
+                        [animation]="animation">
+                      </app-member-areas-list>
                     </mat-card-content>
                   </div>
                 </div>
               </div>
             </mat-tab>
 
-            <mat-tab [disabled]="user._id !== organization.created_by._id">
+            <mat-tab *ngIf="user._id === organization.created_by._id">
               <ng-template mat-tab-label>
                 <mat-icon class="icon mr-2">bookmarks</mat-icon>
                 Áreas de la organización
@@ -128,11 +130,12 @@
                 <mat-divider></mat-divider>
                 <mat-card-content class="animated delay-300ms mt-4" [ngClass]="animation[0]">
                   <app-areas-list [organization]="organization" [areas]="filterAreas" [user]="user"
-                    [animation]="animation"></app-areas-list>
+                    [animation]="animation">
+                  </app-areas-list>
                 </mat-card-content>
               </div>
             </mat-tab>
-            <mat-tab [disabled]="user._id !== organization.created_by._id" label="Miembros de la organización">
+            <mat-tab *ngIf="user._id === organization.created_by._id" label="Miembros de la organización">
               <ng-template mat-tab-label>
                 <mat-icon class="icon mr-2">supervised_user_circle</mat-icon>
                 Miembros de la organización

@@ -5,8 +5,8 @@ import { OrganizationsService } from "../../../../services/organizations/organiz
 import { of } from "rxjs";
 import * as OrganizationActions from "../../../actions/userOrganizations/selectedOrganization/organization.actions";
 import * as AreasActions from "../../../actions/userOrganizations/selectedOrganization/areas/areas.actions";
-import * as UserAreasActions from "../../../actions/userOrganizations/selectedOrganization/areas/userAreas.actions";
-import * as MembersActions from "../../../actions/userOrganizations/selectedOrganization/members/members.actions";
+import * as MemberAreasActions from "../../../actions/userOrganizations/selectedOrganization/members/memberAreas/memberAreas.actions";
+import * as MembersActions from "../../../actions/userOrganizations/selectedOrganization/members/members/members.actions";
 
 @Injectable()
 export class OrganizationEffects
@@ -26,7 +26,7 @@ export class OrganizationEffects
               payload: organization
             }),
             AreasActions.getAreas({ payload: organization, since: 0, size: 0 }),
-            UserAreasActions.getUserAreas({
+            MemberAreasActions.getMemberAreas({
               user: action.user,
               organization: organization._id
             }),

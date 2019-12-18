@@ -36,17 +36,17 @@ mat-card-title{
   text-overflow: ellipsis;
 }
 
-/* .content {
-  margin-bottom: 10px;
-} */
-
 .organization-card-info {
   font-size: 1.1em;
   margin-right: 20px;
 }
 
-.background-content-card{
+.background-content-card-active{
   background-color: rgba(220, 220, 220, .2);
+}
+
+.background-content-card-inactive{
+  background-color: rgba(160, 160, 160, .2);
 }
 
 @media(max-width: 990px){

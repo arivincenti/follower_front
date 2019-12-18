@@ -10,11 +10,12 @@ import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { MainNavComponent } from './main-nav/main-nav.component';
+import { AreasPaginatorPipe } from '../pipes/areas/areas-paginator.pipe';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    MainNavComponent
+    MainNavComponent,
   ],
   imports: [
     CommonModule,

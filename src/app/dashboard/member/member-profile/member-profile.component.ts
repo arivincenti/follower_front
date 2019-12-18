@@ -3,11 +3,11 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { AreaModel } from 'src/app/models/area.model';
-import { FormGroup, FormBuilder, FormArray, FormControl, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as MemberActions from '../../../store/actions/userOrganizations/selectedOrganization/members/member.actions';
+import * as MembersActions from '../../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions';
+import * as MemberActions from '../../../store/actions/userOrganizations/selectedOrganization/members/member/member.actions';
 import { MemberModel } from 'src/app/models/member.model';
-import { map } from 'rxjs/operators';
 import { MembersService } from 'src/app/services/members/members.service';
 
 @Component({
@@ -49,6 +49,8 @@ export class MemberProfileComponent implements OnInit, OnDestroy
       this.areas = areas;
     });
 
+    this.store.dispatch(MemberActions.getMember({payload: this.param}));
+
     this._membersService.getMember(this.param).subscribe(member =>
     {
       this.member = member;
@@ -84,7 +86,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy
     valueSubmit = Object.assign(valueSubmit, { areas: valueSubmit.areas.map((v: any, i: any) => v ? this.areas[i]._id : null).filter((v: any) => v !== null) });
 
     this.member.areas = [...valueSubmit.areas];
-    this.store.dispatch(MemberActions.updateMember({ payload: this.member }));
+    this.store.dispatch(MembersActions.updateMember({ payload: this.member }));
   }
 
   ngOnDestroy()

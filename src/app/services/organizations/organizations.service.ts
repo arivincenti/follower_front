@@ -27,9 +27,10 @@ export class OrganizationsService
   // ==================================================
   // Get user organizations
   // ==================================================
-  getUserOrganizations(UserId: string)
+  getOrganizations(UserId: string)
   {
-    return this.http.get(`${environment.path}/users/${UserId}/organizations`);
+    // return this.http.get(`${environment.path}/users/${UserId}/organizations`);
+    return this.http.get(`${environment.path}/organizations/user/${UserId}`);
   }
 
   // ==================================================

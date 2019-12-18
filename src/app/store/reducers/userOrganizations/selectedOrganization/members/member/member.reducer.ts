@@ -1,4 +1,4 @@
-import * as MemberActions from '../../../../../actions/userOrganizations/selectedOrganization/members/member.actions';
+import * as MemberActions from '../../../../../actions/userOrganizations/selectedOrganization/members/member/member.actions';
 import { createReducer, on, Action } from '@ngrx/store';
 import { MemberModel } from '../../../../../../models/member.model';
 
@@ -23,7 +23,7 @@ export const memberReducer = createReducer(
   on(MemberActions.getMember, (state) => (
     {
       ...state,
-      members: [],
+      member: null,
       loading: true,
       loaded: false,
       error: null
@@ -41,7 +41,7 @@ export const memberReducer = createReducer(
   on(MemberActions.getMemberFail, (state, { payload }) => (
     {
       ...state,
-      members: [],
+      member: null,
       loading: false,
       loaded: true,
       error: { ...payload }
