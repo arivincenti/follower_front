@@ -3,7 +3,7 @@ import { Subscription, Observable } from 'rxjs';
 import { AreaModel } from 'src/app/models/area.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions';
+import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas/areas.actions';
 import { AreasService } from 'src/app/services/areas/areas.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogDataArea } from 'src/app/models/interfaces/dialogDataArea';
@@ -18,9 +18,9 @@ export class AreaFormComponent implements OnInit
 {
   form: FormGroup;
 
-  organizationAreasSubscription: Subscription = new Subscription();
+  areasSubscription: Subscription = new Subscription();
   avaible: boolean = true;
-  organizationAreas: AreaModel[];
+  areas: AreaModel[];
   area: AreaModel;
 
   constructor(
@@ -33,7 +33,7 @@ export class AreaFormComponent implements OnInit
   ngOnInit()
   {
     //Search organizations areas
-    this.organizationAreasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas).subscribe(areas => this.organizationAreas = areas);
+    this.areasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.areas).subscribe(areas => this.areas = areas);
 
     //FORM
     this.form = new FormGroup({
@@ -46,7 +46,7 @@ export class AreaFormComponent implements OnInit
     //Check if param is not a new area, then search it
     if (this.data.area !== 'nueva')
     {
-      this._areasService.getSelectedArea(this.data.area).subscribe((area: AreaModel) =>
+      this._areasService.getArea(this.data.area).subscribe((area: AreaModel) =>
       {
         this.form.controls['area'].setValue(area.name);
         this.area = area;
@@ -56,7 +56,7 @@ export class AreaFormComponent implements OnInit
 
   ngOnDestroy()
   {
-    this.organizationAreasSubscription.unsubscribe();
+    this.areasSubscription.unsubscribe();
   }
 
   // ==================================================
@@ -96,7 +96,7 @@ export class AreaFormComponent implements OnInit
     let promise = new Promise((resolve, reject) =>
     {
       let nombre = '';
-      this.organizationAreas.forEach(area =>
+      this.areas.forEach(area =>
       {
         if (area.name.toUpperCase() === this.form.controls['area'].value.toUpperCase()) nombre = area.name.toUpperCase();
       });

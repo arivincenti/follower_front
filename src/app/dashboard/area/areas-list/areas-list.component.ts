@@ -46,7 +46,7 @@ export class AreasListComponent implements OnInit, OnDestroy
     this.until = this.pageSize;
 
     this.loading$ = this.store.select(
-      state => state.userOrganizations.selectedOrganization.areas.loading
+      state => state.userOrganizations.selectedOrganization.areas.areas.loading
     );
   }
 

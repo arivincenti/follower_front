@@ -1,20 +1,28 @@
-  <mat-card [ngClass]="{'background-content-card-active': !area.deleted_at, 'background-content-card-inactive': area.deleted_at,
+<mat-card [ngClass]="{'background-content-card-active': !area.deleted_at, 'background-content-card-inactive': area.deleted_at,
   'text-muted': area.deleted_at}">
-    <mat-card-header class="d-flex justify-content-between">
-      <!-- <div mat-card-avatar class="example-header-image"></div> -->
-      <mat-card-title>
-        <span class="area-title">{{area.name}}</span>
-      </mat-card-title>
-      <mat-card-subtitle>
-        <span *ngIf="area.responsible">{{area.responsible}}</span>
-        <span *ngIf="!area.responsible">Sin responsable</span>
-      </mat-card-subtitle>
-      <div class="d-flex justify-content-end">
-        <button class="button" mat-icon-button matTooltip="Ingresar al área" matTooltipPosition="above"
+  <mat-card-header class="d-flex justify-content-between">
+
+    <mat-card-title>
+      <span class="area-title">{{area.name}}</span>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <span *ngIf="area.responsible">{{area.responsible}}</span>
+      <span *ngIf="!area.responsible">Sin responsable</span>
+    </mat-card-subtitle>
+    <div class="d-flex justify-content-end">
+      <button class="button" mat-icon-button matTooltip="Ingresar al área" matTooltipPosition="above"
         (click)="selectArea(area)">
         <mat-icon>meeting_room</mat-icon>
       </button>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" *ngIf="organization.created_by._id === user._id" mat-icon-button matTooltip="Acciones" matTooltipPosition="above">
+
+      <ng-container *ngIf="organization.created_by._id === user._id">
+
+        <button mat-icon-button *ngIf="areasLoading$ | async as areasLoading" [disabled]="areasLoading">
+          <mat-spinner diameter="20"></mat-spinner>
+        </button>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" *ngIf="!(areasLoading$ | async)"
+          mat-icon-button matTooltip="Acciones" matTooltipPosition="above">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
@@ -37,26 +45,30 @@
             </button>
           </ng-container>
         </mat-menu>
-      </div>
-    </mat-card-header>
-    <mat-divider></mat-divider>
-    <mat-card-content class="mt-2">
-      <span class="organization-card-info">
-        <mat-icon class="icon">supervised_user_circle</mat-icon>
-        Miembros / {{members}}
+      </ng-container>
+    </div>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content class="mt-2">
+    <span class="organization-card-info">
+      <mat-icon class="icon">supervised_user_circle</mat-icon>
+      Miembros /
+      <span *ngIf="members$ | async as members">
+        {{members.length}}
       </span>
-      <span class="organization-card-info ml-4">
-        <mat-icon class="icon">watch_later</mat-icon>
-        Creada el /
-        <span class="success">
-          {{area.created_at | date:'dd-MM-yyyy'}}
-        </span>
+    </span>
+    <span class="organization-card-info ml-4">
+      <mat-icon class="icon">watch_later</mat-icon>
+      Creada el /
+      <span class="success">
+        {{area.created_at | date:'dd-MM-yyyy'}}
       </span>
-      <span class="organization-card-info ml-4" *ngIf="area.deleted_at">
-        <mat-icon class="icon">delete</mat-icon> Dada de baja el /
-        <span class="danger">
-          {{area.deleted_at | date:'dd-MM-yyyy'}}
-        </span>
+    </span>
+    <span class="organization-card-info ml-4" *ngIf="area.deleted_at">
+      <mat-icon class="icon">delete</mat-icon> Dada de baja el /
+      <span class="danger">
+        {{area.deleted_at | date:'dd-MM-yyyy'}}
       </span>
-    </mat-card-content>
-  </mat-card>
+    </span>
+  </mat-card-content>
+</mat-card>

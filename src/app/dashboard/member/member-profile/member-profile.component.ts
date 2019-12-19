@@ -9,6 +9,7 @@ import * as MembersActions from '../../../store/actions/userOrganizations/select
 import * as MemberActions from '../../../store/actions/userOrganizations/selectedOrganization/members/member/member.actions';
 import { MemberModel } from 'src/app/models/member.model';
 import { MembersService } from 'src/app/services/members/members.service';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-member-profile',
@@ -26,6 +27,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy
   areasSubscription: Subscription = new Subscription();
   areas: AreaModel[];
   member: MemberModel;
+  memberLoading$:Observable<boolean>;
   param: string;
 
   constructor(
@@ -40,16 +42,16 @@ export class MemberProfileComponent implements OnInit, OnDestroy
   {
     this.animation$ = this.store.select(state => state.ui.animated);
 
+    this.memberLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
+
     this.param = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.store.dispatch(MemberActions.getMember({ payload: this.param }));
 
-    this.areasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas).subscribe(areas =>
+    this.areasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.areas).subscribe(areas =>
     {
       this.areas = areas;
     });
-
-    this.store.dispatch(MemberActions.getMember({payload: this.param}));
 
     this._membersService.getMember(this.param).subscribe(member =>
     {
@@ -59,6 +61,11 @@ export class MemberProfileComponent implements OnInit, OnDestroy
       });
     })
 
+  }
+
+  ngOnDestroy()
+  {
+    this.areasSubscription.unsubscribe();
   }
 
   buildAreas(member)
@@ -87,12 +94,6 @@ export class MemberProfileComponent implements OnInit, OnDestroy
 
     this.member.areas = [...valueSubmit.areas];
     this.store.dispatch(MembersActions.updateMember({ payload: this.member }));
-  }
-
-  ngOnDestroy()
-  {
-    this.areasSubscription.unsubscribe();
-    this.paramSubscription.unsubscribe();
   }
 
 

@@ -43,7 +43,7 @@ export const membersReducer = createReducer(
       ...state,
       members: [],
       loading: false,
-      loaded: true,
+      loaded: false,
       error: { ...payload }
     }
   )),

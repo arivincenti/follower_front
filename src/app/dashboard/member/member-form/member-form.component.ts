@@ -33,7 +33,7 @@ export class MemberFormComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-
+    
     this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).subscribe(members => this.members = members);
 
     this.form = new FormGroup({

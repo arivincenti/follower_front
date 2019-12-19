@@ -4,7 +4,7 @@ import { mergeMap, catchError } from "rxjs/operators";
 import { OrganizationsService } from "../../../../services/organizations/organizations.service";
 import { of } from "rxjs";
 import * as OrganizationActions from "../../../actions/userOrganizations/selectedOrganization/organization.actions";
-import * as AreasActions from "../../../actions/userOrganizations/selectedOrganization/areas/areas.actions";
+import * as AreasActions from "../../../actions/userOrganizations/selectedOrganization/areas/areas/areas.actions";
 import * as MemberAreasActions from "../../../actions/userOrganizations/selectedOrganization/members/memberAreas/memberAreas.actions";
 import * as MembersActions from "../../../actions/userOrganizations/selectedOrganization/members/members/members.actions";
 

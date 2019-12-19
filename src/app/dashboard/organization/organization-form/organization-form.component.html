@@ -7,7 +7,15 @@
   </h5>
 </div>
 <mat-divider></mat-divider>
-<div mat-dialog-content class="mt-3">
+<ng-container *ngIf="organizationLoading$ | async">
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center mt-4">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  </div>
+</ng-container>
+
+<div mat-dialog-content class="mt-3" *ngIf="data.organization === 'nueva' || (organizationLoaded$ | async)">
   <form [formGroup]="form" class="mt-3" (ngSubmit)="createOrUpdateOrganization()">
     <div class="col-md-12 d-flex justify-content-end">
       <mat-form-field>

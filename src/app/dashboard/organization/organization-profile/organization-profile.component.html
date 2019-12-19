@@ -1,3 +1,4 @@
+<mat-progress-bar *ngIf="organizationLoading$ | async as organizationLoading" mode="query"></mat-progress-bar>
 <ng-container *ngIf="organization$ | async as organization">
   <div class="row">
     <div class="col-md-12 animated fadeIn" *ngIf="animation$ | async as animation" [ngClass]="animation[0]">
@@ -88,8 +89,8 @@
               </div>
             </mat-tab>
 
-            <mat-tab label="Mis Áreas">
-              <ng-template mat-tab-label *ngIf="userAreas$ | async as userAreas">
+            <mat-tab label="Mis Áreas" *ngIf="memberAreas$ | async as memberAreas">
+              <ng-template mat-tab-label>
                 <mat-icon class="icon mr-2">bookmark</mat-icon>
                 Mis Áreas
               </ng-template>
@@ -113,7 +114,7 @@
                 Áreas de la organización
               </ng-template>
 
-              <div class="container">
+              <div class="container" *ngIf="areas$ | async as areas">
                 <div class="row d-flex align-items-center">
                   <div class="col-md-8 d-flex justify-content-start animated delay-700ms" [ngClass]="animation[0]">
                     <button mat-raised-button color="primary" *ngIf="!organization.deleted_at" (click)="createArea()"
@@ -140,16 +141,18 @@
                 <mat-icon class="icon mr-2">supervised_user_circle</mat-icon>
                 Miembros de la organización
               </ng-template>
-
-              <div class="container">
+              <!-- <div class="col-md-12 d-flex justify-content-center mt-3"  *ngIf="membersLoading$ | async">
+                <mat-spinner diameter="30"></mat-spinner>
+              </div> -->
+              <ng-container >
+              <div class="container" *ngIf="members$ | async as members">
                 <div class="row d-flex align-items-center">
-                  <div class="col-md-8 d-flex justify-content-start animated delay-700ms" [ngClass]="animation[0]">
-                    <button mat-raised-button color="primary" *ngIf="!organization.deleted_at" (click)="createMember()"
+                  <div class="col-md-8 d-flex justify-content-start animated delay-700ms" [ngClass]="animation[0]" *ngIf="!organization.deleted_at" >
+                    <button [disabled]="membersLoading$ | async" mat-raised-button color="primary" (click)="createMember()"
                       matTooltip="Agregar miembro" matTooltipPosition="right" class="m-3">
                       <span>Agregar miembro</span>
                     </button>
                   </div>
-
 
                   <div class="col-md-4 d-flex justify-content-end animated delay-700ms" [ngClass]="animation[0]">
                     <app-filter [originalArray]="members" (transformArray)="filterMembers = $event"></app-filter>
@@ -161,6 +164,7 @@
                     [animation]="animation"></app-member-list>
                 </mat-card-content>
               </div>
+            </ng-container>
             </mat-tab>
           </mat-tab-group>
         </mat-card-content>

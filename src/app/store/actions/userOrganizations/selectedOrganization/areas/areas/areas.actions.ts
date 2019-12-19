@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
-import { AreaModel } from '../../../../../models/area.model';
+import { AreaModel } from '../../../../../../models/area.model';
 import { OrganizationModel } from 'src/app/models/organization.model';
 
 export const getAreas = createAction(
   '[Areas Actions] Get Areas',
-  props<{ payload: OrganizationModel, since: number, size:number }>()
+  props<{ payload: OrganizationModel, since: number, size: number }>()
 );
 
 export const getAreasSuccess = createAction(

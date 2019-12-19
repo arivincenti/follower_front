@@ -21,7 +21,7 @@ export class MemberAreasListComponent implements OnInit {
   @Input() animation: string[];
 
   //Observable variables
-  loading$: Observable<boolean>;
+
 
   //Paginator variables
   pageIndex: number = 0;
@@ -40,13 +40,8 @@ export class MemberAreasListComponent implements OnInit {
   // ==================================================
   ngOnInit()
   {
-
     this.since = this.pageIndex;
     this.until = this.pageSize;
-
-    this.loading$ = this.store.select(
-      state => state.userOrganizations.selectedOrganization.areas.loading
-    );
   }
 
   // ==================================================

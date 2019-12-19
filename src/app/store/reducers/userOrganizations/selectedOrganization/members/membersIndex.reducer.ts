@@ -16,7 +16,7 @@ export const initialState: state = {
   selectedMember: MemberReducer.InitialStateMember
 };
 
-export const memberIndexReducer = combineReducers(
+export const MemberIndexReducer = combineReducers(
   {
     members: MembersReducer.MembersReducer,
     memberAreas: MemberAreasReducer.MemberAreasReducer,

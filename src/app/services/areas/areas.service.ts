@@ -35,7 +35,7 @@ export class AreasService
   // ==================================================
   // Get Selcted Area
   // ==================================================
-  getSelectedArea(areaId: string)
+  getArea(areaId: string)
   {
     return this.http.get(`${environment.path}/areas/${areaId}`).pipe(map((data: any) => data.data));
   }

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AreaModel } from '../../../../../models/area.model';
+import { AreaModel } from '../../../../../../../models/area.model';
 
 export const getArea = createAction(
   '[Area Actions] Get Area',

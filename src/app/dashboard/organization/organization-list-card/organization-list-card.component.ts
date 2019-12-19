@@ -56,6 +56,7 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
       width: '600px',
       data: {
         organization: organization._id,
+        user: this.user
       }
     });
   }

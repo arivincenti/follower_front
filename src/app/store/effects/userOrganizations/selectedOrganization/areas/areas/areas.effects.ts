@@ -2,16 +2,15 @@ import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { mergeMap, catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { AreasService } from '../../../../../services/areas/areas.service';
-import * as AreasActions from '../../../../actions/userOrganizations/selectedOrganization/areas/areas.actions';
-import * as MemberAreasActions from '../../../../actions/userOrganizations/selectedOrganization/members/memberAreas/memberAreas.actions';
+import { AreasService } from '../../../../../../services/areas/areas.service';
+import * as AreasActions from '../../../../../actions/userOrganizations/selectedOrganization/areas/areas/areas.actions';
+import * as MemberAreasActions from '../../../../../actions/userOrganizations/selectedOrganization/members/memberAreas/memberAreas.actions';
 import Swal from 'sweetalert2'
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 
 @Injectable()
-export class OrganizationAreasEffects
+export class AreasEffects
 {
   constructor(
     private actions$: Actions,

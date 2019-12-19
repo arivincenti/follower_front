@@ -10,8 +10,11 @@
     </div>
   </div>
   <mat-divider></mat-divider>
+
+  <mat-progress-bar *ngIf="organizationsLoading$ | async" mode="query"></mat-progress-bar>
+   
   <ng-container *ngIf="organizations$ | async as organizations">
-    <div class="animated d-flex align-items-center justify-content-center" *ngIf="!organizations.length">
+    <div class="animated d-flex aligns-items-center justify-content-center" *ngIf="!organizations.length && organizationsLoaded$ | async">
       <span>Todavia no es propietario de ninguna organziación</span>
     </div>
     <div class="animated delay-300ms mt-4" [ngClass]="animation[0]" *ngIf="organizations.length">

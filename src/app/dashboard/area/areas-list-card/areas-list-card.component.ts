@@ -7,24 +7,26 @@ import { AreasService } from 'src/app/services/areas/areas.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router } from '@angular/router';
-import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions';
+import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas/areas.actions';
 import { MatDialog } from '@angular/material';
 import { AreaFormComponent } from '../area-form/area-form.component';
+import { MemberModel } from 'src/app/models/member.model';
 
 @Component({
   selector: 'app-areas-list-card',
   templateUrl: './areas-list-card.component.html',
   styleUrls: ['./areas-list-card.component.css']
 })
-export class AreasListCardComponent implements OnInit, OnDestroy {
+export class AreasListCardComponent implements OnInit, OnDestroy
+{
 
   @Input() organization: OrganizationModel;
   @Input() area: AreaModel;
   @Input() user: UserModel;
 
-  organization$: Observable<OrganizationModel>;
-  subscriptionAreaMembers: Subscription = new Subscription();
-  members: number;
+  members$: Observable<MemberModel[]>;
+  membersLoading$: Observable<boolean>;
+  areasLoading$: Observable<boolean>;
 
   constructor(
     private _areaService: AreasService,
@@ -33,25 +35,15 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
     private dialog: MatDialog
   ) { }
 
-  ngOnInit() {
-    
-    this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
+  ngOnInit()
+  {
+    this.areasLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loading);
 
-    this.subscriptionAreaMembers = this._areaService.getAreaMembers(this.area._id).subscribe(members =>
-    {
-      if (members)
-      {
-        this.members = members.length;
-      } else
-      {
-        this.members = 0;
-      }
-    });
+    this.members$ = this._areaService.getAreaMembers(this.area._id);
   }
 
   ngOnDestroy()
   {
-    this.subscriptionAreaMembers.unsubscribe();
   }
 
   selectArea(area: AreaModel)

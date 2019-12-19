@@ -1,4 +1,4 @@
-import * as AreasActions from '../../../../actions/userOrganizations/selectedOrganization/areas/areas.actions';
+import * as AreasActions from '../../../../../actions/userOrganizations/selectedOrganization/areas/areas/areas.actions';
 import { createReducer, on, Action } from '@ngrx/store';
 import { AreaModel } from 'src/app/models/area.model';
 

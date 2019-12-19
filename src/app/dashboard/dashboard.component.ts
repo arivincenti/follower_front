@@ -13,10 +13,7 @@ import * as OrganizationsActions from '../store/actions/userOrganizations/organi
 export class DashboardComponent implements OnInit, OnDestroy
 {
 
-  organizationModal$: Observable<boolean>;
   userSubscription: Subscription = new Subscription();
-  organizationsSubscription: Subscription = new Subscription();
-  user: UserModel;
 
   constructor(
     private store: Store<AppState>
@@ -25,14 +22,12 @@ export class DashboardComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     //Obtenemos el usuario del store, mediante una subscripcion
-    this.userSubscription = this.store.select(state => state.auth.user).subscribe((user: any) => this.user = user);
-
-    //Cargamos las organizaciones del usuario y quedamos pendientes de modificaciones
-    this.store.dispatch(OrganizationsActions.getOrganizations({ payload: this.user._id }));
+    this.userSubscription = this.store.select(state => state.auth.user).subscribe((user: any) => this.store.dispatch(OrganizationsActions.getOrganizations({ payload: user._id })));
 
   }
 
-  ngOnDestroy(){
+  ngOnDestroy()
+  {
     this.userSubscription.unsubscribe();
   }
 

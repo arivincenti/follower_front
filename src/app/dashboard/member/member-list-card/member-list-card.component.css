@@ -1,29 +1,35 @@
-button{
+button {
   outline: none;
 }
 
-.area-title{
+.area-title {
   position: relative;
-  top:5px;
-  font-size: .9em;
+  top: 5px;
+  font-size: 0.9em;
 }
 
-.icon-subtitle{
+.icon-subtitle {
   font-size: 1.6em;
   position: relative;
   top: 6px;
 }
 
-.icon{
+.icon {
   position: relative;
   top: 4px;
   font-size: 1.4em;
 }
 
-.background-content-card-active{
-  background-color: rgba(220, 220, 220, .2);
+.background-content-card-active {
+  background-color: rgba(220, 220, 220, 0.2);
 }
 
-.background-content-card-inactive{
-  background-color: rgba(160, 160, 160, .2);
+.background-content-card-inactive {
+  background-color: rgba(160, 160, 160, 0.2);
+}
+
+mat-spinner {
+  position: relative;
+  top: 1px;
+  left: 5px;
 }

@@ -11,16 +11,16 @@
     </mat-card-subtitle>
     <div class="d-flex justify-content-end">
       <button class="button" mat-icon-button matTooltip="Ingresar al área" matTooltipPosition="above"
-      (click)="selectArea(area)">
-      <mat-icon>meeting_room</mat-icon>
-    </button>
+        (click)="selectArea(area)">
+        <mat-icon>meeting_room</mat-icon>
+      </button>
     </div>
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-card-content class="mt-2">
-    <span class="organization-card-info">
+    <span class="organization-card-info" *ngIf="members$ | async as members">
       <mat-icon class="icon">supervised_user_circle</mat-icon>
-      Miembros / {{members}}
+      Miembros / {{ memberslength }}
     </span>
     <span class="organization-card-info ml-4">
       <mat-icon class="icon">watch_later</mat-icon>

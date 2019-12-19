@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material';
 import { AreaFormComponent } from '../../area/area-form/area-form.component';
 import { MemberFormComponent } from '../../member/member-form/member-form.component';
 import { MemberModel } from 'src/app/models/member.model';
-import { FormGroup, FormControl } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-organization-profile',
@@ -22,25 +22,24 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 {
   //Subscriptions
   organizationSubscription: Subscription = new Subscription();
-  paramSubscription: Subscription = new Subscription();
   userSubscription: Subscription = new Subscription();
-  areasSubscription: Subscription = new Subscription();
-  membersSubscription: Subscription = new Subscription();
-  memberAreasSubscription: Subscription = new Subscription();
+
 
   organization$: Observable<OrganizationModel>;
+  organizationLoading$: Observable<boolean>;
   user: UserModel;
   animation$: Observable<string[]>;
   organization: OrganizationModel;
 
   //Filter & counter
-  areas: AreaModel[];
+  param: string;
+  areas$: Observable<AreaModel[]>;
   filterAreas: AreaModel[];
-  memberAreas: AreaModel[];
+  memberAreas$: Observable<AreaModel[]>;
   filterMemberAreas: AreaModel[];
-  members: MemberModel[];
+  members$: Observable<MemberModel[]>;
+  membersLoading$: Observable<boolean>;
   filterMembers: MemberModel[];
-  userAreas$: Observable<AreaModel[]>;
 
   constructor(
     private store: Store<AppState>,
@@ -51,55 +50,36 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-      
+
     this.animation$ = this.store.select(state => state.ui.animated);
+    
+    this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
+
+    this.organizationLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.loading);
 
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user =>
     {
       this.user = user;
     });
 
-    this.paramSubscription = this.activatedRoute.params.subscribe(param =>
-    {
-      this.store.dispatch(OrganizationActions.getOrganization({ organization: param.id, user: this.user._id }))
-    });
+    this.param = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
+    this.store.dispatch(OrganizationActions.getOrganization({ organization: this.param, user: this.user._id }))
 
-    this.organizationSubscription = this.organization$.subscribe(organization =>
-    {
-      this.organization = organization;
-    });
+    this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization).pipe(map(organization => this.organization = organization));
 
-    this.areasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas).subscribe(areas =>
-    {
-      this.areas = areas;
-      this.filterAreas = areas;
-    });
+    this.areas$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.areas).pipe(map(areas => this.filterAreas = areas));
 
-    this.userAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.areas);
+    this.memberAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.areas).pipe(map(areas => this.filterMemberAreas = areas));
 
-    this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).subscribe(members =>
-    {
-      this.members = members;
-      this.filterMembers = members;
-    });
-
-    this.memberAreasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.areas).subscribe(areas => {
-      this.memberAreas = areas;
-      this.filterMemberAreas = areas;
-    })
+    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).pipe(map(members => this.filterMembers = members));
 
   }
 
   ngOnDestroy()
   {
     this.organizationSubscription.unsubscribe();
-    this.paramSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
-    this.areasSubscription.unsubscribe();
-    this.membersSubscription.unsubscribe();
-    this.memberAreasSubscription.unsubscribe();
   }
 
 

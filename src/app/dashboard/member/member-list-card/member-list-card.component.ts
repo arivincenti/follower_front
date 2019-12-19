@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as MembersActions from '../../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-member-list-card',
@@ -19,12 +20,16 @@ export class MemberListCardComponent implements OnInit
   @Input() member: MemberModel;
   @Input() user: UserModel;
 
+  membersLoading$: Observable<boolean>;
+  
   constructor(
     private router: Router,
     private store: Store<AppState>
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
+   }
 
   selectMember(member: MemberModel)
   {

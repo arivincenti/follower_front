@@ -13,15 +13,16 @@ import { Router } from '@angular/router';
   templateUrl: './member-areas-list-card.component.html',
   styleUrls: ['./member-areas-list-card.component.css']
 })
-export class MemberAreasListCardComponent implements OnInit {
+export class MemberAreasListCardComponent implements OnInit
+{
 
   @Input() organization: OrganizationModel;
   @Input() area: AreaModel;
   @Input() user: UserModel;
 
+
   organization$: Observable<OrganizationModel>;
-  subscriptionAreaMembers: Subscription = new Subscription();
-  members: number;
+  members$: Observable<number>;
 
   constructor(
     private _areaService: AreasService,
@@ -29,26 +30,14 @@ export class MemberAreasListCardComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
-    
+  ngOnInit()
+  {
     this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
 
-    this.subscriptionAreaMembers = this._areaService.getAreaMembers(this.area._id).subscribe(members =>
-    {
-      if (members)
-      {
-        this.members = members.length;
-      } else
-      {
-        this.members = 0;
-      }
-    });
+    this.members$ = this._areaService.getAreaMembers(this.area._id);
   }
 
-  ngOnDestroy()
-  {
-    this.subscriptionAreaMembers.unsubscribe();
-  }
+  ngOnDestroy(){}
 
   selectArea(area: AreaModel)
   {
