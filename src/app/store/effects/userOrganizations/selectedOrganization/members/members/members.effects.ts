@@ -60,7 +60,7 @@ export class MembersEffects
             toast: true,
             icon: 'success',
             title: 'Genial!!',
-            text: `El miembro de la organización ${member.user.name} ${member.user.last_name} se actualizó con éxito`,
+            text: `El miembro de la organización se modificó con éxito`,
             showConfirmButton: false,
             timer: 2500
           });
@@ -84,7 +84,7 @@ export class MembersEffects
             toast: true,
             icon: 'success',
             title: 'Genial!!',
-            text: `El miembro de la organización ${member.user.name} ${member.user.last_name} se inactivó con éxito`,
+            text: `El miembro de la organización se modificó con éxito`,
             showConfirmButton: false,
             timer: 2500
           });

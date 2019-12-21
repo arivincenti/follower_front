@@ -12,16 +12,28 @@ button{
   top: 6px;
 }
 
-.icon{
+/* .icon{
   position: relative;
-  top: 4px;
-  font-size: 1.4em;
+  top: 3px;
+  font-size: 1.2em;
+} */
+
+.organization-card-info {
+  font-size: 1.1em;
+  margin-right: 20px;
+  position: relative;
+  top: 7px;
 }
 
 .background-content-card-active{
   background-color: rgba(220, 220, 220, .2);
 }
 
-.background-content-card-inactive{
-  background-color: rgba(160, 160, 160, .2);
+.background-content-card-inactive {
+  background-color: rgba(160, 160, 160, 0.2);
+  opacity: .5;
+}
+
+.line-through{
+  text-decoration: line-through;
 }

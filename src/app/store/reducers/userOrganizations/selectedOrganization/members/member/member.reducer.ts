@@ -13,7 +13,7 @@ export interface MemberState
 
 export const InitialStateMember: MemberState = {
   member: null,
-  loading: false,
+  loading: true,
   loaded: false,
   error: null
 }
@@ -43,7 +43,7 @@ export const memberReducer = createReducer(
       ...state,
       member: null,
       loading: false,
-      loaded: true,
+      loaded: false,
       error: { ...payload }
     }
   )),

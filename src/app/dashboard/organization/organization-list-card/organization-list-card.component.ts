@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { UserModel } from 'src/app/models/user.model';
 import { AreaModel } from 'src/app/models/area.model';
@@ -23,9 +23,16 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
 
   @Input() organization: OrganizationModel;
   @Input() user: UserModel;
-  areas$: Observable<AreaModel[]>;
-  members$: Observable<MemberModel[]>
 
+  membersSeubscription : Subscription = new Subscription();
+  areasSeubscription : Subscription = new Subscription();
+
+  areas: AreaModel[] = [];
+  areasLoading : boolean = true;
+  members: MemberModel[] = [];
+  membersLoading : boolean = true;
+
+  animation$: Observable<string[]>;
 
   constructor(
     private _membersService: MembersService,
@@ -37,13 +44,25 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
+    this.animation$ = this.store.select(state => state.ui.animated);
+    
     //Estas consultas van directo sobre el servicio porque a esta altura de la aplicacion toidavia no se cargaron ls areas de una organizacion
-    this.areas$ = this._areasService.getAreas(this.organization);
-    this.members$ = this._membersService.getMembers(this.organization);
+    this.areasSeubscription = this._areasService.getAreas(this.organization).subscribe(areas => {
+      this.areas = areas;
+      this.areasLoading = false;
+    });
+
+    this.membersSeubscription = this._membersService.getMembers(this.organization).subscribe(members => {
+      this.members = members;
+      this.membersLoading = false;
+    });
 
   }
 
-  ngOnDestroy() { }
+  ngOnDestroy() { 
+    this.membersSeubscription.unsubscribe();
+    this.areasSeubscription.unsubscribe();
+  }
 
   selectOrganization(organization: OrganizationModel)
   {

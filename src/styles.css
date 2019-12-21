@@ -29,6 +29,13 @@ body {
 }
 
 
+.icon{
+  position: relative;
+  top: 3px;
+  font-size: 1.2em;
+}
+
+
 /* //////////////////////////////////// */
 .example-header-image {
   position: relative;

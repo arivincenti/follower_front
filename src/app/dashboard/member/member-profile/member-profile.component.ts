@@ -10,6 +10,7 @@ import * as MemberActions from '../../../store/actions/userOrganizations/selecte
 import { MemberModel } from 'src/app/models/member.model';
 import { MembersService } from 'src/app/services/members/members.service';
 import { state } from '@angular/animations';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-member-profile',
@@ -25,9 +26,14 @@ export class MemberProfileComponent implements OnInit, OnDestroy
   form: FormGroup;
   paramSubscription: Subscription = new Subscription();
   areasSubscription: Subscription = new Subscription();
+  memberSubscription: Subscription = new Subscription();
   areas: AreaModel[];
   member: MemberModel;
+  member$: Observable<MemberModel>;
+  membersLoading$:Observable<boolean>;
+  membersLoaded$:Observable<boolean>;
   memberLoading$:Observable<boolean>;
+  memberLoaded$:Observable<boolean>;
   param: string;
 
   constructor(
@@ -42,10 +48,18 @@ export class MemberProfileComponent implements OnInit, OnDestroy
   {
     this.animation$ = this.store.select(state => state.ui.animated);
 
-    this.memberLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
+    this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
+
+    this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
+
+    this.membersLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loaded);
+
+    this.memberLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.selectedMember.loading);
+
+    this.memberLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.selectedMember.loaded);
 
     this.param = this.activatedRoute.snapshot.paramMap.get('id');
-
+    
     this.store.dispatch(MemberActions.getMember({ payload: this.param }));
 
     this.areasSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.areas).subscribe(areas =>
@@ -53,19 +67,32 @@ export class MemberProfileComponent implements OnInit, OnDestroy
       this.areas = areas;
     });
 
-    this._membersService.getMember(this.param).subscribe(member =>
-    {
+    this.member$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.selectedMember.member);
+
+    this.memberSubscription = this.member$.pipe(
+      filter(member => member !== null)
+    )
+    .subscribe(member => {
       this.member = member;
       this.form = this.formBuilder.group({
         areas: this.buildAreas(member)
       });
     })
 
+    // this._membersService.getMember(this.param).subscribe(member =>
+    // {
+    //   this.member = member;
+    //   this.form = this.formBuilder.group({
+    //     areas: this.buildAreas(member)
+    //   });
+    // })
+
   }
 
   ngOnDestroy()
   {
     this.areasSubscription.unsubscribe();
+    this.memberSubscription.unsubscribe();
   }
 
   buildAreas(member)

@@ -59,12 +59,12 @@ export class AreasEffects
             position: 'top-end',
             toast: true,
             icon: 'success',
-            title: 'Genial!!',
-            text: 'El área se modificó con éxito',
+            title: '¡Genial!',
+            text: 'El área se modificó con éxito.',
             showConfirmButton: false,
             timer: 2700
           });
-          this.store.dispatch(MemberAreasActions.getMemberAreas({user: action.payload.updated_by, organization: action.payload.organization}));
+          this.store.dispatch(MemberAreasActions.getMemberAreas({ user: action.payload.updated_by, organization: action.payload.organization }));
           return AreasActions.updateAreaSuccess({ payload: area })
         }),
         catchError(error => of(AreasActions.updateAreaFail({ payload: error })))
@@ -82,11 +82,11 @@ export class AreasEffects
             toast: true,
             icon: 'success',
             title: 'Genial!!',
-            text: 'El área se dio de baja con éxito',
+            text: 'El área se modificó con éxito',
             showConfirmButton: false,
             timer: 2700
           });
-          this.store.dispatch(MemberAreasActions.getMemberAreas({user: action.payload.updated_by, organization: action.payload.organization}));
+          this.store.dispatch(MemberAreasActions.getMemberAreas({ user: action.payload.updated_by, organization: action.payload.organization }));
           return AreasActions.deleteAreaSuccess({ payload: area })
         }),
         catchError(error => of(AreasActions.deleteAreaFail({ payload: error })))

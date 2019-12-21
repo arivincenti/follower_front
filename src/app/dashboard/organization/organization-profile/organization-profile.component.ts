@@ -34,11 +34,16 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
   //Filter & counter
   param: string;
   areas$: Observable<AreaModel[]>;
+  areasLoading$: Observable<boolean>;
+  areasLoaded$: Observable<boolean>;
   filterAreas: AreaModel[];
   memberAreas$: Observable<AreaModel[]>;
+  memberAreasLoading$: Observable<boolean>;
+  memberAreasLoaded$: Observable<boolean>;
   filterMemberAreas: AreaModel[];
   members$: Observable<MemberModel[]>;
   membersLoading$: Observable<boolean>;
+  membersLoaded$: Observable<boolean>;
   filterMembers: MemberModel[];
 
   constructor(
@@ -52,8 +57,18 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
   {
 
     this.animation$ = this.store.select(state => state.ui.animated);
+
+    this.areasLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loading);
+
+    this.areasLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loaded);
+
+    this.memberAreasLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.loading);
+
+    this.memberAreasLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.loaded);
     
     this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
+
+    this.membersLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loaded);
 
     this.organizationLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.loading);
 

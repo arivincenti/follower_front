@@ -13,11 +13,18 @@ button {
   position: relative;
   top: 6px;
 }
-
-.icon {
+/* 
+.icon{
   position: relative;
-  top: 4px;
+  top: 1px;
   font-size: 1.4em;
+} */
+
+.organization-card-info {
+  font-size: 1.1em;
+  margin-right: 20px;
+  position: relative;
+  top: 7px;
 }
 
 .background-content-card-active {
@@ -26,10 +33,9 @@ button {
 
 .background-content-card-inactive {
   background-color: rgba(160, 160, 160, 0.2);
+  opacity: .5;
 }
 
-mat-spinner {
-  position: relative;
-  top: 1px;
-  left: 5px;
+.line-through{
+  text-decoration: line-through;
 }

@@ -1,3 +1,4 @@
+<ng-container *ngIf="animations$ | async as animations">
 <mat-card [ngClass]="{'background-content-card-active': !area.deleted_at, 'background-content-card-inactive': area.deleted_at,
 'text-muted': area.deleted_at}">
   <mat-card-header class="d-flex justify-content-between">
@@ -17,19 +18,23 @@
     </div>
   </mat-card-header>
   <mat-divider></mat-divider>
-  <mat-card-content class="mt-2">
-    <span class="organization-card-info" *ngIf="members$ | async as members">
+  <mat-card-content class="d-flex align-items-center">
+    <span class="organization-card-info d-flex align-items-center">
       <mat-icon class="icon">supervised_user_circle</mat-icon>
-      Miembros / {{ memberslength }}
+      Miembros /
+      <mat-spinner *ngIf="membersLoading" diameter="15"></mat-spinner>
+      <span class="ml-2 animated" [ngClass]="animations[3]" *ngIf="!membersLoading">
+        {{members.length}}
+      </span>
     </span>
-    <span class="organization-card-info ml-4">
+    <span class="organization-card-info d-flex align-items-center ml-4">
       <mat-icon class="icon">watch_later</mat-icon>
       Creada el /
       <span class="success">
         {{area.created_at | date:'dd-MM-yyyy'}}
       </span>
     </span>
-    <span class="organization-card-info ml-4" *ngIf="area.deleted_at">
+    <span class="organization-card-info d-flex align-items-center ml-4" *ngIf="area.deleted_at">
       <mat-icon class="icon">delete</mat-icon> Dada de baja el /
       <span class="danger">
         {{area.deleted_at | date:'dd-MM-yyyy'}}
@@ -37,3 +42,4 @@
     </span>
   </mat-card-content>
 </mat-card>
+</ng-container>

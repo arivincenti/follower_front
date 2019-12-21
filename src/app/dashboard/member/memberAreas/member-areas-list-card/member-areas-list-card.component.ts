@@ -7,6 +7,7 @@ import { AreasService } from 'src/app/services/areas/areas.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router } from '@angular/router';
+import { MemberModel } from 'src/app/models/member.model';
 
 @Component({
   selector: 'app-member-areas-list-card',
@@ -20,9 +21,11 @@ export class MemberAreasListCardComponent implements OnInit
   @Input() area: AreaModel;
   @Input() user: UserModel;
 
+  membersSubscription: Subscription = new Subscription();
+  members: MemberModel[];
+  membersLoading: boolean = true;
+  animations$: Observable<string[]>;
 
-  organization$: Observable<OrganizationModel>;
-  members$: Observable<number>;
 
   constructor(
     private _areaService: AreasService,
@@ -32,12 +35,20 @@ export class MemberAreasListCardComponent implements OnInit
 
   ngOnInit()
   {
-    this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
 
-    this.members$ = this._areaService.getAreaMembers(this.area._id);
+    this.animations$ = this.store.select(state => state.ui.animated);
+    
+    this.membersSubscription = this._areaService.getAreaMembers(this.area._id).subscribe(members =>
+    {
+      this.members = members;
+      this.membersLoading = false;
+    });
   }
 
-  ngOnDestroy(){}
+  ngOnDestroy()
+  {
+    this.membersSubscription.unsubscribe();
+  }
 
   selectArea(area: AreaModel)
   {

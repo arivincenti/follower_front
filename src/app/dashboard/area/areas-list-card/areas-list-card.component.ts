@@ -24,9 +24,11 @@ export class AreasListCardComponent implements OnInit, OnDestroy
   @Input() area: AreaModel;
   @Input() user: UserModel;
 
-  members$: Observable<MemberModel[]>;
-  membersLoading$: Observable<boolean>;
+  membersSubscription : Subscription = new Subscription();
+  members: MemberModel[];
+  membersLoading: boolean = true;
   areasLoading$: Observable<boolean>;
+  animations$: Observable<string[]>;
 
   constructor(
     private _areaService: AreasService,
@@ -37,13 +39,19 @@ export class AreasListCardComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
+    this.animations$ = this.store.select(state => state.ui.animated);
+    
     this.areasLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loading);
 
-    this.members$ = this._areaService.getAreaMembers(this.area._id);
+     this.membersSubscription = this._areaService.getAreaMembers(this.area._id).subscribe(members => {
+       this.members = members;
+       this.membersLoading = false;
+     });
   }
 
   ngOnDestroy()
   {
+    this.membersSubscription.unsubscribe();
   }
 
   selectArea(area: AreaModel)

@@ -42,7 +42,8 @@ export class OrganizationComponent implements OnInit, OnDestroy
     this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
 
     this.organizations$ = this.store.select(state => state.userOrganizations.organizations.organizations);
-    this.store.dispatch(OrganizationActions.clearSelectedOrganizationState());
+
+    // this.store.dispatch(OrganizationActions.clearSelectedOrganizationState());
     // this.store.dispatch(AreasActions.clearSelectedAreaState());
   }
 

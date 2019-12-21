@@ -73,7 +73,7 @@ export const organizationsReducer = createReducer(
   on(OrganizationsActions.updateOrganization, (state) => (
     {
       ...state,
-      loading: false,
+      loading: true,
       loaded: false,
       error: null
     }
@@ -100,7 +100,7 @@ export const organizationsReducer = createReducer(
   on(OrganizationsActions.deleteOrganization, (state) => (
     {
       ...state,
-      loading: false,
+      loading: true,
       loaded: false,
       error: null
     }
