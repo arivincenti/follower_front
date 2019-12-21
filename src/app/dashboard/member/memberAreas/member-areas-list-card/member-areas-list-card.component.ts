@@ -56,4 +56,6 @@ export class MemberAreasListCardComponent implements OnInit
     this.router.navigate(['app/organizations/areas/profile', area._id]);
   }
 
+  displayedColumns: string[] = ['nombre', 'apellido', 'tickets_pendientes', 'tickets_resueltos', 'tickets_despachados', 'tickets_totales'];
+
 }

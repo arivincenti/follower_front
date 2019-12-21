@@ -1,5 +1,6 @@
 import { UserModel } from './user.model';
 import { OrganizationModel } from './organization.model';
+import { MemberModel } from './member.model';
 
 export class AreaModel
 {
@@ -8,7 +9,7 @@ export class AreaModel
     public name: string,
     public organization: OrganizationModel,
     public members: UserModel[],
-    public responsible?: UserModel,
+    public responsible?: MemberModel,
     public created_by?: UserModel,
     public updated_by?: UserModel,
     public deleted_by?: UserModel,

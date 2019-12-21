@@ -24,7 +24,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy
   @Input() area: AreaModel;
   @Input() user: UserModel;
 
-  membersSubscription : Subscription = new Subscription();
+  membersSubscription: Subscription = new Subscription();
   members: MemberModel[];
   membersLoading: boolean = true;
   areasLoading$: Observable<boolean>;
@@ -40,13 +40,14 @@ export class AreasListCardComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.animations$ = this.store.select(state => state.ui.animated);
-    
+
     this.areasLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loading);
 
-     this.membersSubscription = this._areaService.getAreaMembers(this.area._id).subscribe(members => {
-       this.members = members;
-       this.membersLoading = false;
-     });
+    this.membersSubscription = this._areaService.getAreaMembers(this.area._id).subscribe(members =>
+    {
+      this.members = members;
+      this.membersLoading = false;
+    });
   }
 
   ngOnDestroy()
@@ -93,5 +94,17 @@ export class AreasListCardComponent implements OnInit, OnDestroy
 
     this.store.dispatch(AreasActions.updateArea({ areaId: area._id, payload: payload }));
   }
+
+  setResponsibleMember(member: MemberModel)
+  {
+    let payload = {
+      responsible: member,
+      organization: this.organization._id,
+      updated_by: this.user._id
+    }
+    this.store.dispatch(AreasActions.updateArea({ areaId: this.area._id, payload: payload }));
+  }
+
+  displayedColumns: string[] = ['responsable', 'miembro', 'tickets_pendientes', 'tickets_resueltos', 'tickets_despachados', 'tickets_totales'];
 
 }

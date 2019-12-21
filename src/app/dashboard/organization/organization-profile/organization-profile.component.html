@@ -82,7 +82,7 @@
               <div class="container">
                 <div class="row d-flex align-items-center">
                   <div class="col-md-12 d-flex justify-content-start animated delay-700ms" [ngClass]="animation[0]">
-                    <button mat-raised-button color="primary" *ngIf="!organization.deleted_at" (click)="newTicket()"
+                    <button mat-raised-button color="accent" *ngIf="!organization.deleted_at" (click)="newTicket()"
                       matTooltip="Generar ticket" matTooltipPosition="right" class="mt-3 mb-3">
                       <span>Generar ticket</span>
                     </button>
@@ -137,7 +137,7 @@
               <div class="container" *ngIf="areasLoaded$ | async">
                 <div class="row d-flex align-items-center" *ngIf="areas$ | async as areas">
                   <div class="col-md-8 d-flex justify-content-start animated delay-700ms" [ngClass]="animation[0]">
-                    <button mat-raised-button color="primary" *ngIf="!organization.deleted_at" (click)="createArea()"
+                    <button mat-raised-button color="accent" *ngIf="!organization.deleted_at" (click)="createArea()"
                       matTooltip="Agregar área" matTooltipPosition="right" class="m-3">
                       <span>
                         Agregar área
@@ -172,7 +172,7 @@
                 <div class="row d-flex align-items-center" *ngIf="members$ | async as members">
                   <div class="col-md-8 d-flex justify-content-start animated delay-700ms" [ngClass]="animation[0]"
                     *ngIf="!organization.deleted_at">
-                    <button  mat-raised-button color="primary"
+                    <button  mat-raised-button color="accent"
                       (click)="createMember()" matTooltip="Agregar miembro" matTooltipPosition="right" class="m-3">
                       <span>Agregar miembro</span>
                     </button>

@@ -49,12 +49,12 @@
     <mat-card-content class="d-flex align-items-center">
       <span class="organization-card-info d-flex align-items-center">
         <mat-icon class="icon">bookmarks</mat-icon>
-        Áreas / <mat-spinner *ngIf="areasLoading" class="ml-2 animated" diameter="15" [ngClass]="animation[3]"></mat-spinner> <span *ngIf="!areasLoading"
+        Áreas / <mat-spinner *ngIf="areasLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]"></mat-spinner> <span *ngIf="!areasLoading"
           class="ml-1 animated delay-300ms" [ngClass]="animation[3]">{{areas.length}}</span>
       </span>
       <span class="organization-card-info d-flex align-items-center">
         <mat-icon class="icon">supervised_user_circle</mat-icon>
-        Miembros / <mat-spinner *ngIf="membersLoading" class="ml-2 animated" diameter="15" [ngClass]="animation[3]"></mat-spinner> <span
+        Miembros / <mat-spinner *ngIf="membersLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]"></mat-spinner> <span
           *ngIf="!membersLoading" class="ml-1 animated delay-300ms" [ngClass]="animation[3]">{{members.length}}</span>
       </span>
 

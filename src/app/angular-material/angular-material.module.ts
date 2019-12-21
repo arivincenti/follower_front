@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCardModule, MatDividerModule, MatExpansionModule, MatIconModule, MatMenuModule, MatSidenavModule, MatToolbarModule, MatListModule, MatTooltipModule, MatBadgeModule, MatGridListModule, MatStepperModule, MatTableModule, MatTabsModule, MatCheckboxModule, MatDialogModule, MatAutocompleteModule, MatChipsModule, MatButtonToggleModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCardModule, MatDividerModule, MatExpansionModule, MatIconModule, MatMenuModule, MatSidenavModule, MatToolbarModule, MatListModule, MatTooltipModule, MatBadgeModule, MatGridListModule, MatStepperModule, MatTableModule, MatTabsModule, MatCheckboxModule, MatDialogModule, MatAutocompleteModule, MatChipsModule, MatButtonToggleModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatSortModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
@@ -30,7 +30,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatButtonToggleModule,
     MatPaginatorModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSortModule
   ],
   exports: [
     MatButtonModule,
@@ -58,7 +59,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatButtonToggleModule,
     MatPaginatorModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSortModule
   ]
 })
 export class AngularMaterialModule { }

@@ -50,20 +50,20 @@
       <mat-icon class="icon">bookmarks
       </mat-icon>
       Áreas /
-      <span>
+      <span class="ml-1">
         {{member.areas.length}}
       </span>
     </span>
     <span class="organization-card-info d-flex align-items-center ml-4">
       <mat-icon class="icon">watch_later</mat-icon>
       Creado el /
-      <span class="success">
+      <span class="success ml-1">
         {{member.created_at | date:'dd-MM-yyyy'}}
       </span>
     </span>
     <span class="organization-card-info d-flex align-items-center ml-4" *ngIf="member.deleted_at">
       <mat-icon class="icon">delete</mat-icon> Dada de baja el /
-      <span class="danger">
+      <span class="danger ml-1">
         {{member.deleted_at | date:'dd-MM-yyyy'}}
       </span>
     </span>
