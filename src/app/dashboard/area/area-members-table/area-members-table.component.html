@@ -1,0 +1,59 @@
+<table mat-table [dataSource]="members" class="member-table">
+
+  <ng-container matColumnDef="responsable">
+    <th mat-header-cell *matHeaderCellDef> Responsable </th>
+    <td mat-cell *matCellDef="let element" class="member-table-content text-center">
+      <button mat-icon-button class="d-flex justify-content-center align-items-center"
+        (click)="setResponsibleMember(element)">
+        <span *ngIf="area.responsible">
+          <mat-icon *ngIf="area.responsible._id === element._id" class="responsible-icon warning">
+            favorite
+          </mat-icon>
+          <mat-icon *ngIf="area.responsible._id !== element._id" class="none-responsible-icon">
+            favorite
+          </mat-icon>
+        </span>
+        <span *ngIf="!area.responsible">
+          <mat-icon class="none-responsible-icon">
+            favorite</mat-icon>
+        </span>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="miembro">
+    <th mat-header-cell *matHeaderCellDef> Miembro </th>
+    <td mat-cell *matCellDef="let element" class="member-table-content"> {{element.user.name}}
+      {{element.user.last_name}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="tickets_pendientes">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Tickets Pendientes </th>
+    <td mat-cell *matCellDef="let element" class="member-table-content text-center">
+      0
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tickets_resueltos">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Tickets Despachados </th>
+    <td mat-cell *matCellDef="let element" class="member-table-content text-center">
+      0
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tickets_despachados">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Tickets Resueltos </th>
+    <td mat-cell *matCellDef="let element" class="member-table-content text-center">
+      0
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tickets_totales">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Tickets Totales </th>
+    <td mat-cell *matCellDef="let element" class="member-table-content text-center">
+      0
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

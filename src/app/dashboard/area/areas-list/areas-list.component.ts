@@ -6,7 +6,6 @@ import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { PageEvent } from "@angular/material";
-import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: "app-areas-list",

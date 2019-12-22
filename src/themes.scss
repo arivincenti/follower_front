@@ -6,8 +6,11 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
-$success: mat-color($mat-light-blue, A700);
-$danger: mat-color($mat-amber, 700);
+$success: mat-color($mat-light-green, 800);
+$danger: mat-color($mat-red, 600);
+$warning: mat-color($mat-amber, 700);
+$secondary: mat-color($mat-pink, 200);
+$info: mat-color($mat-light-blue, A700);
 
 .success{
   color: $success;
@@ -15,6 +18,18 @@ $danger: mat-color($mat-amber, 700);
 
 .danger{
   color: $danger;
+}
+
+.warning{
+  color: $warning;
+}
+
+.secondary{
+  color: $secondary;
+}
+
+.info{
+  color: $info;
 }
 
 $candy-app-primary: mat-palette($mat-light-blue, 900);

@@ -60,7 +60,7 @@
           <mat-card-content>
             <mat-icon class="icon">favorite</mat-icon>
             Relación /
-            <span *ngIf="organization.created_by._id === user._id" class="danger">
+            <span *ngIf="organization.created_by._id === user._id" class="warning">
               <mat-icon class="icon" color="warn">star</mat-icon>
               Propietario
             </span>
@@ -81,8 +81,8 @@
               </ng-template>
               <div class="container">
                 <div class="row d-flex align-items-center">
-                  <div class="col-md-12 d-flex justify-content-start animated delay-700ms" [ngClass]="animation[0]">
-                    <button mat-raised-button color="accent" *ngIf="!organization.deleted_at" (click)="newTicket()"
+                  <div class="col-md-12 d-flex justify-content-start animated delay-500ms" [ngClass]="animation[0]">
+                    <button mat-flat-button color="accent" *ngIf="!organization.deleted_at" (click)="newTicket()"
                       matTooltip="Generar ticket" matTooltipPosition="right" class="mt-3 mb-3">
                       <span>Generar ticket</span>
                     </button>
@@ -90,7 +90,7 @@
 
                 </div>
                 <mat-divider></mat-divider>
-                <mat-card-content class="animated delay-300ms mt-4" [ngClass]="animation[0]">
+                <mat-card-content class="animated delay-500ms mt-4" [ngClass]="animation[0]">
                   <span class="text-muted">No tiene tickets cargados</span>
                 </mat-card-content>
               </div>
@@ -112,10 +112,10 @@
               <div class="container" *ngIf="memberAreasLoaded$ | async">
                 <div class="row d-flex align-items-center" *ngIf="memberAreas$ | async as memberAreas">
                   <div class="col-md-12">
-                    <mat-card-content class="animated delay-300ms mt-4" [ngClass]="animation[0]">
-                      <app-member-areas-list [organization]="organization" [areas]="filterMemberAreas" [user]="user"
+                    <mat-card-content class="animated delay-500ms mt-4" [ngClass]="animation[0]">
+                      <app-areas-list [organization]="organization" [areas]="filterMemberAreas" [user]="user"
                         [animation]="animation">
-                      </app-member-areas-list>
+                      </app-areas-list>
                     </mat-card-content>
                   </div>
                 </div>
@@ -136,20 +136,20 @@
 
               <div class="container" *ngIf="areasLoaded$ | async">
                 <div class="row d-flex align-items-center" *ngIf="areas$ | async as areas">
-                  <div class="col-md-8 d-flex justify-content-start animated delay-700ms" [ngClass]="animation[0]">
-                    <button mat-raised-button color="accent" *ngIf="!organization.deleted_at" (click)="createArea()"
+                  <div class="col-md-8 d-flex justify-content-start animated delay-500ms" [ngClass]="animation[0]">
+                    <button mat-flat-button color="accent" *ngIf="!organization.deleted_at" (click)="createArea()"
                       matTooltip="Agregar área" matTooltipPosition="right" class="m-3">
                       <span>
                         Agregar área
                       </span>
                     </button>
                   </div>
-                  <div class="col-md-4 d-flex justify-content-end animated delay-700ms" [ngClass]="animation[0]">
+                  <div class="col-md-4 d-flex justify-content-end animated delay-500ms" [ngClass]="animation[0]">
                     <app-filter [originalArray]="areas" (transformArray)="filterAreas = $event"></app-filter>
                   </div>
                 </div>
                 <mat-divider></mat-divider>
-                <mat-card-content class="animated delay-300ms mt-4" [ngClass]="animation[0]">
+                <mat-card-content class="animated delay-500ms mt-4" [ngClass]="animation[0]">
                   <app-areas-list [organization]="organization" [areas]="filterAreas" [user]="user"
                     [animation]="animation">
                   </app-areas-list>
@@ -170,20 +170,20 @@
 
               <div class="container" *ngIf="membersLoaded$ | async">
                 <div class="row d-flex align-items-center" *ngIf="members$ | async as members">
-                  <div class="col-md-8 d-flex justify-content-start animated delay-700ms" [ngClass]="animation[0]"
+                  <div class="col-md-8 d-flex justify-content-start animated delay-500ms" [ngClass]="animation[0]"
                     *ngIf="!organization.deleted_at">
-                    <button  mat-raised-button color="accent"
-                      (click)="createMember()" matTooltip="Agregar miembro" matTooltipPosition="right" class="m-3">
+                    <button mat-flat-button color="accent" (click)="createMember()" matTooltip="Agregar miembro"
+                      matTooltipPosition="right" class="m-3">
                       <span>Agregar miembro</span>
                     </button>
                   </div>
 
-                  <div class="col-md-4 d-flex justify-content-end animated delay-700ms" [ngClass]="animation[0]">
+                  <div class="col-md-4 d-flex justify-content-end animated delay-500ms" [ngClass]="animation[0]">
                     <app-filter [originalArray]="members" (transformArray)="filterMembers = $event"></app-filter>
                   </div>
                 </div>
                 <mat-divider></mat-divider>
-                <mat-card-content class="animated delay-300ms mt-4" [ngClass]="animation[0]">
+                <mat-card-content class="animated delay-500ms mt-4" [ngClass]="animation[0]">
                   <app-member-list [organization]="organization" [members]="filterMembers" [user]="user"
                     [animation]="animation"></app-member-list>
                 </mat-card-content>

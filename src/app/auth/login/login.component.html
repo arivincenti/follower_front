@@ -37,10 +37,10 @@
                   </mat-form-field>
 
 
-                  <button *ngIf="!cargando" mat-raised-button color="primary" class="btn-block"
+                  <button *ngIf="!cargando" mat-flat-button color="primary" class="btn-block"
                     [disabled]="!f.valid">Iniciar
                     sesión</button>
-                  <button *ngIf="cargando" mat-raised-button color="accent" class="btn-block" [disabled]="true"> <i
+                  <button *ngIf="cargando" mat-flat-button color="accent" class="btn-block" [disabled]="true"> <i
                       class="fa fa-spin fa-sync"></i> Iniciando sesion...</button>
 
                 </form>

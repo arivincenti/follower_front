@@ -8,6 +8,8 @@ import { AreasListComponent } from './areas-list/areas-list.component';
 import { AreasListCardComponent } from './areas-list-card/areas-list-card.component';
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 import { AreasPaginatorPipe } from 'src/app/pipes/areas/areas-paginator.pipe';
+import { MemberModule } from '../member/member.module';
+import { AreaMembersTableComponent } from './area-members-table/area-members-table.component';
 
 @NgModule({
   declarations: [
@@ -15,13 +17,15 @@ import { AreasPaginatorPipe } from 'src/app/pipes/areas/areas-paginator.pipe';
     AreaFormComponent,
     AreasListComponent,
     AreasListCardComponent,
+    AreaMembersTableComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    MemberModule
   ],
   exports: [
     AreasListComponent,

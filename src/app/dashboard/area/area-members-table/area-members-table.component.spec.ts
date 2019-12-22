@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MemberAreasListComponent } from './member-areas-list.component';
+import { AreaMembersTableComponent } from './area-members-table.component';
 
-describe('MemberAreasListComponent', () => {
-  let component: MemberAreasListComponent;
-  let fixture: ComponentFixture<MemberAreasListComponent>;
+describe('AreaMembersTableComponent', () => {
+  let component: AreaMembersTableComponent;
+  let fixture: ComponentFixture<AreaMembersTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MemberAreasListComponent ]
+      declarations: [ AreaMembersTableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MemberAreasListComponent);
+    fixture = TestBed.createComponent(AreaMembersTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

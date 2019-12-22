@@ -1,0 +1,25 @@
+button{
+  outline: none;
+}
+
+.responsible-icon {
+  font-size: 1.2em;
+  position: relative;
+  top:3px;
+}
+
+.none-responsible-icon {
+  font-size: 1.2em;
+  position: relative;
+  top:3px;
+  opacity: 0.3;
+}
+
+.member-table {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.member-table-content {
+  font-size: 0.9em;
+}

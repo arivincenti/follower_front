@@ -11,6 +11,7 @@ import * as AreasActions from '../../../store/actions/userOrganizations/selected
 import { MatDialog } from '@angular/material';
 import { AreaFormComponent } from '../area-form/area-form.component';
 import { MemberModel } from 'src/app/models/member.model';
+import { MemberFormComponent } from '../../member/member-form/member-form.component';
 
 @Component({
   selector: 'app-areas-list-card',
@@ -95,16 +96,15 @@ export class AreasListCardComponent implements OnInit, OnDestroy
     this.store.dispatch(AreasActions.updateArea({ areaId: area._id, payload: payload }));
   }
 
-  setResponsibleMember(member: MemberModel)
+  createMember(): void
   {
-    let payload = {
-      responsible: member,
-      organization: this.organization._id,
-      updated_by: this.user._id
-    }
-    this.store.dispatch(AreasActions.updateArea({ areaId: this.area._id, payload: payload }));
+    this.dialog.open(MemberFormComponent, {
+      width: '600px',
+      data: {
+        user: this.user,
+        organization: this.organization
+      }
+    });
   }
-
-  displayedColumns: string[] = ['responsable', 'miembro', 'tickets_pendientes', 'tickets_resueltos', 'tickets_despachados', 'tickets_totales'];
 
 }
