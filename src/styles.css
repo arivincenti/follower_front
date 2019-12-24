@@ -8,10 +8,41 @@ body {
   font-family: 'roboto';
 }
 
-.subtitle{
+.mat-card-img{
+  object-fit: cover; /*this makes the image in src fit to the size specified below*/
+  width: 75%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: 75%;
+}
+
+.section-title{
+  font-size: 1.1em;
+  position: relative;
+  bottom: 1px;
+}
+
+.section-title-container {
+  opacity: .6;
+}
+
+.icon{
+  position: relative;
+  top: 3px;
   font-size: 1.2em;
 }
 
+.organization-card-info {
+  font-size: .9em;
+  margin-right: 20px;
+  position: relative;
+  top: 8px;
+}
+
+.empty-message {
+  font-size: .9em;
+}
+
+/* ///////////////////////////////
+ANIMATION DELAYS */
 .delay-300ms{
   animation-delay: 300ms;
 }
@@ -29,23 +60,52 @@ body {
 }
 
 
-.icon{
-  position: relative;
-  top: 3px;
-  font-size: 1.2em;
-}
-
-.empty-message {
-  font-size: .9em;
-}
-
 /* //////////////////////////////////// */
-.example-header-image {
+/* HEADER IMG*/
+.header-image {
   position: relative;
-  right: 10px;
+  bottom: 10px;
   background-size: cover;
 }
 
+/* ///////////////////////////////// */
+/* PAGINATOR*/
 .mat-paginator-navigation-next, .mat-paginator-navigation-previous{
   outline: none !important;
+}
+
+/* ///////////////////////////////// */
+/* CARD STYLE */
+.background-content-card-active{
+  background-color: rgba(205, 205, 205, 0.2) !important;
+}
+
+.background-content-card-inactive {
+  background-color: rgba(160, 160, 160, 0.2) !important;
+  opacity: .5;
+}
+
+/* ///////////////////////////////// */
+/* EXPANSION PANEL */
+.subtitle{
+  position: relative;
+  bottom: 4px;
+  font-size: .8em;
+}
+
+.expansor-title{
+  position: relative;
+  top: 4px;
+  font-size: 1em;
+}
+
+.expansion-panel {
+  width: 100%;
+  background-color: rgba(205, 205, 205, 0.1) !important;
+}
+
+.background-content-expansion-active {
+  background-color: rgba(230, 230, 230, 0.3);
+  padding-top: 37px !important;
+  padding-bottom: 17px !important;
 }

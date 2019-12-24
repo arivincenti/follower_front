@@ -72,13 +72,13 @@
         <span class="spacer"></span>
         <ng-container *ngIf="user$ | async as user">
           <div class="d-flex justify-content-end align-items-center">
-            <span class="user-name">Hola, {{user.name}} {{user.last_name}}</span>
+            <span class="user-name mr-2">Hola, {{user.name}} {{user.last_name}}</span>
             <button class="user-icon" mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>person_pin</mat-icon>
+              <img class="mat-card-img" [src]="user.img | image">
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="selectOrganization(organization)">
-                <mat-icon>book</mat-icon>
+                <mat-icon>person_pin</mat-icon>
                 <span>Mi Perfil</span>
               </button>
               <button mat-menu-item (click)=logout()>

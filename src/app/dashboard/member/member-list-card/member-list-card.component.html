@@ -1,6 +1,5 @@
-<mat-card [ngClass]="{'background-content-card-active': !member.deleted_at, 'background-content-card-inactive': member.deleted_at}">
+<!-- <mat-card [ngClass]="{'background-content-card-active': !member.deleted_at, 'background-content-card-inactive': member.deleted_at}">
   <mat-card-header class="d-flex justify-content-between">
-    <!-- <div mat-card-avatar class="example-header-image"></div> -->
     <mat-card-title>
       <div class="row">
         <div class="col-md-2 d-flex justify-content-start">
@@ -18,9 +17,6 @@
         <mat-icon>meeting_room</mat-icon>
       </button>
       <ng-container *ngIf="organization.created_by._id === user._id">
-        <!-- <button mat-icon-button>
-          <mat-spinner diameter="20"></mat-spinner>
-        </button> -->
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones">
           <mat-icon>more_vert</mat-icon>
         </button>
@@ -68,4 +64,99 @@
       </span>
     </span>
   </mat-card-content>
-</mat-card>
+</mat-card> -->
+
+
+<mat-expansion-panel class="expansion-panel" [ngClass]="{'background-content-card-inactive': member.deleted_at,
+'text-muted': member.deleted_at}">
+  <mat-expansion-panel-header class="background-content-expansion-active">
+    <mat-panel-description>
+      <div class="row d-flex align-items-center">
+        <div class="col-md-2">
+          <img mat-card-avatar class="header-image" [src]="member.user.img | image" alt="">
+        </div>
+        <div class="col-md-10">
+          <h3 class="expansor-title ml-3">{{member.user.name}} {{member.user.last_name}}</h3>
+          <p class="subtitle ml-3">
+            <span>{{member.user.email | lowercase}}</span>
+          </p>
+        </div>
+      </div>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  
+  <div class="container">
+    <div class="row mt-4">
+      <div class="col-md-6 d-flex align-items-center section-title-container">
+        <mat-icon class="icon">info</mat-icon>
+        <span class="section-title">
+          Información del miembro
+        </span>
+      </div>
+      <div class="col-md-6 d-flex justify-content-end">
+        <ng-container *ngIf="organization.created_by._id === user._id">
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" mat-icon-button matTooltip="Acciones"
+            matTooltipPosition="above">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+
+
+            <button *ngIf="!member.deleted_at" mat-menu-item (click)="inactiveMember(member)">
+              <mat-icon>delete</mat-icon>
+              <span>Dar de baja</span>
+            </button>
+
+
+            <button *ngIf="member.deleted_at" mat-menu-item (click)="activateMember(member)">
+              <mat-icon>history</mat-icon>
+              <span>Restaurar</span>
+            </button>
+
+          </mat-menu>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+
+
+    <div class="row mt-2 mb-2">
+      <div class="col-md-12">
+        <span class="organization-card-info d-flex align-items-center">
+          <mat-icon class="icon">bookmarks
+          </mat-icon>
+          Áreas /
+          <span class="ml-1">
+            {{member.areas.length}}
+          </span>
+        </span>
+        <span class="organization-card-info d-flex align-items-center">
+          <mat-icon class="icon">how_to_reg</mat-icon>
+          Creado por /
+          <span class="ml-1">
+            {{member.created_by.name}} {{member.created_by.last_name}}
+          </span>
+        </span>
+        <span class="organization-card-info d-flex align-items-center">
+          <mat-icon class="icon">watch_later</mat-icon>
+          Creado el /
+          <span class="success ml-1">
+            {{member.created_at | date:'dd-MM-yyyy'}}
+          </span>
+        </span>
+        <span class="organization-card-info d-flex align-items-center" *ngIf="member.deleted_at">
+          <mat-icon class="icon">delete</mat-icon> Dado de baja el /
+          <span class="danger ml-1">
+            {{member.deleted_at | date:'dd-MM-yyyy'}}
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>

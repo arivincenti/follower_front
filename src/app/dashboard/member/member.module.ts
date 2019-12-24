@@ -9,6 +9,7 @@ import { MemberListComponent } from './member-list/member-list.component';
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 import { MemberListCardComponent } from './member-list-card/member-list-card.component';
 import { MemberPaginatorPipe } from 'src/app/pipes/members/member-paginator.pipe';
+import { ImagePipe } from 'src/app/pipes/image/image.pipe';
 
 @NgModule({
   declarations: [
@@ -16,8 +17,6 @@ import { MemberPaginatorPipe } from 'src/app/pipes/members/member-paginator.pipe
     MemberProfileComponent,
     MemberListComponent,
     MemberListCardComponent,
-    MemberPaginatorPipe
-
   ],
   imports: [
     CommonModule,

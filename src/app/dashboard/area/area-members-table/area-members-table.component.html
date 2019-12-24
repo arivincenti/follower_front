@@ -23,7 +23,9 @@
 
   <ng-container matColumnDef="miembro">
     <th mat-header-cell *matHeaderCellDef> Miembro </th>
-    <td mat-cell *matCellDef="let element" class="member-table-content"> {{element.user.name}}
+    <td mat-cell *matCellDef="let element" class="member-table-content">
+      <img mat-card-avatar [src]="element.user.img | image" class="mr-2">
+      {{element.user.name}}
       {{element.user.last_name}}</td>
   </ng-container>
 

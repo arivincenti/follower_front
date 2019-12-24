@@ -28,20 +28,25 @@
         </mat-card-content>
         <div class="container">
           <mat-card-subtitle class="mt-4">
-            <mat-icon class="icon-subtitle">info</mat-icon>
-            <span class="subtitle">
-              Información de la Organización
-            </span>
+            <div class="d-flex align-items-center section-title-container">
+              <mat-icon class="icon">info</mat-icon>
+              <span class="section-title">
+                Información de la Organización
+              </span>
+            </div>
           </mat-card-subtitle>
 
           <mat-divider></mat-divider>
 
-          <mat-card-content class="mt-5">
+          <mat-card-content class="organization-card-info">
             <mat-icon class="icon">how_to_reg</mat-icon>
-            Creada por / {{organization.created_by.name}} {{organization.created_by.last_name}}
+            Creada por / 
+            <span>
+              {{organization.created_by.name}} {{organization.created_by.last_name}}
+            </span>
           </mat-card-content>
 
-          <mat-card-content>
+          <mat-card-content class="organization-card-info">
             <mat-icon class="icon">watch_later</mat-icon>
             Creada el /
             <span class="success">
@@ -49,7 +54,7 @@
             </span>
           </mat-card-content>
 
-          <mat-card-content *ngIf="organization.deleted_at">
+          <mat-card-content class="organization-card-info" *ngIf="organization.deleted_at">
             <mat-icon class="icon">delete</mat-icon>
             Dada de baja el /
             <span class="danger">
@@ -57,7 +62,7 @@
             </span>
           </mat-card-content>
 
-          <mat-card-content>
+          <mat-card-content  class="organization-card-info">
             <mat-icon class="icon">favorite</mat-icon>
             Relación /
             <span *ngIf="organization.created_by._id === user._id" class="warning">
@@ -91,7 +96,7 @@
                 </div>
                 <mat-divider></mat-divider>
                 <mat-card-content class="animated delay-500ms mt-4" [ngClass]="animation[0]">
-                  <span class="text-muted">No tiene tickets cargados</span>
+                  <span class="empty-message">No tiene tickets cargados</span>
                 </mat-card-content>
               </div>
             </mat-tab>

@@ -10,6 +10,8 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
 import { FilterComponent } from './filter/filter.component';
 import { StateFilterCounterPipe } from '../pipes/filter/state-filter-counter.pipe';
 import { AreasPaginatorPipe } from '../pipes/areas/areas-paginator.pipe';
+import { ImagePipe } from '../pipes/image/image.pipe';
+import { MemberPaginatorPipe } from '../pipes/members/member-paginator.pipe';
 
 
 @NgModule({
@@ -20,8 +22,9 @@ import { AreasPaginatorPipe } from '../pipes/areas/areas-paginator.pipe';
     LoadingComponent,
     FilterComponent,
     StateFilterCounterPipe,
-    AreasPaginatorPipe
-
+    AreasPaginatorPipe,
+    MemberPaginatorPipe,
+    ImagePipe
   ],
   imports: [
     CommonModule,
@@ -36,7 +39,9 @@ import { AreasPaginatorPipe } from '../pipes/areas/areas-paginator.pipe';
     FooterComponent,
     LoadingComponent,
     FilterComponent,
-    AreasPaginatorPipe
+    AreasPaginatorPipe,
+    MemberPaginatorPipe,
+    ImagePipe
   ]
 })
 export class SharedModule { }

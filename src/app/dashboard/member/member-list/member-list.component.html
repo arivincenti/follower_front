@@ -2,7 +2,9 @@
 
 <div class="row mt-4 animated" *ngFor="let member of members | memberPaginator:since:until" [ngClass]="animation[0]">
   <div class="col-md-12">
-    <app-member-list-card [organization]="organization" [member]="member" [user]="user"></app-member-list-card>
+    <mat-accordion>
+      <app-member-list-card [organization]="organization" [member]="member" [user]="user"></app-member-list-card>
+    </mat-accordion>
   </div>
 </div>
 <mat-paginator [length]="members.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"

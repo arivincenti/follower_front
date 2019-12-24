@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as MembersActions from '../../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions';
 import { Observable } from 'rxjs';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-member-list-card',
@@ -21,20 +22,15 @@ export class MemberListCardComponent implements OnInit
   @Input() user: UserModel;
 
   membersLoading$: Observable<boolean>;
+  image: string;
   
   constructor(
-    private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit() {
     this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
    }
-
-  selectMember(member: MemberModel)
-  {
-    this.router.navigate(['app/organizations/members/profile', member._id]);
-  }
 
   inactiveMember(member: MemberModel)
   {

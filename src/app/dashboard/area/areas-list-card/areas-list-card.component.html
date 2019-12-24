@@ -4,7 +4,7 @@
     <mat-panel-description>
       <div class="row">
         <div class="col-md-12">
-          <h3 class="area-title">{{area.name}}</h3>
+          <h3 class="expansor-title">{{area.name}}</h3>
           <p class="subtitle">
             <span *ngIf="area.responsible">Responsable /
               <span>
@@ -17,157 +17,160 @@
       </div>
     </mat-panel-description>
   </mat-expansion-panel-header>
-  <div class="row mt-4">
-    <div class="col-md-6 d-flex align-items-center section-title-container">
-      <mat-icon class="icon">info</mat-icon>
-      <span class="section-title">
-        Información de la Organización
-      </span>
-    </div>
-    <div class="col-md-6 d-flex justify-content-end">
-      <ng-container *ngIf="organization.created_by._id === user._id">
 
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" mat-icon-button matTooltip="Acciones"
-          matTooltipPosition="above">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <ng-container *ngIf="!organization.deleted_at">
-            <ng-container *ngIf="!area.deleted_at">
-              <button *ngIf="!area.deleted_at" mat-menu-item (click)="updateArea(area)">
-                <mat-icon>create</mat-icon>
-                <span>Editar nombre</span>
-              </button>
-              <button *ngIf="!area.deleted_at" mat-menu-item (click)="deleteArea(area)">
-                <mat-icon>delete</mat-icon>
-                <span>Dar de baja</span>
+  <div class="container">
+    <div class="row mt-4">
+      <div class="col-md-6 d-flex align-items-center section-title-container">
+        <mat-icon class="icon">info</mat-icon>
+        <span class="section-title">
+          Información de la Organización
+        </span>
+      </div>
+      <div class="col-md-6 d-flex justify-content-end">
+        <ng-container *ngIf="organization.created_by._id === user._id">
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" mat-icon-button matTooltip="Acciones"
+            matTooltipPosition="above">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <ng-container *ngIf="!organization.deleted_at">
+              <ng-container *ngIf="!area.deleted_at">
+                <button *ngIf="!area.deleted_at" mat-menu-item (click)="updateArea(area)">
+                  <mat-icon>create</mat-icon>
+                  <span>Editar nombre</span>
+                </button>
+                <button *ngIf="!area.deleted_at" mat-menu-item (click)="deleteArea(area)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Dar de baja</span>
+                </button>
+              </ng-container>
+            </ng-container>
+            <ng-container>
+              <button *ngIf="area.deleted_at" mat-menu-item (click)="activateArea(area)">
+                <mat-icon>history</mat-icon>
+                <span>Restaurar</span>
               </button>
             </ng-container>
-          </ng-container>
-          <ng-container>
-            <button *ngIf="area.deleted_at" mat-menu-item (click)="activateArea(area)">
-              <mat-icon>history</mat-icon>
-              <span>Restaurar</span>
-            </button>
-          </ng-container>
-        </mat-menu>
-      </ng-container>
+          </mat-menu>
+        </ng-container>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <mat-divider></mat-divider>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-divider></mat-divider>
+      </div>
     </div>
-  </div>
 
 
-  <div class="row mt-2">
-    <div class="col-md-12">
-      <span class="organization-card-info d-flex align-items-center">
-        <mat-icon class="icon">how_to_reg</mat-icon>
-        Creada por /
-        <span class="ml-1">
-          {{area.created_by.name}} {{area.created_by.last_name}}
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <span class="organization-card-info d-flex align-items-center">
+          <mat-icon class="icon">how_to_reg</mat-icon>
+          Creada por /
+          <span class="ml-1">
+            {{area.created_by.name}} {{area.created_by.last_name}}
+          </span>
         </span>
-      </span>
-      <span class="organization-card-info d-flex align-items-center">
-        <mat-icon class="icon">watch_later</mat-icon>
-        Creada el /
-        <span class="success ml-1">
-          {{area.created_at | date:'dd-MM-yyyy'}}
+        <span class="organization-card-info d-flex align-items-center">
+          <mat-icon class="icon">watch_later</mat-icon>
+          Creada el /
+          <span class="success ml-1">
+            {{area.created_at | date:'dd-MM-yyyy'}}
+          </span>
         </span>
-      </span>
-      <span class="organization-card-info d-flex align-items-center" *ngIf="area.deleted_at">
-        <mat-icon class="icon">delete</mat-icon> Dada de baja el /
-        <span class="danger ml-1">
-          {{area.deleted_at | date:'dd-MM-yyyy'}}
+        <span class="organization-card-info d-flex align-items-center" *ngIf="area.deleted_at">
+          <mat-icon class="icon">delete</mat-icon> Dada de baja el /
+          <span class="danger ml-1">
+            {{area.deleted_at | date:'dd-MM-yyyy'}}
+          </span>
         </span>
-      </span>
+      </div>
     </div>
-  </div>
 
-  <div class="row mt-5">
-    <div class="col-md-12 d-flex align-items-center section-title-container mt-4">
-      <mat-icon class="icon">chat</mat-icon>
-      <span class="section-title">
-        Tickets del área
-      </span>
+    <div class="row mt-5">
+      <div class="col-md-12 d-flex align-items-center section-title-container mt-4">
+        <mat-icon class="icon">chat</mat-icon>
+        <span class="section-title">
+          Tickets del área
+        </span>
+      </div>
     </div>
-  </div>
-  <div class="row mt-2">
-    <div class="col-md-12">
-      <mat-divider></mat-divider>
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <mat-divider></mat-divider>
+      </div>
     </div>
-  </div>
-  <div class="row mt-3 mb-5 d-flex justify-content-between">
-    <div class="col-md-3 animated value-container">
-      <div class="row">
-        <div class="col-12 card-title d-flex justify-content-center danger">Pendientes</div>
-        <div class="col-12 d-flex justify-content-center">
-          <span class="value">0</span>
+    <div class="row mt-3 mb-5 d-flex justify-content-between">
+      <div class="col-md-3 animated value-container">
+        <div class="row">
+          <div class="col-12 card-title d-flex justify-content-center danger">Pendientes</div>
+          <div class="col-12 d-flex justify-content-center">
+            <span class="value">0</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 animated value-container">
+        <div class="row">
+          <div class="col-12 card-title d-flex justify-content-center secondary">Despachados</div>
+          <div class="col-12 d-flex justify-content-center">
+            <span class="value">0</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 animated value-container">
+        <div class="row">
+          <div class="col-12 card-title d-flex justify-content-center success">Resueltos</div>
+          <div class="col-12 d-flex justify-content-center">
+            <span class="value">0</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 animated value-container">
+        <div class="row">
+          <div class="col-12 card-title d-flex justify-content-center info">Todos</div>
+          <div class="col-12 d-flex justify-content-center">
+            <span class="value">0</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-3 animated value-container">
-      <div class="row">
-        <div class="col-12 card-title d-flex justify-content-center secondary">Despachados</div>
-        <div class="col-12 d-flex justify-content-center">
-          <span class="value">0</span>
-        </div>
+    <div class="row mt-5">
+      <div class="col-md-6 d-flex align-items-center section-title-container mt-4">
+        <mat-icon class="icon">supervised_user_circle</mat-icon>
+        <span class="section-title">
+          Miembros del área
+        </span>
+      </div>
+      <div class="col-md-6 d-flex justify-content-end mt-4">
+        <button class="mb-1 add-member-button" mat-flat-button color="accent" (click)="createMember()">
+          Agregar Miembro
+        </button>
       </div>
     </div>
-    <div class="col-md-3 animated value-container">
-      <div class="row">
-        <div class="col-12 card-title d-flex justify-content-center success">Resueltos</div>
-        <div class="col-12 d-flex justify-content-center">
-          <span class="value">0</span>
-        </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <mat-divider></mat-divider>
       </div>
     </div>
-    <div class="col-md-3 animated value-container">
-      <div class="row">
-        <div class="col-12 card-title d-flex justify-content-center info">Todos</div>
-        <div class="col-12 d-flex justify-content-center">
-          <span class="value">0</span>
-        </div>
+
+    <div class="row" *ngIf="membersLoading">
+      <div class="col-md-12 d-flex justify-content-center">
+        <mat-spinner diameter="30" class="mt-4"></mat-spinner>
       </div>
     </div>
-  </div>
-  <div class="row mt-5">
-    <div class="col-md-6 d-flex align-items-center section-title-container mt-4">
-      <mat-icon class="icon">supervised_user_circle</mat-icon>
-      <span class="section-title">
-        Miembros del área
-      </span>
-    </div>
-    <div class="col-md-6 d-flex justify-content-end mt-4">
-      <button class="mb-1 add-member-button" mat-flat-button color="accent" (click)="createMember()">
-        Agregar Miembro
-      </button>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <mat-divider></mat-divider>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="membersLoading">
-    <div class="col-md-12 d-flex justify-content-center">
-      <mat-spinner diameter="30" class="mt-4"></mat-spinner>
-    </div>
-  </div>
-
-  <div class="row mt-2 mb-3">
-    <div class="col-md-12">
-      <ng-container *ngIf="!membersLoading">
-        <span class="empty-message text-muted" *ngIf="!members.length">El área aún no posee miembros</span>
-        <app-area-members-table *ngIf="members.length" [organization]="organization" [members]="members" [area]="area"
-          [user]="user">
-        </app-area-members-table>
-      </ng-container>
+    <div class="row mt-2 mb-2">
+      <div class="col-md-12">
+        <ng-container *ngIf="!membersLoading">
+          <span class="empty-message text-muted" *ngIf="!members.length">El área aún no posee miembros</span>
+          <app-area-members-table *ngIf="members.length" [organization]="organization" [members]="members" [area]="area"
+            [user]="user">
+          </app-area-members-table>
+        </ng-container>
+      </div>
     </div>
   </div>
 </mat-expansion-panel>
