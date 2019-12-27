@@ -12,6 +12,7 @@ body {
   object-fit: cover; /*this makes the image in src fit to the size specified below*/
   width: 75%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
   height: 75%;
+ border-radius: 50%;
 }
 
 .section-title{
@@ -39,6 +40,7 @@ body {
 
 .empty-message {
   font-size: .9em;
+  opacity: .5;
 }
 
 /* ///////////////////////////////

@@ -18,7 +18,8 @@
 <div mat-dialog-content class="mt-3" *ngIf="data.organization === 'nueva' || (organizationLoaded$ | async)">
   <form [formGroup]="form" class="mt-3" (ngSubmit)="createOrUpdateOrganization()">
     <div class="col-md-12 d-flex justify-content-end">
-      <mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre de la organización</mat-label>
         <input matInput type="text" placeholder="Nombre de la organización" formControlName="name" name="name"
           autocomplete="off">
         <mat-error *ngIf="form.controls['name'].errors?.avaible">

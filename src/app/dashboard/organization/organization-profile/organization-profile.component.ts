@@ -105,7 +105,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
       data: {
         user: this.user,
         organization: this.organization,
-        area: 'nueva'
+        area: null
       }
     });
   }

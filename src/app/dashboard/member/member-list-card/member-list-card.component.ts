@@ -22,7 +22,6 @@ export class MemberListCardComponent implements OnInit
   @Input() user: UserModel;
 
   membersLoading$: Observable<boolean>;
-  image: string;
   
   constructor(
     private store: Store<AppState>,

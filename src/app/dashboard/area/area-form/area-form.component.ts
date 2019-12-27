@@ -49,14 +49,14 @@ export class AreaFormComponent implements OnInit
     this.form.controls['area'].markAsTouched();
 
     //Check if param is not a new area, then search it
-    if (this.data.area !== 'nueva')
+    if (this.data.area)
     {
 
       this.areaLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loading);
 
       this.areaLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loaded);
 
-      this.store.dispatch(AreaActions.getArea({ payload: this.data.area }));
+      this.store.dispatch(AreaActions.getArea({ payload: this.data.area._id }));
 
       this.area$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.area);
 
@@ -86,13 +86,14 @@ export class AreaFormComponent implements OnInit
     // Validation name before create or update an organization
     if (this.form.invalid) return;
 
-    if (this.data.area === 'nueva')
+    if (!this.data.area)
     {
       let payload = {
         user: this.data.user._id,
         organization: this.data.organization._id,
         name: this.form.controls['area'].value.toUpperCase()
       }
+
       this.store.dispatch(AreasActions.createArea({ payload }));
     } else
     {

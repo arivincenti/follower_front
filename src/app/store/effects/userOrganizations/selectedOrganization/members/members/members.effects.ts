@@ -3,6 +3,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import * as MembersActions from '../../../../../actions/userOrganizations/selectedOrganization/members/members/members.actions';
 import * as MemberActions from '../../../../../actions/userOrganizations/selectedOrganization/members/member/member.actions';
 import * as MemberAreasActions from '../../../../../actions/userOrganizations/selectedOrganization/members/memberAreas/memberAreas.actions';
+import * as AreasActions from '../../../../../actions/userOrganizations/selectedOrganization/areas/areas/areas.actions';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { MembersService } from 'src/app/services/members/members.service';
 import { of } from 'rxjs';
@@ -43,6 +44,13 @@ export class MembersEffects
             showConfirmButton: false,
             timer: 2500
           });
+
+          this.store.dispatch(MemberAreasActions.getMemberAreas({ user: action.payload.user, organization: action.payload.organization._id }));
+
+          this.store.dispatch(AreasActions.getAreas({ payload: action.payload.organization, since: 0, size: 0 }));
+
+          this.store.dispatch(MembersActions.getMembers({ payload: action.payload.organization }));
+
           return MembersActions.createMemberSuccess({ payload: member })
         }),
         catchError(error => of(MembersActions.createMemberFail({ payload: error.error })))
@@ -64,8 +72,8 @@ export class MembersEffects
             showConfirmButton: false,
             timer: 2500
           });
-          this.store.dispatch(MemberActions.getMember({payload: member._id}));
-          this.store.dispatch(MemberAreasActions.getMemberAreas({user: member.user._id, organization: member.organization._id}));
+          this.store.dispatch(MemberActions.getMember({ payload: member._id }));
+          this.store.dispatch(MemberAreasActions.getMemberAreas({ user: member.user._id, organization: member.organization._id }));
           return MembersActions.updateMemberSuccess({ payload: member });
 
         }),
@@ -88,7 +96,7 @@ export class MembersEffects
             showConfirmButton: false,
             timer: 2500
           });
-          this.store.dispatch(MemberActions.getMember({payload: member._id}));
+          this.store.dispatch(MemberActions.getMember({ payload: member._id }));
           return MembersActions.inactiveMemberSuccess({ payload: member })
         }),
         catchError(error => of(MembersActions.inactiveMemberFail({ payload: error.error })))

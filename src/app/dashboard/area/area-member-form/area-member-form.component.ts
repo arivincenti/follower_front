@@ -1,39 +1,66 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserModel } from 'src/app/models/user.model';
+import { MemberModel } from 'src/app/models/member.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import { UserModel } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users/users.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { DialogDataMember } from '../../../models/interfaces/dialogDataMember';
+import { MemberFormComponent } from '../../member/member-form/member-form.component';
+import { AreasService } from 'src/app/services/areas/areas.service';
+import { DialogDataArea } from 'src/app/models/interfaces/dialogDataArea';
 import * as MembersActions from '../../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions';
-import { MemberModel } from 'src/app/models/member.model';
-
+import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-member-form',
-  templateUrl: './member-form.component.html',
-  styleUrls: ['./member-form.component.css']
+  selector: 'app-area-member-form',
+  templateUrl: './area-member-form.component.html',
+  styleUrls: ['./area-member-form.component.css']
 })
-export class MemberFormComponent implements OnInit, OnDestroy
+export class AreaMemberFormComponent implements OnInit
 {
+
   membersSubscription: Subscription = new Subscription();
   form: FormGroup;
   users$: Observable<UserModel[]>;
+  members$: Observable<MemberModel[]>;
   members: MemberModel[];
 
   constructor(
     private store: Store<AppState>,
     private _usersService: UsersService,
     private dialogRef: MatDialogRef<MemberFormComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: DialogDataMember
+    @Inject(MAT_DIALOG_DATA) private data: DialogDataArea
   ) { }
 
 
   ngOnInit()
   {
-    this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).subscribe(members => this.members = members);
+    //Traigo todos los miembros de la organizacion y los filtro para que cada area tenga sus respectivos miembros
+    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members)
+      .pipe(map((members: any) =>
+      {
+        var membersFiltered = [];
+
+        members.forEach((member: MemberModel) =>
+        {
+          member.areas.forEach((area: any) =>
+          {
+            if (area === this.data.area)
+            {
+              membersFiltered.push(member)
+            }
+          });
+        });
+
+        return membersFiltered;
+      }));
+
+    this.membersSubscription = this.members$.subscribe(members =>
+    {
+      this.members = members;
+    })
 
     this.form = new FormGroup({
       email: new FormControl('', Validators.required, this.avaibleName.bind(this)),
@@ -57,7 +84,7 @@ export class MemberFormComponent implements OnInit, OnDestroy
     this.users$ = this._usersService.getUsersByEmail(payload);
   }
 
-  createMember()
+  addMember()
   {
     let payload = {
       email: this.form.controls['email'].value,
@@ -71,13 +98,15 @@ export class MemberFormComponent implements OnInit, OnDestroy
         return;
       };
 
-      let payload = {
+      let member = {
         organization: this.data.organization,
+        area: this.data.area,
         user: user[0]._id,
-        created_by: this.data.user._id
-      }
+        created_by: this.data.user,
+      };
 
-      this.store.dispatch(MembersActions.createMember({ payload }));
+      this.store.dispatch(MembersActions.createMember({ payload: member }));
+
     });
 
     this.dialogRef.close();

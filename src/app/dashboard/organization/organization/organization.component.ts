@@ -3,10 +3,11 @@ import { Subscription, Observable } from 'rxjs';
 import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import * as OrganizationActions from '../../../store/actions/userOrganizations/selectedOrganization/organization.actions';
+import * as OrganizationsActions from '../../../store/actions/userOrganizations/organizations/organizations.actions';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { OrganizationFormComponent } from '../organization-form/organization-form.component';
 import { MatDialog } from '@angular/material';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-organization',
@@ -33,13 +34,22 @@ export class OrganizationComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
+
     this.animation$ = this.store.select(state => state.ui.animated);
-    
+
+    this.userSubscription = this.store.select(state => state.auth.user)
+      .pipe(filter(user => user !== null))
+      .subscribe(user =>
+      {
+        this.user = user;
+        this.store.dispatch(OrganizationsActions.getOrganizations({ payload: this.user._id }));
+      });
+
+
     this.organizationsLoading$ = this.store.select(state => state.userOrganizations.organizations.loading);
-    
+
     this.organizationsLoaded$ = this.store.select(state => state.userOrganizations.organizations.loaded);
 
-    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
 
     this.organizations$ = this.store.select(state => state.userOrganizations.organizations.organizations);
 

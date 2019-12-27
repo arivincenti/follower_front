@@ -1,11 +1,11 @@
 <div class="col-md-12">
   <h5>
-    Agregar miembro
+    Agregar miembro al área
   </h5>
 </div>
 <mat-divider></mat-divider>
 <div mat-dialog-content class="mt-3">
-  <form [formGroup]="form" (ngSubmit)="createMember()">
+  <form [formGroup]="form" (ngSubmit)="addMember()">
     <div class="col-md-12 d-flex justify-content-end">
       <mat-form-field appearance="outline">
         <mat-label>Email del usuario</mat-label>
@@ -19,7 +19,7 @@
           </mat-option>
         </mat-autocomplete>
         <mat-error *ngIf="form.controls['email'].errors?.avaible">
-          Ya <strong>existe</strong> este miembro en la organización.<strong>
+          Ya <strong>existe</strong> este miembro en el área.<strong>
             Por favor elije otro.</strong>
         </mat-error>
         <mat-error *ngIf="form.controls['email'].errors?.required">

@@ -1,8 +1,8 @@
 <div class="col-md-12">
-  <h5 *ngIf="data.area === 'nueva'">
-    Nueva Área
+  <h5 *ngIf="!data.area">
+    Agregar Área
   </h5>
-  <h5 *ngIf="data.area !== 'nueva'">
+  <h5 *ngIf="data.area">
     Editar el Área
   </h5>
 </div>
@@ -16,12 +16,12 @@
   </div>
 </ng-container>
 
-<div mat-dialog-content class="mt-3" *ngIf="data.area === 'nueva' || (areaLoaded$ | async)">
+<div mat-dialog-content class="mt-3" *ngIf="!data.area || (areaLoaded$ | async)">
   <form [formGroup]="form" (ngSubmit)="createOrUpdateArea()">
     <div class="col-md-12 d-flex justify-content-end">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Nombre del Área" formControlName="area" name="area"
-          autocomplete="off">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre del Área</mat-label>
+        <input matInput type="text" placeholder="Nombre del Área" formControlName="area" name="area" autocomplete="off">
         <mat-error *ngIf="form.controls['area'].errors?.avaible">
           Ya <strong>existe</strong> un área con este nombre en esta organización.<strong>
             Por favor elije otro.</strong>

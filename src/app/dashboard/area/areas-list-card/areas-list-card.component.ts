@@ -11,7 +11,8 @@ import * as AreasActions from '../../../store/actions/userOrganizations/selected
 import { MatDialog } from '@angular/material';
 import { AreaFormComponent } from '../area-form/area-form.component';
 import { MemberModel } from 'src/app/models/member.model';
-import { MemberFormComponent } from '../../member/member-form/member-form.component';
+import { AreaMemberFormComponent } from '../area-member-form/area-member-form.component';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-areas-list-card',
@@ -27,12 +28,12 @@ export class AreasListCardComponent implements OnInit, OnDestroy
 
   membersSubscription: Subscription = new Subscription();
   members: MemberModel[];
-  membersLoading: boolean = true;
+  members$: Observable<MemberModel[]>;
+  membersLoading: boolean = false;
   areasLoading$: Observable<boolean>;
   animations$: Observable<string[]>;
 
   constructor(
-    private _areaService: AreasService,
     private store: Store<AppState>,
     private router: Router,
     private dialog: MatDialog
@@ -44,11 +45,26 @@ export class AreasListCardComponent implements OnInit, OnDestroy
 
     this.areasLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loading);
 
-    this.membersSubscription = this._areaService.getAreaMembers(this.area._id).subscribe(members =>
-    {
-      this.members = members;
-      this.membersLoading = false;
-    });
+    //Traigo todos los miembros de la organizacion y los filtro para que cada area tenga sus respectivos miembros
+    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members)
+      .pipe(map((members: any) =>
+      {
+        var membersFiltered = [];
+
+        members.forEach((member: MemberModel) =>
+        {
+          member.areas.forEach((area: any) =>
+          {
+            if (area === this.area._id)
+            {
+              membersFiltered.push(member)
+            }
+          });
+        });
+
+        return membersFiltered;
+      }));
+
   }
 
   ngOnDestroy()
@@ -69,7 +85,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy
       data: {
         user: this.user,
         organization: this.organization,
-        area: area._id
+        area: area
       }
     });
   }
@@ -96,13 +112,14 @@ export class AreasListCardComponent implements OnInit, OnDestroy
     this.store.dispatch(AreasActions.updateArea({ areaId: area._id, payload: payload }));
   }
 
-  createMember(): void
+  addMember(): void
   {
-    this.dialog.open(MemberFormComponent, {
+    this.dialog.open(AreaMemberFormComponent, {
       width: '600px',
       data: {
         user: this.user,
-        organization: this.organization
+        organization: this.organization,
+        area: this.area
       }
     });
   }

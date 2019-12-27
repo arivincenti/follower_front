@@ -40,7 +40,7 @@
 
           <mat-card-content class="organization-card-info">
             <mat-icon class="icon">how_to_reg</mat-icon>
-            Creada por / 
+            Creada por /
             <span>
               {{organization.created_by.name}} {{organization.created_by.last_name}}
             </span>
@@ -62,16 +62,20 @@
             </span>
           </mat-card-content>
 
-          <mat-card-content  class="organization-card-info">
+          <mat-card-content class="organization-card-info">
             <mat-icon class="icon">favorite</mat-icon>
             Relación /
             <span *ngIf="organization.created_by._id === user._id" class="warning">
               <mat-icon class="icon" color="warn">star</mat-icon>
-              Propietario
+              <span>
+                Propietario
+              </span>
             </span>
-            <span *ngIf="organization.created_by._id !== user._id" class="success" title="Miembro">
+            <span *ngIf="organization.created_by._id !== user._id" class="primary" title="Miembro">
               <mat-icon class="icon" color="primary">account_circle</mat-icon>
-              Miembro
+              <span>
+                Miembro
+              </span>
             </span>
           </mat-card-content>
         </div>

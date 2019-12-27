@@ -9,6 +9,7 @@
 $success: mat-color($mat-light-green, 800);
 $danger: mat-color($mat-red, 600);
 $warning: mat-color($mat-amber, 700);
+$primary: mat-color($mat-light-blue, 900);
 $secondary: mat-color($mat-pink, 200);
 $info: mat-color($mat-light-blue, A700);
 
@@ -23,6 +24,10 @@ $info: mat-color($mat-light-blue, A700);
 
 .warning{
   color: $warning;
+}
+
+.primary{
+  color: $primary;
 }
 
 .secondary{

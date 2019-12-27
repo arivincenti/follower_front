@@ -144,7 +144,7 @@
         </span>
       </div>
       <div class="col-md-6 d-flex justify-content-end mt-4">
-        <button class="mb-1 add-member-button" mat-flat-button color="accent" (click)="createMember()">
+        <button class="mb-1 add-member-button" mat-flat-button color="accent" (click)="addMember()">
           Agregar Miembro
         </button>
       </div>
@@ -164,7 +164,7 @@
 
     <div class="row mt-2 mb-2">
       <div class="col-md-12">
-        <ng-container *ngIf="!membersLoading">
+        <ng-container *ngIf="members$ | async as members">
           <span class="empty-message text-muted" *ngIf="!members.length">El área aún no posee miembros</span>
           <app-area-members-table *ngIf="members.length" [organization]="organization" [members]="members" [area]="area"
             [user]="user">

@@ -7,9 +7,9 @@ import { AreaFormComponent } from './area-form/area-form.component';
 import { AreasListComponent } from './areas-list/areas-list.component';
 import { AreasListCardComponent } from './areas-list-card/areas-list-card.component';
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
-import { AreasPaginatorPipe } from 'src/app/pipes/areas/areas-paginator.pipe';
 import { MemberModule } from '../member/member.module';
 import { AreaMembersTableComponent } from './area-members-table/area-members-table.component';
+import { AreaMemberFormComponent } from './area-member-form/area-member-form.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +18,10 @@ import { AreaMembersTableComponent } from './area-members-table/area-members-tab
     AreasListComponent,
     AreasListCardComponent,
     AreaMembersTableComponent,
+    AreaMemberFormComponent,
+  ],
+  entryComponents: [
+    AreaMemberFormComponent
   ],
   imports: [
     CommonModule,

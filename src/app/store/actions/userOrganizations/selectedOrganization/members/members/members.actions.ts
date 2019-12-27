@@ -23,7 +23,7 @@ export const createMember = createAction(
 );
 
 export const createMemberSuccess = createAction(
-  '[Members Actions] Create Area Success',
+  '[Members Actions] Create Member Success',
   props<{ payload: MemberModel }>()
 );
 
@@ -53,7 +53,7 @@ export const inactiveMember = createAction(
 );
 
 export const inactiveMemberSuccess = createAction(
-  '[Members Actions] Inactive Area Success',
+  '[Members Actions] Inactive Member Success',
   props<{ payload: MemberModel }>()
 );
 

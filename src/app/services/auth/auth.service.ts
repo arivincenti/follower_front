@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
-import * as OrganizationsActions from '../../store/actions/userOrganizations/organizations/organizations.actions';
+// import * as UserOrganizationsActions from '../../store/actions/userOrganizations/userOrganization.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 
@@ -30,7 +30,7 @@ export class AuthService
 
   logout()
   {
-    this.store.dispatch(OrganizationsActions.clearState());
+    // this.store.dispatch(UserOrganizationsActions.clearState());
     this.router.navigate(['login']);
   }
 

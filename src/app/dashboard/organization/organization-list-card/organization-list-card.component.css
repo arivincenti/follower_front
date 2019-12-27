@@ -14,10 +14,10 @@ mat-card-title{
   bottom: 7px;
 }
 
-/* .icon {
+.icon {
   position: relative;
-  top: 4px;
-} */
+  top: 6px;
+}
 
 .icon-content-in {
   position: relative;
@@ -26,17 +26,19 @@ mat-card-title{
 }
 
 .title {
+  position: relative;
+  bottom: 8px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.organization-card-info {
+/* .organization-card-info {
   font-size: 1.1em;
   margin-right: 20px;
   position: relative;
   top: 7px;
-}
+} */
 
 .background-content-card-active{
   background-color: rgba(220, 220, 220, .2);
@@ -45,6 +47,12 @@ mat-card-title{
 .background-content-card-inactive {
   background-color: rgba(160, 160, 160, 0.2);
   opacity: .5;
+}
+
+.background-content-expansion-active {
+  background-color: rgba(230, 230, 230, 0.3);
+  padding-top: 30px !important;
+  padding-bottom: 17px !important;
 }
 
 .line-through{

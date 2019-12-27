@@ -27,7 +27,8 @@ export class MembersService
   getMember(memberId: string)
   {
     return this.http.get(`${environment.path}/members/${memberId}`).pipe(
-      map((data: any) => {
+      map((data: any) =>
+      {
         return data.data;
       })
     )

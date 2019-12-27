@@ -1,9 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AppState } from '../store/app.reducer';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { UserModel } from '../models/user.model';
-import * as OrganizationsActions from '../store/actions/userOrganizations/organizations/organizations.actions';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,22 +9,10 @@ import * as OrganizationsActions from '../store/actions/userOrganizations/organi
 export class DashboardComponent implements OnInit, OnDestroy
 {
 
-  userSubscription: Subscription = new Subscription();
+  constructor() { }
 
-  constructor(
-    private store: Store<AppState>
-  ) { }
+  ngOnInit() { }
 
-  ngOnInit()
-  {
-    //Obtenemos el usuario del store, mediante una subscripcion
-    this.userSubscription = this.store.select(state => state.auth.user).subscribe((user: any) => this.store.dispatch(OrganizationsActions.getOrganizations({ payload: user._id })));
-
-  }
-
-  ngOnDestroy()
-  {
-    this.userSubscription.unsubscribe();
-  }
+  ngOnDestroy() { }
 
 }
