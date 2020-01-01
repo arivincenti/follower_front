@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 import { AreaModule } from '../area/area.module';
 import { MemberModule } from '../member/member.module';
+import { UserProfileComponent } from '../user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { MemberModule } from '../member/member.module';
     OrganizationListCardComponent,
     OrganizationProfileComponent,
     OrganizationFormComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,

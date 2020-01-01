@@ -22,16 +22,18 @@
               <div class="col-md-9 alert alert-danger d-flex justify-content-center" *ngIf="error" role="alert">
                 <p>Oops, hubo un problema: <b>{{error}}</b></p>
               </div>
-              <div class="col-md-9">
-                <h4>Login</h4>
+              <div class="col-md-12 mb-3 d-flex justify-content-center">
+                <h3 class="text-muted">Inicio de sesión</h3>
               </div>
               <div class="col-md-9">
                 <form #f="ngForm" (ngSubmit)="login(f)">
-                  <mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Correo electrónico</mat-label>
                     <input matInput color="warn" type="email" placeholder="Email" ngModel name="email"
                       placeholder="Correo electrónico" autocomplete="off" required>
                   </mat-form-field>
-                  <mat-form-field class="mb-3">
+                  <mat-form-field appearance="outline" class="mb-3">
+                    <mat-label>Constraseña</mat-label>
                     <input matInput type="password" placeholder="*********" ngModel name="password"
                       placeholder="Contraseña" required>
                   </mat-form-field>

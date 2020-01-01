@@ -10,11 +10,13 @@ import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { MainNavComponent } from './main-nav/main-nav.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    MainNavComponent
+    MainNavComponent,
+    
   ],
   imports: [
     CommonModule,

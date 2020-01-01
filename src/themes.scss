@@ -39,10 +39,10 @@ $info: mat-color($mat-light-blue, A700);
 }
 
 $candy-app-primary: mat-palette($mat-light-blue, 900);
-$candy-app-accent: mat-palette($mat-red, A200);
+$candy-app-accent: mat-palette($mat-gray, 200);
 
 // The warn palette is optional (defaults to red).
-$candy-app-warn: mat-palette($mat-amber, 700);
+$candy-app-warn: mat-palette($mat-red, A200);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $candy-app-theme: mat-light-theme(
@@ -53,9 +53,24 @@ $candy-app-theme: mat-light-theme(
 
 @include angular-material-theme($candy-app-theme);
 .default {
-  // Define the palettes for your theme using the Material Design palettes available in palette.scss
-  // (imported above). For each palette, you can optionally specify a default, lighter, and darker
-  // hue. Available color palettes: https://material.io/design/color/
+
+  .sidenav {
+    width: 85px;
+    background-color: #202F3F !important;
+  }
+
+  .sidenav-button{
+    color: rgba(255, 255, 255, .5) !important;
+  }
+
+  .sidenav-button:hover{
+    color: rgba(255, 255, 255, .9) !important;
+  }
+
+  .mat-toolbar{
+    background-color: #ECECEC;
+  }
+
   @include angular-material-theme($candy-app-theme);
 }
 
@@ -70,7 +85,50 @@ $candy-app-theme: mat-light-theme(
   $purple-theme: mat-light-theme($purple-primary, $purple-accent, $purple-warn);
   @include angular-material-theme($purple-theme);
 
+  $success: mat-color($mat-light-green, 800);
+$danger: mat-color($mat-red, 600);
+$warning: mat-color($mat-amber, 700);
+$primary: mat-color($mat-light-blue, 900);
+$secondary: mat-color($mat-pink, 200);
+$info: mat-color($mat-light-blue, A700);
 
+
+.success{
+  color: $success;
+}
+
+.danger{
+  color: $danger;
+}
+
+.warning{
+  color: $warning;
+}
+
+.primary{
+  color: $primary;
+}
+
+.secondary{
+  color: $secondary;
+}
+
+.info{
+  color: $info;
+}
+
+  .sidenav {
+    width: 85px;
+    background-color: #202F3F !important;
+  }
+
+  .sidenav-button{
+    color: rgba(255, 255, 255, .5) !important;
+  }
+
+  .sidenav-button:hover{
+    color: rgba(255, 255, 255, .9) !important;
+  }
 }
 
 .green {
@@ -83,6 +141,51 @@ $candy-app-theme: mat-light-theme(
   // Create the theme object (a Sass map containing all of the palettes).
   $green-theme: mat-light-theme($green-primary, $green-accent, $green-warn);
   @include angular-material-theme($green-theme);
+
+  $success: mat-color($mat-light-green, 800);
+$danger: mat-color($mat-red, 600);
+$warning: mat-color($mat-amber, 700);
+$primary: mat-color($mat-light-blue, 900);
+$secondary: mat-color($mat-pink, 200);
+$info: mat-color($mat-light-blue, A700);
+
+
+.success{
+  color: $success;
+}
+
+.danger{
+  color: $danger;
+}
+
+.warning{
+  color: $warning;
+}
+
+.primary{
+  color: $primary;
+}
+
+.secondary{
+  color: $secondary;
+}
+
+.info{
+  color: $info;
+}
+
+  .sidenav {
+    width: 85px;
+    background-color: #202F3F !important;
+  }
+
+  .sidenav-button{
+    color: rgba(255, 255, 255, .5) !important;
+  }
+
+  .sidenav-button:hover{
+    color: rgba(255, 255, 255, .9) !important;
+  }
 }
 
 .dark-pink {
@@ -106,6 +209,69 @@ $candy-app-theme: mat-light-theme(
   .danger{
     color: $danger;
   }
+
+  .sidenav {
+    width: 85px;
+    background-color: #424242;
+    color: white;
+  }
   
+}
+
+.orange{
+  $orange-primary: mat-palette($mat-amber, A700);
+  $orange-accent: mat-palette($mat-blue-gray, 600);
+
+  // The warn palette is optional (defaults to red).
+  $orange-warn: mat-palette($mat-deep-orange, A400);
+
+  // Create the theme object (a Sass map containing all of the palettes).
+  $orange-theme: mat-light-theme($orange-primary, $orange-accent, $orange-warn);
+  @include angular-material-theme($orange-theme);
+
+  $success: mat-color($mat-light-green, 800);
+  $danger: mat-color($mat-red, 600);
+  $warning: mat-color($mat-amber, 700);
+  $primary: mat-color($mat-light-blue, 900);
+  $secondary: mat-color($mat-pink, 200);
+  $info: mat-color($mat-light-blue, A700);
+  
+  
+  .success{
+    color: $success;
+  }
+  
+  .danger{
+    color: $danger;
+  }
+  
+  .warning{
+    color: $warning;
+  }
+  
+  .primary{
+    color: $primary;
+  }
+  
+  .secondary{
+    color: $secondary;
+  }
+  
+  .info{
+    color: $info;
+  }
+
+  .sidenav {
+    width: 85px;
+    background-color: #37474F !important;
+  }
+
+  .sidenav-button{
+    color: rgba(255, 255, 255, .5) !important;
+  }
+
+  .sidenav-button:hover{
+    color: rgba(255, 255, 255, .9) !important;
+  }
 }
 

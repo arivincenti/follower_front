@@ -1,21 +1,18 @@
-mat-sidenav-content{
+mat-sidenav-content {
   min-height: 100vh;
 }
 
-button{
-  outline: none
+button {
+  outline: none;
 }
 
 .sidenav-container {
   min-height: 100%;
 }
 
-.sidenav {
-  width: 90px;
-}
-
-.mini-brand{
-  font-size: .8em;
+.mini-brand {
+  font-size: 0.8em;
+  color: white;
 }
 
 .sidenav .mat-toolbar {
@@ -28,69 +25,67 @@ button{
   z-index: 1;
 }
 
-.hidden{
-  display:none;
+.hidden {
+  display: none;
 }
 
-.spacer{
+.spacer {
   flex: 1 1 auto;
 }
 
-.user-name{
-  font-size: .7em;
+.user-name {
+  font-size: 0.7em;
 }
 
-.user-icon{
+.user-icon {
   position: relative;
   bottom: 1px;
 }
 
-.color-menu{
+.color-menu {
   width: 300px;
 }
-
 
 /* COLORS */
 .default {
   width: 100%;
   height: 100%;
-  color: #01579B;
+  color: #01579b;
 }
 
-.purple{
+.purple {
   width: 100%;
   height: 100%;
-  color: #7B1FA2;
+  color: #7b1fa2;
 }
 
-.green{
+.green {
   width: 100%;
   height: 100%;
-  color: #388E3C;
+  color: #388e3c;
 }
 
-.orange{
+.orange {
   width: 100%;
   height: 100%;
-  color: #E65100;
+  color: #e65100;
 }
 
-.red{
+.red {
   width: 100%;
   height: 100%;
-  color: #D50000;
+  color: #d50000;
 }
 
-.dark-pink{
+.dark-pink {
   width: 100%;
   height: 100%;
-  color: #F50057;
+  color: #f50057;
 }
 
-
-.color-icon{
+.color-icon {
   font-size: 3em;
   position: relative;
-  bottom:10px;
+  bottom: 10px;
   right: 5px;
 }

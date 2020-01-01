@@ -1,0 +1,37 @@
+.title{
+  position: relative;
+  top: 5px;
+  left: 10px;
+}
+
+/* .image-content{
+  border-radius: 50%;
+} */
+
+.button-image{
+  opacity: 0;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.button-image:hover{
+  opacity: 1;
+  transition: all ease .2s;
+}
+
+.imagen{
+  position: relative;
+  right: 40px;
+}
+
+
+.change-image-icon{
+  color: white;
+}
+
+.icon-edit{
+  position: relative;
+  bottom: 5px;
+  font-size: 1.4em;
+}

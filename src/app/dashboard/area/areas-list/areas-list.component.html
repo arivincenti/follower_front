@@ -1,11 +1,11 @@
 <span class="text-muted fadeIn slower mt-4" *ngIf="!areas.length">La organización aún no posee áreas</span>
-<div class="row mb-4 animated" *ngFor="let area of areas | areasPaginator:since:until" [ngClass]="animation[0]">
-  <div class="col-md-12">
-    <mat-accordion>
+<mat-accordion>
+  <div class="row mb-3 animated" *ngFor="let area of areas | areasPaginator:since:until" [ngClass]="animation[0]">
+    <div class="col-md-12">
       <app-areas-list-card [organization]="organization" [area]="area" [user]="user"></app-areas-list-card>
-    </mat-accordion>
+    </div>
   </div>
-</div>
+</mat-accordion>
 <mat-paginator [length]="areas.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
   (page)="changePage($event)">
 </mat-paginator>

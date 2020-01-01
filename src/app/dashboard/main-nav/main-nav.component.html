@@ -7,28 +7,21 @@
       </mat-toolbar>
       <mat-nav-list>
         <div mat-list-item class="d-flex justify-content-center mt-3">
-          <button mat-icon-button color="basic" routerLink="organizations" matTooltip="Mis organizaciones"
+          <button class="sidenav-button" mat-icon-button color="basic" routerLink="organizations" matTooltip="Dashboard"
             matTooltipPosition="right">
-            <mat-icon>apartment</mat-icon>
+            <mat-icon>account_circle</mat-icon>
           </button>
         </div>
 
         <div mat-list-item class="d-flex justify-content-center mt-3">
-          <button mat-icon-button color="basic" routerLink="organizations" matTooltip="Notificaciones"
-            matTooltipPosition="right">
-            <mat-icon matBadge="15" matBadgeColor="accent">notifications</mat-icon>
-          </button>
-        </div>
-
-        <div mat-list-item class="d-flex justify-content-center mt-3">
-          <button mat-icon-button color="basic" matTooltip="Tema" matTooltipPosition="right"
+          <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Tema" matTooltipPosition="right"
             [matMenuTriggerFor]="colorMenu">
             <mat-icon>palette</mat-icon>
           </button>
           <mat-menu class="color-menu" #colorMenu="matMenu">
             <mat-grid-list cols="2" rowHeight="1:1">
               <mat-grid-tile>
-                <button class="purple d-flex" mat-button (click)="changeTheme('purple')">
+                <button class="sidenav-button" class="purple d-flex" mat-button (click)="changeTheme('purple')">
                   <mat-icon class="color-icon">brightness_1</mat-icon>
                 </button>
               </mat-grid-tile>
@@ -60,34 +53,35 @@
             </mat-grid-list>
           </mat-menu>
         </div>
+
+        <div mat-list-item class="d-flex justify-content-center mt-3">
+          <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Cerrar sesión" (click)=logout()>
+            <mat-icon>power_settings_new</mat-icon>
+          </button>
+        </div>
+
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <mat-toolbar color="primary" class="mat-toolbar">
+      <mat-toolbar color="accent" class="mat-toolbar">
         <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
           *ngIf="isHandset$ | async">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <span [ngClass]="{hidden: !(isHandset$ | async) !== false}">Follower</span>
         <span class="spacer"></span>
-        <ng-container *ngIf="user$ | async as user">
-          <div class="d-flex justify-content-end align-items-center">
-            <span class="user-name mr-2">Hola, {{user.name}} {{user.last_name}}</span>
-            <button class="user-icon" mat-icon-button [matMenuTriggerFor]="menu">
-              <img class="mat-card-img" [src]="user.img | image">
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="selectOrganization(organization)">
-                <mat-icon>person_pin</mat-icon>
-                <span>Mi Perfil</span>
-              </button>
-              <button mat-menu-item (click)=logout()>
-                <mat-icon>power_settings_new</mat-icon>
-                <span>Cerrar sesión</span>
-              </button>
-            </mat-menu>
-          </div>
-        </ng-container>
+        <div mat-list-item class="d-flex justify-content-center mr-2">
+          <button mat-icon-button color="basic" routerLink="organizations" matTooltip="Notificaciones"
+            matTooltipPosition="below">
+            <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
+          </button>
+        </div>
+        <div mat-list-item class="d-flex justify-content-center mr-3">
+          <button mat-icon-button color="basic" matTooltip="Preguntas frecuentes"
+            matTooltipPosition="below">
+            <mat-icon>help_outline</mat-icon>
+          </button>
+        </div>
       </mat-toolbar>
       <!-- Add Content Here -->
       <ng-content></ng-content>

@@ -8,7 +8,6 @@ import { AppState } from 'src/app/store/app.reducer';
 import { UsersService } from 'src/app/services/users/users.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MemberFormComponent } from '../../member/member-form/member-form.component';
-import { AreasService } from 'src/app/services/areas/areas.service';
 import { DialogDataArea } from 'src/app/models/interfaces/dialogDataArea';
 import * as MembersActions from '../../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions';
 import { map } from 'rxjs/operators';
@@ -47,7 +46,7 @@ export class AreaMemberFormComponent implements OnInit
         {
           member.areas.forEach((area: any) =>
           {
-            if (area === this.data.area)
+            if (area === this.data.area._id)
             {
               membersFiltered.push(member)
             }
@@ -57,10 +56,11 @@ export class AreaMemberFormComponent implements OnInit
         return membersFiltered;
       }));
 
-    this.membersSubscription = this.members$.subscribe(members =>
-    {
-      this.members = members;
-    })
+    this.membersSubscription = this.members$
+      .subscribe(members =>
+      {
+        this.members = members;
+      })
 
     this.form = new FormGroup({
       email: new FormControl('', Validators.required, this.avaibleName.bind(this)),

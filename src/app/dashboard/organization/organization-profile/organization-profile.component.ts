@@ -46,6 +46,8 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
   membersLoaded$: Observable<boolean>;
   filterMembers: MemberModel[];
 
+  member: MemberModel[];
+
   constructor(
     private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,

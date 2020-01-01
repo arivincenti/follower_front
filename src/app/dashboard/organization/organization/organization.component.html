@@ -1,32 +1,41 @@
 <ng-container *ngIf="animation$ | async as animation">
-  <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
-    <div class="col-md-10">
-      <h4>Mis organizaciones</h4>
-    </div>
-    <div class="col-md-2 d-flex justify-content-end">
-      <button mat-flat-button color="accent" (click)="createOrganization()">
-        <span>Nueva Organización</span>
-      </button>
-    </div>
-  </div>
-  <mat-divider></mat-divider>
-
-
   <div class="row">
-    <div class="col-md-12 d-flex justify-content-center">
-      <mat-spinner class="mt-5" diameter="30" *ngIf="organizationsLoading$ | async"></mat-spinner>
-    </div>
-  </div>
 
-  <ng-container *ngIf="organizationsLoaded$ | async">
-    <ng-container *ngIf="organizations$ | async as organizations">
-      <div class="animated d-flex aligns-items-center justify-content-center"
-        *ngIf="!organizations.length && organizationsLoaded$ | async">
-        <span>Todavia no es propietario de ninguna organziación</span>
+    <div class="col-md-6">
+      <app-user-profile></app-user-profile>
+    </div>
+
+    <div class="col-md-6">
+      <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
+        <div class="col-md-7">
+          <h4 class="text-muted">Mis organizaciones</h4>
+        </div>
+        <div class="col-md-5 d-flex justify-content-end">
+          <button mat-flat-button color="warn" (click)="createOrganization()">
+            <span>Nueva Organización</span>
+          </button>
+        </div>
       </div>
-      <div class="animated delay-300ms mt-4" [ngClass]="animation[0]" *ngIf="organizations.length">
-        <app-organization-list [organizations]="organizations" [user]="user"></app-organization-list>
+      <mat-divider></mat-divider>
+
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-center">
+          <mat-spinner class="mt-5" diameter="30" *ngIf="organizationsLoading$ | async"></mat-spinner>
+        </div>
       </div>
-    </ng-container>
-  </ng-container>
+
+      <ng-container *ngIf="organizationsLoaded$ | async">
+        <ng-container *ngIf="organizations$ | async as organizations">
+          <div class="animated d-flex aligns-items-center justify-content-center"
+            *ngIf="!organizations.length && organizationsLoaded$ | async">
+            <span>Todavia no es propietario de ninguna organziación</span>
+          </div>
+          <div class="animated delay-300ms mt-3" [ngClass]="animation[0]" *ngIf="organizations.length">
+            <app-organization-list [organizations]="organizations" [user]="user"></app-organization-list>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+
+  </div>
 </ng-container>

@@ -1,0 +1,84 @@
+<ng-container *ngIf="user$ | async as user">
+  <ng-container *ngIf="animation$ | async as animation">
+
+
+    <!-- <div class="row">
+      <div class="col-md-12 d-flex justify-content-center">
+        <mat-progress-bar *ngIf="membersLoading$ | async" mode="query"></mat-progress-bar>
+      </div>
+    </div> -->
+
+    <!-- <div class="row">
+      <div class="col-md-12 d-flex justify-content-center">
+        <mat-spinner class="mt-5" diameter="50" *ngIf="memberLoading$ | async"></mat-spinner>
+      </div>
+    </div> -->
+    <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
+      <div class="col-md-12 d-flex justify-content-start">
+        <h4 class="text-muted">
+          Perfil del usuario
+        </h4>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="row">
+      <div class="col-md-12 animated" [ngClass]="animation[0]">
+        <mat-card class="mt-3 background-content-card-active">
+          <mat-card-header>
+            <mat-card-title>
+
+
+              <div class="d-flex justify-content-center">
+                <div class="row">
+                  <div class="col-md-2 d-flex justify-content-start image-content">
+                    <div class="button-image" mat-card-avatar>
+                      <button mat-icon-button (click)="changeImage()">
+                        <mat-icon class="change-image-icon">camera_alt</mat-icon>
+                      </button>
+                    </div>
+                    <div class="imagen">
+                      <img mat-card-avatar  [src]="user.img | image" alt="">
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <h4 class="title">
+                      {{user.name | titlecase}} {{user.last_name | titlecase}}
+                      <button mat-icon-button color="primary">
+                        <mat-icon class="icon-edit">edit</mat-icon>
+                      </button>
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+
+          <div class="container">
+
+            <mat-card-content class="organization-card-info mt-4">
+              <mat-icon class="icon">mail</mat-icon>
+              <span>{{user.email | lowercase }}</span>
+            </mat-card-content>
+
+            <mat-card-content class="organization-card-info">
+              <mat-icon class="icon">watch_later</mat-icon>
+              Creado el /
+              <span class="success">
+                {{user.created_at | date:'dd/mm/yyyy'}}
+              </span>
+            </mat-card-content>
+
+            <mat-card-content class="organization-card-info">
+              <mat-icon class="icon">lock</mat-icon>
+             Privacidad
+            </mat-card-content>
+
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+  </ng-container>
+</ng-container>

@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './navbar/navbar.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
-import { LoadingComponent } from './loading/loading.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { FilterComponent } from './filter/filter.component';
@@ -16,10 +13,7 @@ import { MemberPaginatorPipe } from '../pipes/members/member-paginator.pipe';
 
 @NgModule({
   declarations: [
-    NavbarComponent,
-    SidebarComponent,
     FooterComponent,
-    LoadingComponent,
     FilterComponent,
     StateFilterCounterPipe,
     AreasPaginatorPipe,
@@ -34,10 +28,7 @@ import { MemberPaginatorPipe } from '../pipes/members/member-paginator.pipe';
     AngularMaterialModule
   ],
   exports: [
-    NavbarComponent,
-    SidebarComponent,
     FooterComponent,
-    LoadingComponent,
     FilterComponent,
     AreasPaginatorPipe,
     MemberPaginatorPipe,
