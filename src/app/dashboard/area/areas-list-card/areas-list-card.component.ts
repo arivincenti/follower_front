@@ -11,8 +11,9 @@ import * as AreasActions from '../../../store/actions/userOrganizations/selected
 import { MatDialog } from '@angular/material';
 import { AreaFormComponent } from '../area-form/area-form.component';
 import { MemberModel } from 'src/app/models/member.model';
-import { AreaMemberFormComponent } from '../area-member-form/area-member-form.component';
+
 import { map } from 'rxjs/operators';
+import { MemberFormComponent } from '../../member/member-form/member-form.component';
 
 @Component({
   selector: 'app-areas-list-card',
@@ -114,7 +115,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy
 
   addMember(): void
   {
-    this.dialog.open(AreaMemberFormComponent, {
+    this.dialog.open(MemberFormComponent, {
       width: '600px',
       data: {
         user: this.user,

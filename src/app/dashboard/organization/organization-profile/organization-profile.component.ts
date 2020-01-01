@@ -118,7 +118,8 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
       width: '600px',
       data: {
         user: this.user,
-        organization: this.organization
+        organization: this.organization,
+        area: null
       }
     });
   }

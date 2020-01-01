@@ -9,7 +9,6 @@ import { AreasListCardComponent } from './areas-list-card/areas-list-card.compon
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 import { MemberModule } from '../member/member.module';
 import { AreaMembersTableComponent } from './area-members-table/area-members-table.component';
-import { AreaMemberFormComponent } from './area-member-form/area-member-form.component';
 
 @NgModule({
   declarations: [
@@ -18,10 +17,6 @@ import { AreaMemberFormComponent } from './area-member-form/area-member-form.com
     AreasListComponent,
     AreasListCardComponent,
     AreaMembersTableComponent,
-    AreaMemberFormComponent,
-  ],
-  entryComponents: [
-    AreaMemberFormComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { URL_SERVICIOS } from 'src/app/config/config';
+import { environment } from '../../../environments/environment';
 
 @Pipe({
   name: 'image'
@@ -13,7 +13,7 @@ export class ImagePipe implements PipeTransform
     //Agregar este parametro al transform si se usa el switch
     // type: string = "usuarios"
 
-    let url = `${URL_SERVICIOS}/images`;
+    let url = `${environment.path}/images`;
 
     if (!img)
     {

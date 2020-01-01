@@ -45,7 +45,7 @@ export class MembersEffects
             timer: 2500
           });
 
-          this.store.dispatch(MemberAreasActions.getMemberAreas({ user: action.payload.user, organization: action.payload.organization._id }));
+          this.store.dispatch(MemberAreasActions.getMemberAreas({ user: action.payload.created_by._id, organization: action.payload.organization._id }));
 
           this.store.dispatch(AreasActions.getAreas({ payload: action.payload.organization, since: 0, size: 0 }));
 
