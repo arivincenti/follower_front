@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
 export const selectTheme = createAction(
-  '[UI Actions] Select Theme Modal',
+  '[UI Actions] Select Theme',
   props<{ payload: string }>()
 );
 

@@ -28,7 +28,7 @@ export class AreaMembersTableComponent implements OnInit
 
   ngOnInit()
   {
-    this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
+    // this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
   }
 
 

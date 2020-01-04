@@ -112,17 +112,17 @@
               </ng-template>
               <mat-divider></mat-divider>
 
-              <div class="row" *ngIf="memberAreasLoading$ | async">
+              <div class="row" *ngIf="memberAreasLoading">
                 <div class="col-md-12 d-flex justify-content-center">
                   <mat-spinner diameter="30" class="mt-4"></mat-spinner>
                 </div>
               </div>
 
-              <div class="container" *ngIf="memberAreasLoaded$ | async">
+              <div class="container" *ngIf="!memberAreasLoading">
                 <div class="row d-flex align-items-center" *ngIf="memberAreas$ | async as memberAreas">
                   <div class="col-md-12">
                     <mat-card-content class="animated delay-500ms mt-4" [ngClass]="animation[0]">
-                      <app-areas-list [organization]="organization" [areas]="filterMemberAreas" [user]="user"
+                      <app-areas-list [organization]="organization" [areas]="memberAreas" [user]="user"
                         [animation]="animation">
                       </app-areas-list>
                     </mat-card-content>

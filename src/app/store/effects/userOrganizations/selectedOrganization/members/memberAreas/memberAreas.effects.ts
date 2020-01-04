@@ -16,6 +16,8 @@ export class MemberAreasEffects
     private _membersService: MembersService
   ) { }
 
+
+  //No se utiliza en ningun lado
   getMemberAreas$ = createEffect(() => this.actions$.pipe(
     ofType(MemberAreasActions.getMemberAreas),
     mergeMap((action) => this._membersService.getMemberAreas(action.user, action.organization)

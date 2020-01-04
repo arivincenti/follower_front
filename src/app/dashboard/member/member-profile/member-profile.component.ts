@@ -54,9 +54,9 @@ export class MemberProfileComponent implements OnInit, OnDestroy
 
     this.membersLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loaded);
 
-    this.memberLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.selectedMember.loading);
+    // this.memberLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.selectedMember.loading);
 
-    this.memberLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.selectedMember.loaded);
+    // this.memberLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.selectedMember.loaded);
 
     this.param = this.activatedRoute.snapshot.paramMap.get('id');
     
@@ -67,7 +67,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy
       this.areas = areas;
     });
 
-    this.member$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.selectedMember.member);
+    // this.member$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.selectedMember.member);
 
     this.memberSubscription = this.member$.pipe(
       filter(member => member !== null)

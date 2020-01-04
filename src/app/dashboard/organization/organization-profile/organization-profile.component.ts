@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, Subject } from 'rxjs';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { UserModel } from 'src/app/models/user.model';
 import { AreaModel } from 'src/app/models/area.model';
@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material';
 import { AreaFormComponent } from '../../area/area-form/area-form.component';
 import { MemberFormComponent } from '../../member/member-form/member-form.component';
 import { MemberModel } from 'src/app/models/member.model';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-organization-profile',
@@ -20,9 +20,19 @@ import { map } from 'rxjs/operators';
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy
 {
+  //Subject Observable
+  private subjectMemberAreas$ = new Subject<any>();
+  subjectObject = {
+    areas: [],
+    members: []
+  }
+
   //Subscriptions
   organizationSubscription: Subscription = new Subscription();
   userSubscription: Subscription = new Subscription();
+  memberAreasSubscription: Subscription = new Subscription();
+  membersSubscription: Subscription = new Subscription();
+  areasSubscription: Subscription = new Subscription();
 
 
   organization$: Observable<OrganizationModel>;
@@ -33,20 +43,24 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
   //Filter & counter
   param: string;
+
+  //Areas
   areas$: Observable<AreaModel[]>;
   areasLoading$: Observable<boolean>;
   areasLoaded$: Observable<boolean>;
   filterAreas: AreaModel[];
+
+  //Member Areas
   memberAreas$: Observable<AreaModel[]>;
-  memberAreasLoading$: Observable<boolean>;
-  memberAreasLoaded$: Observable<boolean>;
+  memberAreasLoading: boolean = false;
   filterMemberAreas: AreaModel[];
+
+  //Members
   members$: Observable<MemberModel[]>;
   membersLoading$: Observable<boolean>;
   membersLoaded$: Observable<boolean>;
   filterMembers: MemberModel[];
 
-  member: MemberModel[];
 
   constructor(
     private store: Store<AppState>,
@@ -58,28 +72,21 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
   ngOnInit()
   {
 
+    this.param = this.activatedRoute.snapshot.paramMap.get('id');
+
     this.animation$ = this.store.select(state => state.ui.animated);
 
     this.areasLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loading);
 
     this.areasLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loaded);
 
-    this.memberAreasLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.loading);
-
-    this.memberAreasLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.loaded);
-    
     this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
 
     this.membersLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loaded);
 
     this.organizationLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.loading);
 
-    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user =>
-    {
-      this.user = user;
-    });
-
-    this.param = this.activatedRoute.snapshot.paramMap.get('id');
+    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
 
     this.store.dispatch(OrganizationActions.getOrganization({ organization: this.param, user: this.user._id }))
 
@@ -87,9 +94,52 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
     this.areas$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.areas).pipe(map(areas => this.filterAreas = areas));
 
-    this.memberAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.areas).pipe(map(areas => this.filterMemberAreas = areas));
-
     this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).pipe(map(members => this.filterMembers = members));
+
+    this.membersSubscription = this.members$.subscribe(members =>
+    {
+      this.subjectObject.members = members;
+      this.subjectMemberAreas$.next(this.subjectObject);
+    });
+
+    this.areasSubscription = this.areas$.subscribe(areas =>
+    {
+      this.subjectObject.areas = areas;
+      this.subjectMemberAreas$.next(this.subjectObject);
+    });
+
+
+    this.memberAreas$ = this.getMemberAreas$().pipe(map(data =>
+    {
+      var memberAreas: AreaModel[] = [];
+
+      if (data.areas.length && data.members.length)
+      {
+        var userMember = null;
+
+        data.members.forEach((member: MemberModel) =>
+        {
+          if (member.user._id === this.user._id) userMember = member;
+        });
+
+        userMember.areas.forEach((memberArea: any) =>
+        {
+          data.areas.forEach((area: AreaModel) =>
+          {
+            if (area._id === memberArea)
+            {
+              memberAreas.push(area);
+            }
+          });
+        });
+      }
+
+      return memberAreas
+    }));
+
+    //Esto esta de mas, deberia utilizar los miembros existentes y las areas existentes, junto al usuario logueado, para no hacer una consulta a la base de datos.
+
+    // this.memberAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.areas).pipe(map(areas => this.filterMemberAreas = areas));
 
   }
 
@@ -97,8 +147,15 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
   {
     this.organizationSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
+    this.membersSubscription.unsubscribe();
+    this.areasSubscription.unsubscribe();
   }
 
+  //Funcion Observable
+  getMemberAreas$(): Observable<any>
+  {
+    return this.subjectMemberAreas$.asObservable();
+  }
 
   createArea(): void
   {

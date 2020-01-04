@@ -45,11 +45,7 @@ export class MembersEffects
             timer: 2500
           });
 
-          this.store.dispatch(MemberAreasActions.getMemberAreas({ user: action.payload.created_by._id, organization: action.payload.organization._id }));
-
           this.store.dispatch(AreasActions.getAreas({ payload: action.payload.organization, since: 0, size: 0 }));
-
-          this.store.dispatch(MembersActions.getMembers({ payload: action.payload.organization }));
 
           return MembersActions.createMemberSuccess({ payload: member })
         }),
@@ -72,8 +68,7 @@ export class MembersEffects
             showConfirmButton: false,
             timer: 2500
           });
-          this.store.dispatch(MemberActions.getMember({ payload: member._id }));
-          this.store.dispatch(MemberAreasActions.getMemberAreas({ user: member.user._id, organization: member.organization._id }));
+
           return MembersActions.updateMemberSuccess({ payload: member });
 
         }),
@@ -96,7 +91,7 @@ export class MembersEffects
             showConfirmButton: false,
             timer: 2500
           });
-          this.store.dispatch(MemberActions.getMember({ payload: member._id }));
+
           return MembersActions.inactiveMemberSuccess({ payload: member })
         }),
         catchError(error => of(MembersActions.inactiveMemberFail({ payload: error.error })))

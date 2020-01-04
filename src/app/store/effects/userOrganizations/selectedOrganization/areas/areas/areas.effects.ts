@@ -4,7 +4,6 @@ import { mergeMap, catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AreasService } from '../../../../../../services/areas/areas.service';
 import * as AreasActions from '../../../../../actions/userOrganizations/selectedOrganization/areas/areas/areas.actions';
-import * as MemberAreasActions from '../../../../../actions/userOrganizations/selectedOrganization/members/memberAreas/memberAreas.actions';
 import Swal from 'sweetalert2'
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
@@ -14,8 +13,7 @@ export class AreasEffects
 {
   constructor(
     private actions$: Actions,
-    private _areasService: AreasService,
-    private store: Store<AppState>
+    private _areasService: AreasService
   ) { }
 
 
@@ -64,7 +62,7 @@ export class AreasEffects
             showConfirmButton: false,
             timer: 2700
           });
-          this.store.dispatch(MemberAreasActions.getMemberAreas({ user: action.payload.updated_by, organization: action.payload.organization }));
+
           return AreasActions.updateAreaSuccess({ payload: area })
         }),
         catchError(error => of(AreasActions.updateAreaFail({ payload: error })))
@@ -86,7 +84,7 @@ export class AreasEffects
             showConfirmButton: false,
             timer: 2700
           });
-          this.store.dispatch(MemberAreasActions.getMemberAreas({ user: action.payload.updated_by, organization: action.payload.organization }));
+
           return AreasActions.deleteAreaSuccess({ payload: area })
         }),
         catchError(error => of(AreasActions.deleteAreaFail({ payload: error })))

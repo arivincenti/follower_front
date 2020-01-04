@@ -7,20 +7,20 @@ export interface state
 {
   members: MembersReducer.MembersState;
   memberAreas: MemberAreasReducer.MemberAreasState;
-  selectedMember: MemberReducer.MemberState
+  // selectedMember: MemberReducer.MemberState
 }
 
 export const initialState: state = {
   members: MembersReducer.InitialStateMembers,
   memberAreas: MemberAreasReducer.InitialStateMemberAreas,
-  selectedMember: MemberReducer.InitialStateMember
+  // selectedMember: MemberReducer.InitialStateMember
 };
 
 export const MemberIndexReducer = combineReducers(
   {
     members: MembersReducer.MembersReducer,
     memberAreas: MemberAreasReducer.MemberAreasReducer,
-    selectedMember: MemberReducer.MemberReducer
+    // selectedMember: MemberReducer.MemberReducer
   },
   initialState
 );
