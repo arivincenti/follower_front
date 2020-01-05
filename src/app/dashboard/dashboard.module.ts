@@ -10,13 +10,12 @@ import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { LoginGuard } from '../guards/login/login.guard';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     MainNavComponent,
-    
   ],
   imports: [
     CommonModule,
@@ -27,7 +26,10 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+  ],
+  providers: [
+    LoginGuard
   ]
 })
 export class DashboardModule { }

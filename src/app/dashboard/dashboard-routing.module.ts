@@ -2,9 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { dashboardRoutes } from './dashboard.routes';
+import { LoginGuard } from '../guards/login/login.guard';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, children: dashboardRoutes }
+  {
+    path: '',
+    canActivate: [LoginGuard],
+    component: DashboardComponent, children: dashboardRoutes
+  }
 ];
 
 @NgModule({

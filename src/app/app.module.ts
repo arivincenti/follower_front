@@ -15,6 +15,8 @@ import { appReducers } from './store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { effects } from './store/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptorService } from './services/interceptors/token/token-interceptor.service';
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any>
@@ -33,6 +35,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     AppRoutingModule,
     AuthModule,
     ServiceModule,
+    HttpClientModule,
     StoreModule.forRoot(
       appReducers,
       { metaReducers }),
@@ -42,7 +45,13 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     }),
     EffectsModule.forRoot(effects),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,7 +13,7 @@ export interface AuthState
 
 export const initialState: AuthState = {
   user: null,
-  token: null,
+  token: '',
   loading: false,
   loaded: false,
   error: null
@@ -51,7 +51,7 @@ export const AuthReducer = createReducer(
       loading: false,
       loaded: false,
       user: null,
-      token: null
+      token: ''
     }
   ))
 )
