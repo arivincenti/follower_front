@@ -28,9 +28,9 @@ export class VerifyTokenGuard implements CanActivate
 
     let payload = JSON.parse(atob(this.token.split(".")[1]));
 
-    let expirado = this.expirado(payload.exp);
+    let expired = this.expirado(payload.exp);
 
-    if (expirado)
+    if (expired)
     {
       console.log('Token expirado');
       this._authService.logout();
@@ -43,18 +43,17 @@ export class VerifyTokenGuard implements CanActivate
   // ==================================================
   // Verificar si se renueva o no el token
   // ==================================================
-  verificaSiRenueva(fechaExp: number): Promise<boolean>
+  verificaSiRenueva(dateExp: number): Promise<boolean>
   {
     return new Promise((resolve, reject) =>
     {
-      let tokenExp = new Date(fechaExp * 1000);
-      let ahora = new Date();
+      let tokenExp = new Date(dateExp * 1000);
+      let now = new Date();
 
-      ahora.setTime(ahora.getTime() + 1 * 60 * 60 * 1000);
+      now.setTime(now.getTime() + 1 * 60 * 60 * 1000);
 
-      if (tokenExp.getTime() > ahora.getTime())
+      if (tokenExp.getTime() > now.getTime())
       {
-        console.log('Token NO expirado');
         resolve(true);
       }
       else
@@ -74,11 +73,11 @@ export class VerifyTokenGuard implements CanActivate
   // ==================================================
   // Valida si el token expiró o no
   // ==================================================
-  expirado(fechaExp: number)
+  expirado(dateExp: number)
   {
-    let ahora = new Date().getTime() / 1000;
+    let now = new Date().getTime() / 1000;
 
-    if (fechaExp < ahora)
+    if (dateExp < now)
     {
       return true;
     } else
