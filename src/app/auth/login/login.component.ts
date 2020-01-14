@@ -6,6 +6,7 @@ import { AppState } from 'src/app/store/app.reducer';
 
 import * as UserActions from '../../store/actions/auth/auth.actions';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-login",
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit
 {
 
+  showLogin: boolean = false;
   cargando: boolean;
   error: string;
   subscription: Subscription = new Subscription();
@@ -48,7 +50,17 @@ export class LoginComponent implements OnInit
       .subscribe(auth =>
       {
         this.cargando = auth.loading;
-        if (auth.error) this.error = auth.error.message;
+        if (auth.error) {
+          Swal.fire({
+            position: 'top-end',
+            toast: true,
+            icon: 'error',
+            title: '¡No se pudo iniciar sesión!',
+            text: auth.error.message,
+            showConfirmButton: false,
+            timer: 2500
+          });
+        }
         if (auth.user && auth.user.email === credentials.email) this.router.navigate(['app']);
       });
   }

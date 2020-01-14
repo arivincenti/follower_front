@@ -1,62 +1,50 @@
-<div class="auth">
-  <div class="container">
-    <div class="row general-content d-flex justify-content-center">
-      <div class="col-md-9 general-content-child">
-        <div class="row d-flex justify-content-center">
-          <div class="col-md-6 content-info">
-            <div class="row">
-              <div class="col-md-12 d-flex justify-content-start">
-                <h1>Follower</h1>
-              </div>
-            </div>
-            <hr style="background-color: rgba(255, 255, 255, .5)">
-            <div class="row">
-              <div class="col-md-12 d-flex justify-content-center">
-                <p class="content-text">Te damos la bienvenida a Follower, la mejor herramienta de gestión de incidentes que tu organización necesita.
-                </p>
-              </div>
+<div class="container">
+  <div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-12 d-flex justify-content-center">
+      <img src="assets/img/ubicacion2.png" alt="">
+    </div>
+    <div class="col-md-12 d-flex justify-content-center">
+      <h4>¡Bienvenido a Follower!</h4>
+    </div>
+    <div class="form-container">
+      <div class="col-md-12 d-flex align-items-center justify-content-center">
+        <form #f="ngForm" (ngSubmit)="login(f)">
+          <div class="form-group">
+            <label class="label">Correo electrónico</label>
+            <input class="form-control" [disabled]="cargando" type="email" placeholder="Email" ngModel name="email"
+              placeholder="" autocomplete="off" required>
+          </div>
+          <div class="form-group" class="mb-4">
+            <label class="label">Constraseña</label>
+            <input class="form-control" [disabled]="cargando" type="password" placeholder="" ngModel name="password"
+              required>
+            <div class="col-md-12 d-flex justify-content-end mt-1 foot">
+              <span class="text-small">
+                <a class="text-info text-small">¿Olvidaste tu contraseña?</a>
+              </span>
             </div>
           </div>
-          <div class="col-md-6 content-login d-flex align-items-center">
-            <div class="row d-flex justify-content-center">
-              <div class="col-md-9 alert alert-danger d-flex justify-content-center" *ngIf="error" role="alert">
-                <p>Oops, hubo un problema: <b>{{error}}</b></p>
-              </div>
-              <div class="col-md-12 mb-3 d-flex justify-content-center">
-                <h3 class="text-muted">Inicio de sesión</h3>
-              </div>
-              <div class="col-md-9">
-                <form #f="ngForm" (ngSubmit)="login(f)">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Correo electrónico</mat-label>
-                    <input matInput color="warn" type="email" placeholder="Email" ngModel name="email"
-                      placeholder="Correo electrónico" autocomplete="off" required>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="mb-3">
-                    <mat-label>Constraseña</mat-label>
-                    <input matInput type="password" placeholder="*********" ngModel name="password"
-                      placeholder="Contraseña" required>
-                  </mat-form-field>
-
-
-                  <button *ngIf="!cargando" mat-flat-button color="primary" class="btn-block"
-                    [disabled]="!f.valid">Iniciar
-                    sesión</button>
-                  <button *ngIf="cargando" mat-flat-button color="accent" class="btn-block" [disabled]="true"> <i
-                      class="fa fa-spin fa-sync"></i> Iniciando sesion...</button>
-
-                </form>
-              </div>
-              <div class="col-md-9 d-flex justify-content-center mt-4 foot">
-                <span class="text-small">
-                  <b class="text-muted mr-2">No estás registrado? </b>
-                  <a routerLink="/register" class="text-info text-small">Create una cuenta</a>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+          <button *ngIf="!cargando" mat-flat-button color="primary" class="btn-block"
+            [disabled]="!f.valid">Acceder</button>
+        </form>
+      </div>
+      <div class="col-md-12 d-flex justify-content-center">
+        <mat-progress-spinner *ngIf="cargando" diameter="40" mode="indeterminate"></mat-progress-spinner>
+      </div>
+      <div class="col-md-12 d-flex justify-content-center mt-4 foot">
+        <span class="text-small">
+          <b class="text-muted mr-2">¿Aún no tenés cuenta? </b>
+          <a routerLink="/register" class="text-info text-small">¡Registrate ahora!</a>
+        </span>
+      </div>
+      <div class="col-md-12 d-flex justify-content-center mt-4 foot">
+        <span class="text-small">
+          <a routerLink="/web" class="warning text-small">Ir a la web de Follower</a>
+        </span>
       </div>
     </div>
   </div>
+</div>
+<div class="fixed-bottom footer d-flex justify-content-center align-items-center">
+  <p>Follower 2020 - Beta</p>
 </div>
