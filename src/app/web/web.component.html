@@ -4,74 +4,114 @@
       <img src="assets/img/ubicacion2.png" alt="">
       <h4>Follower</h4>
     </div>
-    <button mat-button routerLink="/login">Acceder</button>
+    <button class="access-button" mat-button routerLink="/login">Acceder</button>
   </div>
 </nav>
 <section class="section1">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12 d-flex justify-content-center">
-        <h1 class="mt-5 text-center mb-2">La herramienta de gestión de incidentes que necesitas.</h1>
-      </div>
-      <div class="col-md-12 d-flex justify-content-center mb-4">
-        <p class="subtitulo text-center">Gestiona tus propias organizaciones o forma parte de de otras,
-          escribe tu incidente, envíalo y síguelo.</p>
-      </div>
-      <div class="col-md-12 d-flex justify-content-center mb-5">
-        <button class="prueba" mat-flat-button color="warn">Regístrate y pruébalo gratis</button>
+    <div class="content1">
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-center mb-4">
+          <h1 class="mt-5 text-center mb-2">La herramienta de gestión de incidentes que necesitas.</h1>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center mb-3">
+          <p class="subtitulo text-center">Gestiona tus propias organizaciones o forma parte de de otras,
+            escribe tu incidente, envíalo y síguelo.</p>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+          <button class="prueba" mat-flat-button color="warn">Regístrate y pruébalo gratis</button>
+        </div>
       </div>
     </div>
   </div>
 </section>
 <section class="section2">
   <div class="container">
-  <div class="row d-flex justify-content-between">
-    <div class="col-md-12 d-flex justify-content-center mb-5">
-      <h1 class="mt-5 text-center mb-2">Quédate el plan que mejor te convenga</h1>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 d-flex justify-content-center mb-5">
+        <h1 class="mt-5 text-center mb-2">Quédate el plan que mejor te convenga</h1>
+      </div>
+
+      <div class="col-md-3 plan1">
+        <mat-card>
+          <mat-card-header class="d-flex justify-content-center">
+            <mat-card-title class="d-flex justify-content-center plan-title">Gratuito</mat-card-title>
+            <mat-card-subtitle class="d-flex justify-content-center">
+              <span>
+                <mat-icon class="icon">face</mat-icon>
+                hasta 3 miembros
+              </span>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="d-flex justify-content-center">
+            <p class="precio">$0</p>
+          </mat-card-content>
+          <mat-card-content class="detalle-precio d-flex justify-content-center">
+            <p>al mes / <mat-icon class="precio-icon">face</mat-icon>
+            </p>
+          </mat-card-content>
+          <mat-card-actions class="d-flex justify-content-center align-items-center">
+            <button class="btn-block" mat-flat-button color="primary">Accede</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+      <div class="col-md-3 plan2">
+        <mat-card>
+          <mat-card-header class="d-flex justify-content-center">
+            <mat-card-title class="d-flex justify-content-center plan-title">Básico</mat-card-title>
+            <mat-card-subtitle class="d-flex justify-content-center">
+              <span>
+                <mat-icon class="icon">face</mat-icon>
+                hasta 10 miembros
+              </span>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="d-flex justify-content-center">
+            <p class="precio">$99</p>
+          </mat-card-content>
+          <mat-card-content class="detalle-precio d-flex justify-content-center">
+            <p>al mes / <mat-icon class="precio-icon">face</mat-icon>
+            </p>
+          </mat-card-content>
+          <mat-card-actions class="d-flex justify-content-center align-items-center">
+            <button class="btn-block" mat-flat-button color="primary">Accede</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+      <div class="col-md-3 plan3">
+        <mat-card>
+          <mat-card-header class="d-flex justify-content-center">
+            <mat-card-title class="d-flex justify-content-center plan-title">Premium</mat-card-title>
+            <mat-card-subtitle class="d-flex justify-content-center">
+              <span>
+                <mat-icon class="icon">face</mat-icon>
+                miembros ilimitados
+              </span>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="d-flex justify-content-center">
+            <p class="precio">$299</p>
+          </mat-card-content>
+          <mat-card-content class="detalle-precio d-flex justify-content-center">
+            <p>al mes / <mat-icon class="precio-icon">face</mat-icon>
+            </p>
+          </mat-card-content>
+          <mat-card-actions class="d-flex justify-content-center align-items-center">
+            <button class="btn-block" mat-flat-button color="primary">Accede</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
     </div>
-    <div class="col-md-3 plan">
-      <h3 class="text-center">Free</h3>
-      <div class="info-container">
-        <ul>
-          <li>Punto 1</li>
-          <li>Punto 2</li>
-          <li>Punto 3</li>
-          <li>Punto 4</li>
-        </ul>
-      </div>
-      <div class="precio d-flex justify-content-center align-items-center">
-        <p>$0/Mes</p>
-      </div>
-    </div>
-    <div class="col-md-3 plan">
-      <h3 class="text-center">Gold</h3>
-      <div class="info-container">
-        <ul>
-          <li>Punto 1</li>
-          <li>Punto 2</li>
-          <li>Punto 3</li>
-          <li>Punto 4</li>
-        </ul>
-      </div>
-      <div class="precio d-flex justify-content-center align-items-center">
-        <p>$2500/Mes</p>
-      </div>
-    </div>
-    <div class="col-md-3 plan mb-5">
-      <h3 class="text-center">Platinum</h3>
-      
-      <div class="info-container">
-        <ul>
-          <li>Punto 1</li>
-          <li>Punto 2</li>
-          <li>Punto 3</li>
-          <li>Punto 4</li>
-        </ul>
-      </div>
-      
-      <div class="precio d-flex justify-content-center align-items-center">
-        <p>$5000/Mes</p>
-      </div>
+  </div>
+</section>
+
+<section class="section3">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center footer">
+      <p>Follower 2020 - Beta</p>
     </div>
   </div>
 </div>
