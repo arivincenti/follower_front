@@ -3,10 +3,8 @@ button {
   outline: none;
 }
 
-mat-card-title{
-  position: relative;
-  bottom: 5px;
-  right: 15px;
+.content{
+  min-height: 145px;
 }
 
 .button {
@@ -16,34 +14,33 @@ mat-card-title{
 
 .icon {
   position: relative;
-  top: 3px;
+  top: 5px;
 }
 
 .icon-member {
+  font-size: 1.3em;
   position: relative;
-  top: 6px;
+  top: 3px;
+  right: 2px;
+}
+
+.button{
+  position: relative;
+  bottom: 5px;
 }
 
 .icon-content-in {
   position: relative;
-  top: 4px;
-  font-size: 1em;
+  bottom: 2px;
+  font-size: 1.2em;
 }
 
 .title {
-  position: relative;
-  bottom: 8px;
+  font-size: .9em;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
-/* .organization-card-info {
-  font-size: 1.1em;
-  margin-right: 20px;
-  position: relative;
-  top: 7px;
-} */
 
 .background-content-card-active{
   background-color: rgba(220, 220, 220, .2);

@@ -1,94 +1,73 @@
 <ng-container *ngIf="animation$ | async as animation">
-  <mat-expansion-panel class="expansion-panel" [ngClass]="{'background-content-card-inactive': organization.deleted_at,
-'text-muted': organization.deleted_at}">
-    <mat-expansion-panel-header class="background-content-expansion-active">
-      <mat-panel-description>
-        <div class="row d-flex align-items-center">
-          <div class="col-md-12">
-            <h6 class="title" [matTooltip]="organization.name" matTooltipPosition="right">
-              <span *ngIf="organization.created_by === user._id" class="mr-2 icon-member warning">
-                <mat-icon>star</mat-icon>
-              </span>
-              <span *ngIf="organization.created_by !== user._id" class="mr-2 icon-member primary">
-                <mat-icon>account_circle</mat-icon>
-              </span>
-              {{organization.name | titlecase}}
-            </h6>
-          </div>
-        </div>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <div class="container">
-      <div class="row mt-3">
-        <div class="col-md-8 d-flex align-items-center section-title-container">
-          <mat-icon class="icon">info</mat-icon>
-          <span class="section-title">
-            Info de la organización
+  <div class="content">
+    <div class="row d-flex align-items-between">
+      <div class="col d-flex align-items-center">
+        <h6 class="title" [matTooltip]="organization.name" matTooltipPosition="right">
+          <span *ngIf="organization.created_by === user._id">
+            <mat-icon class="icon-member warning">star</mat-icon>
           </span>
-        </div>
-        <div class="col-md-4 d-flex justify-content-end">
-          <button class="button" mat-icon-button matTooltip="Ingresar a la organización" matTooltipPosition="above"
-            (click)="selectOrganization(organization)">
-            <mat-icon>arrow_forward</mat-icon>
-          </button>
-
-          <button class="button" *ngIf="organization.created_by === user._id" mat-icon-button [matMenuTriggerFor]="menu"
-            aria-label="Acciones" matTooltip="Acciones" matTooltipPosition="above">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <ng-container>
-              <button *ngIf="!organization.deleted_at" mat-menu-item (click)="updateOrganization(organization)">
-                <mat-icon>create</mat-icon>
-                <span>Editar nombre</span>
-              </button>
-              <button *ngIf="!organization.deleted_at" mat-menu-item (click)="deleteOrganization(organization)">
-                <mat-icon>delete</mat-icon>
-                <span>Dar de baja</span>
-              </button>
-              <button *ngIf="organization.deleted_at" mat-menu-item (click)="reactivateOrganization(organization)">
-                <mat-icon>history</mat-icon>
-                <span>Restaurar</span>
-              </button>
-            </ng-container>
-          </mat-menu>
-        </div>
+          <span *ngIf="organization.created_by !== user._id">
+            <mat-icon class="icon-member primary">account_circle</mat-icon>
+          </span>
+          {{organization.name | titlecase}}
+        </h6>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <mat-divider></mat-divider>
-        </div>
-      </div>
-      <div class="row mt-2 mb-2">
-        <div class="col-md-12">
-          <span class="organization-card-info d-flex align-items-center">
-            <mat-icon class="icon">bookmarks</mat-icon>
-            Áreas / <mat-spinner *ngIf="areasLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]">
-            </mat-spinner> <span *ngIf="!areasLoading" class="ml-1 animated delay-300ms"
-              [ngClass]="animation[3]">{{areas.length}}</span>
-          </span>
-          <span class="organization-card-info d-flex align-items-center">
-            <mat-icon class="icon">supervised_user_circle</mat-icon>
-            Miembros / <mat-spinner *ngIf="membersLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]">
-            </mat-spinner> <span *ngIf="!membersLoading" class="ml-1 animated delay-300ms"
-              [ngClass]="animation[3]">{{members.length}}</span>
-          </span>
-          <span class=" organization-card-info d-flex align-items-center">
-            <mat-icon class="icon">watch_later</mat-icon>
-            Creada el /
-            <span class="success ml-1">
-              {{organization.created_at | date:'dd-MM-yyyy'}}
-            </span>
-          </span>
-          <span class="organization-card-info d-flex align-items-center" *ngIf="organization.deleted_at">
-            <mat-icon class="icon">delete</mat-icon> Dada de baja el /
-            <span class="danger ml-1">
-              {{organization.deleted_at | date:'dd-MM-yyyy'}}
-            </span>
-          </span>
-        </div>
+      <div class="col d-flex justify-content-end">
+        <button class="button" mat-icon-button matTooltip="Ingresar a la organización" matTooltipPosition="above"
+          (click)="selectOrganization(organization)">
+          <mat-icon class="icon-content-in">arrow_forward</mat-icon>
+        </button>
+
+        <button class="button" *ngIf="organization.created_by === user._id" mat-icon-button [matMenuTriggerFor]="menu"
+          aria-label="Acciones" matTooltip="Acciones" matTooltipPosition="above">
+          <mat-icon class="icon-content-in">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <ng-container>
+            <button *ngIf="!organization.deleted_at" mat-menu-item (click)="updateOrganization(organization)">
+              <mat-icon>create</mat-icon>
+              <span>Editar nombre</span>
+            </button>
+            <button *ngIf="!organization.deleted_at" mat-menu-item (click)="deleteOrganization(organization)">
+              <mat-icon>delete</mat-icon>
+              <span>Dar de baja</span>
+            </button>
+            <button *ngIf="organization.deleted_at" mat-menu-item (click)="reactivateOrganization(organization)">
+              <mat-icon>history</mat-icon>
+              <span>Restaurar</span>
+            </button>
+          </ng-container>
+        </mat-menu>
       </div>
     </div>
-  </mat-expansion-panel>
+    <div class="row mb-2">
+      <div class="col-md-12">
+        <span class="organization-card-info d-flex align-items-center">
+          <mat-icon class="icon">bookmarks</mat-icon>
+          Áreas / <mat-spinner *ngIf="areasLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]">
+          </mat-spinner> <span *ngIf="!areasLoading" class="ml-1 animated delay-300ms"
+            [ngClass]="animation[3]">{{areas.length}}</span>
+        </span>
+        <span class="organization-card-info d-flex align-items-center">
+          <mat-icon class="icon">supervised_user_circle</mat-icon>
+          Miembros / <mat-spinner *ngIf="membersLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]">
+          </mat-spinner> <span *ngIf="!membersLoading" class="ml-1 animated delay-300ms"
+            [ngClass]="animation[3]">{{members.length}}</span>
+        </span>
+        <span class=" organization-card-info d-flex align-items-center">
+          <mat-icon class="icon">watch_later</mat-icon>
+          Creada el /
+          <span class="success ml-1">
+            {{organization.created_at | date:'dd-MM-yyyy'}}
+          </span>
+        </span>
+        <span class="organization-card-info d-flex align-items-center" *ngIf="organization.deleted_at">
+          <mat-icon class="icon">delete</mat-icon> Dada de baja el /
+          <span class="danger ml-1">
+            {{organization.deleted_at | date:'dd-MM-yyyy'}}
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
 </ng-container>

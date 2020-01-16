@@ -8,92 +8,7 @@
   </div>
   <div class="row">
 
-    <div class="col-md-12">
-
-
-      <mat-tab-group mat-stretch-tabs>
-
-        <mat-tab label="Mis Tickets">
-          <ng-template mat-tab-label>
-            <mat-icon class="icon mr-2">chat</mat-icon>
-            Mis Tickets
-          </ng-template>
-          <div class="container">
-            <div class="row d-flex align-items-center">
-              <div class="col-md-12 d-flex justify-content-start animated delay-500ms" [ngClass]="animation[0]">
-                <button mat-flat-button color="warn" (click)="newTicket()"
-                matTooltip="Generar ticket" matTooltipPosition="right" class="mt-3 mb-3">
-                  <span>Generar ticket</span>
-                </button>
-              </div>
-            </div>
-            <mat-divider></mat-divider>
-
-            <div class="row">
-              <div class="col-md-12 d-flex justify-content-center">
-                <mat-spinner class="mt-5" diameter="30" *ngIf="ticketsLoading$ | async"></mat-spinner>
-              </div>
-            </div>
-
-            <ng-container *ngIf="ticketsLoaded$ | async">
-              <ng-container *ngIf="tickets$ | async as tickets">
-                <div class="animated d-flex aligns-items-center justify-content-center"
-                  *ngIf="!tickets.length && ticketsLoaded$ | async">
-                  <span class="empty-message mt-5">Todavia no tiene tickets generados</span>
-                </div>
-                <div class="animated delay-300ms mt-3" [ngClass]="animation[0]" *ngIf="tickets.length">
-
-                  <app-ticket-list [tickets]="tickets" [user]="user"></app-ticket-list>
-
-                </div>
-              </ng-container>
-            </ng-container>
-          </div>
-        </mat-tab>
-
-        <mat-tab label="Mis organizaciones">
-          <ng-template mat-tab-label>
-            <mat-icon class="icon mr-2">chat</mat-icon>
-            Mis organizaciones
-          </ng-template>
-          <div class="container">
-            <div class="row d-flex align-items-center">
-              <div class="col-md-12 d-flex justify-content-start animated delay-500ms" [ngClass]="animation[0]">
-                <button mat-flat-button color="warn" (click)="createOrganization()"
-                matTooltip="Generar ticket" matTooltipPosition="right" class="mt-3 mb-3">
-                  <span>Nueva Organización</span>
-                </button>
-              </div>
-            </div>
-            <mat-divider></mat-divider>
-
-            <div class="row">
-              <div class="col-md-12 d-flex justify-content-center">
-                <mat-spinner class="mt-5" diameter="30" *ngIf="organizationsLoading$ | async"></mat-spinner>
-              </div>
-            </div>
-
-            <ng-container *ngIf="organizationsLoaded$ | async">
-              <ng-container *ngIf="organizations$ | async as organizations">
-                <div class="animated d-flex aligns-items-center justify-content-center"
-                  *ngIf="!organizations.length && organizationsLoaded$ | async">
-                  <span>Todavia no es propietario de ninguna organziación</span>
-                </div>
-                <div class="animated delay-300ms mt-3" [ngClass]="animation[0]" *ngIf="organizations.length">
-                  <app-organization-list [organizations]="organizations" [user]="user"></app-organization-list>
-                </div>
-              </ng-container>
-            </ng-container>
-          </div>
-        </mat-tab>
-
-      </mat-tab-group>
-
-
-
-
-
-      <!-- <div class="col-md-6 mb-5">
+      <div class="col-md-6 mb-5">
       <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
         <div class="col-md-7">
           <h4 class="text-muted">Mis tickets</h4>
@@ -125,9 +40,9 @@
           </div>
         </ng-container>
       </ng-container>
-    </div> -->
+    </div>
 
-      <!-- <div class="col-md-6">
+      <div class="col-md-6">
       <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
         <div class="col-md-7">
           <h4 class="text-muted">Mis organizaciones</h4>
@@ -157,7 +72,7 @@
           </div>
         </ng-container>
       </ng-container>
-    </div> -->
     </div>
+    <!-- </div> -->
   </div>
 </ng-container>

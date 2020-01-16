@@ -1,8 +1,11 @@
-<mat-accordion>
-  <div class="row animated" *ngFor="let organization of organizations">
-    <div class="col-md-12 animated fadeIn mb-3">
-      <app-organization-list-card [organization]="organization" [user]="user">
-      </app-organization-list-card>
-    </div>
+<!-- <mat-accordion> -->
+<div class="row animated" *ngFor="let organization of organizations">
+  <div class="col-md-12 animated fadeIn mb-3">
+    <app-organization-list-card [organization]="organization" [user]="user">
+    </app-organization-list-card>
   </div>
-</mat-accordion>
+  <div class="col-md-12 mb-4">
+    <mat-divider></mat-divider>
+  </div>
+</div>
+<!-- </mat-accordion> -->
