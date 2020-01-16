@@ -11,6 +11,9 @@ import { AngularMaterialModule } from 'src/app/angular-material/angular-material
 import { AreaModule } from '../area/area.module';
 import { MemberModule } from '../member/member.module';
 import { UserProfileComponent } from '../user/user-profile/user-profile.component';
+import { TicketListComponent } from '../ticket/ticket-list/ticket-list.component';
+import { TicketListCardComponent } from '../ticket/ticket-list-card/ticket-list-card.component';
+import { TicketModule } from '../ticket/ticket.module';
 
 @NgModule({
   declarations: [
@@ -19,13 +22,15 @@ import { UserProfileComponent } from '../user/user-profile/user-profile.componen
     OrganizationListCardComponent,
     OrganizationProfileComponent,
     OrganizationFormComponent,
-    UserProfileComponent
+    UserProfileComponent,
+
   ],
   imports: [
     CommonModule,
     SharedModule,
     AreaModule,
     MemberModule,
+    TicketModule,
     FormsModule,
     ReactiveFormsModule,
     AngularMaterialModule

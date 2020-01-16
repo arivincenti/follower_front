@@ -1,0 +1,8 @@
+<mat-accordion>
+  <div class="row animated" *ngFor="let ticket of tickets">
+    <div class="col-md-12 animated fadeIn mb-3">
+      <app-ticket-list-card [ticket]="ticket" [user]="user">
+      </app-ticket-list-card>
+    </div>
+  </div>
+</mat-accordion>

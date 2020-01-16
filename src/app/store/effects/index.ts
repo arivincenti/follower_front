@@ -8,6 +8,7 @@ import { MemberEffects } from './userOrganizations/selectedOrganization/members/
 import { MemberAreasEffects } from './userOrganizations/selectedOrganization/members/memberAreas/memberAreas.effects';
 import { AreaEffects } from './userOrganizations/selectedOrganization/areas/area/area/area.effects';
 import { AreaMembersEffects } from './userOrganizations/selectedOrganization/areas/area/areaMembers/areaMembers.effects';
+import { UserTicketsEffects } from './userOrganizations/userTickets/userTickets.effects';
 
 
 export const effects: any[] = [
@@ -20,7 +21,8 @@ export const effects: any[] = [
   MemberAreasEffects,
   AreasEffects,
   AreaEffects,
-  AreaMembersEffects
+  AreaMembersEffects,
+  UserTicketsEffects
 ];
 
 export * from './ui/ui.effects';

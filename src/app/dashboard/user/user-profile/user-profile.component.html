@@ -1,18 +1,6 @@
 <ng-container *ngIf="user$ | async as user">
   <ng-container *ngIf="animation$ | async as animation">
 
-
-    <!-- <div class="row">
-      <div class="col-md-12 d-flex justify-content-center">
-        <mat-progress-bar *ngIf="membersLoading$ | async" mode="query"></mat-progress-bar>
-      </div>
-    </div> -->
-
-    <!-- <div class="row">
-      <div class="col-md-12 d-flex justify-content-center">
-        <mat-spinner class="mt-5" diameter="50" *ngIf="memberLoading$ | async"></mat-spinner>
-      </div>
-    </div> -->
     <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
       <div class="col-md-12 d-flex justify-content-start">
         <h4 class="text-muted">
@@ -66,7 +54,7 @@
               <mat-icon class="icon">watch_later</mat-icon>
               Creado el /
               <span class="success">
-                {{user.created_at | date:'dd/mm/yyyy'}}
+                {{user.created_at | date:'dd/MM/yyyy'}}
               </span>
             </mat-card-content>
 

@@ -4,10 +4,12 @@ import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as OrganizationsActions from '../../../store/actions/userOrganizations/organizations/organizations.actions';
+import * as TicketsActions from '../../../store/actions/userOrganizations/userTickets/userTickets.actions';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { OrganizationFormComponent } from '../organization-form/organization-form.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import { filter } from 'rxjs/operators';
+import { TicketModel } from 'src/app/models/ticketModel';
 
 @Component({
   selector: 'app-organization',
@@ -22,6 +24,11 @@ export class OrganizationComponent implements OnInit, OnDestroy
   organizations$: Observable<OrganizationModel[]>;
   organizationsLoading$: Observable<boolean>;
   organizationsLoaded$: Observable<boolean>;
+
+
+  tickets$: Observable<TicketModel[]>;
+  ticketsLoading$: Observable<boolean>;
+  ticketsLoaded$: Observable<boolean>;
   user: UserModel;
 
   //UI Observable
@@ -43,6 +50,7 @@ export class OrganizationComponent implements OnInit, OnDestroy
       {
         this.user = user;
         this.store.dispatch(OrganizationsActions.getOrganizations({ payload: this.user._id }));
+        this.store.dispatch(TicketsActions.getTickets({ payload: this.user }));
       });
 
 
@@ -53,8 +61,12 @@ export class OrganizationComponent implements OnInit, OnDestroy
 
     this.organizations$ = this.store.select(state => state.userOrganizations.organizations.organizations);
 
-    // this.store.dispatch(OrganizationActions.clearSelectedOrganizationState());
-    // this.store.dispatch(AreasActions.clearSelectedAreaState());
+    this.ticketsLoading$ = this.store.select(state => state.userOrganizations.tickets.loading);
+
+    this.ticketsLoaded$ = this.store.select(state => state.userOrganizations.tickets.loaded);
+
+    this.tickets$ = this.store.select(state => state.userOrganizations.tickets.tickets);
+
   }
 
   createOrganization(): void

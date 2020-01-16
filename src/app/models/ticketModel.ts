@@ -1,0 +1,17 @@
+import { MovementModel } from "./movementModel";
+import { CommentModel } from './commentModel';
+import { UserModel } from './user.model';
+
+export class TicketModel
+{
+  constructor(
+    public _id: string,
+    public subject: string,
+    public issue: string,
+    public movements: MovementModel[],
+    public comments?: CommentModel[],
+    public created_by?: UserModel,
+    public created_at?: Date,
+    public updated_at?: Date,
+    public deleted_at?: Date) { }
+}

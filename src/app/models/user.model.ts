@@ -1,4 +1,3 @@
-import { AreaModel } from './area.model';
 
 export class UserModel
 {

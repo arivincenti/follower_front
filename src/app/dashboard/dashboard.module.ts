@@ -11,6 +11,8 @@ import { SharedModule } from '../shared/shared.module';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LoginGuard } from '../guards/login/login.guard';
+import { TicketListComponent } from './ticket/ticket-list/ticket-list.component';
+import { TicketListCardComponent } from './ticket/ticket-list-card/ticket-list-card.component';
 
 @NgModule({
   declarations: [
