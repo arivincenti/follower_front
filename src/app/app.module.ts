@@ -21,6 +21,13 @@ import { WebComponent } from './web/web.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 
 
+//Configuracion de zona horaria e idioma de fechas
+import { LOCALE_ID } from '@angular/core';
+import localeEsAr from '@angular/common/locales/es-AR';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEsAr, 'es-Ar');
+
+
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any>
 {
   return localStorageSync({ keys: [{'ui': ['theme']}, 'auth', 'userOrganizations'], rehydrate: true })(reducer);
@@ -30,7 +37,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 @NgModule({
   declarations: [
     AppComponent,
-    WebComponent,
+    WebComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +62,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
       useClass: TokenInterceptorService,
       multi: true
     },
+    { provide: LOCALE_ID, useValue: 'es-Ar' } 
   ],
   bootstrap: [AppComponent]
 })

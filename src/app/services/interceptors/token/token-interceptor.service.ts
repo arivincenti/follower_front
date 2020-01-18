@@ -22,7 +22,6 @@ export class TokenInterceptorService
 
     this.tokenSubscription.unsubscribe();
 
-    console.log('paso por el interceptor');
     let headers = new HttpHeaders({
       token: this.token
     });

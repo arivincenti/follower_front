@@ -67,11 +67,11 @@ export class AuthService
         {
           this.logout();
 
-          Swal.fire({
-            type: "error",
-            title: "Ups! Hubo un problema",
-            text: "No fue posible renovar el token"
-          });
+          Swal.fire(
+            'Ups! Hubo un problema!',
+            'No fue posible renovar el token!',
+            'error'
+          );
 
           throw error;
         })

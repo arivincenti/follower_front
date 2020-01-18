@@ -3,7 +3,7 @@
 
     <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
       <div class="col-md-12 d-flex justify-content-start">
-        <h4 class="text-muted">
+        <h4 class="text-muted title">
           Perfil del usuario
         </h4>
       </div>
@@ -52,9 +52,9 @@
 
             <mat-card-content class="organization-card-info">
               <mat-icon class="icon">watch_later</mat-icon>
-              Creado el /
+              Se unió a follower el 
               <span class="success">
-                {{user.created_at | date:'dd/MM/yyyy'}}
+                {{user.created_at | date:'EEEE dd MMMM yyyy'}}
               </span>
             </mat-card-content>
 

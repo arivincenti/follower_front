@@ -56,15 +56,15 @@
         </span>
         <span class=" organization-card-info d-flex align-items-center">
           <mat-icon class="icon">watch_later</mat-icon>
-          Creada el /
+          Creada el 
           <span class="success ml-1">
-            {{organization.created_at | date:'dd-MM-yyyy'}}
+            {{organization.created_at | date:'fullDate'}}
           </span>
         </span>
         <span class="organization-card-info d-flex align-items-center" *ngIf="organization.deleted_at">
-          <mat-icon class="icon">delete</mat-icon> Dada de baja el /
+          <mat-icon class="icon">delete</mat-icon> Dada de baja el 
           <span class="danger ml-1">
-            {{organization.deleted_at | date:'dd-MM-yyyy'}}
+            {{organization.deleted_at | date:'fullDate'}}
           </span>
         </span>
       </div>

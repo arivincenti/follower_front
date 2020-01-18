@@ -1,11 +1,14 @@
 <!-- <mat-accordion> -->
-  <div class="row animated" *ngFor="let ticket of tickets">
-    <div class="col-md-12 animated fadeIn mb-3">
-      <app-ticket-list-card [ticket]="ticket" [user]="user">
-      </app-ticket-list-card>
-    </div>
-    <div class="col-md-12 mb-4">
-      <mat-divider></mat-divider>
-    </div>
+<div class="row animated" *ngFor="let ticket of tickets | ticketPaginator:since:until">
+  <div class="col-md-12 animated fadeIn mb-3">
+    <app-ticket-list-card [ticket]="ticket" [user]="user">
+    </app-ticket-list-card>
   </div>
+  <div class="col-md-12 mb-3">
+    <mat-divider></mat-divider>
+  </div>
+</div>
+<mat-paginator [length]="tickets.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+  (page)="changePage($event)">
+</mat-paginator>
 <!-- </mat-accordion> -->

@@ -25,10 +25,10 @@ export class AreasListComponent implements OnInit, OnDestroy
 
   //Paginator variables
   pageIndex: number = 0;
-  pageSize: number = 5;
+  pageSize: number = 3;
   since: number;
   until: number;
-  pageSizeOptions: number[] = [5, 10, 15, 20];
+  pageSizeOptions: number[] = [3, 10, 15, 20];
 
   // MatPaginator Output
   pageEvent: PageEvent;

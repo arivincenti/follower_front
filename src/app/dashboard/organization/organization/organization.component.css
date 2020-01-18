@@ -1,3 +1,13 @@
 button {
   outline: none;
 }
+
+.title{
+  font-size: 1.3em;
+}
+
+@media(max-width: 990px){
+  .title {
+    width: 200px;
+  }
+}

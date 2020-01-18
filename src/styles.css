@@ -9,6 +9,10 @@ body {
   font-family: 'Public Sans', sans-serif;
 }
 
+mat-paginator{
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+
 .mat-card-img{
   object-fit: cover; /*this makes the image in src fit to the size specified below*/
   width: 75%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/

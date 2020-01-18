@@ -62,7 +62,7 @@ button {
 }
 
 @media(max-width: 990px){
-  h5 {
+  .title {
     width: 200px;
   }
 }

@@ -1,4 +1,4 @@
-button{
+/* button{
   outline: none;
 }
 
@@ -14,4 +14,58 @@ mat-card {
 
 .add-member-button {
   font-size: 0.9em;
+} */
+
+
+button {
+  outline: none;
+}
+
+.content{
+  min-height: 125px;
+}
+
+.button {
+  position: relative;
+  bottom: 7px;
+}
+
+.icon {
+  position: relative;
+  top: 5px;
+}
+
+.icon-member {
+  font-size: 1.3em;
+  position: relative;
+  top: 3px;
+  right: 2px;
+}
+
+.button{
+  position: relative;
+  bottom: 5px;
+}
+
+.icon-content-in {
+  position: relative;
+  bottom: 2px;
+  font-size: 1.2em;
+}
+
+.title {
+  font-size: .9em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.line-through{
+  text-decoration: line-through;
+}
+
+@media(max-width: 990px){
+  .title {
+    width: 200px;
+  }
 }

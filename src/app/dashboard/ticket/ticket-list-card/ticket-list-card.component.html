@@ -6,7 +6,7 @@
           <span>
             <mat-icon class="icon-ticket" color="warn">local_activity</mat-icon>
           </span>
-          {{ticket.subject | titlecase}} 
+          {{ticket.subject | titlecase}}
         </h6>
       </div>
       <div class="col d-flex justify-content-end">
@@ -16,38 +16,37 @@
         </button>
       </div>
     </div>
-    
-      <div class="row mb-2">
-        <div class="col-md-12">
-          <span class="ticket-card-info d-flex align-items-center">
-            <mat-icon class="icon">emoji_objects</mat-icon>
-            Estado /
-            <span class="badge badge-primary badge-ticket-status ml-1">{{ticket.status}}</span>
-          </span>
-          <span class="ticket-card-info d-flex align-items-center">
-            <mat-icon class="icon">timeline</mat-icon>
-            Movimientos /
-            <span class="success ml-1">
-              {{ticket.movements.length }}
-            </span>
-          </span>
-          <!-- <span class="ticket-card-info d-flex align-items-center">
-            <mat-icon class="icon">comment</mat-icon>
-            Comentarios /
-            <span class="success ml-1">
-              {{ticket.comments.length }}
-            </span>
-          </span> -->
 
-          <span class="ticket-card-info d-flex align-items-center">
-            <mat-icon class="icon">watch_later</mat-icon>
-            Creado el /
-            <span class="success ml-1">
-              {{ticket.created_at | date:'dd-MM-yyyy'}}
-            </span>
+    <div class="row mb-2">
+      <div class="col-md-12">
+        <span class="ticket-card-info d-flex align-items-center">
+          <mat-icon class="icon">flag</mat-icon>
+          Estado /
+          <span class="badge badge-primary badge-ticket-status ml-1 p-1">{{ ticket.status }}</span>
+        </span>
+        <span class="ticket-card-info d-flex align-items-center">
+          <mat-icon class="icon">apartment</mat-icon>
+          Organización /
+          <span class="ml-1">
+            {{ticket.movements[ticket.movements.length - 1 ].area.organization.name | titlecase }}
           </span>
-        </div>
+        </span>
+        <span class="ticket-card-info d-flex align-items-center">
+          <mat-icon class="icon">bookmark</mat-icon>
+          Área /
+          <span class="ml-1">
+            {{ticket.movements[ticket.movements.length - 1 ].area.name | titlecase }}
+          </span>
+        </span>
+        <span class="ticket-card-info d-flex align-items-center">
+          
+          <span><mat-icon class="icon">watch_later</mat-icon>Creado por {{ticket.created_by.name | titlecase}} {{ticket.created_by.last_name | titlecase}} el
+            <span class="success">
+              {{ticket.created_at | date:'fullDate'}}
+            </span></span>
+        </span>
       </div>
+    </div>
   </div>
   <!-- </mat-expansion-panel> -->
 </ng-container>

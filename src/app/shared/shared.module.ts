@@ -9,6 +9,8 @@ import { StateFilterCounterPipe } from '../pipes/filter/state-filter-counter.pip
 import { AreasPaginatorPipe } from '../pipes/areas/areas-paginator.pipe';
 import { ImagePipe } from '../pipes/image/image.pipe';
 import { MemberPaginatorPipe } from '../pipes/members/member-paginator.pipe';
+import { TicketPaginatorPipe } from '../pipes/tickets/ticket-paginator.pipe';
+import { OrganizationPaginatorPipe } from '../pipes/organizations/organization-paginator.pipe';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { MemberPaginatorPipe } from '../pipes/members/member-paginator.pipe';
     StateFilterCounterPipe,
     AreasPaginatorPipe,
     MemberPaginatorPipe,
-    ImagePipe
+    ImagePipe,
+    TicketPaginatorPipe,
+    OrganizationPaginatorPipe
   ],
   imports: [
     CommonModule,
@@ -32,7 +36,9 @@ import { MemberPaginatorPipe } from '../pipes/members/member-paginator.pipe';
     FilterComponent,
     AreasPaginatorPipe,
     MemberPaginatorPipe,
-    ImagePipe
+    ImagePipe,
+    TicketPaginatorPipe,
+    OrganizationPaginatorPipe
   ]
 })
 export class SharedModule { }
