@@ -113,16 +113,4 @@ export class AreasListCardComponent implements OnInit, OnDestroy
     this.store.dispatch(AreasActions.updateArea({ areaId: area._id, payload: payload }));
   }
 
-  addMember(): void
-  {
-    this.dialog.open(MemberFormComponent, {
-      width: '600px',
-      data: {
-        user: this.user,
-        organization: this.organization,
-        area: this.area
-      }
-    });
-  }
-
 }

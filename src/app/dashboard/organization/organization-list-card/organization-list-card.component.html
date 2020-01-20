@@ -3,10 +3,10 @@
     <div class="row d-flex align-items-between">
       <div class="col d-flex align-items-center">
         <h6 class="title" [matTooltip]="organization.name" matTooltipPosition="right">
-          <span *ngIf="organization.created_by === user._id">
+          <span *ngIf="organization.created_by._id === user._id">
             <mat-icon class="icon-member warning">star</mat-icon>
           </span>
-          <span *ngIf="organization.created_by !== user._id">
+          <span *ngIf="organization.created_by._id !== user._id">
             <mat-icon class="icon-member primary">account_circle</mat-icon>
           </span>
           {{organization.name | titlecase}}

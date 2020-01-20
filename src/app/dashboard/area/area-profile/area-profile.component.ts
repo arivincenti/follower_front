@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { AreaModel } from 'src/app/models/area.model';
-import { OrganizationModel } from 'src/app/models/organization.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserModel } from 'src/app/models/user.model';
 import { MemberModel } from 'src/app/models/member.model';
 import * as AreaActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/area/area/area.actions';
-import * as AreaMembersActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/area/areaMembers/areaMembers.actions';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
+import { MemberFormComponent } from '../../member/member-form/member-form.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-area-profile',
@@ -21,23 +21,26 @@ export class AreaProfileComponent implements OnInit, OnDestroy
 
   userSubscription: Subscription = new Subscription();
   paramSubscription: Subscription = new Subscription();
-  membersSubscription: Subscription = new Subscription();
   areaSubscription: Subscription = new Subscription();
 
   animation$: Observable<string[]>;
-  param:string;
+  param: string;
   user: UserModel;
-  members: MemberModel[];
-  filterMembers: MemberModel[];
+
+  area$: Observable<AreaModel>;
   area: AreaModel;
   areaLoading$: Observable<boolean>;
-  organizationSubscription: Subscription = new Subscription();
-  organziation: OrganizationModel;
+
+  members$: Observable<MemberModel[]>;
+  membersLoading$: Observable<boolean>;
+  membersLoaded$: Observable<boolean>;
+
 
   constructor(
     private store: Store<AppState>,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit()
@@ -52,40 +55,60 @@ export class AreaProfileComponent implements OnInit, OnDestroy
       this.user = user;
     });
 
-    this.areaSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.area).pipe(
-      filter(area => area !== null)
-    )
-    .subscribe(area => {
-      this.area = area;
-      console.log(area);
-      this.store.dispatch(AreaMembersActions.getAreaMembers({payload: area._id}));
-    });
-  
-    this.organizationSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization).subscribe(organization => this.organziation = organization);
+    this.area$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.area).pipe(
+      filter(area => area !== null),
+      map(area => this.area = area)
+    );
 
-    this.membersSubscription = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.areaMembers.members).subscribe(members =>
-    {
-      this.members = members;
-      this.filterMembers = members;
-    });
+    this.areaLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loading);
 
+    this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
+
+    this.membersLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loaded);
+    
+    //Traigo todos los miembros de la organizacion y los filtro para que cada area tenga sus respectivos miembros
+    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members)
+      .pipe(map((members: any) =>
+      {
+        var membersFiltered = [];
+
+        members.forEach((member: MemberModel) =>
+        {
+          member.areas.forEach((area: any) =>
+          {
+            if (area === this.area._id)
+            {
+              membersFiltered.push(member)
+            }
+          });
+        });
+
+        return membersFiltered;
+      }));
   }
 
   ngOnDestroy()
   {
-    this.organizationSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
     this.paramSubscription.unsubscribe();
     this.areaSubscription.unsubscribe();
   }
 
   backToLastPage()
   {
-    this.router.navigate(['app/organizations/profile', this.organziation._id]);
+    this.router.navigate(['app/organizations/profile', this.area.organization._id]);
   }
 
-  newMember(area: AreaModel)
+  addMember(): void
   {
-    this.router.navigate(['app/organizations/members/form', area._id]);
+    this.dialog.open(MemberFormComponent, {
+      width: '600px',
+      data: {
+        user: this.user,
+        organization: this.area.organization,
+        area: this.area
+      }
+    });
   }
 
 }

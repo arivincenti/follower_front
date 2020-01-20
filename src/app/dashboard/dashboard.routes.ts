@@ -9,6 +9,7 @@ import { MemberProfileComponent } from './member/member-profile/member-profile.c
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { VerifyTokenGuard } from '../guards/token/verify-token.guard';
 import { LoginGuard } from '../guards/login/login.guard';
+import { TicketComponent } from './ticket/ticket/ticket.component';
 
 
 export const dashboardRoutes: Routes = [
@@ -56,5 +57,10 @@ export const dashboardRoutes: Routes = [
     path: 'user/profile',
     canActivate: [LoginGuard, VerifyTokenGuard],
     component: UserProfileComponent
+  },
+  {
+    path: 'ticket/:id',
+    canActivate: [LoginGuard, VerifyTokenGuard],
+    component: TicketComponent
   },
 ];

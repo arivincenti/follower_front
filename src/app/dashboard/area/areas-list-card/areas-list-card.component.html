@@ -6,7 +6,12 @@
     <div class="col d-flex justify-content-end">
       <ng-container *ngIf="organization.created_by._id === user._id">
 
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" mat-icon-button matTooltip="Acciones"
+        <button class="button" mat-icon-button matTooltip="Ingresar al área" matTooltipPosition="above"
+        (click)="selectArea(area)">
+        <mat-icon class="icon-content-in">arrow_forward</mat-icon>
+      </button>
+
+        <button class="button" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" mat-icon-button matTooltip="Acciones"
           matTooltipPosition="above">
           <mat-icon class="icon-content-in">more_vert</mat-icon>
         </button>
@@ -52,7 +57,7 @@
 
       <span class="organization-card-info d-flex align-items-center">
         <mat-icon class="icon">watch_later</mat-icon>
-        <span>Creada por {{area.created_by.name | titlecase}} {{area.created_by.last_name | titlecase}} el
+        <span>Creada el
           <span class="success ml-1">
             {{area.created_at | date:'fullDate'}}
           </span>

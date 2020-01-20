@@ -1,4 +1,36 @@
-.value-container{
+button{
+  outline: none;
+}
+
+mat-card {
+  overflow: hidden;
+}
+
+.value {
+  cursor:pointer;
+  font-size: 2.1em;
+  font-weight: bolder;
+}
+
+.add-member-button {
+  font-size: 0.9em;
+}
+
+.title{
+  font-size: 1.3em;
+}
+
+@media(max-width: 990px){
+  .title {
+    width: 200px;
+  }
+}
+
+
+
+
+
+/* .value-container{
 height: 130px;
 }
 
@@ -16,4 +48,5 @@ height: 130px;
 
 .btn{
   font-size: .7em;
-}
+} */
+
