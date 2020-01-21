@@ -11,30 +11,14 @@
         <mat-icon class="icon-content-in">arrow_forward</mat-icon>
       </button>
 
-        <button class="button" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" mat-icon-button matTooltip="Acciones"
-          matTooltipPosition="above">
-          <mat-icon class="icon-content-in">more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <ng-container *ngIf="!organization.deleted_at">
-            <ng-container *ngIf="!area.deleted_at">
-              <button *ngIf="!area.deleted_at" mat-menu-item (click)="updateArea(area)">
-                <mat-icon>create</mat-icon>
-                <span>Editar nombre</span>
-              </button>
-              <button *ngIf="!area.deleted_at" mat-menu-item (click)="deleteArea(area)">
-                <mat-icon>delete</mat-icon>
-                <span>Dar de baja</span>
-              </button>
-            </ng-container>
-          </ng-container>
-          <ng-container>
-            <button *ngIf="area.deleted_at" mat-menu-item (click)="activateArea(area)">
-              <mat-icon>history</mat-icon>
-              <span>Restaurar</span>
-            </button>
-          </ng-container>
-        </mat-menu>
+      <button *ngIf="!area.deleted_at" class="button" mat-icon-button (click)="deleteArea(area)" matTooltip="Dar de baja" matTooltipPosition="above">
+        <mat-icon class="icon-content-in">delete</mat-icon>
+      </button>
+
+      <button *ngIf="area.deleted_at" class="button" mat-icon-button (click)="activateArea(area)" matTooltip="Activar" matTooltipPosition="above">
+        <mat-icon class="icon-content-in">history</mat-icon>
+      </button>
+
       </ng-container>
     </div>
   </div>

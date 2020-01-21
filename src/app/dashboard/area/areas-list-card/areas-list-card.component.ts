@@ -79,17 +79,6 @@ export class AreasListCardComponent implements OnInit, OnDestroy
     this.router.navigate(['app/organizations/areas/profile', area._id]);
   }
 
-  updateArea(area: AreaModel)
-  {
-    this.dialog.open(AreaFormComponent, {
-      width: '600px',
-      data: {
-        user: this.user,
-        organization: this.organization,
-        area: area
-      }
-    });
-  }
 
   deleteArea(area: AreaModel)
   {

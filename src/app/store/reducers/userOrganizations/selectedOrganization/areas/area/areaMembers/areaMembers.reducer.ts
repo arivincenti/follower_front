@@ -46,6 +46,33 @@ export const areaMembersReducer = createReducer(
       loaded: true,
       error: { ...payload }
     }
+  )),
+  on(AreaMembersActions.createAreaMembers, (state) => (
+    {
+      ...state,
+      members: [],
+      loading: true,
+      loaded: false,
+      error: null
+    }
+  )),
+  on(AreaMembersActions.createAreaMembersSuccess, (state, { payload }) => (
+    {
+      ...state,
+      members: [...payload],
+      loading: false,
+      loaded: true,
+      error: null
+    }
+  )),
+  on(AreaMembersActions.createAreaMembersFail, (state, { payload }) => (
+    {
+      ...state,
+      members: [],
+      loading: false,
+      loaded: true,
+      error: { ...payload }
+    }
   ))
 );
 

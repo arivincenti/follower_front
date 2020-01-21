@@ -1,4 +1,4 @@
-<span class="text-muted fadeIn slower mt-4" *ngIf="!areas.length">La organización aún no posee áreas</span>
+<span class="text-muted fadeIn slower mt-4" *ngIf="!areas.length">No se encontraron áreas disponibles</span>
 
   <div class="row mb-3 animated" *ngFor="let area of areas | areasPaginator:since:until" [ngClass]="animation[0]">
     <div class="col-md-12">

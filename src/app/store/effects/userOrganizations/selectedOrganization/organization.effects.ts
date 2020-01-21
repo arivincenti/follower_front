@@ -26,10 +26,10 @@ export class OrganizationEffects
               payload: organization
             }),
             AreasActions.getAreas({ payload: organization, since: 0, size: 0 }),
-            MemberAreasActions.getMemberAreas({
-              user: action.user,
-              organization: organization._id
-            }),
+            // MemberAreasActions.getMemberAreas({
+            //   user: action.user,
+            //   organization: organization._id
+            // }),
             MembersActions.getMembers({ payload: organization })
           ]),
           catchError(error =>

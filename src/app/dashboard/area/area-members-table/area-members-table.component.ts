@@ -20,7 +20,8 @@ export class AreaMembersTableComponent implements OnInit
   @Input() user: UserModel;
   @Input() area: AreaModel;
 
-  membersLoading$: Observable<boolean>;
+  areaLoading$: Observable<boolean>;
+  areaLoaded$: Observable<boolean>;
 
   constructor(
     private store: Store<AppState>
@@ -28,17 +29,20 @@ export class AreaMembersTableComponent implements OnInit
 
   ngOnInit()
   {
-    // this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
+    this.areaLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loading);
+    
+    this.areaLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loaded);
   }
 
 
   setResponsibleMember(member: MemberModel)
-  {
+  { 
     let payload = {
       responsible: member,
       organization: this.organization._id,
       updated_by: this.user._id
     }
+
     this.store.dispatch(AreasActions.updateArea({ areaId: this.area._id, payload: payload }));
   }
 

@@ -24,8 +24,8 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
   @Input() organization: OrganizationModel;
   @Input() user: UserModel;
 
-  membersSeubscription : Subscription = new Subscription();
-  areasSeubscription : Subscription = new Subscription();
+  membersSubscription : Subscription = new Subscription();
+  areasSubscription : Subscription = new Subscription();
 
   areas: AreaModel[] = [];
   areasLoading : boolean = true;
@@ -47,12 +47,12 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
     this.animation$ = this.store.select(state => state.ui.animated);
     
     //Estas consultas van directo sobre el servicio porque a esta altura de la aplicacion toidavia no se cargaron ls areas de una organizacion
-    this.areasSeubscription = this._areasService.getAreas(this.organization).subscribe(areas => {
+    this.areasSubscription = this._areasService.getAreas(this.organization).subscribe(areas => {
       this.areas = areas;
       this.areasLoading = false;
     });
 
-    this.membersSeubscription = this._membersService.getMembers(this.organization).subscribe(members => {
+    this.membersSubscription = this._membersService.getMembers(this.organization).subscribe(members => {
       this.members = members;
       this.membersLoading = false;
     });
@@ -60,24 +60,13 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
   }
 
   ngOnDestroy() { 
-    this.membersSeubscription.unsubscribe();
-    this.areasSeubscription.unsubscribe();
+    this.membersSubscription.unsubscribe();
+    this.areasSubscription.unsubscribe();
   }
 
   selectOrganization(organization: OrganizationModel)
   {
     this.router.navigate(['app/organizations/profile', organization._id]);
-  }
-
-  updateOrganization(organization: OrganizationModel): void
-  {
-    this.dialog.open(OrganizationFormComponent, {
-      width: '600px',
-      data: {
-        organization: organization._id,
-        user: this.user
-      }
-    });
   }
 
   deleteOrganization(organization: OrganizationModel)

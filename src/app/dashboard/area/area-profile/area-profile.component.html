@@ -26,6 +26,9 @@
                 <h4>
                   {{area.name}}
                 </h4>
+                <button mat-icon-button color="primary" matTooltip="Editar el nombre del área" matTooltipPosition="right" (click)="updateArea(area)" class="button-edit ml-1">
+                  <mat-icon class="icon-edit">edit</mat-icon>
+                </button>
               </div>
             </mat-card-title>
           </mat-card-header>
@@ -130,25 +133,23 @@
       <div class="col-md-12">
         <div class="row animated d-flex justify-content-between align-items-end mb-3" [ngClass]="animation[0]">
 
-            <div class="col d-flex align-items-center">
-              <h4 class="text-muted title">Miembros del área</h4>
-            </div>
-            <div class="col d-flex justify-content-end">
-              <button class="mb-1 add-member-button" mat-flat-button color="warn" (click)="addMember()">
-                Agregar Miembro
-              </button>
-            </div>
-      
+          <div class="col d-flex align-items-center">
+            <h4 class="text-muted title">Miembros del área</h4>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <button class="mb-1 add-member-button" mat-flat-button color="warn" (click)="addMember()">
+              Agregar Miembro
+            </button>
+          </div>
+
         </div>
         <mat-divider></mat-divider>
 
-        <div class="row" *ngIf="membersLoading">
+        <div class="row" *ngIf="areaLoading">
           <div class="col-md-12 d-flex justify-content-center">
             <mat-spinner diameter="30" class="mt-4"></mat-spinner>
           </div>
         </div>
-
-
 
         <ng-container *ngIf="membersLoaded$ | async">
           <ng-container *ngIf="members$ | async as members">
@@ -160,9 +161,9 @@
 
             <div class="animated delay-300ms mt-3" [ngClass]="animation[0]" *ngIf="members.length">
 
-              <app-area-members-table *ngIf="members.length" [organization]="organization" [members]="members"
-              [area]="area" [user]="user">
-            </app-area-members-table>
+              <app-area-members-table *ngIf="members.length" [organization]="area.organization" [members]="members"
+                [area]="area" [user]="user">
+              </app-area-members-table>
 
             </div>
 

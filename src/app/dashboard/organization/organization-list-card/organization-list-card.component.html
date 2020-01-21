@@ -18,26 +18,14 @@
           <mat-icon class="icon-content-in">arrow_forward</mat-icon>
         </button>
 
-        <button class="button" *ngIf="organization.created_by === user._id" mat-icon-button [matMenuTriggerFor]="menu"
-          aria-label="Acciones" matTooltip="Acciones" matTooltipPosition="above">
-          <mat-icon class="icon-content-in">more_vert</mat-icon>
+        <button class="button" mat-icon-button *ngIf="!organization.deleted_at" (click)="deleteOrganization(organization)">
+          <mat-icon class="icon-content-in">delete</mat-icon>
         </button>
-        <mat-menu #menu="matMenu">
-          <ng-container>
-            <button *ngIf="!organization.deleted_at" mat-menu-item (click)="updateOrganization(organization)">
-              <mat-icon>create</mat-icon>
-              <span>Editar nombre</span>
-            </button>
-            <button *ngIf="!organization.deleted_at" mat-menu-item (click)="deleteOrganization(organization)">
-              <mat-icon>delete</mat-icon>
-              <span>Dar de baja</span>
-            </button>
-            <button *ngIf="organization.deleted_at" mat-menu-item (click)="reactivateOrganization(organization)">
-              <mat-icon>history</mat-icon>
-              <span>Restaurar</span>
-            </button>
-          </ng-container>
-        </mat-menu>
+
+        <button class="button" mat-icon-button *ngIf="organization.deleted_at" (click)="reactivateOrganization(organization)">
+          <mat-icon class="icon-content-in">history</mat-icon>
+        </button>
+
       </div>
     </div>
     <div class="row mb-2">

@@ -69,7 +69,7 @@ export class MemberFormComponent implements OnInit, OnDestroy
         this.members = members;
       })
 
-      this.setForm(this.data.area);
+    this.setForm(this.data.area);
 
   }
 

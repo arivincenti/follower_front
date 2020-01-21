@@ -8,4 +8,15 @@ button{
   outline: none;
 }
 
+.icon-edit {
+  position: relative;
+  bottom: 2px;
+  left: 1px;
+  font-size: 1.4em;
+}
+
+.button-edit{
+  position: relative;
+  bottom: 6px;
+}
 

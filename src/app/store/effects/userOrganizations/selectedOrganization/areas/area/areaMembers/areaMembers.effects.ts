@@ -23,4 +23,13 @@ export class AreaMembersEffects
       ))
   ));
 
+  // createAreaMembers$ = createEffect(() => this.actions$.pipe(
+  //   ofType(AreaMembersActions.createAreaMembers),
+  //   mergeMap((action) => this._areasService.createAreaMembers(action.payload)
+  //     .pipe(
+  //       map((member: any) => AreaMembersActions.createAreaMembersSuccess({ payload: members })),
+  //       catchError(error => of(AreaMembersActions.createAreaMembersFail({ payload: error })))
+  //     ))
+  // ));
+
 }

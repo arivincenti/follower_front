@@ -10,6 +10,7 @@ import * as AreaActions from '../../../store/actions/userOrganizations/selectedO
 import { filter, map } from 'rxjs/operators';
 import { MemberFormComponent } from '../../member/member-form/member-form.component';
 import { MatDialog } from '@angular/material';
+import { AreaFormComponent } from '../area-form/area-form.component';
 
 @Component({
   selector: 'app-area-profile',
@@ -30,6 +31,7 @@ export class AreaProfileComponent implements OnInit, OnDestroy
   area$: Observable<AreaModel>;
   area: AreaModel;
   areaLoading$: Observable<boolean>;
+  areaLoaded$: Observable<boolean>;
 
   members$: Observable<MemberModel[]>;
   membersLoading$: Observable<boolean>;
@@ -56,11 +58,13 @@ export class AreaProfileComponent implements OnInit, OnDestroy
     });
 
     this.area$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.area).pipe(
-      filter(area => area !== null),
+      // filter(area => area !== null),
       map(area => this.area = area)
     );
 
     this.areaLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loading);
+
+    this.areaLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loaded);
 
     this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
 
@@ -107,6 +111,18 @@ export class AreaProfileComponent implements OnInit, OnDestroy
         user: this.user,
         organization: this.area.organization,
         area: this.area
+      }
+    });
+  }
+
+  updateArea(area: AreaModel)
+  {
+    this.dialog.open(AreaFormComponent, {
+      width: '600px',
+      data: {
+        user: this.user,
+        organization: area.organization,
+        area: area
       }
     });
   }

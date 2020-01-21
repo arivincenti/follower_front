@@ -20,11 +20,25 @@ mat-card {
   font-size: 1.3em;
 }
 
+.icon-edit {
+  position: relative;
+  bottom: 2px;
+  left: 1px;
+  font-size: 1.4em;
+}
+
+.button-edit{
+  position: relative;
+  bottom: 6px;
+}
+
 @media(max-width: 990px){
   .title {
     width: 200px;
   }
 }
+
+
 
 
 

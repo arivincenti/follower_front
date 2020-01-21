@@ -74,7 +74,7 @@ export class OrganizationComponent implements OnInit, OnDestroy
     this.dialog.open(OrganizationFormComponent, {
       width: '600px',
       data: {
-        organization: 'nueva',
+        organization: null,
         user: this.user
       }
     });

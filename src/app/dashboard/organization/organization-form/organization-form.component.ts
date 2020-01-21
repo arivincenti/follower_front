@@ -57,21 +57,22 @@ export class OrganizationFormComponent implements OnInit, OnDestroy
     this.form.controls['name'].markAsTouched();
 
     //Check if param is not a new organization
-    if (this.data.organization !== 'nueva')
+    if (this.data.organization)
     {
-      this.organizationLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.loading);
+      this.form.controls['name'].setValue(this.data.organization.name);
+      // this.organizationLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.loading);
 
-      this.organizationLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.loaded);
+      // this.organizationLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.loaded);
 
-      this.store.dispatch(OrganizationActions.getOrganization({ organization: this.data.organization, user: this.data.user._id }));
+      // this.store.dispatch(OrganizationActions.getOrganization({ organization: this.data.organization, user: this.data.user._id }));
 
-      this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
+      // this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization);
 
-      this.organizationSubscription = this.organization$
-        .pipe(
-          filter(organization => organization !== null)
-        )
-        .subscribe(organization => this.form.controls['name'].setValue(organization.name));
+      // this.organizationSubscription = this.organization$
+      //   .pipe(
+      //     filter(organization => organization !== null)
+      //   )
+      //   .subscribe(organization => this.form.controls['name'].setValue(organization.name));
 
     }
   }
@@ -90,21 +91,21 @@ export class OrganizationFormComponent implements OnInit, OnDestroy
     // Validation name before create or update an organization
     if (this.form.invalid) return;
 
-    if (this.data.organization === 'nueva')
+    if (!this.data.organization)
     {
       let payload = {
         user: this.data.user._id,
         name: this.form.controls['name'].value.toUpperCase()
       }
-
+      console.log('se creo una nueva');
       this.store.dispatch(OrganizationsActions.createOrganization({ payload }));
     } else
     {
       let payload = {
         name: this.form.controls['name'].value.toUpperCase(),
-        // updated_by: this.data.user._id
+        updated_by: this.data.user._id
       }
-      this.store.dispatch(OrganizationsActions.updateOrganization({ organizationId: this.data.organization, payload: payload }));
+      this.store.dispatch(OrganizationsActions.updateOrganization({ organizationId: this.data.organization._id, payload: payload }));
     }
 
     this.dialogRef.close();

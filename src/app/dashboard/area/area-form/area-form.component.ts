@@ -52,23 +52,25 @@ export class AreaFormComponent implements OnInit
     if (this.data.area)
     {
 
-      this.areaLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loading);
+      // this.areaLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loading);
 
-      this.areaLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loaded);
+      // this.areaLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loaded);
 
-      this.store.dispatch(AreaActions.getArea({ payload: this.data.area._id }));
+      this.form.controls['area'].setValue(this.data.area.name);
 
-      this.area$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.area);
+      // this.store.dispatch(AreaActions.getArea({ payload: this.data.area._id }));
 
-      this.areaSubscription = this.area$
-        .pipe(
-          filter(area => area !== null)
-        )
-        .subscribe(area =>
-        {
-          this.form.controls['area'].setValue(area.name);
-          this.area = area;
-        });
+      // this.area$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.area);
+
+      // this.areaSubscription = this.area$
+      //   .pipe(
+      //     filter(area => area !== null)
+      //   )
+      //   .subscribe(area =>
+      //   {
+      //     this.form.controls['area'].setValue(area.name);
+      //     this.area = area;
+      //   });
     }
   }
 
@@ -102,7 +104,7 @@ export class AreaFormComponent implements OnInit
         organization: this.data.organization._id,
         updated_by: this.data.user._id
       }
-      this.store.dispatch(AreasActions.updateArea({ areaId: this.area._id, payload: payload }));
+      this.store.dispatch(AreasActions.updateArea({ areaId: this.data.area._id, payload: payload }));
     }
 
     this.dialogRef.close();

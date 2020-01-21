@@ -1,6 +1,7 @@
 import { UserModel } from '../user.model';
+import { OrganizationModel } from '../organization.model';
 
 export interface DialogDataOrganization {
-  organization: string;
+  organization: OrganizationModel;
   user: UserModel
 }

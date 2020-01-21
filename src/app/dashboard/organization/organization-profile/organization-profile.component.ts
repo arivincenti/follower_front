@@ -11,7 +11,8 @@ import { MatDialog } from '@angular/material';
 import { AreaFormComponent } from '../../area/area-form/area-form.component';
 import { MemberFormComponent } from '../../member/member-form/member-form.component';
 import { MemberModel } from 'src/app/models/member.model';
-import { map, filter } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { OrganizationFormComponent } from '../organization-form/organization-form.component';
 
 @Component({
   selector: 'app-organization-profile',
@@ -74,8 +75,11 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
     this.param = this.activatedRoute.snapshot.paramMap.get('id');
 
+    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
+
     this.animation$ = this.store.select(state => state.ui.animated);
 
+    //Loadings
     this.areasLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loading);
 
     this.areasLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loaded);
@@ -86,7 +90,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
     this.organizationLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.loading);
 
-    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
+    /////////////////
 
     this.store.dispatch(OrganizationActions.getOrganization({ organization: this.param, user: this.user._id }))
 
@@ -108,7 +112,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
       this.subjectMemberAreas$.next(this.subjectObject);
     });
 
-
+    //Este metodo no es del store ni de un servicio, esta declarado en este componente
     this.memberAreas$ = this.getMemberAreas$().pipe(map(data =>
     {
       var memberAreas: AreaModel[] = [];
@@ -177,6 +181,17 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
         user: this.user,
         organization: this.organization,
         area: null
+      }
+    });
+  }
+
+  updateOrganization(organization: OrganizationModel): void
+  {
+    this.dialog.open(OrganizationFormComponent, {
+      width: '600px',
+      data: {
+        organization: organization,
+        user: this.user
       }
     });
   }

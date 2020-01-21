@@ -6,20 +6,20 @@ import * as MemberAreasReducer from './memberAreas/memberAreas.reducer';
 export interface state
 {
   members: MembersReducer.MembersState;
-  memberAreas: MemberAreasReducer.MemberAreasState;
+  // memberAreas: MemberAreasReducer.MemberAreasState;
   // selectedMember: MemberReducer.MemberState
 }
 
 export const initialState: state = {
   members: MembersReducer.InitialStateMembers,
-  memberAreas: MemberAreasReducer.InitialStateMemberAreas,
+  // memberAreas: MemberAreasReducer.InitialStateMemberAreas,
   // selectedMember: MemberReducer.InitialStateMember
 };
 
 export const MemberIndexReducer = combineReducers(
   {
     members: MembersReducer.MembersReducer,
-    memberAreas: MemberAreasReducer.MemberAreasReducer,
+    // memberAreas: MemberAreasReducer.MemberAreasReducer,
     // selectedMember: MemberReducer.MemberReducer
   },
   initialState

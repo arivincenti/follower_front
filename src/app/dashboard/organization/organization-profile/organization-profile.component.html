@@ -24,6 +24,9 @@
               <h4>
                 {{organization.name}}
               </h4>
+              <button mat-icon-button color="primary" matTooltip="Editar el nombre de la organización" matTooltipPosition="right" *ngIf="!organization.deleted_at" (click)="updateOrganization(organization)" class="button-edit ml-1">
+                <mat-icon class="icon-edit">create</mat-icon>
+              </button>
             </div>
           </mat-card-title>
         </mat-card-header>
