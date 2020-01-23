@@ -53,8 +53,8 @@
           <mat-card-content class="organization-card-info">
             <span class="d-flex align-items-center">
               <mat-icon class="icon">watch_later</mat-icon>
-              <span>Creada el
-                <span class="success ml-1">
+              <span>Creada el 
+                <span class="success">
                   {{organization.created_at | date:'fullDate'}}
                 </span>
               </span>
@@ -122,7 +122,7 @@
                     <button mat-flat-button color="warn" *ngIf="!organization.deleted_at" (click)="createArea()"
                       matTooltip="Agregar área" matTooltipPosition="right" class="m-3">
                       <span>
-                        Agregar área
+                        Nueva área
                       </span>
                     </button>
                   </div>
@@ -157,7 +157,7 @@
                     *ngIf="!organization.deleted_at">
                     <button mat-flat-button color="warn" (click)="createMember()" matTooltip="Agregar miembro"
                       matTooltipPosition="right" class="m-3">
-                      <span>Agregar miembro</span>
+                      <span>Nuevo miembro</span>
                     </button>
                   </div>
 

@@ -69,20 +69,33 @@
           *ngIf="isHandset$ | async">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <span [ngClass]="{hidden: !(isHandset$ | async) !== false}">Follower</span>
+
+
+
         <span class="spacer"></span>
-        <div mat-list-item class="d-flex justify-content-center mr-2">
+
+        <div mat-list-item class="d-flex justify-content-start align-items-center mr-4">
+          <form class="form" #f="ngForm" (ngSubmit)="login(f)">
+            <!-- <input class="form-control" [disabled]="cargando" type="email" ngModel name="email"
+              placeholder="&#xf007;  Buscar ticket" autocomplete="off" required> -->
+              <mat-form-field>
+                <input type="text" matInput class="matInput" placeholder="Buscar ticket" autocomplete="off">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+          </form>
+        </div>
+
+        <!-- <div mat-list-item class="d-flex justify-content-center mr-1">
           <button mat-icon-button color="basic" routerLink="organizations" matTooltip="Notificaciones"
             matTooltipPosition="below">
             <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
           </button>
-        </div>
-        <div mat-list-item class="d-flex justify-content-center mr-3">
-          <button mat-icon-button color="basic" matTooltip="Ayuda"
-            matTooltipPosition="below">
+        </div> -->
+        <!-- <div mat-list-item class="d-flex justify-content-center mr-1">
+          <button mat-icon-button color="basic" matTooltip="Ayuda" matTooltipPosition="below">
             <mat-icon>help_outline</mat-icon>
           </button>
-        </div>
+        </div> -->
       </mat-toolbar>
       <!-- Add Content Here -->
       <ng-content></ng-content>

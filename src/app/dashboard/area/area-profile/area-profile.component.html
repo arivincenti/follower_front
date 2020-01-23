@@ -51,8 +51,8 @@
             <mat-card-content class="organization-card-info">
               <span class="d-flex align-items-center">
                 <mat-icon class="icon">watch_later</mat-icon>
-                <span>Creada el
-                  <span class="success ml-1">
+                <span>Creada el 
+                  <span class="success">
                     {{area.created_at | date:'fullDate'}}
                   </span>
                 </span>
@@ -63,8 +63,8 @@
               <span class="d-flex align-items-center" *ngIf="area.deleted_at">
                 <mat-icon class="icon">delete</mat-icon>
                 <span>
-                  Dada de baja el
-                  <span class="danger ml-1">
+                  Dada de baja el 
+                  <span class="danger">
                     {{area.deleted_at | date:'fullDate'}}
                   </span>
                 </span>

@@ -68,7 +68,7 @@ ANIMATION DELAYS */
 /* HEADER IMG*/
 .header-image {
   position: relative;
-  bottom: 10px;
+  right: 10px;
   background-size: cover;
 }
 

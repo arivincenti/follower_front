@@ -1,23 +1,26 @@
 <div class="content">
-  <div class="row d-flex align-items-between">
+  <div class="row d-flex align-items-center">
     <div class="col d-flex align-items-center">
       <h6 class="title">{{area.name | titlecase}}</h6>
     </div>
+    
     <div class="col d-flex justify-content-end">
       <ng-container *ngIf="organization.created_by._id === user._id">
 
         <button class="button" mat-icon-button matTooltip="Ingresar al área" matTooltipPosition="above"
-        (click)="selectArea(area)">
-        <mat-icon class="icon-content-in">arrow_forward</mat-icon>
-      </button>
+          (click)="selectArea(area)">
+          <mat-icon class="icon-content-in">arrow_forward</mat-icon>
+        </button>
 
-      <button *ngIf="!area.deleted_at" class="button" mat-icon-button (click)="deleteArea(area)" matTooltip="Dar de baja" matTooltipPosition="above">
-        <mat-icon class="icon-content-in">delete</mat-icon>
-      </button>
+        <button *ngIf="!area.deleted_at" class="button" mat-icon-button (click)="deleteArea(area)"
+          matTooltip="Dar de baja" matTooltipPosition="above">
+          <mat-icon class="icon-content-in">delete</mat-icon>
+        </button>
 
-      <button *ngIf="area.deleted_at" class="button" mat-icon-button (click)="activateArea(area)" matTooltip="Activar" matTooltipPosition="above">
-        <mat-icon class="icon-content-in">history</mat-icon>
-      </button>
+        <button *ngIf="area.deleted_at" class="button" mat-icon-button (click)="activateArea(area)" matTooltip="Activar"
+          matTooltipPosition="above">
+          <mat-icon class="icon-content-in">history</mat-icon>
+        </button>
 
       </ng-container>
     </div>
@@ -28,7 +31,7 @@
 
       <span class="organization-card-info d-flex align-items-center" *ngIf="area.responsible">
         <mat-icon class="icon">face</mat-icon>
-        <span>Responsable / 
+        <span>Responsable /
           {{area.responsible.user.name | titlecase}} {{area.responsible.user.last_name | titlecase}}
         </span>
       </span>
@@ -37,139 +40,27 @@
         <mat-icon class="icon">face</mat-icon>
         <span>Responsable / Sin responsable</span>
       </span>
-      
+
 
       <span class="organization-card-info d-flex align-items-center">
         <mat-icon class="icon">watch_later</mat-icon>
-        <span>Creada el
-          <span class="success ml-1">
+        <span>Creada el 
+          <span class="success">
             {{area.created_at | date:'fullDate'}}
           </span>
         </span>
       </span>
 
       <span class="organization-card-info d-flex align-items-center" *ngIf="area.deleted_at">
-        <mat-icon class="icon">delete</mat-icon> 
-       <span>
-        Dada de baja el
-        <span class="danger ml-1">
-          {{area.deleted_at | date:'fullDate'}}
+        <mat-icon class="icon">delete</mat-icon>
+        <span>
+          Dada de baja el 
+          <span class="danger">
+            {{area.deleted_at | date:'fullDate'}}
+          </span>
         </span>
-       </span> 
       </span>
+
     </div>
   </div>
-
-
-    <!-- <div class="row mt-2">
-      <div class="col-md-12">
-        <span class="organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">how_to_reg</mat-icon>
-          Creada por /
-          <span class="ml-1">
-            {{area.created_by.name}} {{area.created_by.last_name}}
-          </span>
-        </span>
-        <span class="organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">watch_later</mat-icon>
-          Creada el /
-          <span class="success ml-1">
-            {{area.created_at | date:'dd-MM-yyyy'}}
-          </span>
-        </span>
-        <span class="organization-card-info d-flex align-items-center" *ngIf="area.deleted_at">
-          <mat-icon class="icon">delete</mat-icon> Dada de baja el /
-          <span class="danger ml-1">
-            {{area.deleted_at | date:'dd-MM-yyyy'}}
-          </span>
-        </span>
-      </div>
-    </div> -->
-
-    <!-- <div class="row mt-5">
-      <div class="col-md-12 d-flex align-items-center section-title-container mt-4">
-        <mat-icon class="icon">chat</mat-icon>
-        <span class="section-title">
-          Tickets del área
-        </span>
-      </div>
-    </div> -->
-
-    <!-- <div class="row mt-2">
-      <div class="col-md-12">
-        <mat-divider></mat-divider>
-      </div>
-    </div> -->
-
-    <!-- <div class="row mt-3 mb-5 d-flex justify-content-between">
-      <div class="col-md-3 animated value-container">
-        <div class="row">
-          <div class="col-12 card-title d-flex justify-content-center danger">Pendientes</div>
-          <div class="col-12 d-flex justify-content-center">
-            <span class="value">0</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 animated value-container">
-        <div class="row">
-          <div class="col-12 card-title d-flex justify-content-center secondary">Despachados</div>
-          <div class="col-12 d-flex justify-content-center">
-            <span class="value">0</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 animated value-container">
-        <div class="row">
-          <div class="col-12 card-title d-flex justify-content-center success">Resueltos</div>
-          <div class="col-12 d-flex justify-content-center">
-            <span class="value">0</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 animated value-container">
-        <div class="row">
-          <div class="col-12 card-title d-flex justify-content-center info">Todos</div>
-          <div class="col-12 d-flex justify-content-center">
-            <span class="value">0</span>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- <div class="row mt-5">
-      <div class="col-md-6 d-flex align-items-center section-title-container mt-4">
-        <mat-icon class="icon">supervised_user_circle</mat-icon>
-        <span class="section-title">
-          Miembros del área
-        </span>
-      </div>
-      <div class="col-md-6 d-flex justify-content-end mt-4">
-        <button class="mb-1 add-member-button" mat-flat-button color="warn" (click)="addMember()">
-          Agregar Miembro
-        </button>
-      </div>
-    </div> -->
-
-    <!-- <div class="row">
-      <div class="col-md-12">
-        <mat-divider></mat-divider>
-      </div>
-    </div> -->
-
-    <!-- <div class="row" *ngIf="membersLoading">
-      <div class="col-md-12 d-flex justify-content-center">
-        <mat-spinner diameter="30" class="mt-4"></mat-spinner>
-      </div>
-    </div> -->
-
-    <!-- <div class="row mt-2 mb-2">
-      <div class="col-md-12">
-        <ng-container *ngIf="members$ | async as members">
-          <span class="empty-message text-muted" *ngIf="!members.length">El área aún no posee miembros</span>
-          <app-area-members-table *ngIf="members.length" [organization]="organization" [members]="members" [area]="area"
-            [user]="user">
-          </app-area-members-table>
-        </ng-container>
-      </div>
-    </div> -->
 </div>

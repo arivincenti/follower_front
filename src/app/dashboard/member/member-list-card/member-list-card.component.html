@@ -1,162 +1,62 @@
-<!-- <mat-card [ngClass]="{'background-content-card-active': !member.deleted_at, 'background-content-card-inactive': member.deleted_at}">
-  <mat-card-header class="d-flex justify-content-between">
-    <mat-card-title>
-      <div class="row">
-        <div class="col-md-2 d-flex justify-content-start">
-          <img mat-card-avatar class="example-header-image"
-            src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="">
-        </div>
-        <div class="col-md-10">
-          <span class="area-title">{{member.user.name}} {{member.user.last_name}}</span>
-        </div>
-      </div>
-    </mat-card-title>
-    <div class="d-flex justify-content-end">
-      <button class="button" mat-icon-button matTooltip="Ingresar al perfil" matTooltipPosition="above"
-        (click)="selectMember(member)">
-        <mat-icon>meeting_room</mat-icon>
-      </button>
-      <ng-container *ngIf="organization.created_by._id === user._id">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <ng-container *ngIf="!organization.deleted_at">
-            <ng-container *ngIf="!member.deleted_at">
-              <button *ngIf="!member.deleted_at" mat-menu-item (click)="inactiveMember(member)">
-                <mat-icon>delete</mat-icon>
-                <span>Dar de baja</span>
-              </button>
-            </ng-container>
-          </ng-container>
-
-          <ng-container>
-            <button *ngIf="member.deleted_at" mat-menu-item (click)="activateMember(member)">
-              <mat-icon>history</mat-icon>
-              <span>Restaurar</span>
-            </button>
-          </ng-container>
-        </mat-menu>
-      </ng-container>
-    </div>
-  </mat-card-header>
-  <mat-divider></mat-divider>
-  <mat-card-content class="d-flex align-items-center">
-    <span class="organization-card-info d-flex align-items-center">
-      <mat-icon class="icon">bookmarks
-      </mat-icon>
-      Áreas /
-      <span class="ml-1">
-        {{member.areas.length}}
-      </span>
-    </span>
-    <span class="organization-card-info d-flex align-items-center ml-4">
-      <mat-icon class="icon">watch_later</mat-icon>
-      Creado el /
-      <span class="success ml-1">
-        {{member.created_at | date:'dd-MM-yyyy'}}
-      </span>
-    </span>
-    <span class="organization-card-info d-flex align-items-center ml-4" *ngIf="member.deleted_at">
-      <mat-icon class="icon">delete</mat-icon> Dada de baja el /
-      <span class="danger ml-1">
-        {{member.deleted_at | date:'dd-MM-yyyy'}}
-      </span>
-    </span>
-  </mat-card-content>
-</mat-card> -->
-
-
-<mat-expansion-panel class="expansion-panel" [ngClass]="{'background-content-card-inactive': member.deleted_at,
-'text-muted': member.deleted_at}">
-  <mat-expansion-panel-header class="background-content-expansion-active">
-    <mat-panel-description>
-      <div class="row d-flex align-items-center">
-        <div class="col-md-2">
+<div class="content">
+      <div class="row d-flex justify-content-between">
+        <div class="col d-flex align-items-center">
           <img mat-card-avatar class="header-image" [src]="member.user.img | image" alt="">
+          <h6 class="title">{{member.user.name | titlecase}} {{member.user.last_name | titlecase}}   
+          </h6>
         </div>
-        <div class="col-md-10">
-          <h3 class="expansor-title ml-3">{{member.user.name}} {{member.user.last_name}}</h3>
-          <p class="subtitle ml-3">
-            <span>{{member.user.email | lowercase}}</span>
-          </p>
-        </div>
-      </div>
-    </mat-panel-description>
-  </mat-expansion-panel-header>
 
-  <div class="container">
-    <div class="row mt-4">
-      <div class="col-md-6 d-flex align-items-center section-title-container">
-        <mat-icon class="icon">info</mat-icon>
-        <span class="section-title">
-          Información del miembro
-        </span>
-      </div>
-      <div class="col-md-6 d-flex justify-content-end">
-        <ng-container *ngIf="organization.created_by._id === user._id">
+        <div class="col d-flex justify-content-end">
+          <ng-container *ngIf="organization.created_by._id === user._id">
 
-          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Acciones" mat-icon-button matTooltip="Acciones"
-            matTooltipPosition="above">
-            <mat-icon>more_vert</mat-icon>
+            <button class="button" mat-icon-button matTooltip="Ver perfil" matTooltipPosition="above"
+            (click)="selectMember(member)">
+            <mat-icon class="icon-content-in">arrow_forward</mat-icon>
           </button>
-          <mat-menu #menu="matMenu">
-
-
-            <button *ngIf="!member.deleted_at" mat-menu-item (click)="inactiveMember(member)">
-              <mat-icon>delete</mat-icon>
-              <span>Dar de baja</span>
+  
+            <button *ngIf="!member.deleted_at" class="button" mat-icon-button matTooltip="Dar de baja" matTooltipPosition="above" (click)="inactiveMember(member)">
+              <mat-icon class="icon-content-in">delete</mat-icon >
             </button>
-
-
-            <button *ngIf="member.deleted_at" mat-menu-item (click)="activateMember(member)">
-              <mat-icon>history</mat-icon>
-              <span>Restaurar</span>
+  
+            <button *ngIf="member.deleted_at" class="button" mat-icon-button matTooltip="Activar" matTooltipPosition="above" (click)="activateMember(member)">
+              <mat-icon class="icon-content-in">history</mat-icon>
             </button>
-
-          </mat-menu>
-        </ng-container>
+  
+          </ng-container>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
+    <div class="row mb-2 mt-2">
       <div class="col-md-12">
-        <mat-divider></mat-divider>
-      </div>
-    </div>
 
-
-    <div class="row mt-2 mb-2">
-      <div class="col-md-12">
         <span class="organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">bookmarks
-          </mat-icon>
-          Áreas /
-          <span class="ml-1">
-            {{member.areas.length}}
+          <mat-icon class="icon">email</mat-icon>
+          <span>Email / 
+            <span>
+              {{member.user.email | lowercase}}
+            </span>
           </span>
         </span>
-        <span class="organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">how_to_reg</mat-icon>
-          Creado por /
-          <span class="ml-1">
-            {{member.created_by.name}} {{member.created_by.last_name}}
-          </span>
-        </span>
+
         <span class="organization-card-info d-flex align-items-center">
           <mat-icon class="icon">watch_later</mat-icon>
-          Creado el /
-          <span class="success ml-1">
-            {{member.created_at | date:'dd-MM-yyyy'}}
+          <span>Creado el 
+            <span class="success">
+              {{member.created_at | date:'fullDate'}}
+            </span>
           </span>
         </span>
+
         <span class="organization-card-info d-flex align-items-center" *ngIf="member.deleted_at">
-          <mat-icon class="icon">delete</mat-icon> Dado de baja el /
-          <span class="danger ml-1">
-            {{member.deleted_at | date:'dd-MM-yyyy'}}
+          <mat-icon class="icon">delete</mat-icon>
+          <span>
+            Dado de baja el 
+            <span class="danger">
+              {{member.deleted_at | date:'fullDate'}}
+            </span>
           </span>
         </span>
+
       </div>
     </div>
-  </div>
-</mat-expansion-panel>
+</div>

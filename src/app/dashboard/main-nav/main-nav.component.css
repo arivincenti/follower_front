@@ -6,6 +6,18 @@ button {
   outline: none;
 }
 
+.form {
+  position: relative;
+  left: 10px;
+}
+
+mat-form-field{
+  width: 240px;
+  position: relative;
+  top: 8px;
+  font-size: .7em;
+}
+
 .sidenav-container {
   min-height: 100%;
 }
