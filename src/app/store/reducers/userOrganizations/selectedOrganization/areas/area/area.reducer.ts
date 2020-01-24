@@ -1,6 +1,6 @@
 import { AreaModel } from 'src/app/models/area.model';
 import { createReducer, on, Action } from '@ngrx/store';
-import * as AreaActions from '../../../../../../actions/userOrganizations/selectedOrganization/areas/area/area/area.actions';
+import * as AreaActions from '../../../../../actions/userOrganizations/selectedOrganization/areas/area/area.actions';
 
 export interface AreaState
 {
@@ -39,6 +39,32 @@ export const areaReducer = createReducer(
       }
   )),
   on(AreaActions.getAreaFail, (state, { payload }) => (
+    {
+      ...state,
+        loading: false,
+        loaded: false,
+        error: { ...payload }
+      }
+  )),
+  on(AreaActions.createAreaMember, (state) => (
+    {
+      ...state,
+        area: null,
+        loading: true,
+        loaded: false,
+        error: null
+      }
+  )),
+  on(AreaActions.createAreaMemberSuccess, (state, { payload }) => (
+    {
+      ...state,
+        area: { ...payload },
+        loading: false,
+        loaded: true,
+        error: null
+      }
+  )),
+  on(AreaActions.createAreaMemberFail, (state, { payload }) => (
     {
       ...state,
         loading: false,

@@ -45,6 +45,8 @@ export class RegisterComponent implements OnInit
       password: this.password.toUpperCase()
     }
 
+    console.log(user);
+
     this._authService.register(user).subscribe(user =>
     {
       this.router.navigate(['/login']);

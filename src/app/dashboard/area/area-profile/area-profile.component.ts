@@ -6,8 +6,9 @@ import { AppState } from 'src/app/store/app.reducer';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserModel } from 'src/app/models/user.model';
 import { MemberModel } from 'src/app/models/member.model';
-import * as AreaActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/area/area/area.actions';
-import { filter, map } from 'rxjs/operators';
+import * as AreaActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions';
+// import * as AreaMembersActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/area/areaMembers/areaMembers.actions';
+import { map, filter } from 'rxjs/operators';
 import { MemberFormComponent } from '../../member/member-form/member-form.component';
 import { MatDialog } from '@angular/material';
 import { AreaFormComponent } from '../area-form/area-form.component';
@@ -22,7 +23,7 @@ export class AreaProfileComponent implements OnInit, OnDestroy
 
   userSubscription: Subscription = new Subscription();
   paramSubscription: Subscription = new Subscription();
-  areaSubscription: Subscription = new Subscription();
+  // areaSubscription: Subscription = new Subscription();
 
   animation$: Observable<string[]>;
   param: string;
@@ -57,45 +58,22 @@ export class AreaProfileComponent implements OnInit, OnDestroy
       this.user = user;
     });
 
-    this.area$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.area).pipe(
-      // filter(area => area !== null),
+    this.area$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area).pipe(
+      filter(area => area !== null),
       map(area => this.area = area)
     );
 
-    this.areaLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loading);
+    this.areaLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.loading);
 
-    this.areaLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area.loaded);
+    this.areaLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.loaded);
 
-    this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
-
-    this.membersLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loaded);
-    
-    //Traigo todos los miembros de la organizacion y los filtro para que cada area tenga sus respectivos miembros
-    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members)
-      .pipe(map((members: any) =>
-      {
-        var membersFiltered = [];
-
-        members.forEach((member: MemberModel) =>
-        {
-          member.areas.forEach((area: any) =>
-          {
-            if (area === this.area._id)
-            {
-              membersFiltered.push(member)
-            }
-          });
-        });
-
-        return membersFiltered;
-      }));
   }
 
   ngOnDestroy()
   {
     this.userSubscription.unsubscribe();
     this.paramSubscription.unsubscribe();
-    this.areaSubscription.unsubscribe();
+    // this.areaSubscription.unsubscribe();
   }
 
   backToLastPage()

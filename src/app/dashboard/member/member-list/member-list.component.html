@@ -2,7 +2,7 @@
 <!-- <mat-accordion> -->
 <div class="row mt-3 animated" *ngFor="let member of members | memberPaginator:since:until" [ngClass]="animation[0]">
   <div class="col-md-12">
-    <app-member-list-card [organization]="organization" [member]="member" [user]="user"></app-member-list-card>
+    <app-member-list-card [organization]="organization" [member]="member" [user]="user" [area]="area"></app-member-list-card>
   </div>
   <div class="col-md-12 mb-1">
     <mat-divider></mat-divider>

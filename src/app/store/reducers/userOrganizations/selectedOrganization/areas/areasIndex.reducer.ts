@@ -1,22 +1,22 @@
 import { combineReducers } from '@ngrx/store';
 import * as AreasReducer from './areas/areas.reducer';
-import * as AreaIndexReducer from './area/areaIndex.reducer';
+import * as AreaReducer from './area/area.reducer';
 
 export interface state
 {
   areas: AreasReducer.AreasState,
-  selectedArea: AreaIndexReducer.state
+  selectedArea: AreaReducer.AreaState
 }
 
 export const initialState: state = {
   areas: AreasReducer.InitialStateAreas,
-  selectedArea: AreaIndexReducer.initialState
+  selectedArea: AreaReducer.initialStateArea
 };
 
 export const AreasIndexReducer = combineReducers(
   {
     areas: AreasReducer.AreasReducer,
-    selectedArea: AreaIndexReducer.AreasIndexReducer
+    selectedArea: AreaReducer.AreaReducer
   },
   initialState
 );

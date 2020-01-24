@@ -29,18 +29,20 @@
   <div class="row mb-2">
     <div class="col-md-12">
 
-      <span class="organization-card-info d-flex align-items-center" *ngIf="area.responsible">
-        <mat-icon class="icon">face</mat-icon>
-        <span>Responsable /
+      <span class="organization-card-info d-flex align-items-center">
+        <mat-icon class="icon">how_to_reg</mat-icon>
+        <span *ngIf="area.responsible">Responsable /
           {{area.responsible.user.name | titlecase}} {{area.responsible.user.last_name | titlecase}}
         </span>
+        <span *ngIf="!area.responsible">Responsable / Sin responsable</span>
       </span>
 
-      <span class="organization-card-info d-flex align-items-center" *ngIf="!area.responsible">
-        <mat-icon class="icon">face</mat-icon>
-        <span>Responsable / Sin responsable</span>
+      <span class="organization-card-info d-flex align-items-center">
+        <mat-icon class="icon">supervised_user_circle</mat-icon>
+        <span>Miembros /
+          {{area.members.length}}
+        </span>
       </span>
-
 
       <span class="organization-card-info d-flex align-items-center">
         <mat-icon class="icon">watch_later</mat-icon>

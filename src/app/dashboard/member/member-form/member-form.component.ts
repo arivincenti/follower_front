@@ -6,11 +6,13 @@ import { UserModel } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users/users.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import * as MembersActions from '../../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions';
 import { MemberModel } from 'src/app/models/member.model';
 import { DialogDataArea } from 'src/app/models/interfaces/dialogDataArea';
-import { map } from 'rxjs/operators';
 import { AreaModel } from 'src/app/models/area.model';
+import { MembersService } from 'src/app/services/members/members.service';
+import * as MembersActions from '../../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions';
+import * as AreaActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions';
+import { map, filter } from 'rxjs/operators';
 
 
 @Component({
@@ -20,15 +22,20 @@ import { AreaModel } from 'src/app/models/area.model';
 })
 export class MemberFormComponent implements OnInit, OnDestroy
 {
-  membersSubscription: Subscription = new Subscription();
+  organizationMembersSubscription: Subscription = new Subscription();
+  areaMembersSubscription: Subscription = new Subscription();
   form: FormGroup;
   users$: Observable<UserModel[]>;
   members$: Observable<MemberModel[]>;
-  members: MemberModel[];
+  organizationMembers$: Observable<MemberModel[]>;
+  organizationMembers: MemberModel[];
+  areaMembers$: Observable<MemberModel[]>;
+  areaMembers: MemberModel[];
 
   constructor(
     private store: Store<AppState>,
     private _usersService: UsersService,
+    private _membersService: MembersService,
     private dialogRef: MatDialogRef<MemberFormComponent>,
     @Inject(MAT_DIALOG_DATA) private data: DialogDataArea
   ) { }
@@ -37,37 +44,25 @@ export class MemberFormComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     //Traigo todos los miembros de la organizacion y los filtro para que cada area tenga sus respectivos miembros
-    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members)
-      .pipe(map((members: any) =>
-      {
-        if (this.data.area)
-        {
-          var membersFiltered = [];
+    this.organizationMembers$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members);
 
-          members.forEach((member: MemberModel) =>
-          {
-            member.areas.forEach((area: any) =>
-            {
-              if (area === this.data.area._id)
-              {
-                membersFiltered.push(member)
-              }
-            });
-          });
+    this.areaMembers$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.selectedArea.area).pipe(
+      filter(area => area !== null),
+      map(areas => areas.members)
+    );
 
-          return membersFiltered;
-        } else
-        {
-          return members;
-        }
-
-      }));
-
-    this.membersSubscription = this.members$
+    this.areaMembersSubscription = this.areaMembers$
       .subscribe(members =>
       {
-        this.members = members;
-      })
+        this.areaMembers = members;
+      });
+
+    this.organizationMembersSubscription = this.organizationMembers$
+      .subscribe(members =>
+      {
+        this.organizationMembers = members;
+      });
+
 
     this.setForm(this.data.area);
 
@@ -75,7 +70,8 @@ export class MemberFormComponent implements OnInit, OnDestroy
 
   ngOnDestroy()
   {
-    this.membersSubscription.unsubscribe();
+    this.organizationMembersSubscription.unsubscribe();
+    this.areaMembersSubscription.unsubscribe();
   }
 
   setForm(area: AreaModel)
@@ -101,36 +97,50 @@ export class MemberFormComponent implements OnInit, OnDestroy
 
   searchUsers()
   {
+
     let payload = {
-      email: this.form.controls['email'].value
+      email: this.form.controls['email'].value,
+      organization: this.data.organization._id
     }
-    this.users$ = this._usersService.getUsersByEmail(payload);
+
+    //Operador ternario
+    this.data.area ? this.members$ = this._membersService.getMembersByEmail(payload)
+      : this.users$ = this._usersService.getUsersByEmail(payload);
+
   }
 
   createMember()
   {
-    let payload = {
-      email: this.form.controls['email'].value,
-    }
-
-    this._usersService.getUsersByEmail(payload).subscribe(user =>
+    if (this.data.area)
     {
-      if (!user.length)
+      let member = this.organizationMembers.find(member => member.user.email.toLowerCase() === this.form.controls['email'].value.toLowerCase());
+
+      let payload = {
+        area: this.data.area._id,
+        member: member
+      }
+
+      this.store.dispatch(AreaActions.createAreaMember({ payload: payload }));
+
+    } else
+    {
+      let payload = {
+        email: this.form.controls['email'].value,
+      }
+
+      this._usersService.getUsersByEmail(payload).subscribe(user =>
       {
-        console.log('No se encontro el usuario');
-        return;
-      };
+        let member = {
+          organization: this.data.organization,
+          user: user[0]._id,
+          created_by: this.data.user,
+        };
 
-      let member = {
-        organization: this.data.organization,
-        area: this.data.area,
-        user: user[0]._id,
-        created_by: this.data.user,
-      };
+        this.store.dispatch(MembersActions.createMember({ payload: member }));
 
-      this.store.dispatch(MembersActions.createMember({ payload: member }));
+      });
 
-    });
+    }
 
     this.dialogRef.close();
   }
@@ -145,7 +155,7 @@ export class MemberFormComponent implements OnInit, OnDestroy
     let promise = new Promise((resolve, reject) =>
     {
       let email = '';
-      this.members.forEach(member =>
+      this.areaMembers.forEach(member =>
       {
         if (member.user.email.toUpperCase() === this.form.controls['email'].value.toUpperCase()) email = member.user.email.toUpperCase();
       });
@@ -171,7 +181,7 @@ export class MemberFormComponent implements OnInit, OnDestroy
     let promise = new Promise((resolve, reject) =>
     {
       let email = '';
-      this.members.forEach(member =>
+      this.organizationMembers.forEach(member =>
       {
         if (member.user.email.toUpperCase() === this.form.controls['email'].value.toUpperCase()) email = member.user.email.toUpperCase();
       });

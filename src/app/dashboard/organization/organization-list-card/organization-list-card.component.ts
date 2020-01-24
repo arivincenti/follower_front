@@ -46,7 +46,7 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
   {
     this.animation$ = this.store.select(state => state.ui.animated);
     
-    //Estas consultas van directo sobre el servicio porque a esta altura de la aplicacion toidavia no se cargaron ls areas de una organizacion
+    //Estas consultas van directo sobre el servicio porque a esta altura de la aplicacion todavia no se cargaron ls areas de una organización seleccionada
     this.areasSubscription = this._areasService.getAreas(this.organization).subscribe(areas => {
       this.areas = areas;
       this.areasLoading = false;
@@ -77,7 +77,7 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy
   reactivateOrganization(organization: OrganizationModel)
   {
     let payload = {
-      deleted_at: 1
+      deleted_at: undefined
     };
 
     this.store.dispatch(OrganizationsActions.updateOrganization({ organizationId: organization._id, payload: payload }));

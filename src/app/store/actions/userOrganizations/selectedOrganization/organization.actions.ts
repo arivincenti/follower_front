@@ -4,7 +4,7 @@ import { OrganizationModel } from 'src/app/models/organization.model';
 
 export const getOrganization = createAction(
   '[Organization Actions] Get Organization',
-  props<{ organization: string, user: string }>()
+  props<{ organization: string }>()
 );
 
 export const getOrganizationSuccess = createAction(

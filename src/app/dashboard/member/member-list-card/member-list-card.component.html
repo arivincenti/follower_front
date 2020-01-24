@@ -1,62 +1,84 @@
 <div class="content">
-      <div class="row d-flex justify-content-between">
-        <div class="col d-flex align-items-center">
-          <img mat-card-avatar class="header-image" [src]="member.user.img | image" alt="">
-          <h6 class="title">{{member.user.name | titlecase}} {{member.user.last_name | titlecase}}   
-          </h6>
-        </div>
-
-        <div class="col d-flex justify-content-end">
-          <ng-container *ngIf="organization.created_by._id === user._id">
-
-            <button class="button" mat-icon-button matTooltip="Ver perfil" matTooltipPosition="above"
-            (click)="selectMember(member)">
-            <mat-icon class="icon-content-in">arrow_forward</mat-icon>
-          </button>
-  
-            <button *ngIf="!member.deleted_at" class="button" mat-icon-button matTooltip="Dar de baja" matTooltipPosition="above" (click)="inactiveMember(member)">
-              <mat-icon class="icon-content-in">delete</mat-icon >
-            </button>
-  
-            <button *ngIf="member.deleted_at" class="button" mat-icon-button matTooltip="Activar" matTooltipPosition="above" (click)="activateMember(member)">
-              <mat-icon class="icon-content-in">history</mat-icon>
-            </button>
-  
-          </ng-container>
-        </div>
-      </div>
-
-    <div class="row mb-2 mt-2">
-      <div class="col-md-12">
-
-        <span class="organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">email</mat-icon>
-          <span>Email / 
-            <span>
-              {{member.user.email | lowercase}}
-            </span>
+  <div class="row d-flex justify-content-between">
+    <div class="col d-flex align-items-center">
+      <img mat-card-avatar class="header-image" [src]="member.user.img | image" alt="">
+      <h6 class="title">{{member.user.name | titlecase}} {{member.user.last_name | titlecase}}
+      </h6>
+      <ng-container *ngIf="area">
+        <button mat-icon-button class="d-flex justify-content-center align-items-center ml-1"
+          (click)="setResponsibleMember(member)">
+          <span *ngIf="area.responsible">
+            <mat-icon *ngIf="area.responsible._id === member._id" class="responsible-icon warning"
+              matTooltip="Quitar como responsable" matTooltipPosition="above">
+              how_to_reg
+            </mat-icon>
+            <mat-icon *ngIf="area.responsible._id !== member._id" class="none-responsible-icon"
+              matTooltip="Asignar como responsable" matTooltipPosition="above">
+              how_to_reg
+            </mat-icon>
           </span>
-        </span>
-
-        <span class="organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">watch_later</mat-icon>
-          <span>Creado el 
-            <span class="success">
-              {{member.created_at | date:'fullDate'}}
-            </span>
+          <span *ngIf="!area.responsible">
+            <mat-icon class="none-responsible-icon" matTooltip="Asignar como responsable" matTooltipPosition="above">
+              how_to_reg
+            </mat-icon>
           </span>
-        </span>
-
-        <span class="organization-card-info d-flex align-items-center" *ngIf="member.deleted_at">
-          <mat-icon class="icon">delete</mat-icon>
-          <span>
-            Dado de baja el 
-            <span class="danger">
-              {{member.deleted_at | date:'fullDate'}}
-            </span>
-          </span>
-        </span>
-
-      </div>
+        </button>
+      </ng-container>
     </div>
+
+    <div class="col d-flex justify-content-end">
+      <ng-container *ngIf="organization.created_by._id === user._id">
+
+        <button class="button" mat-icon-button matTooltip="Ver perfil" matTooltipPosition="above"
+          (click)="selectMember(member)">
+          <mat-icon class="icon-content-in">arrow_forward</mat-icon>
+        </button>
+
+        <button *ngIf="!member.deleted_at" class="button" mat-icon-button matTooltip="Dar de baja"
+          matTooltipPosition="above" (click)="inactiveMember(member)">
+          <mat-icon class="icon-content-in">delete</mat-icon>
+        </button>
+
+        <button *ngIf="member.deleted_at" class="button" mat-icon-button matTooltip="Activar" matTooltipPosition="above"
+          (click)="activateMember(member)">
+          <mat-icon class="icon-content-in">history</mat-icon>
+        </button>
+
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="row mb-2 mt-2">
+    <div class="col-md-12">
+
+      <span class="organization-card-info d-flex align-items-center">
+        <mat-icon class="icon">email</mat-icon>
+        <span>Email /
+          <span>
+            {{member.user.email | lowercase}}
+          </span>
+        </span>
+      </span>
+
+      <span class="organization-card-info d-flex align-items-center">
+        <mat-icon class="icon">watch_later</mat-icon>
+        <span>Creado el
+          <span class="success">
+            {{member.created_at | date:'fullDate'}}
+          </span>
+        </span>
+      </span>
+
+      <span class="organization-card-info d-flex align-items-center" *ngIf="member.deleted_at">
+        <mat-icon class="icon">delete</mat-icon>
+        <span>
+          Dado de baja el
+          <span class="danger">
+            {{member.deleted_at | date:'fullDate'}}
+          </span>
+        </span>
+      </span>
+
+    </div>
+  </div>
 </div>

@@ -8,7 +8,7 @@ export class AreaModel
     public _id: string,
     public name: string,
     public organization: OrganizationModel,
-    public members: UserModel[],
+    public members: MemberModel[],
     public responsible?: MemberModel,
     public created_by?: UserModel,
     public updated_by?: UserModel,

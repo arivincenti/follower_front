@@ -6,8 +6,8 @@ import { AreasEffects } from './userOrganizations/selectedOrganization/areas/are
 import { MembersEffects } from './userOrganizations/selectedOrganization/members/members/members.effects';
 import { MemberEffects } from './userOrganizations/selectedOrganization/members/member/member.effects';
 import { MemberAreasEffects } from './userOrganizations/selectedOrganization/members/memberAreas/memberAreas.effects';
-import { AreaEffects } from './userOrganizations/selectedOrganization/areas/area/area/area.effects';
-import { AreaMembersEffects } from './userOrganizations/selectedOrganization/areas/area/areaMembers/areaMembers.effects';
+import { AreaEffects } from './userOrganizations/selectedOrganization/areas/area/area.effects';
+// import { AreaMembersEffects } from './userOrganizations/selectedOrganization/areas/area/areaMembers/areaMembers.effects';
 import { UserTicketsEffects } from './userOrganizations/userTickets/userTickets.effects';
 
 
@@ -21,7 +21,7 @@ export const effects: any[] = [
   MemberAreasEffects,
   AreasEffects,
   AreaEffects,
-  AreaMembersEffects,
+  // AreaMembersEffects,
   UserTicketsEffects
 ];
 
@@ -33,5 +33,5 @@ export * from './userOrganizations/selectedOrganization/areas/areas/areas.effect
 export * from './userOrganizations/selectedOrganization/members/members/members.effects';
 export * from './userOrganizations/selectedOrganization/members/member/member.effects';
 export * from './userOrganizations/selectedOrganization/members/memberAreas/memberAreas.effects';
-export * from './userOrganizations/selectedOrganization/areas/area/area/area.effects';
-export * from './userOrganizations/selectedOrganization/areas/area/areaMembers/areaMembers.effects';
+export * from './userOrganizations/selectedOrganization/areas/area/area.effects';
+// export * from './userOrganizations/selectedOrganization/areas/area/areaMembers/areaMembers.effects';

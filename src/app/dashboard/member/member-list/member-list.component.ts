@@ -4,6 +4,7 @@ import { UserModel } from 'src/app/models/user.model';
 import { Observable } from 'rxjs';
 import { MemberModel } from 'src/app/models/member.model';
 import { PageEvent } from '@angular/material';
+import { AreaModel } from 'src/app/models/area.model';
 
 @Component({
   selector: 'app-member-list',
@@ -15,6 +16,7 @@ export class MemberListComponent implements OnInit
   @Input() organization: OrganizationModel;
   @Input() user: UserModel;
   @Input() members: MemberModel[];
+  @Input() area: AreaModel;
   @Input() animation: string[];
 
   //Paginator variables

@@ -34,6 +34,13 @@ export class MembersService
     )
   }
 
+  getMembersByEmail(payload: any)
+  {
+    return this.http.post(`${environment.path}/members/by_email`, payload).pipe(
+      map((data: any) => data['data'])
+    );
+  }
+
   getMemberAreas(user_id: string, organization_id: string)
   {
     return this.http.get(`${environment.path}/members/user/${user_id}/organization/${organization_id}/areas`).pipe(

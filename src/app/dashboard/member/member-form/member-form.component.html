@@ -20,6 +20,11 @@
             <span>{{user.name | titlecase}} {{user.last_name | titlecase}}</span> |
             <small>{{user.email | lowercase }}</small>
           </mat-option>
+          <mat-option *ngFor="let member of members$ | async" [value]="member.user.email">
+            <img class="mr-3" mat-card-avatar [src]="member.user.img | image" alt="">
+            <span>{{member.user.name | titlecase}} {{member.user.last_name | titlecase}}</span> |
+            <small>{{member.user.email | lowercase }}</small>
+          </mat-option>
         </mat-autocomplete>
         <mat-error *ngIf="form.controls['email'].errors?.avaible && data.area">
           Ya <strong>existe</strong> este miembro en el área.<strong>

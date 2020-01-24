@@ -4,7 +4,7 @@ import { mergeMap, catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AreasService } from '../../../../../../services/areas/areas.service';
 import * as AreasActions from '../../../../../actions/userOrganizations/selectedOrganization/areas/areas/areas.actions';
-import * as AreaActions from '../../../../../actions/userOrganizations/selectedOrganization/areas/area/area/area.actions';
+import * as AreaActions from '../../../../../actions/userOrganizations/selectedOrganization/areas/area/area.actions';
 import Swal from 'sweetalert2'
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
@@ -64,6 +64,7 @@ export class AreasEffects
             showConfirmButton: false,
             timer: 2700
           });
+          
           this.store.dispatch(AreaActions.getArea({ payload: area._id }));
           return AreasActions.updateAreaSuccess({ payload: area })
         }),

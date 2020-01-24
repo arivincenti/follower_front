@@ -21,19 +21,8 @@ import { OrganizationFormComponent } from '../organization-form/organization-for
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy
 {
-  //Subject Observable
-  private subjectMemberAreas$ = new Subject<any>();
-  subjectObject = {
-    areas: [],
-    members: []
-  }
-
   //Subscriptions
-  organizationSubscription: Subscription = new Subscription();
   userSubscription: Subscription = new Subscription();
-  memberAreasSubscription: Subscription = new Subscription();
-  membersSubscription: Subscription = new Subscription();
-  areasSubscription: Subscription = new Subscription();
 
 
   organization$: Observable<OrganizationModel>;
@@ -90,9 +79,9 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
     this.organizationLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.loading);
 
-    /////////////////
+    /////////////////////////////////////////////////////
 
-    this.store.dispatch(OrganizationActions.getOrganization({ organization: this.param, user: this.user._id }))
+    this.store.dispatch(OrganizationActions.getOrganization({ organization: this.param }))
 
     this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization).pipe(map(organization => this.organization = organization));
 
@@ -100,65 +89,25 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy
 
     this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).pipe(map(members => this.filterMembers = members));
 
-    this.membersSubscription = this.members$.subscribe(members =>
-    {
-      this.subjectObject.members = members;
-      this.subjectMemberAreas$.next(this.subjectObject);
-    });
-
-    this.areasSubscription = this.areas$.subscribe(areas =>
-    {
-      this.subjectObject.areas = areas;
-      this.subjectMemberAreas$.next(this.subjectObject);
-    });
-
-    //Este metodo no es del store ni de un servicio, esta declarado en este componente
-    this.memberAreas$ = this.getMemberAreas$().pipe(map(data =>
-    {
-      var memberAreas: AreaModel[] = [];
-
-      if (data.areas.length && data.members.length)
+    this.memberAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.areas).pipe(
+      map(areas =>
       {
-        var userMember = null;
-
-        data.members.forEach((member: MemberModel) =>
+        let memberAreas = [];
+        areas.forEach(area =>
         {
-          if (member.user._id === this.user._id) userMember = member;
-        });
-
-        userMember.areas.forEach((memberArea: any) =>
-        {
-          data.areas.forEach((area: AreaModel) =>
+          if (area.members.find(member => member.user._id === this.user._id))
           {
-            if (area._id === memberArea)
-            {
-              memberAreas.push(area);
-            }
-          });
+            memberAreas.push(area);
+          }
         });
-      }
-
-      return memberAreas
-    }));
-
-    //Esto esta de mas, deberia utilizar los miembros existentes y las areas existentes, junto al usuario logueado, para no hacer una consulta a la base de datos.
-
-    // this.memberAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.memberAreas.areas).pipe(map(areas => this.filterMemberAreas = areas));
-
+        return memberAreas;
+      })
+    )
   }
 
   ngOnDestroy()
   {
-    this.organizationSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
-    this.membersSubscription.unsubscribe();
-    this.areasSubscription.unsubscribe();
-  }
-
-  //Funcion Observable
-  getMemberAreas$(): Observable<any>
-  {
-    return this.subjectMemberAreas$.asObservable();
   }
 
   createArea(): void

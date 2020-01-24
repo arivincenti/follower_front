@@ -6,8 +6,11 @@ import { of } from 'rxjs';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { AreasService } from 'src/app/services/areas/areas.service';
 import * as OrganizationsActions from '../../../actions/userOrganizations/organizations/organizations.actions';
-// import * as AreasActions from '../../actions/areas/areas.actions';
+import * as OrganizationActions from '../../../actions/userOrganizations/selectedOrganization/organization.actions';
+
 import Swal from 'sweetalert2'
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
 
 @Injectable()
 export class OrganizationsEffects
@@ -15,7 +18,7 @@ export class OrganizationsEffects
   constructor(
     private actions$: Actions,
     private _organizationsService: OrganizationsService,
-    private _areaService: AreasService
+    private store: Store<AppState>
   ) { }
 
   getOrganizations$ = createEffect(() => this.actions$.pipe(
@@ -64,6 +67,8 @@ export class OrganizationsEffects
             showConfirmButton: false,
             timer: 2500
           });
+
+          this.store.dispatch(OrganizationActions.getOrganization({organization: organization._id}));
           return OrganizationsActions.updateOrganizationSuccess({ organization: organization })
         }),
         catchError(error => of(OrganizationsActions.updateOrganizationFail({ payload: error.error })))

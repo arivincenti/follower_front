@@ -34,6 +34,19 @@ button {
   font-size: 1.2em;
 }
 
+.responsible-icon {
+  font-size: 1.3em;
+  position: relative;
+  top: 4px;
+}
+
+.none-responsible-icon {
+  font-size: 1.3em;
+  position: relative;
+  top: 4px;
+  opacity: 0.3;
+}
+
 .title {
   position: relative;
   top: 5px;

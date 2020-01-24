@@ -4,7 +4,7 @@ import { AreaModel } from 'src/app/models/area.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as AreasActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/areas/areas.actions';
-import * as AreaActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/area/area/area.actions';
+import * as AreaActions from '../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogDataArea } from 'src/app/models/interfaces/dialogDataArea';
 import { FormGroup, FormControl, Validators } from '@angular/forms';

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
 import { OrganizationModel } from 'src/app/models/organization.model';
+import { AreaModel } from 'src/app/models/area.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AreasService
   // ==================================================
   // Get all areas
   // ==================================================
-  getAreas(organization: OrganizationModel, since:number = 0, size:number = 0)
+  getAreas(organization: OrganizationModel, since: number = 0, size: number = 0)
   {
     return this.http.get(`${environment.path}/areas/organization/${organization._id}?since=${since}&size=${size}`)
       .pipe(map((data: any) => data.data));
@@ -70,6 +71,14 @@ export class AreasService
   getAreaMembers(areaId: string)
   {
     return this.http.get(`${environment.path}/areas/${areaId}/members`).pipe(map((data: any) => data.data));
+  }
+
+  // ==================================================
+  // Get all Area Members
+  // ==================================================
+  addAreaMember(payload: any)
+  {
+    return this.http.post(`${environment.path}/areas/add_member`, payload).pipe(map((data: any) => data.data));
   }
 
 }

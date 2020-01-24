@@ -6,77 +6,79 @@
     </div>
   </div>
 
-  <ng-container *ngIf="area$ | async as area">
+  <ng-container *ngIf="areaLoaded$ | async">
 
-    <div class="row">
-      <div class="col-md-12">
-        <button mat-button color="warn" (click)="backToLastPage()">
-          <mat-icon>arrow_back</mat-icon>
-          Ir a la organización
-        </button>
+    <ng-container *ngIf="area$ | async as area">
+      <div class="row">
+        <div class="col-md-12">
+          <button mat-button color="warn" (click)="backToLastPage()">
+            <mat-icon>arrow_back</mat-icon>
+            Ir a la organización
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-12 mb-5">
-        <mat-card class="mt-3">
-          <mat-card-header>
-            <mat-card-title>
-              <div class="d-flex justify-content-center">
-                <h4>
-                  {{area.name}}
-                </h4>
-                <button mat-icon-button color="primary" matTooltip="Editar el nombre del área" matTooltipPosition="right" (click)="updateArea(area)" class="button-edit ml-1">
-                  <mat-icon class="icon-edit">edit</mat-icon>
-                </button>
-              </div>
-            </mat-card-title>
-          </mat-card-header>
-          <mat-divider></mat-divider>
+      <div class="row">
+        <div class="col-md-12 mb-5">
+          <mat-card class="mt-3">
+            <mat-card-header>
+              <mat-card-title>
+                <div class="d-flex justify-content-center">
+                  <h4>
+                    {{area.name}}
+                  </h4>
+                  <button mat-icon-button color="primary" matTooltip="Editar el nombre del área"
+                    matTooltipPosition="right" (click)="updateArea(area)" class="button-edit ml-1"
+                    *ngIf="!area.deleted_at">
+                    <mat-icon class="icon-edit">edit</mat-icon>
+                  </button>
+                </div>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
 
-          <div class="container">
-            <mat-card-content class="organization-card-info mt-4">
-              <span class="d-flex align-items-center" *ngIf="area.responsible">
-                <mat-icon class="icon">face</mat-icon>
-                <span>Responsable /
-                  {{area.responsible.user.name | titlecase}} {{area.responsible.user.last_name | titlecase}}
+            <div class="container">
+              <mat-card-content class="organization-card-info mt-4">
+                <span class="d-flex align-items-center">
+                  <mat-icon class="icon">how_to_reg</mat-icon>
+                  <span *ngIf="area.responsible">Responsable /
+                    {{area.responsible.user.name | titlecase}} {{area.responsible.user.last_name | titlecase}}
+                  </span>
+                  <span *ngIf="!area.responsible">Responsable / Sin responsable</span>
                 </span>
-              </span>
-              <span class="d-flex align-items-center" *ngIf="!area.responsible">
-                <mat-icon class="icon">face</mat-icon>
-                <span>Responsable / Sin responsable</span>
-              </span>
-            </mat-card-content>
 
-            <mat-card-content class="organization-card-info">
-              <span class="d-flex align-items-center">
-                <mat-icon class="icon">watch_later</mat-icon>
-                <span>Creada el 
-                  <span class="success">
-                    {{area.created_at | date:'fullDate'}}
+
+              </mat-card-content>
+
+              <mat-card-content class="organization-card-info">
+                <span class="d-flex align-items-center">
+                  <mat-icon class="icon">watch_later</mat-icon>
+                  <span>Creada el
+                    <span class="success">
+                      {{area.created_at | date:'fullDate'}}
+                    </span>
                   </span>
                 </span>
-              </span>
-            </mat-card-content>
+              </mat-card-content>
 
-            <mat-card-content class="organization-card-info" *ngIf="area.deleted_at">
-              <span class="d-flex align-items-center" *ngIf="area.deleted_at">
-                <mat-icon class="icon">delete</mat-icon>
-                <span>
-                  Dada de baja el 
-                  <span class="danger">
-                    {{area.deleted_at | date:'fullDate'}}
+              <mat-card-content class="organization-card-info" *ngIf="area.deleted_at">
+                <span class="d-flex align-items-center" *ngIf="area.deleted_at">
+                  <mat-icon class="icon">delete</mat-icon>
+                  <span>
+                    Dada de baja el
+                    <span class="danger">
+                      {{area.deleted_at | date:'fullDate'}}
+                    </span>
                   </span>
                 </span>
-              </span>
-            </mat-card-content>
-          </div>
-        </mat-card>
+              </mat-card-content>
+            </div>
+          </mat-card>
+        </div>
       </div>
-    </div>
 
-    <div class="row mb-5">
-      <div class="col-md-12 mb-5">
+      <div class="row mb-5">
+        <!-- <div class="col-md-12 mb-5">
         <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
 
           <div class="col-md-12">
@@ -127,50 +129,42 @@
           </div>
 
         </div>
-      </div>
+      </div> -->
 
 
-      <div class="col-md-12">
-        <div class="row animated d-flex justify-content-between align-items-end mb-3" [ngClass]="animation[0]">
+        <div class="col-md-12">
+          <div class="row animated d-flex justify-content-between align-items-end mb-3" [ngClass]="animation[0]">
 
-          <div class="col d-flex align-items-center">
-            <h4 class="text-muted title">Miembros del área</h4>
+            <div class="col d-flex align-items-center">
+              <h4 class="text-muted title">Miembros del área</h4>
+            </div>
+            <div class="col d-flex justify-content-end" *ngIf="!area.deleted_at">
+              <button class="mb-1 add-member-button" mat-flat-button color="warn" (click)="addMember()">
+                Agregar Miembro
+              </button>
+            </div>
+
           </div>
-          <div class="col d-flex justify-content-end">
-            <button class="mb-1 add-member-button" mat-flat-button color="warn" (click)="addMember()">
-              Agregar Miembro
-            </button>
+          <mat-divider></mat-divider>
+
+          <div class="row" *ngIf="areaLoading">
+            <div class="col-md-12 d-flex justify-content-center">
+              <mat-spinner diameter="30" class="mt-4"></mat-spinner>
+            </div>
+          </div>
+
+          <div class="animated d-flex aligns-items-center justify-content-center" *ngIf="!area.members.length">
+            <span class="empty-message mt-5">El área no tiene miembros</span>
+          </div>
+          <div class="animated delay-300ms mt-3" [ngClass]="animation[0]" *ngIf="area.members.length">
+            <app-member-list [organization]="area.organization" [members]="area.members" [user]="user" [area]="area"
+              [animation]="animation">
+            </app-member-list>
           </div>
 
         </div>
-        <mat-divider></mat-divider>
-
-        <div class="row" *ngIf="areaLoading">
-          <div class="col-md-12 d-flex justify-content-center">
-            <mat-spinner diameter="30" class="mt-4"></mat-spinner>
-          </div>
-        </div>
-
-        <ng-container *ngIf="membersLoaded$ | async">
-          <ng-container *ngIf="members$ | async as members">
-
-            <div class="animated d-flex aligns-items-center justify-content-center"
-              *ngIf="!members.length && membersLoaded$ | async">
-              <span>Todavia no es propietario de ninguna organziación</span>
-            </div>
-
-            <div class="animated delay-300ms mt-3" [ngClass]="animation[0]" *ngIf="members.length">
-
-              <app-area-members-table *ngIf="members.length" [organization]="area.organization" [members]="members"
-                [area]="area" [user]="user">
-              </app-area-members-table>
-
-            </div>
-
-          </ng-container>
-        </ng-container>
       </div>
-    </div>
 
+    </ng-container>
   </ng-container>
 </ng-container>

@@ -94,7 +94,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy
   activateArea(area: AreaModel)
   {
     let payload = {
-      deleted_at: 1,
+      deleted_at: undefined,
       organization: this.organization._id,
       updated_by: this.user._id
     }
