@@ -1,4 +1,10 @@
-<!-- <mat-accordion> -->
+<div class="animated d-flex aligns-items-center justify-content-start"
+*ngIf="!tickets.length">
+<span class="empty-message mt-2">No se encontraron tickets que puedan interesarte, prueba con generar uno y dale seguimiento!</span>
+</div>
+
+<ng-container *ngIf="tickets.length">
+
 <div class="row animated" *ngFor="let ticket of tickets | ticketPaginator:since:until">
   <div class="col-md-12 animated fadeIn mb-3">
     <app-ticket-list-card [ticket]="ticket" [user]="user">
@@ -11,4 +17,5 @@
 <mat-paginator [length]="tickets.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
   (page)="changePage($event)">
 </mat-paginator>
-<!-- </mat-accordion> -->
+
+</ng-container>

@@ -4,14 +4,14 @@
       <app-user-profile></app-user-profile>
     </div>
   </div>
-  <div class="row">
+  <div class="row mb-5">
     <div class="col-md-12 mb-5">
       <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
         <div class="col">
           <h4 class="text-muted title">Mis tickets</h4>
         </div>
         <div class="col d-flex justify-content-end">
-          <button mat-flat-button color="warn" (click)="createOrganization()">
+          <button mat-flat-button color="warn" (click)="createTicket()">
             <span>Generar ticket</span>
           </button>
         </div>
@@ -27,11 +27,7 @@
 
       <ng-container *ngIf="ticketsLoaded$ | async">
         <ng-container *ngIf="tickets$ | async as tickets">
-          <div class="animated d-flex aligns-items-center justify-content-center"
-            *ngIf="!tickets.length && ticketsLoaded$ | async">
-            <span class="empty-message mt-5">Todavia no tiene tickets generados</span>
-          </div>
-          <div class="animated delay-300ms mt-3" [ngClass]="animation[0]" *ngIf="tickets.length">
+          <div class="animated delay-300ms mt-3" [ngClass]="animation[0]">
 
             <app-ticket-list [tickets]="tickets" [user]="user"></app-ticket-list>
 
@@ -41,7 +37,7 @@
     </div>
 
 
-    <div class="col-md-12">
+    <div class="col-md-12 mt-5">
       <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
         <div class="col">
           <h4 class="text-muted title">Mis organizaciones</h4>
@@ -62,16 +58,12 @@
 
       <ng-container *ngIf="organizationsLoaded$ | async">
         <ng-container *ngIf="organizations$ | async as organizations">
-          <div class="animated d-flex aligns-items-center justify-content-center"
-            *ngIf="!organizations.length && organizationsLoaded$ | async">
-            <span>Todavia no es propietario de ninguna organziación</span>
-          </div>
-          <div class="animated delay-300ms mt-3" [ngClass]="animation[0]" *ngIf="organizations.length">
+          <div class="animated delay-300ms mt-3" [ngClass]="animation[0]">
             <app-organization-list [organizations]="organizations" [user]="user"></app-organization-list>
           </div>
         </ng-container>
       </ng-container>
     </div>
-    <!-- </div> -->
+
   </div>
 </ng-container>

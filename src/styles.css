@@ -41,8 +41,8 @@ mat-paginator{
 }
 
 .empty-message {
-  font-size: .9em;
-  opacity: .5;
+  font-size: .8em;
+  opacity: .3;
 }
 
 /* ///////////////////////////////
@@ -112,4 +112,10 @@ ANIMATION DELAYS */
   background-color: rgba(230, 230, 230, 0.1);
   padding-top: 37px !important;
   padding-bottom: 17px !important;
+}
+
+
+.ticket-dialog{
+  height: 600px;
+  width: 600px;
 }

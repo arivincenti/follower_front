@@ -20,3 +20,8 @@ button{
   bottom: 6px;
 }
 
+.span-icon-text{
+  position: relative;
+  right: 10px;
+}
+

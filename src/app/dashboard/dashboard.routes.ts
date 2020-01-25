@@ -10,6 +10,7 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
 import { VerifyTokenGuard } from '../guards/token/verify-token.guard';
 import { LoginGuard } from '../guards/login/login.guard';
 import { TicketComponent } from './ticket/ticket/ticket.component';
+import { TicketFormComponent } from './ticket/ticket-form/ticket-form.component';
 
 
 export const dashboardRoutes: Routes = [
@@ -24,7 +25,7 @@ export const dashboardRoutes: Routes = [
     component: OrganizationComponent
   },
   {
-    path: 'organizations/form/:id',
+    path: 'organizations/form',
     canActivate: [LoginGuard, VerifyTokenGuard],
     component: OrganizationFormComponent
   },
@@ -34,7 +35,7 @@ export const dashboardRoutes: Routes = [
     component: OrganizationProfileComponent
   },
   {
-    path: 'organizations/areas/form/:id',
+    path: 'areas/form',
     canActivate: [LoginGuard, VerifyTokenGuard],
     component: AreaFormComponent
   },
@@ -44,7 +45,7 @@ export const dashboardRoutes: Routes = [
     component: AreaProfileComponent
   },
   {
-    path: 'organizations/members/form/:id',
+    path: 'members/form',
     canActivate: [LoginGuard, VerifyTokenGuard],
     component: MemberFormComponent
   },
@@ -62,5 +63,10 @@ export const dashboardRoutes: Routes = [
     path: 'ticket/:id',
     canActivate: [LoginGuard, VerifyTokenGuard],
     component: TicketComponent
+  },
+  {
+    path: 'ticket/form',
+    canActivate: [LoginGuard, VerifyTokenGuard],
+    component: TicketFormComponent
   },
 ];

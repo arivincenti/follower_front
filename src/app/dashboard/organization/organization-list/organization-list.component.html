@@ -1,14 +1,18 @@
-<!-- <mat-accordion> -->
-<div class="row animated" *ngFor="let organization of organizations | organizationPaginator:since:until">
-  <div class="col-md-12 animated fadeIn mb-3">
-    <app-organization-list-card [organization]="organization" [user]="user">
-    </app-organization-list-card>
-  </div>
-  <div class="col-md-12 mb-3">
-    <mat-divider></mat-divider>
-  </div>
+<div class="animated d-flex aligns-items-center justify-content-start" *ngIf="!organizations.length">
+  <span class="empty-message mt-2">Parece que no perteneces a ninguna organización. Créa la tuya propia y bríndales la mejor asistencia a tus clientes</span>
 </div>
-<mat-paginator [length]="organizations.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-  (page)="changePage($event)">
-</mat-paginator>
-<!-- </mat-accordion> -->
+
+<ng-container *ngIf="organizations.length">
+  <div class="row animated" *ngFor="let organization of organizations | organizationPaginator:since:until">
+    <div class="col-md-12 animated fadeIn mb-3">
+      <app-organization-list-card [organization]="organization" [user]="user">
+      </app-organization-list-card>
+    </div>
+    <div class="col-md-12 mb-3">
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+  <mat-paginator [length]="organizations.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+    (page)="changePage($event)">
+  </mat-paginator>
+</ng-container>

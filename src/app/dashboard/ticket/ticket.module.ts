@@ -5,6 +5,8 @@ import { TicketListCardComponent } from './ticket-list-card/ticket-list-card.com
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TicketComponent } from './ticket/ticket.component';
+import { TicketFormComponent } from './ticket-form/ticket-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -12,16 +14,19 @@ import { TicketComponent } from './ticket/ticket.component';
   declarations: [
     TicketListComponent,
     TicketListCardComponent,
-    TicketComponent
+    TicketComponent,
+    TicketFormComponent
   ],
   imports: [
     CommonModule,
     AngularMaterialModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
   exports: [
     TicketListComponent,
-    TicketListCardComponent
+    TicketListCardComponent,
+    TicketFormComponent
   ]
 })
 export class TicketModule { }

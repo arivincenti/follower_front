@@ -10,6 +10,7 @@ import { OrganizationFormComponent } from '../organization-form/organization-for
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { filter } from 'rxjs/operators';
 import { TicketModel } from 'src/app/models/ticketModel';
+import { TicketFormComponent } from '../../ticket/ticket-form/ticket-form.component';
 
 @Component({
   selector: 'app-organization',
@@ -20,7 +21,8 @@ export class OrganizationComponent implements OnInit, OnDestroy
 {
   userSubscription: Subscription = new Subscription();
 
-  // userSubscription: Subscription = new Subscription();
+  theme$: Observable<string>;
+  
   organizations$: Observable<OrganizationModel[]>;
   organizationsLoading$: Observable<boolean>;
   organizationsLoaded$: Observable<boolean>;
@@ -73,6 +75,17 @@ export class OrganizationComponent implements OnInit, OnDestroy
   {
     this.dialog.open(OrganizationFormComponent, {
       width: '600px',
+      data: {
+        organization: null,
+        user: this.user
+      }
+    });
+  }
+
+  createTicket(): void
+  {
+    this.dialog.open(TicketFormComponent, {
+      panelClass: ['ticket-dialog'],
       data: {
         organization: null,
         user: this.user

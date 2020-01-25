@@ -153,10 +153,7 @@
             </div>
           </div>
 
-          <div class="animated d-flex aligns-items-center justify-content-center" *ngIf="!area.members.length">
-            <span class="empty-message mt-5">El área no tiene miembros</span>
-          </div>
-          <div class="animated delay-300ms mt-3" [ngClass]="animation[0]" *ngIf="area.members.length">
+          <div class="animated delay-300ms mt-3" [ngClass]="animation[0]">
             <app-member-list [organization]="area.organization" [members]="area.members" [user]="user" [area]="area"
               [animation]="animation">
             </app-member-list>
