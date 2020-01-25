@@ -1,24 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { UserModel } from 'src/app/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as AuthActions from '../../store/actions/auth/auth.actions';
 import * as UiActions from '../../store/actions/ui/ui.actions';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.css']
 })
-export class MainNavComponent implements OnInit
+export class MainNavComponent implements OnInit, OnDestroy
 {
-
   user$: Observable<UserModel>;
   theme$: Observable<string>;
-  // tema: string = 'default';
+  oldTheme: string;
+  newTheme: string;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -27,6 +28,7 @@ export class MainNavComponent implements OnInit
     );
 
   constructor(
+    private overlayContainer: OverlayContainer,
     private breakpointObserver: BreakpointObserver,
     private store: Store<AppState>
   ) { }
@@ -34,8 +36,22 @@ export class MainNavComponent implements OnInit
   ngOnInit()
   {    
     this.user$ = this.store.select(state => state.auth.user);
-    this.theme$ = this.store.select(state => state.ui.theme);
+    this.theme$ = this.store.select(state => state.ui.theme).pipe(
+      map(theme => {
+
+        this.newTheme = theme;
+  
+        this.overlayContainer.getContainerElement().classList.remove(this.oldTheme);
+        this.overlayContainer.getContainerElement().classList.add(this.newTheme);
+  
+        this.oldTheme = this.newTheme;
+
+        return theme;
+      })
+    );
   }
+
+  ngOnDestroy(){}
 
   logout()
   {

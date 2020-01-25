@@ -20,8 +20,6 @@ import { TicketFormComponent } from '../../ticket/ticket-form/ticket-form.compon
 export class OrganizationComponent implements OnInit, OnDestroy
 {
   userSubscription: Subscription = new Subscription();
-
-  theme$: Observable<string>;
   
   organizations$: Observable<OrganizationModel[]>;
   organizationsLoading$: Observable<boolean>;

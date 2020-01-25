@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // path: 'https://follower-api.herokuapp.com/api',
-  path: 'http://localhost:3000/api'
+  path: 'https://follower-api.herokuapp.com/api',
+  // path: 'http://localhost:3000/api'
 };
 
 /*
