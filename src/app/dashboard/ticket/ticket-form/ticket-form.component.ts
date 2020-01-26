@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
 import { OrganizationModel } from 'src/app/models/organization.model';
 import { AreaModel } from 'src/app/models/area.model';
 import { AreasService } from 'src/app/services/areas/areas.service';
+import { map } from 'rxjs/operators';
+import * as UserTicketsActions from '../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions';
+
 
 @Component({
   selector: 'app-ticket-form',
@@ -20,7 +23,8 @@ export class TicketFormComponent implements OnInit
   form: FormGroup;
   organizations$: Observable<OrganizationModel[]>;
   areas$: Observable<AreaModel[]>;
-  priorities: string[] = ['Baja', 'Media', 'Alta'];
+  priorities: string[] = ['BAJA', 'MEDIA', 'ALTA'];
+  areasLoading: boolean = false;
 
   constructor(
     private _areasService: AreasService,
@@ -45,12 +49,28 @@ export class TicketFormComponent implements OnInit
   }
 
   selectOrganization(){
+    this.areasLoading = true;
     let organization = this.form.controls['organization'].value
-    this.areas$ = this._areasService.getAreas(organization);
+    this.areas$ = this._areasService.getAreas(organization).pipe(map(areas => {
+
+      this.areasLoading = false;
+      return areas;
+    
+    }));
   }
 
   createTicket(){
-    console.log('se crea el ticket');
+    let ticket = {
+      area: this.form.controls['area'].value,
+      subject: this.form.controls['subject'].value,
+      issue: this.form.controls['issue'].value,
+      created_by: this.data.user,
+      priority: this.form.controls['priority'].value
+    }
+
+    console.log(ticket);
+    this.store.dispatch(UserTicketsActions.createTicket({payload: ticket}));
+    this.dialogRef.close();
   }
 
 }

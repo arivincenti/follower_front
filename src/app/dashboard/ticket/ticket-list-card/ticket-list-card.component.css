@@ -2,6 +2,14 @@ button {
   outline: none;
 }
 
+.code{
+  font-size: .9em;
+  opacity: .5;
+  position: relative;
+  bottom: 10px;
+  left: 27px;
+}
+
 .content{
   min-height: 145px;
 }

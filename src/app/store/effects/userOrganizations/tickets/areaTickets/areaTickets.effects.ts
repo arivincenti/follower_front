@@ -2,26 +2,25 @@ import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { mergeMap, catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
-import * as TicketsActions from '../../../actions/userOrganizations/userTickets/userTickets.actions';
-import Swal from 'sweetalert2'
+import * as AreaTicketsActions from '../../../../actions/userOrganizations/tickets/areaTickets/areaTickets.actions';
 import { TicketsService } from 'src/app/services/tickets/tickets.service';
 
 @Injectable()
-export class UserTicketsEffects
+export class AreaTicketsEffects
 {
   constructor(
     private actions$: Actions,
     private _ticketsService: TicketsService
   ) { }
 
-  getTickets$ = createEffect(() => this.actions$.pipe(
-    ofType(TicketsActions.getTickets),
-    mergeMap(action => this._ticketsService.getTickets(action.payload)
-      .pipe(
-        map((data: any) => TicketsActions.getTicketsSuccess({ payload: data.data })),
-        catchError(error => of(TicketsActions.getTicketsFail(error.error))
-        ))
-    )));
+  // getTickets$ = createEffect(() => this.actions$.pipe(
+  //   ofType(AreaTicketsActions.getTickets),
+  //   mergeMap(action => this._ticketsService.getAreaTickets(action.payload)
+  //     .pipe(
+  //       map((data: any) => AreaTicketsActions.getTicketsSuccess({ payload: data.data })),
+  //       catchError(error => of(AreaTicketsActions.getTicketsFail(error.error))
+  //       ))
+  //   )));
 
   // createOrganization$ = createEffect(() => this.actions$.pipe(
   //   ofType(OrganizationsActions.createOrganization),

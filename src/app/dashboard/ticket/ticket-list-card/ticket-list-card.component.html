@@ -2,12 +2,22 @@
   <div class="content">
     <div class="row d-flex align-items-between">
       <div class="col d-flex align-items-center">
-        <h6 class="subject" [matTooltip]="ticket.subject" matTooltipPosition="right">
-          <span>
-            <mat-icon class="icon-ticket" color="warn">local_activity</mat-icon>
-          </span>
-          {{ticket.subject | titlecase}}
-        </h6>
+        <div class="row">
+          <div class="col-md-12">
+            <h6 class="subject" [matTooltip]="ticket.subject" matTooltipPosition="right">
+              <span>
+                <mat-icon class="icon-ticket" color="warn">local_activity</mat-icon>
+              </span>
+              {{ticket.subject | titlecase}}
+            </h6>
+          </div>
+          <div class="col-md-12">
+            <span class="ticket-card-info d-flex align-items-center">
+              <span class="code">Nº {{ ticket._id }}</span>
+            </span>
+          </div>
+        </div>
+
       </div>
       <div class="col d-flex justify-content-end">
         <button class="button" mat-icon-button matTooltip="Ver detalle" matTooltipPosition="above"
@@ -22,7 +32,8 @@
         <span class="ticket-card-info d-flex align-items-center">
           <mat-icon class="icon">flag</mat-icon>
           Estado /
-          <span class="badge badge-primary badge-ticket-status ml-1 p-1">{{ ticket.status }}</span>
+          <span
+            class="badge badge-primary badge-ticket-status ml-1 p-1">{{ ticket.movements[ticket.movements.length - 1].status }}</span>
         </span>
         <span class="ticket-card-info d-flex align-items-center">
           <mat-icon class="icon">apartment</mat-icon>
@@ -39,11 +50,14 @@
           </span>
         </span>
         <span class="ticket-card-info d-flex align-items-center">
-          
-          <span><mat-icon class="icon">watch_later</mat-icon>Creado por {{ticket.created_by.name | titlecase}} {{ticket.created_by.last_name | titlecase}} el
+
+          <span>
+            <mat-icon class="icon">watch_later</mat-icon>Creado por {{ticket.created_by.name | titlecase}}
+            {{ticket.created_by.last_name | titlecase}} el
             <span class="success">
               {{ticket.created_at | date:'fullDate'}}
-            </span></span>
+            </span>
+          </span>
         </span>
       </div>
     </div>
