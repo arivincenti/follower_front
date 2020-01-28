@@ -1,27 +1,50 @@
-.icon-tab{
-  position: relative;
-  top: 11px;
-  right: 3px;
+.icon-tab {
+	position: relative;
+	top: 11px;
+	right: 3px;
 }
 
-button{
-  outline: none;
+.tab-title {
+	position: relative;
+	top: 19px;
+	font-size: 1.3em;
+	opacity: .5;
+}
+
+.tab-title-2 {
+	position: relative;
+	top: 0px;
+	font-size: 1.3em;
+	opacity: .5;
+}
+
+.tab-button-span {
+	font-size: .9em;
+}
+
+button {
+	outline: none;
+}
+
+.organization-name {
+	position: relative;
+	top: 6px;
+	font-size: 1em;
 }
 
 .icon-edit {
-  position: relative;
-  bottom: 2px;
-  left: 1px;
-  font-size: 1.4em;
+	position: relative;
+	top: 0px;
+	left: 1px;
+	font-size: 1.2em;
 }
 
-.button-edit{
-  position: relative;
-  bottom: 6px;
+.button-edit {
+	position: relative;
+	bottom: 2px;
 }
 
-.span-icon-text{
-  position: relative;
-  right: 10px;
+.span-icon-text {
+	position: relative;
+	right: 10px;
 }
-

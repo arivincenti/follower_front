@@ -11,6 +11,7 @@ import { ImagePipe } from '../pipes/image/image.pipe';
 import { MemberPaginatorPipe } from '../pipes/members/member-paginator.pipe';
 import { TicketPaginatorPipe } from '../pipes/tickets/ticket-paginator.pipe';
 import { OrganizationPaginatorPipe } from '../pipes/organizations/organization-paginator.pipe';
+import { TimePipe } from '../pipes/time/time.pipe';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { OrganizationPaginatorPipe } from '../pipes/organizations/organization-p
     MemberPaginatorPipe,
     ImagePipe,
     TicketPaginatorPipe,
-    OrganizationPaginatorPipe
+    OrganizationPaginatorPipe,
+    TimePipe
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { OrganizationPaginatorPipe } from '../pipes/organizations/organization-p
     MemberPaginatorPipe,
     ImagePipe,
     TicketPaginatorPipe,
-    OrganizationPaginatorPipe
+    OrganizationPaginatorPipe,
+    TimePipe
   ]
 })
 export class SharedModule { }

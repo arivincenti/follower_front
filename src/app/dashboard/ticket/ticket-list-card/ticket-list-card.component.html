@@ -27,6 +27,7 @@
       </div>
     </div>
 
+    <div class="container">
     <div class="row mb-2">
       <div class="col-md-12">
         <span class="ticket-card-info d-flex align-items-center">
@@ -52,14 +53,15 @@
         <span class="ticket-card-info d-flex align-items-center">
 
           <span>
-            <mat-icon class="icon">watch_later</mat-icon>Creado por {{ticket.created_by.name | titlecase}}
-            {{ticket.created_by.last_name | titlecase}} el
-            <span class="success">
-              {{ticket.created_at | date:'fullDate'}}
-            </span>
+            <mat-icon class="icon">watch_later</mat-icon>Creado <span class="success">
+              {{ticket.created_at | time}}
+            </span> por
+            {{ticket.created_by.name | titlecase}}
+            {{ticket.created_by.last_name | titlecase}}
           </span>
         </span>
       </div>
+    </div>
     </div>
   </div>
   <!-- </mat-expansion-panel> -->

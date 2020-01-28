@@ -3,9 +3,9 @@
 
     <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
       <div class="col-md-12 d-flex justify-content-start">
-        <h4 class="text-muted title">
+        <h6 class="text-muted title">
           Perfil del usuario
-        </h4>
+        </h6>
       </div>
     </div>
     <mat-divider></mat-divider>
@@ -30,9 +30,9 @@
                     </div>
                   </div>
                   <div class="col-md-10">
-                    <h4 class="title">
+                    <h4 class="user-name">
                       {{user.name | titlecase}} {{user.last_name | titlecase}}
-                      <button mat-icon-button color="primary" matTooltip="Editar perfil" matTooltipPosition="right">
+                      <button mat-icon-button color="primary" matTooltip="Editar perfil" matTooltipPosition="right" class="button-edit">
                         <mat-icon class="icon-edit">edit</mat-icon>
                       </button>
                     </h4>
@@ -52,16 +52,18 @@
 
             <mat-card-content class="organization-card-info">
               <mat-icon class="icon">watch_later</mat-icon>
-              Se unió a follower el 
+              Se unió a follower  
               <span class="success">
-                {{user.created_at | date:'EEEE dd MMMM yyyy'}}
+                {{user.created_at | time}}
               </span>
             </mat-card-content>
 
-            <mat-card-content class="organization-card-info">
-              <mat-icon class="icon">lock</mat-icon>
-              Privacidad
-            </mat-card-content>
+            <!-- <mat-card-content class="organization-card-info">
+              <button mat-button color="warn" (click)="createOrganization()">
+                <mat-icon class="icon">lock</mat-icon>
+                <span class="button-span">Cambiar contraseña</span>
+              </button>
+            </mat-card-content> -->
 
           </div>
         </mat-card>

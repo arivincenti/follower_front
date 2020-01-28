@@ -31,6 +31,8 @@
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
     "materialize-css": "^1.0.0",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
     "ngrx-store-localstorage": "^8.0.0",
     "ngx-material-file-input": "^2.0.0",
     "rxjs": "^6.5.4",

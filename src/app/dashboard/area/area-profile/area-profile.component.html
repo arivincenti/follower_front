@@ -24,11 +24,11 @@
             <mat-card-header>
               <mat-card-title>
                 <div class="d-flex justify-content-center">
-                  <h4>
-                    {{area.name}}
-                  </h4>
+                  <h6 class="area-name">
+                    {{area.name | titlecase}}
+                  </h6>
                   <button mat-icon-button color="primary" matTooltip="Editar el nombre del área"
-                    matTooltipPosition="right" (click)="updateArea(area)" class="button-edit ml-1"
+                    matTooltipPosition="right" (click)="updateArea(area)" class="button-edit"
                     *ngIf="!area.deleted_at">
                     <mat-icon class="icon-edit">edit</mat-icon>
                   </button>
@@ -53,9 +53,9 @@
               <mat-card-content class="organization-card-info">
                 <span class="d-flex align-items-center">
                   <mat-icon class="icon">watch_later</mat-icon>
-                  <span>Creada el
+                  <span>Creada
                     <span class="success">
-                      {{area.created_at | date:'fullDate'}}
+                      {{area.created_at | time}}
                     </span>
                   </span>
                 </span>
@@ -65,9 +65,9 @@
                 <span class="d-flex align-items-center" *ngIf="area.deleted_at">
                   <mat-icon class="icon">delete</mat-icon>
                   <span>
-                    Dada de baja el
+                    Dada de baja
                     <span class="danger">
-                      {{area.deleted_at | date:'fullDate'}}
+                      {{area.deleted_at | time}}
                     </span>
                   </span>
                 </span>
@@ -139,8 +139,8 @@
               <h4 class="text-muted title">Miembros del área</h4>
             </div>
             <div class="col d-flex justify-content-end" *ngIf="!area.deleted_at">
-              <button class="mb-1 add-member-button" mat-flat-button color="warn" (click)="addMember()">
-                Agregar Miembro
+              <button class="mb-1 add-member-button" mat-button color="warn" (click)="addMember()">
+                <span class="button-span">Agregar Miembro</span>
               </button>
             </div>
 

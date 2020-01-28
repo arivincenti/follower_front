@@ -21,9 +21,9 @@
         <mat-card-header>
           <mat-card-title>
             <div class="d-flex justify-content-center">
-              <h4>
-                {{organization.name}}
-              </h4>
+              <h6 class="organization-name">
+                {{organization.name | titlecase}}
+              </h6>
               <button mat-icon-button color="primary" matTooltip="Editar el nombre de la organización" matTooltipPosition="right" *ngIf="!organization.deleted_at" (click)="updateOrganization(organization)" class="button-edit ml-1">
                 <mat-icon class="icon-edit">create</mat-icon>
               </button>
@@ -53,9 +53,9 @@
           <mat-card-content class="organization-card-info">
             <span class="d-flex align-items-center">
               <mat-icon class="icon">watch_later</mat-icon>
-              <span>Creada el 
+              <span>Creada 
                 <span class="success">
-                  {{organization.created_at | date:'fullDate'}}
+                  {{organization.created_at | time}}
                 </span>
               </span>
             </span>
@@ -80,8 +80,8 @@
           <mat-tab-group mat-stretch-tabs>
             <mat-tab *ngIf="user._id === organization.created_by._id" label="Miembros de la organización">
               <ng-template mat-tab-label>
-                <mat-icon class="icon mr-2">supervised_user_circle</mat-icon>
-                Miembros de la organización
+                <mat-icon class="tab-icon mr-2" matTooltip="Miembros de la organización" matTooltipPosition="above">supervised_user_circle</mat-icon>
+                <!-- Miembros de la organización -->
               </ng-template>
               
               <div class="row" *ngIf="membersLoading$ | async">
@@ -95,9 +95,10 @@
 
                   <div class="col d-flex justify-content-start animated delay-500ms" [ngClass]="animation[0]"
                     *ngIf="!organization.deleted_at">
-                    <button mat-flat-button color="warn" (click)="createMember()" matTooltip="Agregar miembro"
+                    <span class="tab-title">Miembros</span>
+                    <button mat-button color="warn" (click)="createMember()" matTooltip="Agregar miembro"
                       matTooltipPosition="right" class="m-3">
-                      <span>Nuevo miembro</span>
+                      <span class="tab-button-span">Nuevo miembro</span>
                     </button>
                   </div>
 
@@ -118,8 +119,8 @@
             <!-- Areas de la organizacion  -->
             <mat-tab *ngIf="user._id === organization.created_by._id">
               <ng-template mat-tab-label>
-                <mat-icon class="icon mr-2">bookmarks</mat-icon>
-                Áreas de la organización
+                <mat-icon class="tab-icon mr-2" matTooltip="Áreas de la organización" matTooltipPosition="above">bookmarks</mat-icon>
+                <!-- Áreas de la organización -->
               </ng-template>
 
               <div class="row" *ngIf="areasLoading$ | async">
@@ -131,9 +132,10 @@
               <div class="container" *ngIf="areasLoaded$ | async">
                 <div class="row d-flex align-items-center justify-content-between" *ngIf="areas$ | async as areas">
                   <div class="col d-flex justify-content-start animated delay-500ms" [ngClass]="animation[0]">
-                    <button mat-flat-button color="warn" *ngIf="!organization.deleted_at" (click)="createArea()"
+                    <span class="tab-title">Áreas</span>
+                    <button mat-button color="warn" *ngIf="!organization.deleted_at" (click)="createArea()"
                       matTooltip="Agregar área" matTooltipPosition="right" class="m-3">
-                      <span>
+                      <span class="tab-button-span">
                         Nueva área
                       </span>
                     </button>
@@ -154,8 +156,8 @@
 
             <mat-tab label="Mis Áreas">
               <ng-template mat-tab-label>
-                <mat-icon class="icon mr-2">bookmark</mat-icon>
-                Mis Áreas
+                <mat-icon class="tab-icon mr-2" matTooltip="Mis áreas" matTooltipPosition="above">bookmark</mat-icon>
+                <!-- Mis Áreas -->
               </ng-template>
               <mat-divider></mat-divider>
 
@@ -165,11 +167,20 @@
                 </div>
               </div>
 
-              <div class="container" *ngIf="!memberAreasLoading">
-                <div class="row d-flex align-items-center" *ngIf="memberAreas$ | async as memberAreas">
+              <div class="container">
+                <div class="row d-flex align-items-center justify-content-between tab-title-conteiner" *ngIf="memberAreas$ | async as memberAreas">
+                  <div class="col d-flex justify-content-start animated delay-500ms m-3" [ngClass]="animation[0]">
+                    <span class="tab-title-2">Mis áreas</span>
+                  </div>
+                  <div class="col d-flex justify-content-end animated delay-500ms m-3" [ngClass]="animation[0]">
+                    <app-filter [originalArray]="memberAreas" (transformArray)="filterMemberAreas = $event"></app-filter>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row d-flex align-items-center">
                   <div class="col-md-12">
                     <div class="animated delay-500ms mt-4" [ngClass]="animation[0]">
-                      <app-areas-list [organization]="organization" [areas]="memberAreas" [user]="user"
+                      <app-areas-list [organization]="organization" [areas]="filterMemberAreas" [user]="user"
                         [animation]="animation">
                       </app-areas-list>
                     </div>

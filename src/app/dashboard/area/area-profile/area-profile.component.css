@@ -1,48 +1,54 @@
-button{
-  outline: none;
+button {
+	outline: none;
 }
 
 mat-card {
-  overflow: hidden;
+	overflow: hidden;
 }
 
 .value {
-  cursor:pointer;
-  font-size: 2.1em;
-  font-weight: bolder;
+	cursor: pointer;
+	font-size: 2.1em;
+	font-weight: bolder;
 }
 
 .add-member-button {
-  font-size: 0.9em;
+	font-size: 0.9em;
 }
 
-.title{
-  font-size: 1.3em;
+.title {
+	font-size: 1.3em;
+}
+
+.area-name {
+	font-size: 1em;
+	position: relative;
+	top: 5px;
+	left: 5px;
 }
 
 .icon-edit {
-  position: relative;
-  bottom: 2px;
-  left: 1px;
-  font-size: 1.4em;
+	position: relative;
+	top: 0px;
+	left: 1px;
+	font-size: 1.2em;
 }
 
-.button-edit{
-  position: relative;
-  bottom: 6px;
+.button-edit {
+	position: relative;
+	left: 8px;
+	bottom: 3px;
 }
 
-@media(max-width: 990px){
-  .title {
-    width: 200px;
-  }
+.button-span {
+	font-size: .9em;
 }
 
-
-
-
-
-
+@media (max-width: 990px) {
+	.title {
+		width: 200px;
+	}
+}
 
 /* .value-container{
 height: 130px;
@@ -63,4 +69,3 @@ height: 130px;
 .btn{
   font-size: .7em;
 } */
-

@@ -1,41 +1,54 @@
-button{
-  outline: none;
+button {
+	outline: none;
 }
 
 .title {
-  font-size: 1.3em;
-  position: relative;
-  top: 5px;
-  left: 10px;
+	font-size: 1.3em;
+	position: relative;
+	top: 5px;
+	left: 10px;
 }
 
-/* .image-content{
-  border-radius: 50%;
-} */
+.user-name {
+	font-size: 1em;
+	position: relative;
+	top: 5px;
+	left: 10px;
+}
+
+.button-span {
+	font-size: .9em;
+}
 
 .button-image {
-  opacity: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-  border-radius: 50%;
+	opacity: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1;
+	border-radius: 50%;
 }
 
 .button-image:hover {
-  opacity: 1;
-  transition: all ease 0.2s;
+	opacity: 1;
+	transition: all ease 0.2s;
 }
 
 .imagen {
-  position: relative;
-  right: 40px;
+	position: relative;
+	right: 40px;
 }
 
 .change-image-icon {
-  color: white;
+	color: white;
 }
 
 .icon-edit {
-  position: relative;
-  bottom: 5px;
-  font-size: 1.4em;
+	position: relative;
+	top: 0px;
+	left: 1px;
+	font-size: 1.2em;
+}
+
+.button-edit {
+	position: relative;
+	bottom: 3px;
 }

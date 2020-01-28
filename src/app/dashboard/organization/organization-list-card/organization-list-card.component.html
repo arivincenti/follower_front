@@ -30,33 +30,36 @@
 
       </div>
     </div>
-    <div class="row mb-2">
-      <div class="col-md-12">
-        <span class="organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">bookmarks</mat-icon>
-          Áreas / <mat-spinner *ngIf="areasLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]">
-          </mat-spinner> <span *ngIf="!areasLoading" class="ml-1 animated delay-300ms"
-            [ngClass]="animation[3]">{{areas.length}}</span>
-        </span>
-        <span class="organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">supervised_user_circle</mat-icon>
-          Miembros / <mat-spinner *ngIf="membersLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]">
-          </mat-spinner> <span *ngIf="!membersLoading" class="ml-1 animated delay-300ms"
-            [ngClass]="animation[3]">{{members.length}}</span>
-        </span>
-        <span class=" organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">watch_later</mat-icon>
-          Creada el
-          <span class="success ml-1">
-            {{organization.created_at | date:'fullDate'}}
+
+    <div class="container">
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <span class="organization-card-info d-flex align-items-center">
+            <mat-icon class="icon">bookmarks</mat-icon>
+            Áreas / <mat-spinner *ngIf="areasLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]">
+            </mat-spinner> <span *ngIf="!areasLoading" class="ml-1 animated delay-300ms"
+              [ngClass]="animation[3]">{{areas.length}}</span>
           </span>
-        </span>
-        <span class="organization-card-info d-flex align-items-center" *ngIf="organization.deleted_at">
-          <mat-icon class="icon">delete</mat-icon> Dada de baja el
-          <span class="danger ml-1">
-            {{organization.deleted_at | date:'fullDate'}}
+          <span class="organization-card-info d-flex align-items-center">
+            <mat-icon class="icon">supervised_user_circle</mat-icon>
+            Miembros / <mat-spinner *ngIf="membersLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]">
+            </mat-spinner> <span *ngIf="!membersLoading" class="ml-1 animated delay-300ms"
+              [ngClass]="animation[3]">{{members.length}}</span>
           </span>
-        </span>
+          <span class=" organization-card-info d-flex align-items-center">
+            <mat-icon class="icon">watch_later</mat-icon>
+            Creada
+            <span class="success ml-1">
+              {{organization.created_at | time}}
+            </span>
+          </span>
+          <span class="organization-card-info d-flex align-items-center" *ngIf="organization.deleted_at">
+            <mat-icon class="icon">delete</mat-icon> Dada de baja
+            <span class="danger ml-1">
+              {{organization.deleted_at | time}}
+            </span>
+          </span>
+        </div>
       </div>
     </div>
   </div>

@@ -15,139 +15,145 @@ import { map } from 'rxjs/operators';
 import { OrganizationFormComponent } from '../organization-form/organization-form.component';
 
 @Component({
-  selector: 'app-organization-profile',
-  templateUrl: './organization-profile.component.html',
-  styleUrls: ['./organization-profile.component.css']
+	selector: 'app-organization-profile',
+	templateUrl: './organization-profile.component.html',
+	styleUrls: [ './organization-profile.component.css' ]
 })
-export class OrganizationProfileComponent implements OnInit, OnDestroy
-{
-  //Subscriptions
-  userSubscription: Subscription = new Subscription();
+export class OrganizationProfileComponent implements OnInit, OnDestroy {
+	//Subscriptions
+	userSubscription: Subscription = new Subscription();
 
+	organization$: Observable<OrganizationModel>;
+	organizationLoading$: Observable<boolean>;
+	user: UserModel;
+	animation$: Observable<string[]>;
+	organization: OrganizationModel;
 
-  organization$: Observable<OrganizationModel>;
-  organizationLoading$: Observable<boolean>;
-  user: UserModel;
-  animation$: Observable<string[]>;
-  organization: OrganizationModel;
+	//Filter & counter
+	param: string;
 
-  //Filter & counter
-  param: string;
+	//Areas
+	areas$: Observable<AreaModel[]>;
+	areasLoading$: Observable<boolean>;
+	areasLoaded$: Observable<boolean>;
+	filterAreas: AreaModel[];
 
-  //Areas
-  areas$: Observable<AreaModel[]>;
-  areasLoading$: Observable<boolean>;
-  areasLoaded$: Observable<boolean>;
-  filterAreas: AreaModel[];
+	//Member Areas
+	memberAreas$: Observable<AreaModel[]>;
+	memberAreasLoading: boolean = false;
+	filterMemberAreas: AreaModel[];
 
-  //Member Areas
-  memberAreas$: Observable<AreaModel[]>;
-  memberAreasLoading: boolean = false;
-  filterMemberAreas: AreaModel[];
+	//Members
+	members$: Observable<MemberModel[]>;
+	membersLoading$: Observable<boolean>;
+	membersLoaded$: Observable<boolean>;
+	filterMembers: MemberModel[];
 
-  //Members
-  members$: Observable<MemberModel[]>;
-  membersLoading$: Observable<boolean>;
-  membersLoaded$: Observable<boolean>;
-  filterMembers: MemberModel[];
+	constructor (
+		private store: Store<AppState>,
+		private activatedRoute: ActivatedRoute,
+		private router: Router,
+		private dialog: MatDialog
+	) {}
 
+	ngOnInit () {
+		this.param = this.activatedRoute.snapshot.paramMap.get('id');
 
-  constructor(
-    private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private dialog: MatDialog
-  ) { }
+		this.userSubscription = this.store
+			.select((state) => state.auth.user)
+			.subscribe((user) => (this.user = user));
 
-  ngOnInit()
-  {
+		this.animation$ = this.store.select((state) => state.ui.animated);
 
-    this.param = this.activatedRoute.snapshot.paramMap.get('id');
+		//Loadings
+		this.areasLoading$ = this.store.select(
+			(state) => state.userOrganizations.selectedOrganization.areas.areas.loading
+		);
 
-    this.userSubscription = this.store.select(state => state.auth.user).subscribe(user => this.user = user);
+		this.areasLoaded$ = this.store.select(
+			(state) => state.userOrganizations.selectedOrganization.areas.areas.loaded
+		);
 
-    this.animation$ = this.store.select(state => state.ui.animated);
+		this.membersLoading$ = this.store.select(
+			(state) => state.userOrganizations.selectedOrganization.members.members.loading
+		);
 
-    //Loadings
-    this.areasLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loading);
+		this.membersLoaded$ = this.store.select(
+			(state) => state.userOrganizations.selectedOrganization.members.members.loaded
+		);
 
-    this.areasLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.loaded);
+		this.organizationLoading$ = this.store.select(
+			(state) => state.userOrganizations.selectedOrganization.organization.loading
+		);
 
-    this.membersLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loading);
+		/////////////////////////////////////////////////////
 
-    this.membersLoaded$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.loaded);
+		this.store.dispatch(OrganizationActions.getOrganization({ organization: this.param }));
 
-    this.organizationLoading$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.loading);
+		this.organization$ = this.store
+			.select((state) => state.userOrganizations.selectedOrganization.organization.organization)
+			.pipe(map((organization) => (this.organization = organization)));
 
-    /////////////////////////////////////////////////////
+		this.areas$ = this.store
+			.select((state) => state.userOrganizations.selectedOrganization.areas.areas.areas)
+			.pipe(map((areas) => (this.filterAreas = areas)));
 
-    this.store.dispatch(OrganizationActions.getOrganization({ organization: this.param }))
+		this.members$ = this.store
+			.select((state) => state.userOrganizations.selectedOrganization.members.members.members)
+			.pipe(map((members) => (this.filterMembers = members)));
 
-    this.organization$ = this.store.select(state => state.userOrganizations.selectedOrganization.organization.organization).pipe(map(organization => this.organization = organization));
+		this.memberAreas$ = this.store
+			.select((state) => state.userOrganizations.selectedOrganization.areas.areas.areas)
+			.pipe(
+				map((areas) => {
+					this.filterMemberAreas = [];
+					areas.forEach((area) => {
+						if (area.members.find((member) => member.user._id === this.user._id)) {
+							this.filterMemberAreas.push(area);
+						}
+					});
+					return this.filterMemberAreas;
+				})
+			);
+	}
 
-    this.areas$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.areas).pipe(map(areas => this.filterAreas = areas));
+	ngOnDestroy () {
+		this.userSubscription.unsubscribe();
+	}
 
-    this.members$ = this.store.select(state => state.userOrganizations.selectedOrganization.members.members.members).pipe(map(members => this.filterMembers = members));
+	createArea (): void {
+		this.dialog.open(AreaFormComponent, {
+			width: '600px',
+			data: {
+				user: this.user,
+				organization: this.organization,
+				area: null
+			}
+		});
+	}
 
-    this.memberAreas$ = this.store.select(state => state.userOrganizations.selectedOrganization.areas.areas.areas).pipe(
-      map(areas =>
-      {
-        let memberAreas = [];
-        areas.forEach(area =>
-        {
-          if (area.members.find(member => member.user._id === this.user._id))
-          {
-            memberAreas.push(area);
-          }
-        });
-        return memberAreas;
-      })
-    )
-  }
+	createMember (): void {
+		this.dialog.open(MemberFormComponent, {
+			width: '600px',
+			data: {
+				user: this.user,
+				organization: this.organization,
+				area: null
+			}
+		});
+	}
 
-  ngOnDestroy()
-  {
-    this.userSubscription.unsubscribe();
-  }
+	updateOrganization (organization: OrganizationModel): void {
+		this.dialog.open(OrganizationFormComponent, {
+			width: '600px',
+			data: {
+				organization: organization,
+				user: this.user
+			}
+		});
+	}
 
-  createArea(): void
-  {
-    this.dialog.open(AreaFormComponent, {
-      width: '600px',
-      data: {
-        user: this.user,
-        organization: this.organization,
-        area: null
-      }
-    });
-  }
-
-  createMember(): void
-  {
-    this.dialog.open(MemberFormComponent, {
-      width: '600px',
-      data: {
-        user: this.user,
-        organization: this.organization,
-        area: null
-      }
-    });
-  }
-
-  updateOrganization(organization: OrganizationModel): void
-  {
-    this.dialog.open(OrganizationFormComponent, {
-      width: '600px',
-      data: {
-        organization: organization,
-        user: this.user
-      }
-    });
-  }
-
-  backToLastPage()
-  {
-    this.router.navigate(['app/organizations']);
-  }
-
+	backToLastPage () {
+		this.router.navigate([ 'app/organizations' ]);
+	}
 }

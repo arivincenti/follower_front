@@ -62,9 +62,9 @@
 
       <span class="organization-card-info d-flex align-items-center">
         <mat-icon class="icon">watch_later</mat-icon>
-        <span>Creado el
+        <span>Creado 
           <span class="success">
-            {{member.created_at | date:'fullDate'}}
+            {{member.created_at | time}}
           </span>
         </span>
       </span>
@@ -72,9 +72,9 @@
       <span class="organization-card-info d-flex align-items-center" *ngIf="member.deleted_at">
         <mat-icon class="icon">delete</mat-icon>
         <span>
-          Dado de baja el
+          Dado de baja 
           <span class="danger">
-            {{member.deleted_at | date:'fullDate'}}
+            {{member.deleted_at | time}}
           </span>
         </span>
       </span>

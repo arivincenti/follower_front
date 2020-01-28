@@ -68,7 +68,6 @@ export class TicketFormComponent implements OnInit
       priority: this.form.controls['priority'].value
     }
 
-    console.log(ticket);
     this.store.dispatch(UserTicketsActions.createTicket({payload: ticket}));
     this.dialogRef.close();
   }
