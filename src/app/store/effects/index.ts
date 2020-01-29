@@ -9,21 +9,21 @@ import { MemberAreasEffects } from './userOrganizations/selectedOrganization/mem
 import { AreaEffects } from './userOrganizations/selectedOrganization/areas/area/area.effects';
 import { UserTicketsEffects } from './userOrganizations/tickets/userTickets/userTickets.effects';
 import { AreaTicketsEffects } from './userOrganizations/tickets/areaTickets/areaTickets.effects';
-
-
+import { TicketEffects } from './userOrganizations/tickets/ticket/ticket.effects';
 
 export const effects: any[] = [
-  UiEffects,
-  AuthEffects,
-  OrganizationsEffects,
-  OrganizationEffects,
-  MembersEffects,
-  MemberEffects,
-  MemberAreasEffects,
-  AreasEffects,
-  AreaEffects,
-  UserTicketsEffects,
-  AreaTicketsEffects
+	UiEffects,
+	AuthEffects,
+	OrganizationsEffects,
+	OrganizationEffects,
+	MembersEffects,
+	MemberEffects,
+	MemberAreasEffects,
+	AreasEffects,
+	AreaEffects,
+	UserTicketsEffects,
+	AreaTicketsEffects,
+	TicketEffects
 ];
 
 export * from './ui/ui.effects';
@@ -37,3 +37,4 @@ export * from './userOrganizations/selectedOrganization/members/memberAreas/memb
 export * from './userOrganizations/selectedOrganization/areas/area/area.effects';
 export * from './userOrganizations/tickets/userTickets/userTickets.effects';
 export * from './userOrganizations/tickets/areaTickets/areaTickets.effects';
+export * from './userOrganizations/tickets/ticket/ticket.effects';

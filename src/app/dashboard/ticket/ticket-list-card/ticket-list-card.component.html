@@ -21,48 +21,47 @@
       </div>
       <div class="col d-flex justify-content-end">
         <button class="button" mat-icon-button matTooltip="Ver detalle" matTooltipPosition="above"
-          (click)="selectOrganization(organization)">
+          (click)="ticketDetail(ticket)">
           <mat-icon class="icon-ticket-in">arrow_forward</mat-icon>
         </button>
       </div>
     </div>
 
     <div class="container">
-    <div class="row mb-2">
-      <div class="col-md-12">
-        <span class="ticket-card-info d-flex align-items-center">
-          <mat-icon class="icon">flag</mat-icon>
-          Estado /
-          <span
-            class="badge badge-primary badge-ticket-status ml-1 p-1">{{ ticket.movements[ticket.movements.length - 1].status }}</span>
-        </span>
-        <span class="ticket-card-info d-flex align-items-center">
-          <mat-icon class="icon">apartment</mat-icon>
-          Organización /
-          <span class="ml-1">
-            {{ticket.movements[ticket.movements.length - 1 ].area.organization.name | titlecase }}
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <span class="ticket-card-info d-flex align-items-center">
+            <mat-icon class="icon">flag</mat-icon>
+            Estado /
+            <span
+              class="badge badge-primary badge-ticket-status ml-1 p-1">{{ ticket.movements[ticket.movements.length - 1].status }}</span>
           </span>
-        </span>
-        <span class="ticket-card-info d-flex align-items-center">
-          <mat-icon class="icon">bookmark</mat-icon>
-          Área /
-          <span class="ml-1">
-            {{ticket.movements[ticket.movements.length - 1 ].area.name | titlecase }}
+          <span class="ticket-card-info d-flex align-items-center">
+            <mat-icon class="icon">apartment</mat-icon>
+            Organización /
+            <span class="ml-1">
+              {{ticket.movements[ticket.movements.length - 1 ].area.organization.name | titlecase }}
+            </span>
           </span>
-        </span>
-        <span class="ticket-card-info d-flex align-items-center">
+          <span class="ticket-card-info d-flex align-items-center">
+            <mat-icon class="icon">bookmark</mat-icon>
+            Área /
+            <span class="ml-1">
+              {{ticket.movements[ticket.movements.length - 1 ].area.name | titlecase }}
+            </span>
+          </span>
+          <span class="ticket-card-info d-flex align-items-center">
 
-          <span>
-            <mat-icon class="icon">watch_later</mat-icon>Creado <span class="success">
-              {{ticket.created_at | time}}
-            </span> por
-            {{ticket.created_by.name | titlecase}}
-            {{ticket.created_by.last_name | titlecase}}
+            <span>
+              <mat-icon class="icon">watch_later</mat-icon>Creado <span class="success">
+                {{ticket.created_at | time}}
+              </span> por
+              {{ticket.created_by.name | titlecase}}
+              {{ticket.created_by.last_name | titlecase}}
+            </span>
           </span>
-        </span>
+        </div>
       </div>
     </div>
-    </div>
   </div>
-  <!-- </mat-expansion-panel> -->
 </ng-container>

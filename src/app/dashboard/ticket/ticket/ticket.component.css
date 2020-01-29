@@ -1,0 +1,73 @@
+.textarea {
+	width: 100% !important;
+}
+
+mat-form-field {
+	width: 100% !important;
+}
+
+button {
+	outline: none;
+}
+
+.code {
+	font-size: .9em;
+	opacity: .5;
+	position: relative;
+	bottom: 10px;
+	left: 27px;
+}
+
+.content {
+	min-height: 145px;
+}
+
+.subject {
+	font-size: .9em;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.ticket-card-info {
+	font-size: .8em;
+}
+
+.button {
+	position: relative;
+	bottom: 5px;
+}
+
+.icon {
+	position: relative;
+	top: 4px;
+}
+
+.icon-ticket {
+	font-size: 1.1em;
+	position: relative;
+	top: 4px;
+	right: 0px;
+}
+
+.icon-ticket-in {
+	position: relative;
+	bottom: 2px;
+	font-size: 1.2em;
+}
+
+.ticket-subtitle {
+	font-size: 1em;
+	opacity: .7;
+}
+
+.radio-buttons {
+	position: relative;
+	top: 25px;
+}
+
+@media (max-width: 990px) {
+	.subject {
+		width: 200px;
+	}
+}

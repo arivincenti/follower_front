@@ -4,26 +4,26 @@ import { UserModel } from 'src/app/models/user.model';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-ticket-list-card',
-  templateUrl: './ticket-list-card.component.html',
-  styleUrls: ['./ticket-list-card.component.css']
+	selector: 'app-ticket-list-card',
+	templateUrl: './ticket-list-card.component.html',
+	styleUrls: [ './ticket-list-card.component.css' ]
 })
 export class TicketListCardComponent implements OnInit {
+	@Input() ticket: TicketModel;
+	@Input() user: UserModel;
 
-  @Input() ticket: TicketModel;
-  @Input() user: UserModel;
+	animation$: Observable<string[]>;
 
+	constructor (private store: Store<AppState>, private router: Router) {}
 
-  animation$: Observable<string[]>;
-  
-  constructor(
-    private store: Store<AppState>
-  ) { }
+	ngOnInit () {
+		this.animation$ = this.store.select((state) => state.ui.animated);
+	}
 
-  ngOnInit() {
-    this.animation$ = this.store.select(state => state.ui.animated);
-  }
-
+	ticketDetail (ticket: TicketModel) {
+		this.router.navigate([ 'app/ticket', ticket._id ]);
+	}
 }
