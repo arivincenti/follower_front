@@ -6,6 +6,14 @@ mat-form-field {
 	width: 100% !important;
 }
 
+.member-card-img {
+	object-fit: cover; /*this makes the image in src fit to the size specified below*/
+	width: 35px; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+	height: 35px;
+	border-radius: 50%;
+	/* background-size: cover; */
+}
+
 button {
 	outline: none;
 }
