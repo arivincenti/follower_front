@@ -1,0 +1,16 @@
+<div class="contenedor">
+  <div class="image">
+    <img class="card-img" mat-card-avatar [src]="comment.created_by.img | image" alt="">
+  </div>
+  <div class="name">
+    <span>{{comment.created_by.name | titlecase}} {{comment.created_by.last_name | titlecase}}</span>
+  </div>
+  <div class="comment">
+    <span class="comment-content"
+      [ngClass]="{'message-owner': comment.created_by._id === user._id, 'message-partner': comment.created_by._id !== user._id}">
+      <span class="type">{{comment.type | titlecase}}</span>
+      <span class="content">{{comment.message}}</span>
+      <span class="time">{{comment.created_at | time}}</span>
+    </span>
+  </div>
+</div>

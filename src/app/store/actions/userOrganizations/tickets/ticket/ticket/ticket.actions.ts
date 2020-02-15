@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { TicketModel } from "../../../../../models/ticketModel";
+import { TicketModel } from "../../../../../../models/ticketModel";
 
 export const getTicket = createAction(
   "[Ticket Actions] Get Ticket",

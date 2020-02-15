@@ -1,0 +1,109 @@
+.contenedor {
+  margin: auto;
+  display: grid;
+  grid-template-columns: 50px minmax(20px, 1fr);
+  /* grid-template-rows: repeat(3, minmax(10px, auto)); */
+  grid-template-areas:
+    "image name"
+    "image name"
+    "comment comment";
+}
+
+.contenedor-2 {
+  margin: auto;
+  display: grid;
+  grid-template-columns: minmax(20px, 1fr) 50px;
+  /* grid-template-rows: repeat(3, minmax(10px, auto)); */
+  grid-template-areas:
+    "name image"
+    "name image"
+    "comment comment";
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: image;
+}
+
+.contenedor .name {
+  display: flex;
+  align-items: center;
+  grid-area: name;
+}
+
+.contenedor-2 .name {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  grid-area: name;
+}
+
+.date {
+  position: relative;
+  bottom: 5px;
+  font-size: 0.8em;
+  opacity: 0.5;
+}
+
+.contenedor .comment {
+  display: flex;
+  justify-content: flex-start;
+  grid-area: comment;
+  position: relative;
+  left: 40px;
+}
+
+.contenedor-2 .comment {
+  display: flex;
+  justify-content: flex-end;
+  grid-area: comment;
+  position: relative;
+  right: 40px;
+}
+
+.comment-content {
+  max-width: 300px;
+  height: auto;
+  font-size: 0.9em;
+  padding: 5px 15px;
+  border-radius: 7px;
+  display: grid;
+  grid-template-areas:
+    "type"
+    "content"
+    "time";
+}
+
+.comment-content .type {
+  font-size: 0.7em;
+  opacity: 0.5;
+}
+
+.comment-content .content {
+  margin-bottom: 5px;
+  font-size: 0.9em;
+}
+
+.comment-content .time {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.7em;
+  opacity: 0.6;
+}
+
+.message-owner {
+  background-color: rgba(122, 214, 235, 0.2);
+}
+
+.message-partner {
+  background-color: rgba(237, 217, 115, 0.2);
+}
+
+.card-img {
+  object-fit: cover; /*this makes the image in src fit to the size specified below*/
+  width: 35px; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: auto;
+  border-radius: 50%;
+}

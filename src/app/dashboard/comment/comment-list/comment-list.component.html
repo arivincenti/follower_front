@@ -1,0 +1,21 @@
+<div class="animated d-flex aligns-items-center justify-content-start" *ngIf="!comments.length">
+  <span class="empty-message mt-2">No se encontraron comentarios, se el primero en escribir uno para que tus compañeros
+    esten al tanto de lo que sucede con el incidente!</span>
+</div>
+
+<ng-container *ngIf="comments.length">
+
+  <div class="row d-flex justify-content-center animated"
+    *ngFor="let comment of comments | ticketPaginator:since:until">
+    <div class="col-md-12 animated fadeIn mb-3">
+      <app-comment-list-card [comment]="comment" [user]="user">
+      </app-comment-list-card>
+    </div>
+
+  </div>
+
+  <mat-paginator [length]="comments.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+    (page)="changePage($event)">
+  </mat-paginator>
+
+</ng-container>

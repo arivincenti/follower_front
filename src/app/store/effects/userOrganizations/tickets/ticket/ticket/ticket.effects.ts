@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { TicketsService } from "src/app/services/tickets/tickets.service";
 import { createEffect, Actions, ofType } from "@ngrx/effects";
-import * as TicketActions from "../../../../actions/userOrganizations/tickets/ticket/ticket.actions";
+import * as TicketActions from "../../../../../actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
 import { mergeMap, map, catchError } from "rxjs/operators";
 import { of } from "rxjs";
 

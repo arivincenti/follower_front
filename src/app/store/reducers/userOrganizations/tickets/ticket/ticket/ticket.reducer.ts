@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from "@ngrx/store";
-import * as TicketsActions from "../../../../actions/userOrganizations/tickets/ticket/ticket.actions";
+import * as TicketsActions from "../../../../../actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
 import { TicketModel } from "src/app/models/ticketModel";
 
 export interface TicketState {
@@ -20,6 +20,7 @@ export const ticketReducer = createReducer(
   initialTicketState,
   on(TicketsActions.getTicket, state => ({
     ...state,
+    ticket: null,
     loading: true,
     loaded: false,
     error: null

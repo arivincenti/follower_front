@@ -1,81 +1,85 @@
 .textarea {
-	width: 100% !important;
+  width: 100% !important;
 }
 
 mat-form-field {
-	width: 100% !important;
+  width: 100% !important;
 }
 
 .member-card-img {
-	object-fit: cover; /*this makes the image in src fit to the size specified below*/
-	width: 35px; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
-	height: 35px;
-	border-radius: 50%;
-	/* background-size: cover; */
+  object-fit: cover; /*this makes the image in src fit to the size specified below*/
+  width: 35px; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: 35px;
+  border-radius: 50%;
+  /* background-size: cover; */
 }
 
 button {
-	outline: none;
+  outline: none;
 }
 
 .code {
-	font-size: .9em;
-	opacity: .5;
-	position: relative;
-	bottom: 10px;
-	left: 27px;
+  font-size: 0.9em;
+  opacity: 0.5;
+  position: relative;
+  bottom: 10px;
+  left: 27px;
 }
 
 .content {
-	min-height: 145px;
+  min-height: 145px;
 }
 
 .subject {
-	font-size: .9em;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+  font-size: 0.9em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .ticket-card-info {
-	font-size: .8em;
+  font-size: 0.8em;
 }
 
 .button {
-	position: relative;
-	bottom: 5px;
+  position: relative;
+  bottom: 5px;
 }
 
 .icon {
-	position: relative;
-	top: 4px;
+  position: relative;
+  top: 4px;
 }
 
 .icon-ticket {
-	font-size: 1.1em;
-	position: relative;
-	top: 4px;
-	right: 0px;
+  font-size: 1.1em;
+  position: relative;
+  top: 4px;
+  right: 0px;
 }
 
 .icon-ticket-in {
-	position: relative;
-	bottom: 2px;
-	font-size: 1.2em;
+  position: relative;
+  bottom: 2px;
+  font-size: 1.2em;
 }
 
 .ticket-subtitle {
-	font-size: 1em;
-	opacity: .7;
+  font-size: 1em;
+  opacity: 0.7;
 }
 
 .radio-buttons {
-	position: relative;
-	top: 25px;
+  position: relative;
+  top: 25px;
+}
+
+.incident-description {
+  font-size: 0.9em;
 }
 
 @media (max-width: 990px) {
-	.subject {
-		width: 200px;
-	}
+  .subject {
+    width: 200px;
+  }
 }

@@ -5,11 +5,13 @@ import { TicketModel } from "src/app/models/ticketModel";
 import { Observable, Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import * as TicketActions from "../../../store/actions/userOrganizations/tickets/ticket/ticket.actions";
+import * as TicketActions from "../../../store/actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
+import * as CommentsActions from "../../../store/actions/userOrganizations/tickets/ticket/comments/comments.actions";
 import { MemberModel } from "src/app/models/member.model";
 import { AreasService } from "src/app/services/areas/areas.service";
 import { map, filter } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
+import { CommentModel } from "src/app/models/commentModel";
 
 @Component({
   selector: "app-ticket",
@@ -35,6 +37,9 @@ export class TicketComponent implements OnInit, OnDestroy {
   ticket: TicketModel;
   ticketLoading$: Observable<boolean>;
   ticketLoaded$: Observable<boolean>;
+  comments$: Observable<CommentModel[]>;
+  commentsLoading$: Observable<boolean>;
+  commentsLoaded$: Observable<boolean>;
 
   //UI Observable
   animation$: Observable<string[]>;
@@ -62,58 +67,62 @@ export class TicketComponent implements OnInit, OnDestroy {
     this.param = this.activatedRoute.snapshot.paramMap.get("id");
 
     this.store.dispatch(TicketActions.getTicket({ payload: this.param }));
+    this.store.dispatch(CommentsActions.getComments({ payload: this.param }));
 
     this.ticketLoading$ = this.store.select(
-      state => state.userOrganizations.tickets.selectedTicket.loading
+      state => state.userOrganizations.tickets.selectedTicket.ticket.loading
     );
 
     this.ticketLoaded$ = this.store.select(
-      state => state.userOrganizations.tickets.selectedTicket.loaded
+      state => state.userOrganizations.tickets.selectedTicket.ticket.loaded
     );
 
     this.ticket$ = this.store
-      .select(state => state.userOrganizations.tickets.selectedTicket.ticket)
+      .select(
+        state => state.userOrganizations.tickets.selectedTicket.ticket.ticket
+      )
       .pipe(
         filter(ticket => ticket !== null),
         map(ticket => {
           this.membersLoading = true;
           this.members$ = this._areasService
-            .getAreaMembers(
-              ticket.movements[ticket.movements.length - 1].area._id
-            )
+            .getAreaMembers(ticket.area._id)
             .pipe(
               map(members => {
                 this.membersLoading = false;
                 return members;
               })
             );
+
+          let responsibleMembers: string[] = [];
+          ticket.responsible.forEach(member => {
+            responsibleMembers.push(member._id);
+          });
+
+          this.formControlMembers = new FormControl(responsibleMembers);
+          this.formControlPrority = new FormControl(ticket.priority);
           return ticket;
         })
       );
 
-    this.ticketSubscription = this.ticket$.subscribe(ticket => {
-      this.membersLoading = true;
-      let members: string[] = [];
-      ticket.movements[ticket.movements.length - 1].responsible.forEach(
-        member => {
-          members.push(member._id);
-        }
-      );
-
-      this.formControlMembers = new FormControl(members);
-      this.formControlPrority = new FormControl(
-        ticket.movements[ticket.movements.length - 1].priority
-      );
-
-      this.membersLoading = false;
-    });
+    this.comments$ = this.store.select(
+      state => state.userOrganizations.tickets.selectedTicket.comments.comments
+    );
   }
 
   ngOnDestroy() {
-    this.ticketSubscription.unsubscribe();
+    // this.ticketSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
   sendMessage() {
+    let comment = {
+      ticket: this.param,
+      created_by: this.user,
+      ...this.messageForm.value
+    };
+
+    this.store.dispatch(CommentsActions.addComment({ payload: comment }));
     console.log(this.messageForm.value);
   }
 
