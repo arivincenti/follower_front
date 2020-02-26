@@ -12,21 +12,24 @@ import { AreasService } from "src/app/services/areas/areas.service";
 import { map, filter } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
 import { CommentModel } from "src/app/models/commentModel";
+import { CommentsService } from "src/app/services/comments/comments.service";
+import { WebsocketService } from "src/app/services/websocket/websocket.service";
 
-@Component({
+@Component( {
   selector: "app-ticket",
   templateUrl: "./ticket.component.html",
-  styleUrls: ["./ticket.component.css"]
-})
-export class TicketComponent implements OnInit, OnDestroy {
-  ticketSubscription: Subscription = new Subscription();
+  styleUrls: [ "./ticket.component.css" ]
+} )
+export class TicketComponent implements OnInit, OnDestroy
+{
   userSubscription: Subscription = new Subscription();
+  wsCommentSubscription: Subscription = new Subscription();
   messageForm: FormGroup;
   messageTypes: any[] = [
     { value: "PÚBLICO", checked: true },
     { value: "NOTA", checked: false }
   ];
-  priorities: string[] = ["BAJA", "MEDIA", "ALTA"];
+  priorities: string[] = [ "BAJA", "MEDIA", "ALTA" ];
   formControlMembers: FormControl;
   formControlPrority: FormControl;
   membersLoading: boolean = false;
@@ -44,30 +47,46 @@ export class TicketComponent implements OnInit, OnDestroy {
   //UI Observable
   animation$: Observable<string[]>;
 
-  constructor(
+  constructor (
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
-    private _areasService: AreasService
-  ) {}
+    private _areasService: AreasService,
+    private commentService: CommentsService,
+    private wsService: WebsocketService
+  ) { }
 
-  ngOnInit() {
-    this.animation$ = this.store.select(state => state.ui.animated);
+  ngOnInit ()
+  {
+    this.param = this.activatedRoute.snapshot.paramMap.get( "id" );
+
+    //Cuando entramos al ticket nos unimos como si fuese una sala de chat
+    this.wsService.emit( "join-ticket", this.param );
+
+    //Aca escuchamos cuando alguien crea un nuevo comentario
+    this.wsCommentSubscription = this.commentService
+      .listenCommentsSocket()
+      .subscribe( msg =>
+      {
+        this.store.dispatch(
+          CommentsActions.getComments( { payload: this.param } )
+        );
+      } );
+
+    this.animation$ = this.store.select( state => state.ui.animated );
 
     this.userSubscription = this.store
-      .select(state => state.auth.user)
-      .pipe(filter(user => user !== null))
-      .subscribe(user => (this.user = user));
+      .select( state => state.auth.user )
+      .pipe( filter( user => user !== null ) )
+      .subscribe( user => ( this.user = user ) );
 
-    this.messageForm = new FormGroup({
-      message: new FormControl(null, Validators.required),
-      type: new FormControl(this.messageTypes[0].value),
+    this.messageForm = new FormGroup( {
+      message: new FormControl( null ),
+      type: new FormControl( this.messageTypes[ 0 ].value ),
       status: new FormControl()
-    });
+    } );
 
-    this.param = this.activatedRoute.snapshot.paramMap.get("id");
-
-    this.store.dispatch(TicketActions.getTicket({ payload: this.param }));
-    this.store.dispatch(CommentsActions.getComments({ payload: this.param }));
+    this.store.dispatch( TicketActions.getTicket( { payload: this.param } ) );
+    this.store.dispatch( CommentsActions.getComments( { payload: this.param } ) );
 
     this.ticketLoading$ = this.store.select(
       state => state.userOrganizations.tickets.selectedTicket.ticket.loading
@@ -82,27 +101,30 @@ export class TicketComponent implements OnInit, OnDestroy {
         state => state.userOrganizations.tickets.selectedTicket.ticket.ticket
       )
       .pipe(
-        filter(ticket => ticket !== null),
-        map(ticket => {
+        filter( ticket => ticket !== null ),
+        map( ticket =>
+        {
           this.membersLoading = true;
           this.members$ = this._areasService
-            .getAreaMembers(ticket.area._id)
+            .getAreaMembers( ticket.area._id )
             .pipe(
-              map(members => {
+              map( members =>
+              {
                 this.membersLoading = false;
                 return members;
-              })
+              } )
             );
 
-          let responsibleMembers: string[] = [];
-          ticket.responsible.forEach(member => {
-            responsibleMembers.push(member._id);
-          });
-
-          this.formControlMembers = new FormControl(responsibleMembers);
-          this.formControlPrority = new FormControl(ticket.priority);
+          if ( ticket.responsible )
+          {
+            this.formControlMembers = new FormControl( ticket.responsible._id );
+          } else
+          {
+            this.formControlMembers = new FormControl( null );
+          }
+          this.formControlPrority = new FormControl( ticket.priority );
           return ticket;
-        })
+        } )
       );
 
     this.comments$ = this.store.select(
@@ -110,31 +132,38 @@ export class TicketComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    // this.ticketSubscription.unsubscribe();
+  ngOnDestroy ()
+  {
+    // Nos salimos del ticket (sala)
+    this.wsService.emit( "leave-ticket", this.param );
+
     this.userSubscription.unsubscribe();
+    this.wsCommentSubscription.unsubscribe();
   }
 
-  sendMessage() {
+  sendMessage ()
+  {
     let comment = {
       ticket: this.param,
       created_by: this.user,
       ...this.messageForm.value
     };
 
-    this.store.dispatch(CommentsActions.addComment({ payload: comment }));
-    console.log(this.messageForm.value);
+    this.store.dispatch( CommentsActions.addComment( { payload: comment } ) );
+    this.messageForm.controls[ "message" ].setValue( "" );
+
   }
 
-  saveChanges(ticket: any) {
+  saveChanges ( ticket: any )
+  {
     let payload = {
       ticket: ticket._id,
-      area: ticket.movements[ticket.movements.length - 1].area._id,
-      responsible: [...this.formControlMembers.value],
+      area: ticket.area._id,
+      responsible: this.formControlMembers.value,
       priority: this.formControlPrority.value,
       created_by: this.user._id
     };
 
-    this.store.dispatch(TicketActions.updateTicket({ payload }));
+    this.store.dispatch( TicketActions.updateTicket( { payload } ) );
   }
 }

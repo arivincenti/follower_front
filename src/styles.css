@@ -1,126 +1,131 @@
 /* You can add global styles to this file, and also import other style files */
 html,
 body {
-	height: 100% !important;
-	background-color: rgb(247, 247, 247) !important;
+  height: 100% !important;
+  background-color: rgb(247, 247, 247) !important;
 }
 body {
-	margin: 0;
-	font-family: 'Public Sans', sans-serif;
+  margin: 0;
+  font-family: "Public Sans", sans-serif;
 }
 
 mat-paginator {
-	background-color: rgba(255, 255, 255, 0) !important;
+  background-color: rgba(255, 255, 255, 0) !important;
 }
 
 .mat-card-img {
-	object-fit: cover; /*this makes the image in src fit to the size specified below*/
-	width: 75%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
-	height: 75%;
-	border-radius: 50%;
+  object-fit: cover; /*this makes the image in src fit to the size specified below*/
+  width: 75%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: auto;
+  border-radius: 50%;
 }
 
 .section-title {
-	font-size: 1.1em;
-	position: relative;
-	bottom: 1px;
+  font-size: 1.1em;
+  position: relative;
+  bottom: 1px;
 }
 
 .section-title-container {
-	opacity: .6;
+  opacity: 0.6;
 }
 
 .icon {
-	position: relative;
-	top: 3px;
-	font-size: 1.2em;
+  position: relative;
+  top: 3px;
+  font-size: 1.2em;
 }
 
 .save-icon {
-	position: relative;
-	top: 4px;
-	font-size: 1.2em;
+  position: relative;
+  top: 4px;
+  font-size: 1.2em;
 }
 
 .organization-card-info {
-	font-size: .8em;
+  font-size: 0.8em;
 }
 
 .empty-message {
-	font-size: .8em;
-	opacity: .5;
+  font-size: 0.8em;
+  opacity: 0.5;
 }
 
 /* ///////////////////////////////
 ANIMATION DELAYS */
 .delay-300ms {
-	animation-delay: 300ms;
+  animation-delay: 300ms;
 }
 
 .delay-500ms {
-	animation-delay: 500ms;
+  animation-delay: 500ms;
 }
 
 .delay-700ms {
-	animation-delay: 700ms;
+  animation-delay: 700ms;
 }
 
 .delay-900ms {
-	animation-delay: 900ms;
+  animation-delay: 900ms;
 }
 
 /* //////////////////////////////////// */
 /* HEADER IMG*/
 .header-image {
-	position: relative;
-	right: 10px;
-	background-size: cover;
+  position: relative;
+  right: 10px;
+  background-size: cover;
 }
 
 /* ///////////////////////////////// */
 /* PAGINATOR*/
 .mat-paginator-navigation-next,
 .mat-paginator-navigation-previous {
-	outline: none !important;
+  outline: none !important;
 }
 
 /* ///////////////////////////////// */
 /* CARD STYLE */
 .background-content-card-active {
-	background-color: rgba(205, 205, 205, 0.1) !important;
+  background-color: rgba(205, 205, 205, 0.1) !important;
 }
 
 .background-content-card-inactive {
-	background-color: rgba(160, 160, 160, 0.1) !important;
-	opacity: .5;
+  background-color: rgba(160, 160, 160, 0.1) !important;
+  opacity: 0.5;
 }
 
 /* ///////////////////////////////// */
 /* EXPANSION PANEL */
 .subtitle {
-	position: relative;
-	bottom: 4px;
-	font-size: .8em;
+  position: relative;
+  bottom: 4px;
+  font-size: 0.8em;
 }
 
 .expansor-title {
-	position: relative;
-	top: 4px;
-	font-size: 1em;
+  position: relative;
+  top: 4px;
+  font-size: 1em;
 }
 
 .expansion-panel {
-	width: 100%;
-	background-color: rgba(205, 205, 205, 0.1) !important;
+  width: 100%;
+  background-color: rgba(205, 205, 205, 0.1) !important;
 }
 
 .background-content-expansion-active {
-	background-color: rgba(230, 230, 230, 0.1);
-	padding-top: 37px !important;
-	padding-bottom: 17px !important;
+  background-color: rgba(230, 230, 230, 0.1);
+  padding-top: 37px !important;
+  padding-bottom: 17px !important;
 }
 
 .ticket-dialog {
-	height: 600px;
-	width: 600px;
+  height: 600px;
+  width: 600px;
+}
+
+.progress-bar {
+  position: relative;
+  bottom: 20px;
 }

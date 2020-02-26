@@ -15,15 +15,17 @@
             <span class="button-span">Generar ticket</span>
           </button>
         </div>
+        <!-- <mat-divider></mat-divider> -->
       </div>
 
-      <mat-divider></mat-divider>
-
+      <mat-progress-bar *ngIf="ticketsLoading$ | async" class="progress-bar" mode="indeterminate">
+      </mat-progress-bar>
+      <!--
       <div class="row">
         <div class="col-md-12 d-flex justify-content-center">
-          <mat-spinner class="mt-5" diameter="30" *ngIf="ticketsLoading$ | async"></mat-spinner>
+          <mat-spinner class="mt-5" diameter="30" ></mat-spinner>
         </div>
-      </div>
+      </div> -->
 
       <ng-container *ngIf="ticketsLoaded$ | async">
         <ng-container *ngIf="tickets$ | async as tickets">
@@ -47,14 +49,16 @@
             <span class="button-span">Crear Organización</span>
           </button>
         </div>
+        <!-- <mat-divider></mat-divider> -->
       </div>
-      <mat-divider></mat-divider>
+      <mat-progress-bar *ngIf="organizationsLoading$ | async" class="progress-bar" mode="indeterminate">
+      </mat-progress-bar>
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12 d-flex justify-content-center">
           <mat-spinner class="mt-5" diameter="30" *ngIf="organizationsLoading$ | async"></mat-spinner>
         </div>
-      </div>
+      </div> -->
 
       <ng-container *ngIf="organizationsLoaded$ | async">
         <ng-container *ngIf="organizations$ | async as organizations">

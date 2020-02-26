@@ -2,9 +2,12 @@
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-      <mat-toolbar class="d-flex justify-content-center">
+      <mat-toolbar class="d-flex justify-content-center brand">
+
         <span class="mini-brand">Follower</span>
+
       </mat-toolbar>
+
       <mat-nav-list>
         <div mat-list-item class="d-flex justify-content-center mt-3">
           <button class="sidenav-button" mat-icon-button color="basic" routerLink="organizations" matTooltip="Dashboard"
@@ -75,7 +78,9 @@
           </button>
         </div>
 
+
         <mat-divider></mat-divider>
+
 
         <div mat-list-item class="d-flex justify-content-center mt-5">
           <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Cerrar sesión" (click)=logout()>
@@ -85,28 +90,37 @@
 
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content>
+
+    <mat-sidenav-content class="content">
       <mat-toolbar color="accent" class="mat-toolbar">
         <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
           *ngIf="isHandset$ | async">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
 
-
-
         <span class="spacer"></span>
 
         <div mat-list-item class="d-flex justify-content-start align-items-center mr-4">
-          <form class="form" #f="ngForm" (ngSubmit)="login(f)">
-              <mat-form-field>
-                <input type="text" matInput class="matInput" placeholder="Buscar ticket" autocomplete="off">
-                <mat-icon matSuffix>search</mat-icon>
-              </mat-form-field>
+          <form class="form" #f="ngForm" (ngSubmit)="search(f)">
+            <mat-form-field>
+              <input type="text" matInput class="matInput" placeholder="Buscar ticket" autocomplete="off">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
           </form>
         </div>
       </mat-toolbar>
       <!-- Add Content Here -->
+
       <ng-content></ng-content>
+
+      <footer class="footer">
+        <span class="connection-status" *ngIf="_wsService.socketStatus">
+          <mat-icon class="connection-success">lens</mat-icon> Conectado
+        </span>
+        <span class="connection-status" *ngIf="!_wsService.socketStatus">
+          <mat-icon class="connection-fail">lens</mat-icon> Desconectado
+        </span>
+      </footer>
 
     </mat-sidenav-content>
   </mat-sidenav-container>

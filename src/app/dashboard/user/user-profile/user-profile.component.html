@@ -17,28 +17,29 @@
             <mat-card-title>
 
 
-              <div class="d-flex justify-content-center">
-                <div class="row">
-                  <div class="col-md-2 d-flex justify-content-start image-content">
-                    <div class="button-image" mat-card-avatar>
-                      <button mat-icon-button (click)="changeImage()">
-                        <mat-icon class="change-image-icon">camera_alt</mat-icon>
-                      </button>
-                    </div>
-                    <div class="imagen">
-                      <img mat-card-avatar [src]="user.img | image" alt="">
-                    </div>
+
+              <div class="row">
+                <div class="col-md-2 d-flex justify-content-start image-content">
+                  <div class="button-image" mat-card-avatar>
+                    <button mat-icon-button (click)="changeImage()">
+                      <mat-icon class="change-image-icon">camera_alt</mat-icon>
+                    </button>
                   </div>
-                  <div class="col-md-10">
-                    <h4 class="user-name">
-                      {{user.name | titlecase}} {{user.last_name | titlecase}}
-                      <button mat-icon-button color="primary" matTooltip="Editar perfil" matTooltipPosition="right" class="button-edit">
-                        <mat-icon class="icon-edit">edit</mat-icon>
-                      </button>
-                    </h4>
+                  <div class="imagen">
+                    <img mat-card-avatar [src]="user.img | image" alt="">
                   </div>
                 </div>
+                <div class="col-md-10 d-flex justify-content-start">
+                  <h4 class="user-name">
+                    {{user.name | titlecase}} {{user.last_name | titlecase}}
+                    <button mat-icon-button color="primary" matTooltip="Editar perfil" matTooltipPosition="right"
+                      class="button-edit">
+                      <mat-icon class="icon-edit">edit</mat-icon>
+                    </button>
+                  </h4>
+                </div>
               </div>
+
             </mat-card-title>
           </mat-card-header>
           <mat-divider></mat-divider>
@@ -52,7 +53,7 @@
 
             <mat-card-content class="organization-card-info">
               <mat-icon class="icon">watch_later</mat-icon>
-              Se unió a follower  
+              Se unió a follower
               <span class="success">
                 {{user.created_at | time}}
               </span>

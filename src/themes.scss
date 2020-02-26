@@ -67,6 +67,10 @@ $orange-theme: mat-light-theme($orange-primary, $orange-accent, $orange-warn);
     background-color: #202f3f !important;
   }
 
+  .footer {
+    background-color: #ececec !important;
+  }
+
   .sidenav-button {
     color: rgba(255, 255, 255, 0.5) !important;
   }
@@ -214,6 +218,10 @@ $orange-theme: mat-light-theme($orange-primary, $orange-accent, $orange-warn);
     width: 85px;
     background-color: #424242;
     color: white;
+  }
+
+  .footer {
+    background-color: #303030 !important;
   }
 
   @include angular-material-theme($dark-pink-theme);

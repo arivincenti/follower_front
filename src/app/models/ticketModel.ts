@@ -8,7 +8,7 @@ export class TicketModel {
   constructor(
     public _id: string,
     public area: AreaModel,
-    public responsible: MemberModel[],
+    public responsible: MemberModel,
     public priority: string,
     public status: string,
     public subject: string,

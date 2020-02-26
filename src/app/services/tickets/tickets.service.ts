@@ -4,12 +4,13 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { map } from "rxjs/operators";
 import { TicketModel } from "src/app/models/ticketModel";
+import { WebsocketService } from "../websocket/websocket.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class TicketsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private wsService: WebsocketService) {}
 
   // ==================================================
   // get tickets
@@ -41,4 +42,11 @@ export class TicketsService {
       payload
     );
   }
+
+  // ==================================================
+  // Usuarios que estan viendo el ticket
+  // ==================================================
+  // usersWatchingTicket() {
+  //   return this.wsService.usersInTicketRoom();
+  // }
 }

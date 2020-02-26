@@ -1,8 +1,9 @@
-import { createReducer, on, Action } from "@ngrx/store";
+import { createReducer, on, Action, State } from "@ngrx/store";
 import * as CommentsActions from "../../../../../actions/userOrganizations/tickets/ticket/comments/comments.actions";
 import { CommentModel } from "src/app/models/commentModel";
 
-export interface CommentState {
+export interface CommentState
+{
   comments: CommentModel[];
   loading: boolean;
   loaded: boolean;
@@ -18,48 +19,49 @@ export const initialCommentState: CommentState = {
 
 export const commentReducer = createReducer(
   initialCommentState,
-  on(CommentsActions.getComments, state => ({
+  on( CommentsActions.getComments, state => ( {
     ...state,
-    comments: null,
+    comments: state.comments,
     loading: true,
     loaded: false,
     error: null
-  })),
-  on(CommentsActions.getCommentsSuccess, (state, { payload }) => ({
+  } ) ),
+  on( CommentsActions.getCommentsSuccess, ( state, { payload } ) => ( {
     ...state,
-    comments: [...payload],
+    comments: [ ...payload ],
     loading: false,
     loaded: true
-  })),
-  on(CommentsActions.getCommentsFail, (state, { payload }) => ({
+  } ) ),
+  on( CommentsActions.getCommentsFail, ( state, { payload } ) => ( {
     ...state,
     loading: false,
     loaded: false,
     error: { payload }
-  })),
-  on(CommentsActions.addComment, state => ({
+  } ) ),
+  on( CommentsActions.addComment, state => ( {
     ...state,
     loading: true,
     loaded: false,
     error: null
-  })),
-  on(CommentsActions.addCommentSuccess, (state, { payload }) => ({
+  } ) ),
+  on( CommentsActions.addCommentSuccess, ( state, { payload } ) => ( {
     ...state,
-    comments: [{ ...payload }, ...state.comments],
+    comments: [ ...state.comments, { ...payload } ],
     loading: false,
     loaded: true
-  })),
-  on(CommentsActions.addCommentFail, (state, { payload }) => ({
+  } ) ),
+  on( CommentsActions.addCommentFail, ( state, { payload } ) => ( {
     ...state,
     loading: false,
     loaded: false,
     error: { payload }
-  }))
+  } ) )
 );
 
-export function CommentReducer(
+export function CommentReducer (
   state: CommentState | undefined,
   action: Action
-) {
-  return commentReducer(state, action);
+)
+{
+  return commentReducer( state, action );
 }

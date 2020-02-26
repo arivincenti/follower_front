@@ -1,22 +1,12 @@
 .contenedor {
+  overflow: hidden;
   margin: auto;
   display: grid;
   grid-template-columns: 50px minmax(20px, 1fr);
   /* grid-template-rows: repeat(3, minmax(10px, auto)); */
   grid-template-areas:
     "image name"
-    "image name"
-    "comment comment";
-}
-
-.contenedor-2 {
-  margin: auto;
-  display: grid;
-  grid-template-columns: minmax(20px, 1fr) 50px;
-  /* grid-template-rows: repeat(3, minmax(10px, auto)); */
-  grid-template-areas:
-    "name image"
-    "name image"
+    "image comment-info"
     "comment comment";
 }
 
@@ -33,12 +23,6 @@
   grid-area: name;
 }
 
-.contenedor-2 .name {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  grid-area: name;
-}
 
 .date {
   position: relative;
@@ -48,57 +32,45 @@
 }
 
 .contenedor .comment {
-  display: flex;
-  justify-content: flex-start;
   grid-area: comment;
   position: relative;
+  top: 5px;
   left: 40px;
 }
 
-.contenedor-2 .comment {
-  display: flex;
-  justify-content: flex-end;
-  grid-area: comment;
-  position: relative;
-  right: 40px;
-}
-
 .comment-content {
-  max-width: 300px;
+  max-width: 100%;
   height: auto;
   font-size: 0.9em;
-  padding: 5px 15px;
+  padding: 8px 15px;
   border-radius: 7px;
   display: grid;
   grid-template-areas:
-    "type"
-    "content"
-    "time";
+    "content content";
 }
 
-.comment-content .type {
-  font-size: 0.7em;
-  opacity: 0.5;
-}
 
 .comment-content .content {
   margin-bottom: 5px;
   font-size: 0.9em;
+  grid-area: content;
 }
 
-.comment-content .time {
+.contenedor .comment-info {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   font-size: 0.7em;
-  opacity: 0.6;
+  opacity: 0.4;
+  grid-area: comment-info;
+  font-size: .6em;
 }
 
 .message-owner {
-  background-color: rgba(122, 214, 235, 0.2);
+  background-color: rgba(122, 214, 235, 0.1);
 }
 
 .message-partner {
-  background-color: rgba(237, 217, 115, 0.2);
+  background-color: rgba(237, 217, 115, 0.1);
 }
 
 .card-img {

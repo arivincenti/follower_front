@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { WebsocketService } from "./services/websocket/websocket.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
 })
-export class AppComponent
-{
-  title = 'front';
-  constructor(){}
+export class AppComponent implements OnInit {
+  title = "front";
 
+  constructor() {}
+
+  ngOnInit() {}
 }
