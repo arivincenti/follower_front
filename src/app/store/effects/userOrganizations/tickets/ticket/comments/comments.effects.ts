@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { createEffect, Actions, ofType } from "@ngrx/effects";
 import * as CommentsActions from "../../../../../actions/userOrganizations/tickets/ticket/comments/comments.actions";
-import { mergeMap, map, catchError } from "rxjs/operators";
+import { mergeMap, map, catchError, tap } from "rxjs/operators";
 import { of } from "rxjs";
 import Swal from "sweetalert2";
 import { CommentsService } from "src/app/services/comments/comments.service";
@@ -29,28 +29,26 @@ export class CommentsEffects {
     )
   );
 
-  addComment$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CommentsActions.addComment),
-      mergeMap(action =>
-        this._commentsService.addComment(action.payload).pipe(
-          map((data: any) => {
-            Swal.fire({
-              position: "top-end",
-              toast: true,
-              icon: "success",
-              title: "Genial!!",
-              text: "Tu comentario se insertó con éxito",
-              showConfirmButton: false,
-              timer: 2500
-            });
-            return CommentsActions.addCommentSuccess({ payload: data.data });
-          }),
-          catchError(error =>
-            of(CommentsActions.addCommentFail({ payload: error.error }))
+  addComment$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CommentsActions.addComment),
+        mergeMap(action =>
+          this._commentsService.addComment(action.payload).pipe(
+            catchError(error =>
+              Swal.fire({
+                position: "top-end",
+                toast: true,
+                icon: "error",
+                title: "Oh no!!",
+                text: JSON.stringify(error.error.error),
+                showConfirmButton: false,
+                timer: 2700
+              })
+            )
           )
         )
-      )
-    )
+      ),
+    { dispatch: false }
   );
 }

@@ -1,41 +1,45 @@
 <ng-container *ngIf="animation$ | async as animation">
-  <div class="row animated mt-3" [ngClass]="animation[0]">
-    <div class="col-md-12 d-flex justify-content-center">
-      <mat-spinner class="mt-5" diameter="50" *ngIf="ticketLoading$ | async"></mat-spinner>
+
+  <div class="contenedor">
+    <!-- loeader section -->
+    <div class="loader animated" [ngClass]="animation[0]">
+      <mat-spinner diameter="50" *ngIf="ticketLoading$ | async"></mat-spinner>
     </div>
-  </div>
-  <ng-container *ngIf="ticketLoaded$ | async">
-    <ng-container *ngIf="ticket$ | async as ticket">
-      <div class="row animated" [ngClass]="animation[0]">
-        <div class="col-md-6 mb-3">
-          <div class="row d-flex align-items-between">
-            <div class="col d-flex align-items-center">
+    <!-- loeader section end-->
+    <ng-container *ngIf="ticketLoaded$ | async">
+      <ng-container *ngIf="ticket$ | async as ticket">
+        <!-- ticket section -->
+        <div class="ticket-section animated" [ngClass]="animation[0]">
+          <!-- message section -->
+          <div class="message-section">
+            <!-- message section header -->
+            <div class="message-section-header">
               <h6 class="title" [matTooltip]="ticket.subject" matTooltipPosition="right">
                 <span>
                   <mat-icon class="icon-ticket" color="warn">local_activity</mat-icon>
                 </span>
                 {{ ticket.subject | titlecase }}
               </h6>
-            </div>
-            <div class="col-md-12">
               <span class="ticket-card-info d-flex align-items-center">
-                <span class="code">Nº {{ ticket._id }}</span>
+                <span class="number-code">Nº {{ ticket._id }}</span>
               </span>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field appearance="outline" class="message-form-field">
+            <!-- message section header end -->
+            <!-- message section incident -->
+            <div class="message-section-incident">
+              <mat-form-field appearance="outline">
                 <mat-label>Descripción del incidente</mat-label>
-                <textarea class="incident-description" rows="12" matInput type="text" placeholder="" autocomplete="off"
+                <textarea class="incident-description" rows="15" matInput type="text" placeholder="" autocomplete="off"
                   [value]="ticket.issue"></textarea>
               </mat-form-field>
             </div>
+            <!-- message section incident end -->
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="row mb-5">
-            <div class="col-md-12 d-flex align-items-center">
+          <!-- message section end -->
+          <!-- Property ticket -->
+          <div class="properties-section">
+            <!-- properties section header -->
+            <div class="properties-section-header">
               <h6 [matTooltip]="ticket.subject" matTooltipPosition="right">
                 <span>
                   <mat-icon class="icon-ticket" color="warn">ballot</mat-icon>
@@ -45,28 +49,29 @@
                 </span>
               </h6>
             </div>
-
-            <div class="col-md-12 mb-4">
-              <span class="ticket-card-info d-flex align-items-center">
+            <!-- properties section header end -->
+            <!-- properties section info -->
+            <div class="properties-section-info">
+              <span class="ticket-card-info">
                 <mat-icon class="icon">flag</mat-icon>
                 Estado /
                 <span class="badge badge-primary badge-ticket-status ml-1 p-1">{{ ticket.status }}</span>
               </span>
-              <span class="ticket-card-info d-flex align-items-center">
+              <span class="ticket-card-info">
                 <mat-icon class="icon">apartment</mat-icon>
                 Organización /
                 <span class="ml-1">
                   {{ ticket.area.organization.name | titlecase }}
                 </span>
               </span>
-              <span class="ticket-card-info d-flex align-items-center">
+              <span class="ticket-card-info">
                 <mat-icon class="icon">bookmark</mat-icon>
                 Área /
                 <span class="ml-1">
                   {{ ticket.area.name | titlecase }}
                 </span>
               </span>
-              <span class="ticket-card-info d-flex align-items-center">
+              <span class="ticket-card-info">
                 <span>
                   <mat-icon class="icon">watch_later</mat-icon>Creado
                   <span class="success">
@@ -78,30 +83,30 @@
                 </span>
               </span>
             </div>
-
-            <div class="row animated mt-2" [ngClass]="animation[0]">
-              <div class="col-md-12 d-flex justify-content-center">
-                <mat-spinner diameter="25" *ngIf="membersLoading"></mat-spinner>
-              </div>
+            <!-- properties section info end -->
+            <!-- properties section loader -->
+            <div class="properties-section-loader animated" [ngClass]="animation[0]">
+              <mat-spinner diameter="25" *ngIf="membersLoading"></mat-spinner>
             </div>
-
-            <div class="col-md-6 mt-2" *ngIf="ticket.movements">
-
+            <!-- properties section loader end -->
+            <!-- properties section responsible -->
+            <div class="properties-section-responsible" *ngIf="ticket.movements">
               <mat-form-field *ngIf="members$ | async as members">
                 <mat-label *ngIf="members">Miembro responsable</mat-label>
                 <mat-label *ngIf="!members">Asignar miembros al ticket</mat-label>
                 <mat-select [formControl]="formControlMembers">
                   <mat-option *ngFor="let member of members" [value]="member._id">
-                    <img class="member-card-img ml-2 mr-2" [src]="member.user.img | image" alt="" />
+                    <img class="member-card-img" [src]="member.user.img | image" alt="" />
                     {{ member.user.name | titlecase }}
                     {{ member.user.last_name | titlecase }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-
             </div>
-            <div class="col-md-6">
-              <mat-form-field class="mt-2">
+            <!-- properties section responsible end -->
+            <!-- properties section priority -->
+            <div class="properties-section-priority">
+              <mat-form-field>
                 <mat-label>Prioridad</mat-label>
                 <mat-select [formControl]="formControlPrority">
                   <mat-option *ngFor="let priority of priorities" [value]="priority">
@@ -109,50 +114,52 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-
             </div>
-            <div class="col-md-12">
-              <button type="button" class="btn-block mt-4" (click)="saveChanges(ticket)" mat-flat-button color="warn">
+            <!-- properties section priority end -->
+            <!-- properties section button -->
+            <div class="properties-section-button">
+              <button type="button" class="button" (click)="saveChanges(ticket)" mat-flat-button color="warn">
                 <span>Guardar propiedades</span>
               </button>
             </div>
           </div>
+          <!-- properties section button end -->
+          <!-- Property ticket end -->
         </div>
-      </div>
-      <mat-divider></mat-divider>
+        <!-- ticket section end -->
+        <mat-divider></mat-divider>
+        <!-- comment section -->
+        <div class="comment-section animated" [ngClass]="animation[0]">
+          <!-- comment section form -->
+          <div class="comment-section-form">
+            <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+              <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                formControlName="type" name="type">
+                <mat-radio-button name="type" [checked]="type.checked" color="warn" class="radio-buttons mr-3"
+                  *ngFor="let type of messageTypes" [value]="type.value">
+                  {{ type.value | titlecase }}
+                </mat-radio-button>
+              </mat-radio-group>
 
-      <div class="row animated mt-3" [ngClass]="animation[0]">
+              <mat-form-field appearance="outline" class="message-form-field mt-4">
+                <mat-label>Comenta algo...</mat-label>
+                <textarea rows="3" matInput type="text" placeholder="" formControlName="message" name="message"
+                  autocomplete="off"></textarea>
+              </mat-form-field>
 
-        <div class="col-md-12">
-          <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
-            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-              formControlName="type" name="type">
-              <mat-radio-button name="type" [checked]="type.checked" color="warn" class="radio-buttons mr-3"
-                *ngFor="let type of messageTypes" [value]="type.value">
-                {{ type.value | titlecase }}
-              </mat-radio-button>
-            </mat-radio-group>
-
-            <mat-form-field appearance="outline" class="message-form-field mt-4">
-              <mat-label>Comenta algo...</mat-label>
-              <textarea rows="3" matInput type="text" placeholder="" formControlName="message" name="message"
-                autocomplete="off"></textarea>
-              <!-- <mat-error *ngIf="messageForm.controls['message'].errors?.required">
-                <strong>No olvides</strong> escribir un comentario.
-              </mat-error> -->
-            </mat-form-field>
-            <div class="col-md-12 d-flex justify-content-end mb-4">
-              <button type="submit" mat-flat-button color="warn" [disabled]="!messageForm.controls['message'].value">
-                <span> Publicar comentario</span>
-                <mat-icon class="save-icon">send</mat-icon>
-              </button>
-            </div>
-          </form>
-        </div>
-
-        <div class="col-md-12 mb-5">
-          <div class="row mt-1">
-            <div class="col-md-12 d-flex align-items-center">
+              <div>
+                <button class="button" type="submit" mat-flat-button color="warn"
+                  [disabled]="!messageForm.controls['message'].value">
+                  <span> Publicar comentario</span>
+                  <mat-icon class="save-icon">send</mat-icon>
+                </button>
+              </div>
+            </form>
+          </div>
+          <!-- comment section form end -->
+          <!-- Comments section comments -->
+          <div class="comment-section-comments">
+            <div class="comment-section-comments-header">
               <h6 [matTooltip]="ticket.subject" matTooltipPosition="right">
                 <span>
                   <mat-icon class="icon-ticket" color="warn">chat_bubble</mat-icon>
@@ -160,22 +167,23 @@
                 <span class="ticket-subtitle">Comentarios</span>
               </h6>
             </div>
-          </div>
-          <div class="row">
-            <mat-divider class="mb-3"></mat-divider>
-            <mat-progress-bar *ngIf="commentsLoading$ | async" class="progress-bar" mode="indeterminate">
-            </mat-progress-bar>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
+
+            <div class="comment-section-comments-loader">
+              <mat-progress-bar *ngIf="commentsLoading$ | async" class="progress-bar" mode="indeterminate">
+              </mat-progress-bar>
+            </div>
+
+            <div class="comment-section-comments-comment-list">
               <app-comment-list *ngIf="comments$ | async as comments" [comments]="comments" [user]="user">
               </app-comment-list>
             </div>
+
           </div>
-
+          <!-- Comments section comments end -->
         </div>
-      </div>
-
+        <!-- comment section end -->
+      </ng-container>
     </ng-container>
-  </ng-container>
+  </div>
+  <!-- div contenedor end -->
 </ng-container>

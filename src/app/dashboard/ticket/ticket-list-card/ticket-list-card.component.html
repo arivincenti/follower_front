@@ -4,15 +4,9 @@
       <div class="col d-flex align-items-center">
         <div class="row">
           <div class="col-md-12">
-            <h6
-              class="subject"
-              [matTooltip]="ticket.subject"
-              matTooltipPosition="right"
-            >
+            <h6 class="subject" [matTooltip]="ticket.subject" matTooltipPosition="right">
               <span>
-                <mat-icon class="icon-ticket" color="warn"
-                  >local_activity</mat-icon
-                >
+                <mat-icon class="icon-ticket" color="warn">local_activity</mat-icon>
               </span>
               {{ ticket.subject | titlecase }}
             </h6>
@@ -25,13 +19,8 @@
         </div>
       </div>
       <div class="col d-flex justify-content-end">
-        <button
-          class="button"
-          mat-icon-button
-          matTooltip="Ver detalle"
-          matTooltipPosition="above"
-          (click)="ticketDetail(ticket)"
-        >
+        <button class="button" mat-icon-button matTooltip="Ver detalle" matTooltipPosition="above"
+          (click)="ticketDetail(ticket)">
           <mat-icon class="icon-ticket-in">arrow_forward</mat-icon>
         </button>
       </div>
@@ -59,6 +48,16 @@
             Área /
             <span class="ml-1">
               {{ ticket.area.name | titlecase }}
+            </span>
+          </span>
+          <span class="ticket-card-info d-flex align-items-center">
+            <mat-icon class="icon">assignment_ind</mat-icon>
+            Responsable /
+            <span class="ml-1" *ngIf="ticket.responsible">
+              {{ ticket.responsible.user.name | titlecase }} {{ ticket.responsible.user.last_name | titlecase }}
+            </span>
+            <span class="ml-1" *ngIf="!ticket.responsible">
+              Sin asignar
             </span>
           </span>
           <span class="ticket-card-info d-flex align-items-center">

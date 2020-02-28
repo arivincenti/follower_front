@@ -1,35 +1,33 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { TicketModel } from "src/app/models/ticketModel";
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import * as TicketActions from "../../../store/actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
 import * as CommentsActions from "../../../store/actions/userOrganizations/tickets/ticket/comments/comments.actions";
 import { MemberModel } from "src/app/models/member.model";
 import { AreasService } from "src/app/services/areas/areas.service";
-import { map, filter } from "rxjs/operators";
+import { map, filter, takeUntil } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
 import { CommentModel } from "src/app/models/commentModel";
 import { CommentsService } from "src/app/services/comments/comments.service";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
 
-@Component( {
+@Component({
   selector: "app-ticket",
   templateUrl: "./ticket.component.html",
-  styleUrls: [ "./ticket.component.css" ]
-} )
-export class TicketComponent implements OnInit, OnDestroy
-{
-  userSubscription: Subscription = new Subscription();
-  wsCommentSubscription: Subscription = new Subscription();
+  styleUrls: ["./ticket.component.css"]
+})
+export class TicketComponent implements OnInit, OnDestroy {
+  private unsuscribe$ = new Subject();
   messageForm: FormGroup;
   messageTypes: any[] = [
     { value: "PÚBLICO", checked: true },
     { value: "NOTA", checked: false }
   ];
-  priorities: string[] = [ "BAJA", "MEDIA", "ALTA" ];
+  priorities: string[] = ["BAJA", "MEDIA", "ALTA"];
   formControlMembers: FormControl;
   formControlPrority: FormControl;
   membersLoading: boolean = false;
@@ -47,47 +45,53 @@ export class TicketComponent implements OnInit, OnDestroy
   //UI Observable
   animation$: Observable<string[]>;
 
-  constructor (
+  constructor(
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
     private _areasService: AreasService,
     private commentService: CommentsService,
     private wsService: WebsocketService
-  ) { }
+  ) {}
 
-  ngOnInit ()
-  {
-    this.param = this.activatedRoute.snapshot.paramMap.get( "id" );
+  ngOnInit() {
+    //Cargamos las animaciones y obtenemos el ID que viene por la URL
+    this.animation$ = this.store.select(state => state.ui.animated);
+    this.param = this.activatedRoute.snapshot.paramMap.get("id");
 
     //Cuando entramos al ticket nos unimos como si fuese una sala de chat
-    this.wsService.emit( "join-ticket", this.param );
+    this.wsService.emit("join-ticket", this.param);
 
     //Aca escuchamos cuando alguien crea un nuevo comentario
-    this.wsCommentSubscription = this.commentService
+    this.commentService
       .listenCommentsSocket()
-      .subscribe( msg =>
-      {
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe((res: CommentModel) => {
         this.store.dispatch(
-          CommentsActions.getComments( { payload: this.param } )
+          CommentsActions.addCommentSuccess({ payload: res })
         );
-      } );
+      });
 
-    this.animation$ = this.store.select( state => state.ui.animated );
+    //Despachamos las acciones
+    this.store.dispatch(TicketActions.getTicket({ payload: this.param }));
+    this.store.dispatch(CommentsActions.getComments({ payload: this.param }));
 
-    this.userSubscription = this.store
-      .select( state => state.auth.user )
-      .pipe( filter( user => user !== null ) )
-      .subscribe( user => ( this.user = user ) );
-
-    this.messageForm = new FormGroup( {
-      message: new FormControl( null ),
-      type: new FormControl( this.messageTypes[ 0 ].value ),
+    //Seteamos el formulario
+    this.messageForm = new FormGroup({
+      message: new FormControl(null),
+      type: new FormControl(this.messageTypes[0].value),
       status: new FormControl()
-    } );
+    });
 
-    this.store.dispatch( TicketActions.getTicket( { payload: this.param } ) );
-    this.store.dispatch( CommentsActions.getComments( { payload: this.param } ) );
+    //Buscamos el usuario logueado
+    this.store
+      .select(state => state.auth.user)
+      .pipe(
+        takeUntil(this.unsuscribe$),
+        filter(user => user !== null)
+      )
+      .subscribe(user => (this.user = user));
 
+    //Obtenemos el estados los los loadings
     this.ticketLoading$ = this.store.select(
       state => state.userOrganizations.tickets.selectedTicket.ticket.loading
     );
@@ -96,66 +100,67 @@ export class TicketComponent implements OnInit, OnDestroy
       state => state.userOrganizations.tickets.selectedTicket.ticket.loaded
     );
 
+    //Buscamos los datos del ticket
     this.ticket$ = this.store
       .select(
         state => state.userOrganizations.tickets.selectedTicket.ticket.ticket
       )
       .pipe(
-        filter( ticket => ticket !== null ),
-        map( ticket =>
-        {
+        filter(ticket => ticket !== null),
+        map(ticket => {
           this.membersLoading = true;
           this.members$ = this._areasService
-            .getAreaMembers( ticket.area._id )
+            .getAreaMembers(ticket.area._id)
             .pipe(
-              map( members =>
-              {
+              map(members => {
                 this.membersLoading = false;
                 return members;
-              } )
+              })
             );
 
-          if ( ticket.responsible )
-          {
-            this.formControlMembers = new FormControl( ticket.responsible._id );
-          } else
-          {
-            this.formControlMembers = new FormControl( null );
+          if (ticket.responsible) {
+            this.formControlMembers = new FormControl(ticket.responsible._id);
+          } else {
+            this.formControlMembers = new FormControl(null);
           }
-          this.formControlPrority = new FormControl( ticket.priority );
+          this.formControlPrority = new FormControl(ticket.priority);
           return ticket;
-        } )
+        })
       );
 
+    //Obtenemos los comentarios
     this.comments$ = this.store.select(
       state => state.userOrganizations.tickets.selectedTicket.comments.comments
     );
   }
 
-  ngOnDestroy ()
-  {
+  ngOnDestroy() {
     // Nos salimos del ticket (sala)
-    this.wsService.emit( "leave-ticket", this.param );
+    this.wsService.emit("leave-ticket", this.param);
 
-    this.userSubscription.unsubscribe();
-    this.wsCommentSubscription.unsubscribe();
+    //Nos desuscribimos de los observables
+    this.unsuscribe$.next();
+    this.unsuscribe$.complete();
   }
 
-  sendMessage ()
-  {
+  // ==================================================
+  // Mandamos un nuevo mensaje
+  // ==================================================
+  sendMessage() {
     let comment = {
       ticket: this.param,
       created_by: this.user,
       ...this.messageForm.value
     };
 
-    this.store.dispatch( CommentsActions.addComment( { payload: comment } ) );
-    this.messageForm.controls[ "message" ].setValue( "" );
-
+    this.store.dispatch(CommentsActions.addComment({ payload: comment }));
+    this.messageForm.controls["message"].setValue("");
   }
 
-  saveChanges ( ticket: any )
-  {
+  // ==================================================
+  // Guardamos los cambios de las propiedades del ticket
+  // ==================================================
+  saveChanges(ticket: any) {
     let payload = {
       ticket: ticket._id,
       area: ticket.area._id,
@@ -164,6 +169,6 @@ export class TicketComponent implements OnInit, OnDestroy
       created_by: this.user._id
     };
 
-    this.store.dispatch( TicketActions.updateTicket( { payload } ) );
+    this.store.dispatch(TicketActions.updateTicket({ payload }));
   }
 }

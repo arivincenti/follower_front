@@ -21,7 +21,7 @@ export const commentReducer = createReducer(
   initialCommentState,
   on( CommentsActions.getComments, state => ( {
     ...state,
-    comments: state.comments,
+    comments: [],
     loading: true,
     loaded: false,
     error: null
@@ -40,13 +40,14 @@ export const commentReducer = createReducer(
   } ) ),
   on( CommentsActions.addComment, state => ( {
     ...state,
+    comments: [ ...state.comments ],
     loading: true,
     loaded: false,
     error: null
   } ) ),
   on( CommentsActions.addCommentSuccess, ( state, { payload } ) => ( {
     ...state,
-    comments: [ ...state.comments, { ...payload } ],
+    comments: [ { ...payload }, ...state.comments ],
     loading: false,
     loaded: true
   } ) ),

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Subscription, Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { UserModel } from "src/app/models/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
@@ -7,13 +7,12 @@ import * as OrganizationsActions from "../../../store/actions/userOrganizations/
 import * as TicketsActions from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { OrganizationFormComponent } from "../organization-form/organization-form.component";
-import { MatDialog, MatTableDataSource } from "@angular/material";
-import { filter } from "rxjs/operators";
+import { MatDialog } from "@angular/material";
+import { filter, takeUntil } from "rxjs/operators";
 import { TicketModel } from "src/app/models/ticketModel";
 import { TicketFormComponent } from "../../ticket/ticket-form/ticket-form.component";
 import { OrganizationsService } from "src/app/services/organizations/organizations.service";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
-import { ticketReducer } from "src/app/store/reducers/userOrganizations/tickets/ticket/ticket/ticket.reducer";
 
 @Component({
   selector: "app-organization",
@@ -21,8 +20,7 @@ import { ticketReducer } from "src/app/store/reducers/userOrganizations/tickets/
   styleUrls: ["./organization.component.css"]
 })
 export class OrganizationComponent implements OnInit, OnDestroy {
-  userSubscription: Subscription = new Subscription();
-  updateTicketSubscription: Subscription = new Subscription();
+  private unsuscribe$ = new Subject();
   organizations$: Observable<OrganizationModel[]>;
   organizationsLoading$: Observable<boolean>;
   organizationsLoaded$: Observable<boolean>;
@@ -43,22 +41,33 @@ export class OrganizationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.updateTicketSubscription = this.wsService
+    this.animation$ = this.store.select(state => state.ui.animated);
+
+    //Escuchamos as actualizaciones en los tickets
+    this.wsService
       .listen("update-ticket")
+      .pipe(takeUntil(this.unsuscribe$))
       .subscribe(res => {
         this.store.dispatch(TicketsActions.getTickets({ payload: this.user }));
       });
-    this._organizationsService.getUpdateBySocket().subscribe(msg => {
-      this.store.dispatch(
-        OrganizationsActions.getOrganizations({ payload: this.user._id })
-      );
-    });
 
-    this.animation$ = this.store.select(state => state.ui.animated);
+    //Escuchamos las actualizaciones en las organizaciones
+    this._organizationsService
+      .getUpdateBySocket()
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe(msg => {
+        this.store.dispatch(
+          OrganizationsActions.getOrganizations({ payload: this.user._id })
+        );
+      });
 
-    this.userSubscription = this.store
+    //Seleccionamos el usuario logueadoç
+    this.store
       .select(state => state.auth.user)
-      .pipe(filter(user => user !== null))
+      .pipe(
+        takeUntil(this.unsuscribe$),
+        filter(user => user !== null)
+      )
       .subscribe(user => {
         this.user = user;
         this.store.dispatch(
@@ -67,6 +76,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
         this.store.dispatch(TicketsActions.getTickets({ payload: this.user }));
       });
 
+    //Observamos los cambios en los loaders de las organizaciones
     this.organizationsLoading$ = this.store.select(
       state => state.userOrganizations.organizations.loading
     );
@@ -75,10 +85,12 @@ export class OrganizationComponent implements OnInit, OnDestroy {
       state => state.userOrganizations.organizations.loaded
     );
 
+    //Seleccionamos las organizaciones cuando hay cambios en el store
     this.organizations$ = this.store.select(
       state => state.userOrganizations.organizations.organizations
     );
 
+    //Observamos los cambios en los loaders de los tickets
     this.ticketsLoading$ = this.store.select(
       state => state.userOrganizations.tickets.userTickets.loading
     );
@@ -87,6 +99,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
       state => state.userOrganizations.tickets.userTickets.loaded
     );
 
+    //Seleccionamos los tickets cuando cuando hay cambios en el store
     this.tickets$ = this.store.select(
       state => state.userOrganizations.tickets.userTickets.tickets
     );
@@ -113,8 +126,8 @@ export class OrganizationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    //Nos desuscribimos del store cuando el componente se destruya
-    this.userSubscription.unsubscribe();
-    this.updateTicketSubscription.unsubscribe();
+    //Nos desuscribimos de los observables
+    this.unsuscribe$.next();
+    this.unsuscribe$.complete();
   }
 }

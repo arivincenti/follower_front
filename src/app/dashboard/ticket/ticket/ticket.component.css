@@ -1,24 +1,151 @@
-.textarea {
-  width: 100% !important;
+button {
+  outline: none;
 }
 
 mat-form-field {
   width: 100% !important;
 }
 
+/* CSS GRID */
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "loader"
+    "ticket-section"
+    "comment-section";
+  grid-gap: 20px;
+}
+
+.contenedor .loader {
+  grid-area: loader;
+}
+
+.contenedor .ticket-section {
+  /* background-color: rgba(0, 255, 0, 0.1); */
+  grid-area: ticket-section;
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* MESSAGE SECTION */
+.ticket-section .message-section {
+  display: grid;
+  grid-gap: 7px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "message-section-header"
+    "message-section-incident";
+}
+
+.message-section .message-section-header {
+  grid-area: message-section-header;
+}
+
+.message-section .message-section-incident {
+  grid-area: message-section-incident;
+}
+
+/* PROPERTIES SECTION */
+.ticket-section .properties-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 7px;
+  grid-template-areas:
+    "properties-section-header"
+    "properties-section-info"
+    "properties-section-loader"
+    "properties-section-responsible"
+    "properties-section-priority"
+    "properties-section-button";
+}
+
+.properties-section .properties-section-header {
+  grid-area: properties-section-header;
+}
+.properties-section .properties-section-info {
+  grid-area: properties-section-info;
+}
+.properties-section .properties-section-loader {
+  grid-area: properties-section-loader;
+}
+.properties-section .properties-section-responsible {
+  grid-area: properties-section-responsible;
+}
+.properties-section .properties-section-priority {
+  grid-area: properties-section-priority;
+}
+.properties-section .properties-section-button {
+  grid-area: properties-section-button;
+}
+
+/* PROPERTIES SECTION INFO */
+.properties-section .properties-section-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(auto-fill, auto);
+  grid-gap: 2px;
+}
+
+/* COMMENT SECTION */
+.contenedor .comment-section {
+  /* background-color: rgba(0, 255, 0, 0.1); */
+  margin-bottom: 50px;
+  grid-area: comment-section;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 35px;
+  grid-template-areas:
+    "comment-section-form"
+    "comment-section-comments";
+}
+
+.comment-section .comment-section-form {
+  grid-area: comment-section-form;
+}
+
+.comment-section .comment-section-comments {
+  grid-area: comment-section-comments;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 7px;
+  grid-template-areas:
+    "comment-section-comments-header"
+    "comment-section-comments-loader"
+    "comment-section-comments-comment-list";
+}
+
+.comment-section-comments .comment-section-comments-header {
+  grid-area: comment-section-comments-header;
+}
+
+.comment-section-comments .comment-section-comments-loader {
+  grid-area: comment-section-comments-loader;
+}
+
+.comment-section-comments .comment-section-comments-comment-list {
+  grid-area: comment-section-comments-comment-list;
+}
+
+/* CSS GRID END */
+
+.textarea {
+  width: 100% !important;
+}
+
+.button {
+  width: 100%;
+}
+
 .member-card-img {
-  object-fit: cover; /*this makes the image in src fit to the size specified below*/
-  width: 35px; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  object-fit: cover;
+  width: 35px;
   height: 35px;
   border-radius: 50%;
-  /* background-size: cover; */
 }
 
-button {
-  outline: none;
-}
-
-.code {
+.number-code {
   font-size: 0.9em;
   opacity: 0.5;
   position: relative;
@@ -39,11 +166,6 @@ button {
 
 .ticket-card-info {
   font-size: 0.8em;
-}
-
-.button {
-  position: relative;
-  bottom: 5px;
 }
 
 .icon {
