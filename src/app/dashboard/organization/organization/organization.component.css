@@ -1,17 +1,104 @@
 button {
-	outline: none;
+  outline: none;
 }
 
-.title {
-	font-size: 1.3em;
+/* CSS GRID */
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "user-section"
+    "organizations-section"
+    "tickets-section";
+  grid-gap: 30px;
+  margin-bottom: 60px;
+}
+
+.contenedor .user-section {
+  grid-area: user-section;
+}
+
+/* tickets-section */
+.contenedor .tickets-section {
+  grid-area: tickets-section;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "tickets-section-header"
+    "tickets-section-loader"
+    "tickets-section-tickets";
+  grid-gap: 10px;
+}
+
+.tickets-section .tickets-section-header {
+  grid-area: tickets-section-header;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.tickets-section-header .tickets-section-header-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tickets-section .tickets-section-loader {
+  grid-area: tickets-section-loader;
+}
+
+.tickets-section .tickets-section-tickets {
+  grid-area: tickets-section-tickets;
+}
+
+.contenedor .organizations-section {
+  grid-area: organizations-section;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "organizations-section-header"
+    "organizations-section-loader"
+    "organizations-section-organizations";
+  grid-gap: 10px;
+}
+
+.organizations-section .organizations-section-header {
+  grid-area: organizations-section-header;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.organizations-section-header .organizations-section-header-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.organizations-section-header .organizations-section-header-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tickets-section-header .tickets-section-header-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.organizations-section .organizations-section-loader {
+  grid-area: organizations-section-loader;
+}
+
+.organizations-section .organizations-section-organizations {
+  grid-area: organizations-section-organizations;
+}
+
+/* CSS GRID END */
+
+.header-title {
+  font-size: 1.1em;
+  position: relative;
+  top: 2px;
 }
 
 .button-span {
-	font-size: .9em;
-}
-
-@media (max-width: 990px) {
-	.title {
-		width: 200px;
-	}
+  font-size: 0.9em;
 }

@@ -1,73 +1,81 @@
 button {
-	outline: none;
+  outline: none;
 }
 
-.content {
-	min-height: 145px;
+/* CSS GRID */
+
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "header-section";
 }
 
-.button {
-	position: relative;
-	bottom: 7px;
+.contenedor .header-section {
+  grid-area: header-section;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.tab-icon {
-	font-size: 1.3em;
-	position: relative;
-	top: 5px;
+.header-section .header-section-title {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "header-section-title-title"
+    "header-section-title-date";
 }
 
-.icon {
-	position: relative;
-	top: 5px;
+.header-section-title .header-section-title-title {
+  grid-area: header-section-title-title;
+  display: flex;
+  align-items: center;
 }
+
+.header-section-title .header-section-title-date {
+  position: relative;
+  bottom: 12px;
+  left: 25px;
+  font-size: 0.7em;
+  opacity: 0.4;
+  grid-area: header-section-title-date;
+}
+
+.header-section .header-section-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* CSS GRID END */
 
 .icon-member {
-	font-size: 1.3em;
-	position: relative;
-	top: 3px;
-	right: 2px;
+  font-size: 1.3em;
+  position: relative;
+  top: 2px;
+  right: 2px;
 }
 
 .button {
-	position: relative;
-	bottom: 5px;
+  position: relative;
+  bottom: 8px;
 }
 
-.icon-content-in {
-	position: relative;
-	bottom: 2px;
-	font-size: 1.2em;
+.button .button-icon {
+  font-size: 1.1em;
 }
 
-.title {
-	font-size: .9em;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+.header-section-title-title {
+  font-size: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.background-content-card-active {
-	background-color: rgba(220, 220, 220, .2);
-}
-
-.background-content-card-inactive {
-	background-color: rgba(160, 160, 160, 0.2);
-	opacity: .5;
-}
-
-.background-content-expansion-active {
-	background-color: rgba(230, 230, 230, 0.3);
-	padding-top: 30px !important;
-	padding-bottom: 17px !important;
-}
-
-.line-through {
-	text-decoration: line-through;
+.deleted {
+  opacity: 0.3;
+  text-decoration: line-through;
 }
 
 @media (max-width: 990px) {
-	.title {
-		width: 200px;
-	}
+  .header-section-title-title {
+    width: 230px;
+  }
 }

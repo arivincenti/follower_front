@@ -1,66 +1,45 @@
 <ng-container *ngIf="animation$ | async as animation">
-  <div class="content">
-    <div class="row d-flex align-items-between">
-      <div class="col d-flex align-items-center">
-        <h6 class="title" [matTooltip]="organization.name" matTooltipPosition="right">
+  <div class="contenedor">
+    <!-- Header section -->
+    <div class="header-section">
+      <!-- Header section title -->
+      <div class="header-section-title">
+        <h6 class="header-section-title-title">
           <span *ngIf="organization.created_by._id === user._id">
             <mat-icon class="icon-member warning">star</mat-icon>
           </span>
           <span *ngIf="organization.created_by._id !== user._id">
             <mat-icon class="icon-member primary">account_circle</mat-icon>
           </span>
-          {{organization.name | titlecase}}
+          <span [ngClass]="{'deleted': organization.deleted_at}" [matTooltip]="organization.name"
+            matTooltipPosition="right">
+            {{organization.name | titlecase}}
+          </span>
         </h6>
+        <span class="header-section-title-date">
+          Creada {{organization.created_at | time}}
+        </span>
       </div>
-      <div class="col d-flex justify-content-end">
+      <!-- header section title end -->
+      <!-- header section buttons -->
+      <div class="header-section-buttons">
         <button class="button" mat-icon-button matTooltip="Ingresar a la organización" matTooltipPosition="above"
           (click)="selectOrganization(organization)">
-          <mat-icon class="icon-content-in">arrow_forward</mat-icon>
+          <mat-icon class="button-icon">arrow_forward</mat-icon>
         </button>
 
         <button class="button" mat-icon-button *ngIf="!organization.deleted_at"
           (click)="deleteOrganization(organization)">
-          <mat-icon class="icon-content-in">delete</mat-icon>
+          <mat-icon class="button-icon">delete</mat-icon>
         </button>
 
         <button class="button" mat-icon-button *ngIf="organization.deleted_at"
           (click)="reactivateOrganization(organization)">
-          <mat-icon class="icon-content-in">history</mat-icon>
+          <mat-icon class="button-icon">history</mat-icon>
         </button>
-
       </div>
+      <!-- header section buttons end -->
     </div>
-
-    <div class="container">
-      <div class="row mb-2">
-        <div class="col-md-12">
-          <span class="organization-card-info d-flex align-items-center">
-            <mat-icon class="icon">bookmarks</mat-icon>
-            Áreas / <mat-spinner *ngIf="areasLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]">
-            </mat-spinner> <span *ngIf="!areasLoading" class="ml-1 animated delay-300ms"
-              [ngClass]="animation[3]">{{areas.length}}</span>
-          </span>
-          <span class="organization-card-info d-flex align-items-center">
-            <mat-icon class="icon">supervised_user_circle</mat-icon>
-            Miembros / <mat-spinner *ngIf="membersLoading" class="ml-1 animated" diameter="15" [ngClass]="animation[3]">
-            </mat-spinner> <span *ngIf="!membersLoading" class="ml-1 animated delay-300ms"
-              [ngClass]="animation[3]">{{members.length}}</span>
-          </span>
-          <span class=" organization-card-info d-flex align-items-center">
-            <mat-icon class="icon">watch_later</mat-icon>
-            Creada
-            <span class="success ml-1">
-              {{organization.created_at | time}}
-            </span>
-          </span>
-          <span class="organization-card-info d-flex align-items-center" *ngIf="organization.deleted_at">
-            <mat-icon class="icon">delete</mat-icon> Dada de baja
-            <span class="danger ml-1">
-              {{organization.deleted_at | time}}
-            </span>
-          </span>
-        </div>
-      </div>
-    </div>
+    <!-- Header section end -->
   </div>
 </ng-container>

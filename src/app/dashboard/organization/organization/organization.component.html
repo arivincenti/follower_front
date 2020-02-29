@@ -1,73 +1,72 @@
 <ng-container *ngIf="animation$ | async as animation">
-  <div class="row">
-    <div class="col-md-12 mb-5">
+  <div class="contenedor">
+    <!-- User Section -->
+    <!-- <div class="user-section">
       <app-user-profile></app-user-profile>
-    </div>
-  </div>
-  <div class="row mb-5">
-    <div class="col-md-12 mb-5">
-      <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
-        <div class="col">
-          <h4 class="text-muted title">Mis tickets</h4>
+    </div> -->
+    <!-- User Section end -->
+    <!-- Organization section -->
+    <div class="organizations-section">
+      <!-- Organization section header -->
+      <div class="organizations-section-header animated" [ngClass]="animation[0]">
+        <div class="organizations-section-header-title">
+          <h4 class="text-muted header-title">Mis organizaciones</h4>
         </div>
-        <div class="col d-flex justify-content-end">
-          <button mat-button color="warn" (click)="createTicket()">
+        <div class="organizations-section-header-button">
+          <button class="header-button" mat-button color="warn" (click)="createOrganization()">
+            <span class="button-span">Nueva Organización</span>
+          </button>
+        </div>
+      </div>
+      <!-- Organization section header end -->
+      <!-- Organization section loader -->
+      <div class="organizations-section-loader">
+        <mat-progress-bar *ngIf="organizationsLoading$ | async" mode="indeterminate">
+        </mat-progress-bar>
+      </div>
+      <!-- Organization section loader end -->
+      <ng-container *ngIf="organizationsLoaded$ | async">
+        <ng-container *ngIf="organizations$ | async as organizations">
+          <!-- Organization section organizations -->
+          <div class="organizations-section-organizations animated delay-300ms" [ngClass]="animation[0]">
+            <app-organization-list [organizations]="organizations" [user]="user"></app-organization-list>
+          </div>
+          <!-- Organization section organizations -->
+        </ng-container>
+      </ng-container>
+    </div>
+    <!-- Organization section end -->
+    <!-- Tickets Section -->
+    <div class="tickets-section">
+      <!-- Ticket Section Header -->
+      <div class="tickets-section-header animated" [ngClass]="animation[0]">
+        <div class="tickets-section-header-title">
+          <h4 class="text-muted header-title">Mis tickets
+          </h4>
+        </div>
+        <div class="tickets-section-header-button">
+          <button class="header-button" mat-button color="warn" (click)="createTicket()">
             <span class="button-span">Generar ticket</span>
           </button>
         </div>
-        <!-- <mat-divider></mat-divider> -->
       </div>
-
-      <mat-progress-bar *ngIf="ticketsLoading$ | async" class="progress-bar" mode="indeterminate">
-      </mat-progress-bar>
-      <!--
-      <div class="row">
-        <div class="col-md-12 d-flex justify-content-center">
-          <mat-spinner class="mt-5" diameter="30" ></mat-spinner>
-        </div>
-      </div> -->
-
+      <!-- Ticket Section Header end-->
+      <!-- Ticket Section loader -->
+      <div class="tickets-section-loader">
+        <mat-progress-bar *ngIf="ticketsLoading$ | async" mode="indeterminate">
+        </mat-progress-bar>
+      </div>
+      <!-- Ticket Section loader end -->
       <ng-container *ngIf="ticketsLoaded$ | async">
         <ng-container *ngIf="tickets$ | async as tickets">
-          <div class="animated delay-300ms mt-3" [ngClass]="animation[0]">
-
+          <!-- Ticket section Ticket List -->
+          <div class="tickets-section-tickets animated delay-300ms" [ngClass]="animation[0]">
             <app-ticket-list [tickets]="tickets" [user]="user"></app-ticket-list>
-
           </div>
+          <!-- Ticket section Ticket List end -->
         </ng-container>
       </ng-container>
     </div>
-
-
-    <div class="col-md-12 mt-1">
-      <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
-        <div class="col">
-          <h4 class="text-muted title">Mis organizaciones</h4>
-        </div>
-        <div class="col d-flex justify-content-end">
-          <button mat-button color="warn" (click)="createOrganization()">
-            <span class="button-span">Crear Organización</span>
-          </button>
-        </div>
-        <!-- <mat-divider></mat-divider> -->
-      </div>
-      <mat-progress-bar *ngIf="organizationsLoading$ | async" class="progress-bar" mode="indeterminate">
-      </mat-progress-bar>
-
-      <!-- <div class="row">
-        <div class="col-md-12 d-flex justify-content-center">
-          <mat-spinner class="mt-5" diameter="30" *ngIf="organizationsLoading$ | async"></mat-spinner>
-        </div>
-      </div> -->
-
-      <ng-container *ngIf="organizationsLoaded$ | async">
-        <ng-container *ngIf="organizations$ | async as organizations">
-          <div class="animated delay-300ms mt-3" [ngClass]="animation[0]">
-            <app-organization-list [organizations]="organizations" [user]="user"></app-organization-list>
-          </div>
-        </ng-container>
-      </ng-container>
-    </div>
-
+    <!-- Tickets Section end -->
   </div>
 </ng-container>
