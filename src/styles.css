@@ -85,39 +85,11 @@ ANIMATION DELAYS */
 }
 
 /* ///////////////////////////////// */
-/* CARD STYLE */
-.background-content-card-active {
-  background-color: rgba(205, 205, 205, 0.1) !important;
-}
-
-.background-content-card-inactive {
-  background-color: rgba(160, 160, 160, 0.1) !important;
-  opacity: 0.5;
-}
-
-/* ///////////////////////////////// */
 /* EXPANSION PANEL */
 .subtitle {
   position: relative;
   bottom: 4px;
   font-size: 0.8em;
-}
-
-.expansor-title {
-  position: relative;
-  top: 4px;
-  font-size: 1em;
-}
-
-.expansion-panel {
-  width: 100%;
-  background-color: rgba(205, 205, 205, 0.1) !important;
-}
-
-.background-content-expansion-active {
-  background-color: rgba(230, 230, 230, 0.1);
-  padding-top: 37px !important;
-  padding-bottom: 17px !important;
 }
 
 .ticket-dialog {

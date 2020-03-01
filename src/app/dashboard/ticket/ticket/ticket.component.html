@@ -53,21 +53,29 @@
             <!-- properties section info -->
             <div class="properties-section-info">
               <span class="ticket-card-info">
+                <mat-icon class="icon">visibility</mat-icon>
+                Viendo /
+                <span class="badge badge-success badge-active-user"
+                  *ngFor="let activeUser of activeUsers">{{ activeUser.name | titlecase }}
+                  {{ activeUser.last_name | titlecase }}
+                </span>
+              </span>
+              <span class="ticket-card-info">
                 <mat-icon class="icon">flag</mat-icon>
                 Estado /
-                <span class="badge badge-primary badge-ticket-status ml-1 p-1">{{ ticket.status }}</span>
+                <span class="badge badge-primary badge-ticket-status">{{ ticket.status }}</span>
               </span>
               <span class="ticket-card-info">
                 <mat-icon class="icon">apartment</mat-icon>
                 Organización /
-                <span class="ml-1">
+                <span>
                   {{ ticket.area.organization.name | titlecase }}
                 </span>
               </span>
               <span class="ticket-card-info">
                 <mat-icon class="icon">bookmark</mat-icon>
                 Área /
-                <span class="ml-1">
+                <span>
                   {{ ticket.area.name | titlecase }}
                 </span>
               </span>

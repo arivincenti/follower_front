@@ -5,6 +5,7 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import * as OrganizationsActions from "../../../store/actions/userOrganizations/organizations/organizations.actions";
 import * as TicketsActions from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
+import * as TicketActions from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { OrganizationFormComponent } from "../organization-form/organization-form.component";
 import { MatDialog } from "@angular/material";
@@ -13,6 +14,7 @@ import { TicketModel } from "src/app/models/ticketModel";
 import { TicketFormComponent } from "../../ticket/ticket-form/ticket-form.component";
 import { OrganizationsService } from "src/app/services/organizations/organizations.service";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
+import { AreasService } from "src/app/services/areas/areas.service";
 
 @Component({
   selector: "app-organization",
@@ -37,31 +39,13 @@ export class OrganizationComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private dialog: MatDialog,
     private _organizationsService: OrganizationsService,
+    private _areasService: AreasService,
     private wsService: WebsocketService
   ) {}
 
   ngOnInit() {
     this.animation$ = this.store.select(state => state.ui.animated);
 
-    //Escuchamos as actualizaciones en los tickets
-    this.wsService
-      .listen("update-ticket")
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe(res => {
-        this.store.dispatch(TicketsActions.getTickets({ payload: this.user }));
-      });
-
-    //Escuchamos las actualizaciones en las organizaciones
-    this._organizationsService
-      .getUpdateBySocket()
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe(msg => {
-        this.store.dispatch(
-          OrganizationsActions.getOrganizations({ payload: this.user._id })
-        );
-      });
-
-    //Seleccionamos el usuario logueadoç
     this.store
       .select(state => state.auth.user)
       .pipe(
@@ -74,6 +58,31 @@ export class OrganizationComponent implements OnInit, OnDestroy {
           OrganizationsActions.getOrganizations({ payload: this.user._id })
         );
         this.store.dispatch(TicketsActions.getTickets({ payload: this.user }));
+      });
+
+    //Escuchamos as actualizaciones en los tickets
+    this.wsService
+      .listen("update-ticket")
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe((res: TicketModel) => {
+        this.store.dispatch(TicketsActions.getTickets({ payload: this.user }));
+      });
+
+    this.wsService
+      .listen("new-ticket")
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe((res: TicketModel) => {
+        this.store.dispatch(TicketsActions.getTickets({ payload: this.user }));
+      });
+
+    //Escuchamos las actualizaciones en las organizaciones
+    this._organizationsService
+      .getUpdateBySocket()
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe(msg => {
+        this.store.dispatch(
+          OrganizationsActions.getOrganizations({ payload: this.user._id })
+        );
       });
 
     //Observamos los cambios en los loaders de las organizaciones

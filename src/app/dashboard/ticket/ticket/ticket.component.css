@@ -138,6 +138,14 @@ mat-form-field {
   width: 100%;
 }
 
+.badge-active-user {
+  margin-right: 2px;
+}
+
+.badge {
+  line-height: 12px;
+}
+
 .member-card-img {
   object-fit: cover;
   width: 35px;

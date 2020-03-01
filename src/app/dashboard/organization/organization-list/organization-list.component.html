@@ -5,7 +5,6 @@
   </div>
 
   <ng-container *ngIf="organizations.length">
-
     <div class="list-card" *ngFor="let organization of organizations | organizationPaginator:since:until">
       <div class="list-card-card animated fadeIn">
         <app-organization-list-card [organization]="organization" [user]="user">
@@ -15,8 +14,6 @@
         <mat-divider></mat-divider>
       </div>
     </div>
-
-
     <div class="paginador">
       <mat-paginator [length]="organizations.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
         (page)="changePage($event)">

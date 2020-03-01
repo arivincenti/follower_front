@@ -21,22 +21,13 @@ button {
   grid-template-columns: 1fr;
   grid-template-areas:
     "header-section-title-title"
-    "header-section-title-date";
+    "header-section-title-subtitle";
 }
 
 .header-section-title .header-section-title-title {
   grid-area: header-section-title-title;
   display: flex;
   align-items: center;
-}
-
-.header-section-title .header-section-title-date {
-  position: relative;
-  bottom: 12px;
-  left: 25px;
-  font-size: 0.7em;
-  opacity: 0.4;
-  grid-area: header-section-title-date;
 }
 
 .header-section .header-section-buttons {
@@ -46,11 +37,20 @@ button {
 
 /* CSS GRID END */
 
-.icon-member {
+.icon-header {
   font-size: 1.3em;
   position: relative;
   top: 2px;
   right: 2px;
+}
+
+.header-section-title .header-section-title-subtitle {
+  position: relative;
+  bottom: 12px;
+  left: 25px;
+  font-size: 0.7em;
+  opacity: 0.4;
+  grid-area: header-section-title-subtitle;
 }
 
 .button {

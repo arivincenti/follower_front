@@ -41,6 +41,7 @@ export class TicketComponent implements OnInit, OnDestroy {
   comments$: Observable<CommentModel[]>;
   commentsLoading$: Observable<boolean>;
   commentsLoaded$: Observable<boolean>;
+  activeUsers: UserModel[];
 
   //UI Observable
   animation$: Observable<string[]>;
@@ -60,6 +61,10 @@ export class TicketComponent implements OnInit, OnDestroy {
 
     //Cuando entramos al ticket nos unimos como si fuese una sala de chat
     this.wsService.emit("join-ticket", this.param);
+    this.wsService
+      .listen("ticket-clients-count")
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe((users: UserModel[]) => (this.activeUsers = users));
 
     //Aca escuchamos cuando alguien crea un nuevo comentario
     this.commentService

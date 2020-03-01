@@ -1,32 +1,32 @@
 <ng-container *ngIf="animation$ | async as animation">
-  <div class="content">
-    <div class="row d-flex align-items-between">
-      <div class="col d-flex align-items-center">
-        <div class="row">
-          <div class="col-md-12">
-            <h6 class="subject" [matTooltip]="ticket.subject" matTooltipPosition="right">
-              <span>
-                <mat-icon class="icon-ticket" color="warn">local_activity</mat-icon>
-              </span>
-              {{ ticket.subject | titlecase }}
-            </h6>
-          </div>
-          <div class="col-md-12">
-            <span class="ticket-card-info d-flex align-items-center">
-              <span class="code">Nº {{ ticket._id }}</span>
-            </span>
-          </div>
-        </div>
+  <div class="contenedor">
+    <!-- Header section -->
+    <div class="header-section">
+      <!-- Header section title -->
+      <div class="header-section-title">
+        <h6 class="header-section-title-title" [matTooltip]="ticket.subject" matTooltipPosition="right">
+          <span>
+            <mat-icon class="icon-header" color="warn">local_activity</mat-icon>
+          </span>
+          {{ ticket.subject | titlecase }}
+        </h6>
+
+        <span class="header-section-title-subtitle">
+          Nº {{ ticket._id }}
+        </span>
       </div>
-      <div class="col d-flex justify-content-end">
+      <!-- header section title end -->
+      <!-- header section buttons -->
+      <div class="header-section-buttons">
         <button class="button" mat-icon-button matTooltip="Ver detalle" matTooltipPosition="above"
           (click)="ticketDetail(ticket)">
-          <mat-icon class="icon-ticket-in">arrow_forward</mat-icon>
+          <mat-icon class="button-icon">arrow_forward</mat-icon>
         </button>
       </div>
+      <!-- header section buttons end -->
     </div>
-
-    <div class="container">
+    <!-- header section end -->
+    <!-- <div class="container">
       <div class="row mb-2">
         <div class="col-md-12">
           <span class="ticket-card-info d-flex align-items-center">
@@ -73,6 +73,6 @@
           </span>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </ng-container>

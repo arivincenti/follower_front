@@ -82,6 +82,26 @@ $orange-theme: mat-light-theme($orange-primary, $orange-accent, $orange-warn);
   .mat-toolbar {
     background-color: #ececec;
   }
+
+  .badge-primary {
+    background-color: mat-color($mat-light-blue, 900);
+    color: white;
+  }
+
+  .badge-warn {
+    background-color: mat-color($mat-amber, 700);
+    color: white;
+  }
+
+  .badge-danger {
+    background-color: mat-color($mat-red, 600);
+    color: white;
+  }
+
+  .badge-success {
+    background-color: mat-color($mat-light-green, 800);
+    color: white;
+  }
 }
 
 // .purple {
