@@ -4,16 +4,24 @@
     <div class="header-section">
       <!-- Header section title -->
       <div class="header-section-title">
-        <h6 class="header-section-title-title" [matTooltip]="ticket.subject" matTooltipPosition="right">
-          <span>
-            <mat-icon class="icon-header" color="warn">local_activity</mat-icon>
+        <div class="header-section-title-title">
+          <h6>
+            <span>
+              <mat-icon class="icon-header" color="warn">local_activity</mat-icon>
+            </span>
+            <span [matTooltip]="ticket.subject" matTooltipPosition="right">
+              {{ ticket.subject | titlecase }}
+            </span>
+          </h6>
+          <span class=" badge badge-ticket-status" [ngClass]="{'badge-danger': ticket.status === 'ABIERTO'}">
+            {{ticket.status}}
           </span>
-          {{ ticket.subject | titlecase }}
-        </h6>
-
-        <span class="header-section-title-subtitle">
-          Nº {{ ticket._id }}
-        </span>
+        </div>
+        <div class="header-section-title-subtitle">
+          <span>
+            Creado {{ ticket.created_at | time }}
+          </span>
+        </div>
       </div>
       <!-- header section title end -->
       <!-- header section buttons -->
@@ -26,53 +34,15 @@
       <!-- header section buttons end -->
     </div>
     <!-- header section end -->
-    <!-- <div class="container">
-      <div class="row mb-2">
-        <div class="col-md-12">
-          <span class="ticket-card-info d-flex align-items-center">
-            <mat-icon class="icon">flag</mat-icon>
-            Estado /
-            <span class="badge badge-primary badge-ticket-status ml-1 p-1">{{
-              ticket.status
-            }}</span>
-          </span>
-          <span class="ticket-card-info d-flex align-items-center">
-            <mat-icon class="icon">apartment</mat-icon>
-            Organización /
-            <span class="ml-1">
-              {{ ticket.area.organization.name | titlecase }}
-            </span>
-          </span>
-          <span class="ticket-card-info d-flex align-items-center">
-            <mat-icon class="icon">bookmark</mat-icon>
-            Área /
-            <span class="ml-1">
-              {{ ticket.area.name | titlecase }}
-            </span>
-          </span>
-          <span class="ticket-card-info d-flex align-items-center">
-            <mat-icon class="icon">assignment_ind</mat-icon>
-            Responsable /
-            <span class="ml-1" *ngIf="ticket.responsible">
-              {{ ticket.responsible.user.name | titlecase }} {{ ticket.responsible.user.last_name | titlecase }}
-            </span>
-            <span class="ml-1" *ngIf="!ticket.responsible">
-              Sin asignar
-            </span>
-          </span>
-          <span class="ticket-card-info d-flex align-items-center">
-            <span>
-              <mat-icon class="icon">watch_later</mat-icon>Creado
-              <span class="success">
-                {{ ticket.created_at | time }}
-              </span>
-              por
-              {{ ticket.created_by.name | titlecase }}
-              {{ ticket.created_by.last_name | titlecase }}
-            </span>
-          </span>
-        </div>
-      </div>
-    </div> -->
+    <!-- info section -->
+    <div class="info-section">
+      <span class="ticket-card-info">
+        <mat-icon class="icon">apartment</mat-icon>
+        <span>
+          {{ ticket.area.organization.name | titlecase }} / {{ ticket.area.name | titlecase }}
+        </span>
+      </span>
+    </div>
+    <!-- info section end -->
   </div>
 </ng-container>

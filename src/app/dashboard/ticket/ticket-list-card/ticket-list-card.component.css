@@ -7,10 +7,13 @@ button {
 .contenedor {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-areas: "header-section";
+  grid-template-areas:
+    "header-section"
+    "info-section";
 }
 
 .contenedor .header-section {
+  height: 35px;
   grid-area: header-section;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -32,10 +35,10 @@ button {
 
 .header-section-title .header-section-title-subtitle {
   position: relative;
-  bottom: 12px;
+  bottom: 8px;
   left: 25px;
   font-size: 0.7em;
-  opacity: 0.4;
+  opacity: 0.5;
   grid-area: header-section-title-subtitle;
 }
 
@@ -44,21 +47,30 @@ button {
   justify-content: flex-end;
 }
 
+.contenedor .info-section {
+  grid-area: info-section;
+}
+
+.info-section > span {
+  opacity: 0.5;
+  font-size: 0.8em;
+}
+
 /* CSS GRID END */
 
 .icon-header {
   font-size: 1.3em;
   position: relative;
-  top: 2px;
+  top: 5px;
   right: 2px;
 }
 
 .header-section-title .header-section-title-subtitle {
   position: relative;
-  bottom: 12px;
-  left: 25px;
+  bottom: 10px;
+  left: 27px;
   font-size: 0.7em;
-  opacity: 0.4;
+  opacity: 0.3;
   grid-area: header-section-title-subtitle;
 }
 
@@ -71,7 +83,15 @@ button {
   font-size: 1.1em;
 }
 
-.header-section-title-title {
+.badge-ticket-status {
+  font-size: 0.5em;
+  position: relative;
+  bottom: 2px;
+  left: 7px;
+  line-height: 12px;
+}
+
+.header-section-title-title > h6 {
   font-size: 1em;
   overflow: hidden;
   white-space: nowrap;
@@ -79,7 +99,7 @@ button {
 }
 
 @media (max-width: 990px) {
-  .header-section-title-title {
-    width: 230px;
+  .header-section-title-title > h6 {
+    max-width: 230px;
   }
 }

@@ -11,6 +11,7 @@ import { UserTicketsEffects } from "./userOrganizations/tickets/userTickets/user
 import { AreaTicketsEffects } from "./userOrganizations/tickets/areaTickets/areaTickets.effects";
 import { TicketEffects } from "./userOrganizations/tickets/ticket/ticket/ticket.effects";
 import { CommentsEffects } from "./userOrganizations/tickets/ticket/comments/comments.effects";
+import { NotificationsEffects } from "./userOrganizations/notifications/notifications.effects";
 
 export const effects: any[] = [
   UiEffects,
@@ -25,7 +26,8 @@ export const effects: any[] = [
   UserTicketsEffects,
   AreaTicketsEffects,
   TicketEffects,
-  CommentsEffects
+  CommentsEffects,
+  NotificationsEffects
 ];
 
 export * from "./ui/ui.effects";
@@ -41,3 +43,4 @@ export * from "./userOrganizations/tickets/userTickets/userTickets.effects";
 export * from "./userOrganizations/tickets/areaTickets/areaTickets.effects";
 export * from "./userOrganizations/tickets/ticket/ticket/ticket.effects";
 export * from "./userOrganizations/tickets/ticket/comments/comments.effects";
+export * from "./userOrganizations/notifications/notifications.effects";

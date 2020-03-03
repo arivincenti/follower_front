@@ -55,7 +55,7 @@
               <span class="ticket-card-info">
                 <mat-icon class="icon">visibility</mat-icon>
                 Viendo /
-                <span class="badge badge-success badge-active-user"
+                <span class="badge badge-primary badge-active-user"
                   *ngFor="let activeUser of activeUsers">{{ activeUser.name | titlecase }}
                   {{ activeUser.last_name | titlecase }}
                 </span>
@@ -63,7 +63,8 @@
               <span class="ticket-card-info">
                 <mat-icon class="icon">flag</mat-icon>
                 Estado /
-                <span class="badge badge-primary badge-ticket-status">{{ ticket.status }}</span>
+                <span class="badge badge-ticket-status"
+                  [ngClass]="{'badge-danger': ticket.status === 'ABIERTO'}">{{ ticket.status }}</span>
               </span>
               <span class="ticket-card-info">
                 <mat-icon class="icon">apartment</mat-icon>

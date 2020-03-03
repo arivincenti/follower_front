@@ -244,6 +244,26 @@ $orange-theme: mat-light-theme($orange-primary, $orange-accent, $orange-warn);
     background-color: #303030 !important;
   }
 
+  .badge-primary {
+    background-color: mat-color($mat-light-blue, 900);
+    color: white;
+  }
+
+  .badge-warn {
+    background-color: mat-color($mat-amber, 400);
+    color: white;
+  }
+
+  .badge-danger {
+    background-color: mat-color($mat-red, 600);
+    color: white;
+  }
+
+  .badge-success {
+    background-color: mat-color($mat-light-green, A700);
+    color: white;
+  }
+
   @include angular-material-theme($dark-pink-theme);
 }
 

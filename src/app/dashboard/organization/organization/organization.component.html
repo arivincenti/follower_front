@@ -25,15 +25,15 @@
         </mat-progress-bar>
       </div>
       <!-- Organization section loader end -->
-      <ng-container *ngIf="organizationsLoaded$ | async">
-        <ng-container *ngIf="organizations$ | async as organizations">
-          <!-- Organization section organizations -->
-          <div class="organizations-section-organizations animated delay-300ms" [ngClass]="animation[0]">
-            <app-organization-list [organizations]="organizations" [user]="user"></app-organization-list>
-          </div>
-          <!-- Organization section organizations -->
-        </ng-container>
+      <!-- <ng-container *ngIf="organizationsLoaded$ | async"> -->
+      <ng-container *ngIf="organizations$ | async as organizations">
+        <!-- Organization section organizations -->
+        <div class="organizations-section-organizations animated delay-300ms" [ngClass]="animation[0]">
+          <app-organization-list [organizations]="organizations" [user]="user"></app-organization-list>
+        </div>
+        <!-- Organization section organizations -->
       </ng-container>
+      <!-- </ng-container> -->
     </div>
     <!-- Organization section end -->
     <!-- Tickets Section -->
@@ -57,14 +57,12 @@
         </mat-progress-bar>
       </div>
       <!-- Ticket Section loader end -->
-      <ng-container *ngIf="ticketsLoaded$ | async">
-        <ng-container *ngIf="tickets$ | async as tickets">
-          <!-- Ticket section Ticket List -->
-          <div class="tickets-section-tickets animated delay-300ms" [ngClass]="animation[0]">
-            <app-ticket-list [tickets]="tickets" [user]="user"></app-ticket-list>
-          </div>
-          <!-- Ticket section Ticket List end -->
-        </ng-container>
+      <ng-container *ngIf="tickets$ | async as tickets">
+        <!-- Ticket section Ticket List -->
+        <div class="tickets-section-tickets animated delay-300ms" [ngClass]="animation[0]">
+          <app-ticket-list [tickets]="tickets" [user]="user"></app-ticket-list>
+        </div>
+        <!-- Ticket section Ticket List end -->
       </ng-container>
     </div>
     <!-- Tickets Section end -->

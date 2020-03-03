@@ -2,8 +2,6 @@ import { Injectable } from "@angular/core";
 import { UserModel } from "src/app/models/user.model";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
-import { map } from "rxjs/operators";
-import { TicketModel } from "src/app/models/ticketModel";
 import { WebsocketService } from "../websocket/websocket.service";
 
 @Injectable({
@@ -42,11 +40,4 @@ export class TicketsService {
       payload
     );
   }
-
-  // ==================================================
-  // Usuarios que estan viendo el ticket
-  // ==================================================
-  // usersWatchingTicket() {
-  //   return this.wsService.usersInTicketRoom();
-  // }
 }

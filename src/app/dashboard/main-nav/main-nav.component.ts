@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs";
 import { map, shareReplay } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
 import { Store } from "@ngrx/store";
@@ -9,6 +9,7 @@ import * as AuthActions from "../../store/actions/auth/auth.actions";
 import * as UiActions from "../../store/actions/ui/ui.actions";
 import { OverlayContainer } from "@angular/cdk/overlay";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
+import { NotificationModel } from "src/app/models/notificationModel";
 
 @Component({
   selector: "app-main-nav",
@@ -17,6 +18,7 @@ import { WebsocketService } from "src/app/services/websocket/websocket.service";
 })
 export class MainNavComponent implements OnInit, OnDestroy {
   user$: Observable<UserModel>;
+  unreadNotifications$: Observable<NotificationModel[]>;
   theme$: Observable<string>;
   oldTheme: string;
   newTheme: string;
@@ -37,6 +39,13 @@ export class MainNavComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.user$ = this.store.select(state => state.auth.user);
+
+    this.unreadNotifications$ = this.store.select(
+      state =>
+        state.userOrganizations.notifications.unreadNotifications
+          .unreadNotifications
+    );
+
     this.theme$ = this.store
       .select(state => state.ui.theme)
       .pipe(
