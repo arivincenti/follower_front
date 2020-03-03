@@ -117,6 +117,7 @@ export class TicketComponent implements OnInit, OnDestroy {
           this.members$ = this._areasService
             .getAreaMembers(ticket.area._id)
             .pipe(
+              filter(member => member !== null),
               map(members => {
                 this.membersLoading = false;
                 return members;
