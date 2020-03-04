@@ -11,6 +11,7 @@ import { SharedModule } from "../shared/shared.module";
 import { AngularMaterialModule } from "../angular-material/angular-material.module";
 import { MainNavComponent } from "./main-nav/main-nav.component";
 import { LoginGuard } from "../guards/login/login.guard";
+import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 
 @NgModule({
   declarations: [DashboardComponent, MainNavComponent],
@@ -25,6 +26,7 @@ import { LoginGuard } from "../guards/login/login.guard";
     SharedModule,
     AngularMaterialModule
   ],
-  providers: [LoginGuard]
+  providers: [LoginGuard],
+  entryComponents: [SnackbarComponent]
 })
 export class DashboardModule {}

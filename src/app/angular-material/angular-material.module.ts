@@ -1,7 +1,37 @@
-import { NgModule } from '@angular/core';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCardModule, MatDividerModule, MatExpansionModule, MatIconModule, MatMenuModule, MatSidenavModule, MatToolbarModule, MatListModule, MatTooltipModule, MatBadgeModule, MatGridListModule, MatStepperModule, MatTableModule, MatTabsModule, MatCheckboxModule, MatDialogModule, MatAutocompleteModule, MatChipsModule, MatButtonToggleModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatSortModule, MatSelectModule, MatRadioModule, MatHint } from '@angular/material';
-import { LayoutModule } from '@angular/cdk/layout';
-import { TextFieldModule } from '@angular/cdk/text-field';
+import { NgModule } from "@angular/core";
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatCardModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatIconModule,
+  MatMenuModule,
+  MatSidenavModule,
+  MatToolbarModule,
+  MatListModule,
+  MatTooltipModule,
+  MatBadgeModule,
+  MatGridListModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatAutocompleteModule,
+  MatChipsModule,
+  MatButtonToggleModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
+  MatSelectModule,
+  MatRadioModule,
+  MatSnackBarModule
+} from "@angular/material";
+import { LayoutModule } from "@angular/cdk/layout";
+import { TextFieldModule } from "@angular/cdk/text-field";
 
 @NgModule({
   declarations: [],
@@ -11,7 +41,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatInputModule,
     MatCardModule,
     MatDividerModule,
-    MatExpansionModule,
+    // MatExpansionModule,
     MatIconModule,
     MatMenuModule,
     MatSidenavModule,
@@ -21,8 +51,8 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatBadgeModule,
     LayoutModule,
     MatGridListModule,
-    MatStepperModule,
-    MatTableModule,
+    // MatStepperModule,
+    // MatTableModule,
     MatTabsModule,
     MatCheckboxModule,
     MatDialogModule,
@@ -32,10 +62,11 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatSortModule,
+    // MatSortModule,
     MatSelectModule,
     TextFieldModule,
     MatRadioModule,
+    MatSnackBarModule
   ],
   exports: [
     MatButtonModule,
@@ -43,7 +74,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatInputModule,
     MatCardModule,
     MatDividerModule,
-    MatExpansionModule,
+    // MatExpansionModule,
     MatIconModule,
     MatMenuModule,
     MatSidenavModule,
@@ -53,8 +84,8 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatBadgeModule,
     LayoutModule,
     MatGridListModule,
-    MatStepperModule,
-    MatTableModule,
+    // MatStepperModule,
+    // MatTableModule,
     MatTabsModule,
     MatCheckboxModule,
     MatDialogModule,
@@ -64,10 +95,11 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatSortModule,
+    // MatSortModule,
     MatSelectModule,
     TextFieldModule,
     MatRadioModule,
+    MatSnackBarModule
   ]
 })
-export class AngularMaterialModule { }
+export class AngularMaterialModule {}

@@ -7,6 +7,8 @@ import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { NotificationsService } from "../services/notifications/notifications.service";
 import * as UnreadNotificationsActions from "../store/actions/userOrganizations/notifications/unreadNotifications/unreadNotifications.actions";
+import { MatSnackBar } from "@angular/material";
+import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 
 @Component({
   selector: "app-dashboard",
@@ -20,7 +22,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private _wsService: WebsocketService,
     private _areasService: AreasService,
     private _notificationsService: NotificationsService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -40,42 +43,62 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this._wsService.emit("join-all-areas", areas);
     });
 
-    //Escuchamos as actualizaciones en los tickets
+    //Escuchamos las actualizaciones en los tickets
     this._wsService
       .listen("update-ticket")
       .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((ticket: any) => {
-        console.log("enviamos peticion");
+      .subscribe((movement: any) => {
         var users = [];
+        var changes = [];
 
-        for (let member of ticket.area.members) {
+        for (let member of movement.ticket.area.members) {
           users.push(member.user);
         }
 
+        if (movement.old.priority !== movement.new.priority) {
+          var message = `Cambió la prioridad de "${movement.new.priority}" a "${movement.old.priority}"`;
+
+          changes.push(message);
+        }
+
         var payload = {
-          notification: "prueba",
-          object: ticket._id,
+          changes: changes,
+          object: movement.ticket._id,
           objectType: "ticket",
+          objectName: movement.ticket.subject,
+          updated_by: movement.new.created_by._id,
           users: users,
-          area: ticket.area._id
+          area: movement.ticket.area._id
         };
 
-        this._notificationsService
-          .createNotification(payload)
-          .pipe(takeUntil(this.unsuscribe$))
-          .subscribe(res => {});
+        //Emitimos el evento para crear la nueva notificación
+        this._wsService.emit("create-notification", payload);
       });
 
+    //Escuchamos el mensaje de que una nueva notificacion se creó
     this._wsService
       .listen("new-notification")
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe((notification: any) => {
+        var changes = notification.changes;
+
+        this._snackBar.openFromComponent(SnackbarComponent, {
+          duration: 8000,
+          data: {
+            notification
+          }
+        });
+
         this.store.dispatch(
           UnreadNotificationsActions.getUnreadNotifications({
             payload: this.auth.user
           })
         );
       });
+  }
+
+  letraCapital(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   ngOnDestroy() {

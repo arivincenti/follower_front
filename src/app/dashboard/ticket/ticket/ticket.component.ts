@@ -113,13 +113,17 @@ export class TicketComponent implements OnInit, OnDestroy {
       .pipe(
         filter(ticket => ticket !== null),
         map(ticket => {
+          this.ticket = ticket;
           this.membersLoading = true;
+
           this.members$ = this._areasService
-            .getAreaMembers(ticket.area._id)
+            .getAreaMembers(this.ticket.area._id)
             .pipe(
+              takeUntil(this.unsuscribe$),
               filter(member => member !== null),
               map(members => {
                 this.membersLoading = false;
+
                 return members;
               })
             );
@@ -130,6 +134,7 @@ export class TicketComponent implements OnInit, OnDestroy {
             this.formControlMembers = new FormControl(null);
           }
           this.formControlPrority = new FormControl(ticket.priority);
+
           return ticket;
         })
       );

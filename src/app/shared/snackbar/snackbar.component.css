@@ -1,0 +1,51 @@
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  align-items: center;
+  gap: 5px;
+}
+
+.contenedor .change {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 15px;
+}
+
+.change .message {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 0.7em;
+}
+
+.contenedor .header {
+  padding-bottom: 10px;
+  display: grid;
+  grid-template-columns: 7px 1fr;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header .user {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 0.8em;
+}
+
+.header .user > span {
+  margin-right: 5px;
+}
+
+.header .icon {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.header .icon > mat-icon {
+  position: relative;
+  bottom: 0px;
+  font-size: 0.9em;
+}

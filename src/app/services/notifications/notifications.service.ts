@@ -10,12 +10,6 @@ import { UserModel } from "src/app/models/user.model";
 export class NotificationsService {
   constructor(private http: HttpClient) {}
 
-  createNotification(payload: any) {
-    return this.http
-      .post(`${environment.path}/notifications`, payload)
-      .pipe(map((notification: any) => notification.data));
-  }
-
   getAllNotifications(user: UserModel) {
     return this.http
       .get(`${environment.path}/notifications/all/${user._id}`)
