@@ -2,8 +2,10 @@
 html,
 body {
   height: 100% !important;
-  background-color: rgb(247, 247, 247) !important;
+
+  background-color: rgb(237, 237, 237) !important;
 }
+
 body {
   margin: 0;
   font-family: "Public Sans", sans-serif;

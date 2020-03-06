@@ -19,6 +19,8 @@ mat-form-field {
 
 .contenedor .loader {
   grid-area: loader;
+  display: flex;
+  justify-content: center;
 }
 
 .contenedor .ticket-section {
@@ -114,6 +116,7 @@ mat-form-field {
     "comment-section-comments-header"
     "comment-section-comments-loader"
     "comment-section-comments-comment-list";
+  gap: 15px;
 }
 
 .comment-section-comments .comment-section-comments-header {

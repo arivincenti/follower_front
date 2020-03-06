@@ -81,13 +81,9 @@
           </button>
         </div>
 
-
-        <mat-divider></mat-divider>
-
-
-        <div mat-list-item class="d-flex justify-content-center mt-5">
-          <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Cerrar sesión" (click)=logout()>
-            <mat-icon>power_settings_new</mat-icon>
+        <div mat-list-item class="logout d-flex justify-content-center mt-5">
+          <button class="sidenav-button" mat-icon-button color="basic" (click)=logout()>
+            <mat-icon matTooltip="Cerrar sesión">power_settings_new</mat-icon>
           </button>
         </div>
 

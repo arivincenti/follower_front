@@ -5,8 +5,7 @@ import { AppState } from "../store/app.reducer";
 import { AreasService } from "../services/areas/areas.service";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
-import { NotificationsService } from "../services/notifications/notifications.service";
-import * as UnreadNotificationsActions from "../store/actions/userOrganizations/notifications/unreadNotifications/unreadNotifications.actions";
+import { getUnreadNotifications } from "../store/actions/userOrganizations/notifications/unreadNotifications/unreadNotifications.actions";
 import { MatSnackBar } from "@angular/material";
 import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 
@@ -18,10 +17,10 @@ import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 export class DashboardComponent implements OnInit, OnDestroy {
   private unsuscribe$ = new Subject();
   private auth;
+
   constructor(
     private _wsService: WebsocketService,
     private _areasService: AreasService,
-    private _notificationsService: NotificationsService,
     private store: Store<AppState>,
     private _snackBar: MatSnackBar
   ) {}
@@ -33,7 +32,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.auth = JSON.parse(localStorage.getItem("auth"));
 
     this.store.dispatch(
-      UnreadNotificationsActions.getUnreadNotifications({
+      getUnreadNotifications({
         payload: this.auth.user
       })
     );
@@ -56,7 +55,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
 
         if (movement.old.priority !== movement.new.priority) {
-          var message = `Cambió la prioridad de "${movement.new.priority}" a "${movement.old.priority}"`;
+          var message = `Cambió la prioridad de "${movement.old.priority}" a "${movement.new.priority}"`;
 
           changes.push(message);
         }
@@ -80,8 +79,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .listen("new-notification")
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe((notification: any) => {
-        var changes = notification.changes;
-
         this._snackBar.openFromComponent(SnackbarComponent, {
           duration: 8000,
           data: {
@@ -90,15 +87,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         });
 
         this.store.dispatch(
-          UnreadNotificationsActions.getUnreadNotifications({
+          getUnreadNotifications({
             payload: this.auth.user
           })
         );
       });
-  }
-
-  letraCapital(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   ngOnDestroy() {

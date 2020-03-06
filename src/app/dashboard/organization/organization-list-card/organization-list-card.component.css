@@ -46,7 +46,7 @@ button {
 
 .header-section-title .header-section-title-subtitle {
   position: relative;
-  bottom: 12px;
+  bottom: 11px;
   left: 25px;
   font-size: 0.7em;
   opacity: 0.4;
@@ -59,7 +59,7 @@ button {
 }
 
 .button .button-icon {
-  font-size: 1.1em;
+  font-size: 1.2em;
 }
 
 .header-section-title-title {

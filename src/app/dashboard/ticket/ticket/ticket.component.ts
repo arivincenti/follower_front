@@ -24,8 +24,18 @@ export class TicketComponent implements OnInit, OnDestroy {
   private unsuscribe$ = new Subject();
   messageForm: FormGroup;
   messageTypes: any[] = [
-    { value: "PÚBLICO", checked: true },
-    { value: "NOTA", checked: false }
+    {
+      value: "COMENTARIO PÚBLICO",
+      checked: true,
+      description:
+        "El comentario público puede ser leido por cualquier persona que acceda al ticket, aunque no sea miembro del área."
+    },
+    {
+      value: "NOTA INTERNA",
+      checked: false,
+      description:
+        "La nota interna solo puede ser leida por los miembros del área a la que pertenece el ticket."
+    }
   ];
   priorities: string[] = ["BAJA", "MEDIA", "ALTA"];
   formControlMembers: FormControl;
@@ -37,10 +47,8 @@ export class TicketComponent implements OnInit, OnDestroy {
   ticket$: Observable<TicketModel>;
   ticket: TicketModel;
   ticketLoading$: Observable<boolean>;
-  ticketLoaded$: Observable<boolean>;
   comments$: Observable<CommentModel[]>;
   commentsLoading$: Observable<boolean>;
-  commentsLoaded$: Observable<boolean>;
   activeUsers: UserModel[];
 
   //UI Observable
@@ -101,10 +109,6 @@ export class TicketComponent implements OnInit, OnDestroy {
       state => state.userOrganizations.tickets.selectedTicket.ticket.loading
     );
 
-    this.ticketLoaded$ = this.store.select(
-      state => state.userOrganizations.tickets.selectedTicket.ticket.loaded
-    );
-
     //Buscamos los datos del ticket
     this.ticket$ = this.store
       .select(
@@ -142,6 +146,9 @@ export class TicketComponent implements OnInit, OnDestroy {
     //Obtenemos los comentarios
     this.comments$ = this.store.select(
       state => state.userOrganizations.tickets.selectedTicket.comments.comments
+    );
+    this.commentsLoading$ = this.store.select(
+      state => state.userOrganizations.tickets.selectedTicket.comments.loading
     );
   }
 

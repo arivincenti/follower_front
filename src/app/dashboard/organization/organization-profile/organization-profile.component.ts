@@ -6,7 +6,7 @@ import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { ActivatedRoute, Router } from "@angular/router";
-import * as OrganizationActions from "../../../store/actions/userOrganizations/selectedOrganization/organization.actions";
+import { getOrganization } from "../../../store/actions/userOrganizations/selectedOrganization/organization.actions";
 import { MatDialog } from "@angular/material";
 import { AreaFormComponent } from "../../area/area-form/area-form.component";
 import { MemberFormComponent } from "../../member/member-form/member-form.component";
@@ -59,10 +59,13 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.param = this.activatedRoute.snapshot.paramMap.get("id");
 
-    this.store
-      .select(state => state.auth.user)
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe(user => (this.user = user));
+    // this.store
+    //   .select(state => state.auth.user)
+    //   .pipe(takeUntil(this.unsuscribe$))
+    //   .subscribe(user => (this.user = user));
+
+    var auth = JSON.parse(localStorage.getItem("auth"));
+    this.user = auth.user;
 
     this.animation$ = this.store.select(state => state.ui.animated);
 
@@ -71,18 +74,9 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
       state => state.userOrganizations.selectedOrganization.areas.areas.loading
     );
 
-    this.areasLoaded$ = this.store.select(
-      state => state.userOrganizations.selectedOrganization.areas.areas.loaded
-    );
-
     this.membersLoading$ = this.store.select(
       state =>
         state.userOrganizations.selectedOrganization.members.members.loading
-    );
-
-    this.membersLoaded$ = this.store.select(
-      state =>
-        state.userOrganizations.selectedOrganization.members.members.loaded
     );
 
     this.organizationLoading$ = this.store.select(
@@ -91,9 +85,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
     /////////////////////////////////////////////////////
 
-    this.store.dispatch(
-      OrganizationActions.getOrganization({ organization: this.param })
-    );
+    this.store.dispatch(getOrganization({ organization: this.param }));
 
     this.organization$ = this.store
       .select(

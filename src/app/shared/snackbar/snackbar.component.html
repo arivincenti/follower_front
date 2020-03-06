@@ -2,14 +2,18 @@
   <div class="header">
     <span class="icon">
       <mat-icon>notifications</mat-icon>
+      <span>
+        Nueva notificación
+      </span>
     </span>
     <div class="user">
-      <span class="warning">{{data.notification.updated_by.name | titlecase}}
-        {{data.notification.updated_by.last_name | titlecase}}</span> hizo
-      cambios en el {{data.notification.objectType}} "{{data.notification.objectName}}"
+      <span class="warning">
+        {{data.notification.updated_by.name | titlecase}}
+        {{data.notification.updated_by.last_name | titlecase}}
+      </span>
+      <span>
+        realizó cambios en el {{data.notification.objectType}} "{{data.notification.objectName}}"
+      </span>
     </div>
-  </div>
-  <div class="change" *ngFor="let change of data.notification.changes">
-    <span class="message">- {{change}}</span>
   </div>
 </div>

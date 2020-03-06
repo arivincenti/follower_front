@@ -7,9 +7,7 @@ import { MAT_SNACK_BAR_DATA } from "@angular/material";
   styleUrls: ["./snackbar.component.css"]
 })
 export class SnackbarComponent implements OnInit {
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
-    console.log(data.updated_by);
-  }
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {}
 
   ngOnInit() {}
 }

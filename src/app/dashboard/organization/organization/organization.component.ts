@@ -3,12 +3,12 @@ import { Observable, Subject } from "rxjs";
 import { UserModel } from "src/app/models/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import * as OrganizationsActions from "../../../store/actions/userOrganizations/organizations/organizations.actions";
-import * as TicketsActions from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
+import { getOrganizations } from "../../../store/actions/userOrganizations/organizations/organizations.actions";
+import { getTickets } from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { OrganizationFormComponent } from "../organization-form/organization-form.component";
-import { MatDialog } from "@angular/material";
-import { filter, takeUntil } from "rxjs/operators";
+import { MatDialog } from "@angular/material/dialog";
+import { takeUntil } from "rxjs/operators";
 import { TicketModel } from "src/app/models/ticketModel";
 import { TicketFormComponent } from "../../ticket/ticket-form/ticket-form.component";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
@@ -39,36 +39,18 @@ export class OrganizationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.animation$ = this.store.select(state => state.ui.animated);
 
-    this.store
-      .select(state => state.auth.user)
-      .pipe(
-        takeUntil(this.unsuscribe$),
-        filter(user => user !== null)
-      )
-      .subscribe(user => {
-        this.user = user;
-        this.store.dispatch(
-          OrganizationsActions.getOrganizations({ payload: this.user._id })
-        );
-        this.store.dispatch(TicketsActions.getTickets({ payload: this.user }));
-      });
+    var auth = JSON.parse(localStorage.getItem("auth"));
+    this.user = auth.user;
+
+    this.store.dispatch(getOrganizations({ payload: this.user._id }));
+    this.store.dispatch(getTickets({ payload: this.user }));
 
     this.wsService
       .listen("new-ticket")
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe((res: TicketModel) => {
-        this.store.dispatch(TicketsActions.getTickets({ payload: this.user }));
+        this.store.dispatch(getTickets({ payload: this.user }));
       });
-
-    //Escuchamos las actualizaciones en las organizaciones
-    // this._organizationsService
-    //   .getUpdateBySocket()
-    //   .pipe(takeUntil(this.unsuscribe$))
-    //   .subscribe(msg => {
-    //     this.store.dispatch(
-    //       OrganizationsActions.getOrganizations({ payload: this.user._id })
-    //     );
-    //   });
 
     //Observamos los cambios en los loaders de las organizaciones
     this.organizationsLoading$ = this.store.select(

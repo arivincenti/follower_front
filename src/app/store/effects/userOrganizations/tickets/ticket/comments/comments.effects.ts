@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
 import { createEffect, Actions, ofType } from "@ngrx/effects";
 import * as CommentsActions from "../../../../../actions/userOrganizations/tickets/ticket/comments/comments.actions";
-import { mergeMap, map, catchError, tap } from "rxjs/operators";
+import { mergeMap, map, catchError } from "rxjs/operators";
 import { of } from "rxjs";
 import Swal from "sweetalert2";
 import { CommentsService } from "src/app/services/comments/comments.service";
+import { CommentModel } from "src/app/models/commentModel";
+import { CdkStepperNext } from "@angular/cdk/stepper";
 
 @Injectable()
 export class CommentsEffects {
@@ -33,8 +35,11 @@ export class CommentsEffects {
     () =>
       this.actions$.pipe(
         ofType(CommentsActions.addComment),
-        mergeMap(action =>
-          this._commentsService.addComment(action.payload).pipe(
+        mergeMap(action => {
+          return this._commentsService.addComment(action.payload).pipe(
+            map(res => {
+              return true;
+            }),
             catchError(error =>
               Swal.fire({
                 position: "top-end",
@@ -46,8 +51,8 @@ export class CommentsEffects {
                 timer: 2700
               })
             )
-          )
-        )
+          );
+        })
       ),
     { dispatch: false }
   );

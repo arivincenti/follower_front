@@ -102,6 +102,13 @@ $orange-theme: mat-light-theme($orange-primary, $orange-accent, $orange-warn);
     background-color: mat-color($mat-light-green, 800);
     color: white;
   }
+
+  .background-section {
+    box-sizing: content-box;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+  }
 }
 
 // .purple {
@@ -262,6 +269,12 @@ $orange-theme: mat-light-theme($orange-primary, $orange-accent, $orange-warn);
   .badge-success {
     background-color: mat-color($mat-light-green, A700);
     color: white;
+  }
+
+  .background-section {
+    padding: 17px;
+    background-color: rgba(120, 120, 120, 0.2);
+    border-radius: 15px;
   }
 
   @include angular-material-theme($dark-pink-theme);

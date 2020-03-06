@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { WebsocketService } from "../websocket/websocket.service";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -20,10 +21,9 @@ export class CommentsService {
   // Add comment
   // ==================================================
   addComment(payload: any) {
-    return this.http.put(
-      `${environment.path}/comments/${payload.ticket}`,
-      payload
-    );
+    return this.http
+      .put(`${environment.path}/comments/${payload.ticket}`, payload)
+      .pipe(map((res: any) => res.data));
   }
 
   listenCommentsSocket() {

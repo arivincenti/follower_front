@@ -10,6 +10,7 @@ button {
   grid-template-areas:
     "header-section"
     "info-section";
+  gap: 3px;
 }
 
 .contenedor .header-section {
@@ -33,15 +34,6 @@ button {
   align-items: center;
 }
 
-.header-section-title .header-section-title-subtitle {
-  position: relative;
-  bottom: 8px;
-  left: 25px;
-  font-size: 0.7em;
-  opacity: 0.5;
-  grid-area: header-section-title-subtitle;
-}
-
 .header-section .header-section-buttons {
   display: flex;
   justify-content: flex-end;
@@ -52,7 +44,7 @@ button {
 }
 
 .info-section > span {
-  opacity: 0.5;
+  opacity: 0.7;
   font-size: 0.8em;
 }
 
@@ -67,10 +59,10 @@ button {
 
 .header-section-title .header-section-title-subtitle {
   position: relative;
-  bottom: 10px;
+  bottom: 9px;
   left: 27px;
   font-size: 0.7em;
-  opacity: 0.3;
+  opacity: 0.4;
   grid-area: header-section-title-subtitle;
 }
 
