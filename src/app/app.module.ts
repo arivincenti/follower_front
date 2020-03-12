@@ -35,7 +35,7 @@ export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
   return localStorageSync({
-    keys: [{ ui: ["theme"] }, "auth"],
+    keys: [{ ui: ["theme"] }, "auth", "userOrganizations"],
     rehydrate: true
   })(reducer);
 }

@@ -87,10 +87,9 @@
                 <!-- Miembros de la organización -->
               </ng-template>
 
-              <div class="row" *ngIf="membersLoading$ | async">
-                <div class="col-md-12 d-flex justify-content-center">
-                  <mat-spinner diameter="30" class="mt-4"></mat-spinner>
-                </div>
+              <div class="organizations-section-loader">
+                <mat-progress-bar *ngIf="membersLoading$ | async" mode="indeterminate">
+                </mat-progress-bar>
               </div>
 
 

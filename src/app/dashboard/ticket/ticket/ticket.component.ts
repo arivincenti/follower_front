@@ -8,7 +8,6 @@ import { AppState } from "src/app/store/app.reducer";
 import * as TicketActions from "../../../store/actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
 import * as CommentsActions from "../../../store/actions/userOrganizations/tickets/ticket/comments/comments.actions";
 import { MemberModel } from "src/app/models/member.model";
-import { AreasService } from "src/app/services/areas/areas.service";
 import { map, filter, takeUntil } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
 import { CommentModel } from "src/app/models/commentModel";
@@ -40,16 +39,13 @@ export class TicketComponent implements OnInit, OnDestroy {
   priorities: string[] = ["BAJA", "MEDIA", "ALTA"];
   formControlMembers: FormControl;
   formControlPrority: FormControl;
-  membersLoading: boolean = false;
-  members$: Observable<MemberModel>;
+  members: MemberModel[];
   param: string;
   user: UserModel;
   ticket$: Observable<TicketModel>;
-  ticket: TicketModel;
   ticketLoading$: Observable<boolean>;
   comments$: Observable<CommentModel[]>;
   commentsLoading$: Observable<boolean>;
-  activeUsers: UserModel[];
 
   //UI Observable
   animation$: Observable<string[]>;
@@ -57,7 +53,6 @@ export class TicketComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
-    private _areasService: AreasService,
     private commentService: CommentsService,
     private wsService: WebsocketService
   ) {}
@@ -66,13 +61,6 @@ export class TicketComponent implements OnInit, OnDestroy {
     //Cargamos las animaciones y obtenemos el ID que viene por la URL
     this.animation$ = this.store.select(state => state.ui.animated);
     this.param = this.activatedRoute.snapshot.paramMap.get("id");
-
-    //Cuando entramos al ticket nos unimos como si fuese una sala de chat
-    this.wsService.emit("join-ticket", this.param);
-    this.wsService
-      .listen("ticket-clients-count")
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((users: UserModel[]) => (this.activeUsers = users));
 
     //Aca escuchamos cuando alguien crea un nuevo comentario
     this.commentService
@@ -116,21 +104,8 @@ export class TicketComponent implements OnInit, OnDestroy {
       )
       .pipe(
         filter(ticket => ticket !== null),
-        map(ticket => {
-          this.ticket = ticket;
-          this.membersLoading = true;
-
-          this.members$ = this._areasService
-            .getAreaMembers(this.ticket.area._id)
-            .pipe(
-              takeUntil(this.unsuscribe$),
-              filter(member => member !== null),
-              map(members => {
-                this.membersLoading = false;
-
-                return members;
-              })
-            );
+        map((ticket: TicketModel) => {
+          this.members = ticket.area.members;
 
           if (ticket.responsible) {
             this.formControlMembers = new FormControl(ticket.responsible._id);
@@ -153,9 +128,6 @@ export class TicketComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Nos salimos del ticket (sala)
-    this.wsService.emit("leave-ticket", this.param);
-
     //Nos desuscribimos de los observables
     this.unsuscribe$.next();
     this.unsuscribe$.complete();

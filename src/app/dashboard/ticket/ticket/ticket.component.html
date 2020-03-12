@@ -55,14 +55,6 @@
           <!-- properties section info -->
           <div class="properties-section-info">
             <span class="ticket-card-info">
-              <mat-icon class="icon">visibility</mat-icon>
-              Viendo /
-              <span class="badge badge-primary badge-active-user"
-                *ngFor="let activeUser of activeUsers">{{ activeUser.name | titlecase }}
-                {{ activeUser.last_name | titlecase }}
-              </span>
-            </span>
-            <span class="ticket-card-info">
               <mat-icon class="icon">flag</mat-icon>
               Estado /
               <span class="badge badge-ticket-status"
@@ -95,14 +87,9 @@
             </span>
           </div>
           <!-- properties section info end -->
-          <!-- properties section loader -->
-          <div class="properties-section-loader animated" [ngClass]="animation[0]">
-            <mat-spinner diameter="25" *ngIf="membersLoading"></mat-spinner>
-          </div>
-          <!-- properties section loader end -->
           <!-- properties section responsible -->
-          <div class="properties-section-responsible" *ngIf="ticket.movements">
-            <mat-form-field *ngIf="members$ | async as members">
+          <div class="properties-section-responsible">
+            <mat-form-field>
               <mat-label *ngIf="members">Miembro responsable</mat-label>
               <mat-label *ngIf="!members">Asignar miembros al ticket</mat-label>
               <mat-select [formControl]="formControlMembers">

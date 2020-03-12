@@ -8,14 +8,14 @@ export interface state {
   organizations: OrganizationsReducer.OrganizationsState;
   selectedOrganization: OrganizationReducer.state;
   tickets: TicketsReducer.state;
-  notifications: NotificationsReducer.state;
+  notifications: NotificationsReducer.NotificationsState;
 }
 
 export const initialState: state = {
   organizations: OrganizationsReducer.initialOrganizationsState,
   selectedOrganization: OrganizationReducer.initialState,
   tickets: TicketsReducer.initialState,
-  notifications: NotificationsReducer.initialState
+  notifications: NotificationsReducer.initialNotificationsState
 };
 
 export const userOrganizationReducer = combineReducers(

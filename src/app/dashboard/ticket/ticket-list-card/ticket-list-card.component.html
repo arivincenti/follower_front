@@ -18,7 +18,7 @@
           </span>
         </div>
         <div class="header-section-title-subtitle">
-          <span>
+          <span [matTooltip]="ticket.created_at | date:'medium'" matTooltipPosition="right">
             Creado {{ ticket.created_at | time }}
           </span>
         </div>
@@ -28,7 +28,7 @@
       <div class="header-section-buttons">
         <button class="button" mat-icon-button matTooltip="Ver detalle" matTooltipPosition="above"
           (click)="ticketDetail(ticket)">
-          <mat-icon class="button-icon">arrow_forward</mat-icon>
+          <mat-icon class="button-icon">meeting_room</mat-icon>
         </button>
       </div>
       <!-- header section buttons end -->

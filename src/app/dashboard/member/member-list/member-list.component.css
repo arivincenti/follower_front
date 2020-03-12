@@ -1,0 +1,32 @@
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  grid-gap: 10px;
+}
+
+.contenedor .mensaje {
+  grid-row: 1fr;
+}
+
+.contenedor .list-card {
+  grid-row: 1fr;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "list-card-card"
+    "list-card-divider";
+  grid-gap: 0px;
+}
+
+.list-card .list-card-card {
+  grid-area: list-card-card;
+}
+
+.list-card .list-card-divider {
+  grid-area: list-card-divider;
+}
+
+.contenedor .paginador {
+  grid-row: 1fr;
+}

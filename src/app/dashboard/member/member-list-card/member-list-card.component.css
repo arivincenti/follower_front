@@ -1,4 +1,4 @@
-button {
+/* button {
   outline: none;
 }
 
@@ -64,6 +64,94 @@ button {
   .title {
     width: 200px;
   }
+} */
+
+button {
+  outline: none;
 }
 
+/* CSS GRID */
 
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "header-section";
+}
+
+.contenedor .header-section {
+  grid-area: header-section;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.header-section .header-section-title {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  grid-template-areas:
+    "header-section-image header-section-title-title"
+    "header-section-image header-section-title-subtitle";
+  align-items: center;
+}
+
+.header-section-title .header-section-title-title {
+  grid-area: header-section-title-title;
+  display: flex;
+}
+
+.header-section-title .header-section-image {
+  grid-area: header-section-image;
+  position: relative;
+  bottom: 8px;
+}
+
+.header-section .header-section-buttons {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  bottom: 6px;
+}
+
+/* CSS GRID END */
+
+.icon-header {
+  font-size: 1.3em;
+  position: relative;
+  top: 2px;
+  right: 2px;
+}
+
+.header-section-title .header-section-title-subtitle {
+  position: relative;
+  bottom: 9px;
+  left: 0px;
+  font-size: 0.7em;
+  opacity: 0.4;
+  grid-area: header-section-title-subtitle;
+}
+
+.button {
+  position: relative;
+  bottom: 8px;
+}
+
+.button .button-icon {
+  font-size: 1.2em;
+}
+
+.header-section-title-title {
+  font-size: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.deleted {
+  opacity: 0.3;
+  text-decoration: line-through;
+}
+
+@media (max-width: 990px) {
+  .header-section-title-title {
+    width: 230px;
+  }
+}

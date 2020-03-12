@@ -1,20 +1,26 @@
-<div class="d-flex justify-content-start aligns-items-center" *ngIf="!members.length">
-  <span class="empty-message mt-2" *ngIf="area">No se encontró ningun miembro en el área, prueba con agregar uno.</span>
-  <span class="empty-message mt-2" *ngIf="!area">No se encontró ningun miembro en la organización, prueba con cargar uno nuevo.</span>
-</div>
+<div class="contenedor">
 
-<ng-container *ngIf="members.length">
-  <div class="row mt-3 animated" *ngFor="let member of members | memberPaginator:since:until" [ngClass]="animation[0]">
-    <div class="col-md-12">
-      <app-member-list-card [organization]="organization" [member]="member" [user]="user" [area]="area">
-      </app-member-list-card>
-    </div>
-    <div class="col-md-12 mb-1">
-      <mat-divider></mat-divider>
-    </div>
+  <div class="mensaje animated" *ngIf="!members.length">
+    <span class="empty-message">No se encontró ningun miembro en la organización, prueba con cargar uno nuevo.</span>
   </div>
 
-  <mat-paginator [length]="members.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-    (page)="changePage($event)">
-  </mat-paginator>
-</ng-container>
+  <ng-container *ngIf="members.length">
+    <div class="list-card" *ngFor="let member of members | memberPaginator:since:until" [ngClass]="animation[0]">
+
+      <div class="list-card-card animated fadeIn">
+        <app-member-list-card [organization]="organization" [member]="member" [user]="user" [area]="area">
+        </app-member-list-card>
+      </div>
+
+      <div class="list-card-divider">
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+
+    <div class="paginador">
+      <mat-paginator [length]="members.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="changePage($event)">
+      </mat-paginator>
+    </div>
+  </ng-container>
+</div>

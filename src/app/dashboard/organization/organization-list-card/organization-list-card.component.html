@@ -24,7 +24,7 @@
       <!-- header section buttons -->
       <div class="header-section-buttons">
         <button class="button" mat-icon-button (click)="selectOrganization(organization)">
-          <mat-icon matTooltip="Ingresar a la organización" matTooltipPosition="above" class="button-icon">arrow_forward
+          <mat-icon matTooltip="Ingresar a la organización" matTooltipPosition="above" class="button-icon">meeting_room
           </mat-icon>
         </button>
 
@@ -36,7 +36,7 @@
 
         <button class="button" mat-icon-button *ngIf="organization.deleted_at"
           (click)="reactivateOrganization(organization)">
-          <mat-icon matTooltip="Reactivar" matTooltipPosition="above" class="button-toggle danger">toggle_off
+          <mat-icon matTooltip="Activar" matTooltipPosition="above" class="button-toggle danger">toggle_off
           </mat-icon>
         </button>
       </div>
