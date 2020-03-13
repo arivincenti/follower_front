@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard.component';
-import { dashboardRoutes } from './dashboard.routes';
-import { LoginGuard } from '../guards/login/login.guard';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { DashboardComponent } from "./dashboard.component";
+import { dashboardRoutes } from "./dashboard.routes";
+import { LoginGuard } from "../guards/login/login.guard";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     canActivate: [LoginGuard],
-    component: DashboardComponent, children: dashboardRoutes
+    component: DashboardComponent,
+    children: dashboardRoutes
   }
 ];
 
@@ -16,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}

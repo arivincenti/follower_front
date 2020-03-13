@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         });
       }
       if (auth.user && auth.user.email === credentials.email)
-        this.router.navigate(["app"]);
+        this.router.navigate(["app/organizations"]);
     });
   }
 }

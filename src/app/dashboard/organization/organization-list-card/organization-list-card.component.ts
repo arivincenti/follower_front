@@ -10,7 +10,6 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { AreasService } from "src/app/services/areas/areas.service";
 import { MembersService } from "src/app/services/members/members.service";
-import { OrganizationFormComponent } from "../organization-form/organization-form.component";
 import { MatDialog } from "@angular/material";
 import { takeUntil } from "rxjs/operators";
 

@@ -62,13 +62,13 @@ export class MainNavComponent implements OnInit, OnDestroy {
     );
 
     //Nos unimos a todas las salas de áreas
-    this._areasService
-      .getAreasByUser(this.auth.user)
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe(areas => {
-        console.log("nos subscribimos a todas las areas");
-        this._wsService.emit("join-all-areas", areas);
-      });
+    // this._areasService
+    //   .getAreasByUser(this.auth.user)
+    //   .pipe(takeUntil(this.unsuscribe$))
+    //   .subscribe(areas => {
+    //     console.log("nos subscribimos a todas las areas");
+    //     this._wsService.emit("join-all-areas", areas);
+    //   });
 
     //Nos unimos a todos nuestros tickets......
     this.store

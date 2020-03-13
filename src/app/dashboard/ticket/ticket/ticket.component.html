@@ -116,8 +116,10 @@
           <!-- properties section priority end -->
           <!-- properties section button -->
           <div class="properties-section-button">
-            <button type="button" class="button" (click)="saveChanges(ticket)" mat-flat-button color="warn">
-              <span>Guardar propiedades</span>
+            <button type="button" class="button" [disabled]="ticketLoading$ | async" (click)="saveChanges(ticket)"
+              mat-flat-button color="warn">
+              <span *ngIf="!(ticketLoading$ | async)">Guardar propiedades</span>
+              <span *ngIf="ticketLoading$ | async"> Guardando propiedades... </span>
             </button>
           </div>
         </div>

@@ -18,9 +18,9 @@ import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    OrganizationModule,
-    AreaModule,
-    MemberModule,
+    // OrganizationModule,
+    // AreaModule,
+    // MemberModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,

@@ -13,6 +13,7 @@ import { TicketPaginatorPipe } from "../pipes/tickets/ticket-paginator.pipe";
 import { OrganizationPaginatorPipe } from "../pipes/organizations/organization-paginator.pipe";
 import { TimePipe } from "../pipes/time/time.pipe";
 import { SnackbarComponent } from "./snackbar/snackbar.component";
+import { OrganizationFormComponent } from "./organization-form/organization-form.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SnackbarComponent } from "./snackbar/snackbar.component";
     TicketPaginatorPipe,
     OrganizationPaginatorPipe,
     TimePipe,
-    SnackbarComponent
+    SnackbarComponent,
+    OrganizationFormComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { SnackbarComponent } from "./snackbar/snackbar.component";
     TicketPaginatorPipe,
     OrganizationPaginatorPipe,
     TimePipe,
-    SnackbarComponent
+    SnackbarComponent,
+    OrganizationFormComponent
   ]
 })
 export class SharedModule {}

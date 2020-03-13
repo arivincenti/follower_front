@@ -6,13 +6,13 @@ import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { ActivatedRoute, Router } from "@angular/router";
-import { getOrganization } from "../../../store/actions/userOrganizations/selectedOrganization/organization.actions";
+import { getOrganization } from "../../../../store/actions/userOrganizations/selectedOrganization/organization.actions";
 import { MatDialog } from "@angular/material";
-import { AreaFormComponent } from "../../area/area-form/area-form.component";
-import { MemberFormComponent } from "../../member/member-form/member-form.component";
+import { AreaFormComponent } from "../../../area/area-form/area-form.component";
+import { MemberFormComponent } from "../../../member/member-form/member-form.component";
 import { MemberModel } from "src/app/models/member.model";
 import { map, takeUntil } from "rxjs/operators";
-import { OrganizationFormComponent } from "../organization-form/organization-form.component";
+import { OrganizationFormComponent } from "../../../../shared/organization-form/organization-form.component";
 
 @Component({
   selector: "app-organization-profile",

@@ -18,7 +18,7 @@
 
         <div mat-list-item class="d-flex justify-content-center mt-3">
           <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Notificaciones"
-            matTooltipPosition="right">
+            routerLink="notifications" matTooltipPosition="right">
 
             <mat-icon *ngIf="unreadNotifications$ | async as unreadNotifications"
               [matBadge]="unreadNotifications.length" matBadgeColor="warn">
