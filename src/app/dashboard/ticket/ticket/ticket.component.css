@@ -27,14 +27,14 @@ mat-form-field {
   /* background-color: rgba(0, 255, 0, 0.1); */
   grid-area: ticket-section;
   display: grid;
-  grid-gap: 15px;
+  gap: 15px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 /* MESSAGE SECTION */
 .ticket-section .message-section {
   display: grid;
-  grid-gap: 7px;
+  gap: 15px;
   grid-template-columns: 1fr;
   grid-template-areas:
     "message-section-header"
@@ -43,6 +43,21 @@ mat-form-field {
 
 .message-section .message-section-header {
   grid-area: message-section-header;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 25px;
+}
+
+.message-section-header .message-section-header-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.message-section-header .message-section-header-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .message-section .message-section-incident {
@@ -53,7 +68,7 @@ mat-form-field {
 .ticket-section .properties-section {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 7px;
+  gap: 20px;
   grid-template-areas:
     "properties-section-header"
     "properties-section-info"
@@ -64,9 +79,23 @@ mat-form-field {
 
 .properties-section .properties-section-header {
   grid-area: properties-section-header;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 25px;
 }
+
+.properties-section-header .properties-section-header-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .properties-section .properties-section-info {
   grid-area: properties-section-info;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(auto-fill, auto);
+  grid-gap: 1px;
 }
 
 .properties-section .properties-section-responsible {
@@ -79,22 +108,13 @@ mat-form-field {
   grid-area: properties-section-button;
 }
 
-/* PROPERTIES SECTION INFO */
-.properties-section .properties-section-info {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(auto-fill, auto);
-  grid-gap: 2px;
-}
-
 /* COMMENT SECTION */
 .contenedor .comment-section {
-  /* background-color: rgba(0, 255, 0, 0.1); */
   margin-bottom: 50px;
   grid-area: comment-section;
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 35px;
+  gap: 30px;
   grid-template-areas:
     "comment-section-form"
     "comment-section-comments";
@@ -108,16 +128,24 @@ mat-form-field {
   grid-area: comment-section-comments;
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 7px;
   grid-template-areas:
     "comment-section-comments-header"
     "comment-section-comments-loader"
     "comment-section-comments-comment-list";
-  gap: 15px;
+  gap: 10px;
 }
 
 .comment-section-comments .comment-section-comments-header {
   grid-area: comment-section-comments-header;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 25px;
+}
+
+.comment-section-comments-header .comment-section-comments-header-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .comment-section-comments .comment-section-comments-loader {
@@ -134,39 +162,39 @@ mat-form-field {
   width: 100% !important;
 }
 
+.incident-description {
+  font-size: 0.9em;
+}
+
 .button {
   width: 100%;
 }
 
-.badge-active-user {
-  margin-right: 2px;
-}
-
 .badge {
+  border-radius: 3px;
+  padding: 2px 3px;
+  font-size: 0.8em;
   line-height: 12px;
 }
 
 .member-card-img {
   object-fit: cover;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-}
-
-.number-code {
-  font-size: 0.9em;
-  opacity: 0.5;
   position: relative;
-  bottom: 10px;
-  left: 27px;
+  top: 9px;
+  margin-right: 5px;
 }
 
 .content {
   min-height: 145px;
 }
 
-.subject {
-  font-size: 0.9em;
+.header-title {
+  font-size: 1em;
+  opacity: 0.6;
+  font-weight: bolder;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -177,15 +205,26 @@ mat-form-field {
 }
 
 .icon {
-  position: relative;
-  top: 4px;
+  font-size: 1.3em;
 }
 
 .icon-ticket {
-  font-size: 1.1em;
+  font-size: 1.2em;
+  position: relative;
+  top: 2px;
+}
+
+.message-section-header-info {
+  font-size: 0.7em;
+  opacity: 0.5;
+  position: relative;
+  bottom: 2px;
+  left: 23px;
+}
+
+.icon {
   position: relative;
   top: 4px;
-  right: 0px;
 }
 
 .icon-ticket-in {
@@ -194,22 +233,23 @@ mat-form-field {
   font-size: 1.2em;
 }
 
-.ticket-subtitle {
-  font-size: 1em;
-  opacity: 0.7;
-}
-
 .radio-buttons {
-  position: relative;
-  top: 25px;
-}
-
-.incident-description {
+  margin-right: 15px;
   font-size: 0.9em;
 }
 
+.radio-buttons span {
+  opacity: 0.6;
+}
+
+.save-icon {
+  font-size: 1em;
+  position: relative;
+  top: 2px;
+}
+
 @media (max-width: 990px) {
-  .subject {
+  .header-title {
     width: 200px;
   }
 }

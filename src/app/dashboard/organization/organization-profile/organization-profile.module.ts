@@ -7,9 +7,10 @@ import { OrganizationProfileRoutingModule } from "./organization-profile-routing
 import { AngularMaterialModule } from "src/app/angular-material/angular-material.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { ReactiveFormsModule } from "@angular/forms";
+import { PruebaComponent } from './prueba/prueba.component';
 
 @NgModule({
-  declarations: [OrganizationProfileComponent],
+  declarations: [OrganizationProfileComponent, PruebaComponent],
   imports: [
     CommonModule,
     AreaModule,

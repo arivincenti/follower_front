@@ -2,21 +2,21 @@
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-      <mat-toolbar class="d-flex justify-content-center brand">
+      <mat-toolbar class="brand">
 
         <span class="mini-brand">Follower</span>
 
       </mat-toolbar>
 
       <mat-nav-list>
-        <div mat-list-item class="d-flex justify-content-center mt-3">
+        <div mat-list-item class="side-nav-icon">
           <button class="sidenav-button" mat-icon-button color="basic" routerLink="organizations" matTooltip="Dashboard"
             matTooltipPosition="right">
             <mat-icon>account_circle</mat-icon>
           </button>
         </div>
 
-        <div mat-list-item class="d-flex justify-content-center mt-3">
+        <div mat-list-item class="side-nav-icon">
           <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Notificaciones"
             routerLink="notifications" matTooltipPosition="right">
 
@@ -27,7 +27,7 @@
           </button>
         </div>
 
-        <div mat-list-item class="d-flex justify-content-center mt-3">
+        <div mat-list-item class="side-nav-icon">
           <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Tema" matTooltipPosition="right"
             [matMenuTriggerFor]="colorMenu">
             <mat-icon>palette</mat-icon>
@@ -55,12 +55,12 @@
                 </button>
               </mat-grid-tile> -->
               <mat-grid-tile>
-                <button class="dark-pink d-flex" mat-button (click)="changeTheme('dark-pink')">
+                <button class="dark-pink" mat-button (click)="changeTheme('dark-pink')">
                   <mat-icon class="color-icon">brightness_1</mat-icon>
                 </button>
               </mat-grid-tile>
               <mat-grid-tile>
-                <button class="default d-flex" mat-button (click)="changeTheme('default')">
+                <button class="default" mat-button (click)="changeTheme('default')">
                   <mat-icon class="color-icon">brightness_1</mat-icon>
                 </button>
               </mat-grid-tile>
@@ -68,21 +68,21 @@
           </mat-menu>
         </div>
 
-        <div mat-list-item class="d-flex justify-content-center mt-3">
+        <div mat-list-item class="side-nav-icon">
           <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Subscripción"
             matTooltipPosition="right">
             <mat-icon>credit_card</mat-icon>
           </button>
         </div>
 
-        <div mat-list-item class="d-flex justify-content-center mt-3 mb-5">
+        <div mat-list-item class="side-nav-icon">
           <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Preguntas frecuentes"
             matTooltipPosition="right">
             <mat-icon>help_outline</mat-icon>
           </button>
         </div>
 
-        <div mat-list-item class="logout d-flex justify-content-center mt-5">
+        <div mat-list-item class="logout side-nav-icon">
           <button class="sidenav-button" mat-icon-button color="basic" (click)=logout()>
             <mat-icon matTooltip="Cerrar sesión">power_settings_new</mat-icon>
           </button>

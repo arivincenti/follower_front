@@ -138,7 +138,13 @@ mat-form-field {
 .logout {
   width: 100%;
   border-top: 1px solid rgba(255, 255, 255, 0.5);
-  padding-top: 15px;
+  padding-top: 20px;
   position: absolute;
-  bottom: 25px;
+  bottom: 5px;
+}
+
+.side-nav-icon {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
 }

@@ -14,27 +14,32 @@ button {
 }
 
 .contenedor .header-section {
-  height: 35px;
   grid-area: header-section;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "header-section-title header-section-buttons";
 }
 
 .header-section .header-section-title {
+  grid-area: header-section-title;
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: 27px auto;
   grid-template-areas:
     "header-section-title-title"
     "header-section-title-subtitle";
 }
 
 .header-section-title .header-section-title-title {
+  margin: 0px;
   grid-area: header-section-title-title;
   display: flex;
   align-items: center;
+  font-size: 1em;
 }
 
 .header-section .header-section-buttons {
+  grid-area: header-section-buttons;
   display: flex;
   justify-content: flex-end;
 }
@@ -57,10 +62,16 @@ button {
   right: 2px;
 }
 
+.icon {
+  font-size: 1.1em;
+  position: relative;
+  top: 2px;
+  left: 7px;
+}
+
 .header-section-title .header-section-title-subtitle {
   position: relative;
-  bottom: 9px;
-  left: 27px;
+  left: 30px;
   font-size: 0.7em;
   opacity: 0.4;
   grid-area: header-section-title-subtitle;
@@ -76,22 +87,29 @@ button {
 }
 
 .badge-ticket-status {
-  font-size: 0.5em;
+  border-radius: 3px;
+  padding: 2px 4px 1px 4px;
+  font-size: 0.6em;
   position: relative;
-  bottom: 2px;
   left: 7px;
-  line-height: 12px;
+  top: 2px;
+  line-height: 11px;
+  font-weight: bold;
 }
 
-.header-section-title-title > h6 {
-  font-size: 1em;
+.badge-ticket-status > span {
+  position: relative;
+  top: 2px;
+}
+
+h4 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 @media (max-width: 990px) {
-  .header-section-title-title > h6 {
+  h4 {
     max-width: 230px;
   }
 }

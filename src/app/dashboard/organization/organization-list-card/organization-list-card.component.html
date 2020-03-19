@@ -4,7 +4,7 @@
     <div class="header-section">
       <!-- Header section title -->
       <div class="header-section-title">
-        <h6 class="header-section-title-title">
+        <h4 class="header-section-title-title">
           <span *ngIf="organization.created_by._id === user._id">
             <mat-icon class="icon-header warning">star</mat-icon>
           </span>
@@ -15,7 +15,7 @@
             matTooltipPosition="right">
             {{organization.name | titlecase}}
           </span>
-        </h6>
+        </h4>
         <span class="header-section-title-subtitle">
           Creada {{organization.created_at | time}}
         </span>

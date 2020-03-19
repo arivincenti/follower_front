@@ -1,3 +1,14 @@
-button{
+button {
   outline: none;
+}
+
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 70px);
+  gap: 10px;
+  width: 250px;
+}
+
+.contenedor div button {
+  font-size: 0.8em;
 }

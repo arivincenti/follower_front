@@ -10,7 +10,7 @@ const routes: Routes = [
     component: OrganizationComponent
   },
   {
-    path: "profile",
+    path: "profile/:id",
     loadChildren: () =>
       import("./organization-profile/organization-profile.module").then(
         m => m.OrganizationProfileModule

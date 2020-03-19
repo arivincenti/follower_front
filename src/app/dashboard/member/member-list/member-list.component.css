@@ -1,8 +1,13 @@
+button {
+  outline: none;
+}
+
 .contenedor {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto auto;
-  grid-gap: 10px;
+  grid-template-rows: auto auto auto auto auto;
+  gap: 25px;
+  margin-bottom: 20px;
 }
 
 .contenedor .mensaje {
@@ -17,6 +22,27 @@
     "list-card-card"
     "list-card-divider";
   grid-gap: 0px;
+}
+
+.contenedor .list-card-header {
+  grid-row: 1fr;
+  display: grid;
+  grid-template-columns: 100px 120px 1fr;
+  align-items: center;
+}
+
+.list-card-header .list-card-header-title {
+  font-size: 1.1em;
+  opacity: 0.5;
+}
+
+.list-card-header .list-card-header-button {
+  font-size: 0.8em;
+}
+
+.list-card-header .list-card-header-filter {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .list-card .list-card-card {

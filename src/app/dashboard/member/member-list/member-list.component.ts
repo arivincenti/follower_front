@@ -1,23 +1,32 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { OrganizationModel } from 'src/app/models/organization.model';
-import { UserModel } from 'src/app/models/user.model';
-import { Observable } from 'rxjs';
-import { MemberModel } from 'src/app/models/member.model';
-import { PageEvent } from '@angular/material';
-import { AreaModel } from 'src/app/models/area.model';
+import { Component, OnInit, Input } from "@angular/core";
+import { OrganizationModel } from "src/app/models/organization.model";
+import { UserModel } from "src/app/models/user.model";
+import { Observable } from "rxjs";
+import { MemberModel } from "src/app/models/member.model";
+import { PageEvent, MatDialog } from "@angular/material";
+import { AreaModel } from "src/app/models/area.model";
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/store/app.reducer";
+import { map } from "rxjs/operators";
+import { MemberFormComponent } from "../member-form/member-form.component";
 
 @Component({
-  selector: 'app-member-list',
-  templateUrl: './member-list.component.html',
-  styleUrls: ['./member-list.component.css']
+  selector: "app-member-list",
+  templateUrl: "./member-list.component.html",
+  styleUrls: ["./member-list.component.css"]
 })
-export class MemberListComponent implements OnInit
-{
-  @Input() organization: OrganizationModel;
-  @Input() user: UserModel;
-  @Input() members: MemberModel[];
+export class MemberListComponent implements OnInit {
   @Input() area: AreaModel;
-  @Input() animation: string[];
+
+  organization$: Observable<OrganizationModel>;
+  organization: OrganizationModel;
+  user: UserModel;
+
+  animation$: Observable<string[]>;
+  members$: Observable<MemberModel[]>;
+  membersLoading$: Observable<boolean>;
+  membersLoaded$: Observable<boolean>;
+  filterMembers: MemberModel[];
 
   //Paginator variables
   pageIndex: number = 0;
@@ -29,10 +38,38 @@ export class MemberListComponent implements OnInit
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  constructor() { }
+  constructor(private store: Store<AppState>, private dialog: MatDialog) {}
 
-  ngOnInit()
-  {
+  ngOnInit() {
+    this.animation$ = this.store.select(state => state.ui.animated);
+
+    var auth = JSON.parse(localStorage.getItem("auth"));
+    this.user = auth.user;
+
+    this.organization$ = this.store
+      .select(
+        state =>
+          state.userOrganizations.selectedOrganization.organization.organization
+      )
+      .pipe(
+        map(
+          (organization: OrganizationModel) =>
+            (this.organization = organization)
+        )
+      );
+
+    this.membersLoading$ = this.store.select(
+      state =>
+        state.userOrganizations.selectedOrganization.members.members.loading
+    );
+
+    this.members$ = this.store
+      .select(
+        state =>
+          state.userOrganizations.selectedOrganization.members.members.members
+      )
+      .pipe(map(members => (this.filterMembers = members)));
+
     this.since = this.pageIndex;
     this.until = this.pageSize;
   }
@@ -40,28 +77,34 @@ export class MemberListComponent implements OnInit
   // ==================================================
   // Set paginator page size
   // ==================================================
-  setPageSizeOptions(setPageSizeOptionsInput: string)
-  {
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
     this.pageSizeOptions = setPageSizeOptionsInput.split(",").map(str => +str);
   }
 
   // ==================================================
   // Change Page
   // ==================================================
-  changePage($event: PageEvent)
-  {
+  changePage($event: PageEvent) {
     this.pageIndex = $event.pageIndex;
     this.pageSize = $event.pageSize;
 
     this.since = this.pageIndex * this.pageSize;
 
-    if (this.pageIndex)
-    {
+    if (this.pageIndex) {
       this.until = this.pageIndex * this.pageSize + this.pageSize;
-    } else
-    {
+    } else {
       this.until = this.pageSize;
     }
   }
 
+  createMember(): void {
+    this.dialog.open(MemberFormComponent, {
+      width: "600px",
+      data: {
+        user: this.user,
+        organization: this.organization,
+        area: null
+      }
+    });
+  }
 }

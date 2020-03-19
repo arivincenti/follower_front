@@ -5,13 +5,14 @@ import { AreaFormComponent } from "../../area/area-form/area-form.component";
 import { AreaProfileComponent } from "../../area/area-profile/area-profile.component";
 import { MemberFormComponent } from "../../member/member-form/member-form.component";
 import { MemberProfileComponent } from "../../member/member-profile/member-profile.component";
-import { OrganizationProfileComponent } from "./organization-profile/organization-profile.component";
+import { PruebaComponent } from "./prueba/prueba.component";
+import { MemberListComponent } from "../../member/member-list/member-list.component";
 
 export const organizationProfileRoutes: Routes = [
   {
-    path: ":id",
+    path: "",
     canActivate: [LoginGuard, VerifyTokenGuard],
-    component: OrganizationProfileComponent
+    component: MemberListComponent
   },
   {
     path: "areas/form",
@@ -32,5 +33,10 @@ export const organizationProfileRoutes: Routes = [
     path: "organizations/members/profile/:id",
     canActivate: [LoginGuard, VerifyTokenGuard],
     component: MemberProfileComponent
+  },
+  {
+    path: "prueba",
+    canActivate: [LoginGuard, VerifyTokenGuard],
+    component: PruebaComponent
   }
 ];

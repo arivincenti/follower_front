@@ -3,17 +3,13 @@ import { AreaModel } from "src/app/models/area.model";
 import { UserModel } from "src/app/models/user.model";
 import { Observable, Subscription } from "rxjs";
 import { OrganizationModel } from "src/app/models/organization.model";
-import { AreasService } from "src/app/services/areas/areas.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { Router } from "@angular/router";
 import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas/areas.actions";
 import { MatDialog } from "@angular/material";
-import { AreaFormComponent } from "../area-form/area-form.component";
 import { MemberModel } from "src/app/models/member.model";
-
 import { map } from "rxjs/operators";
-import { MemberFormComponent } from "../../member/member-form/member-form.component";
 
 @Component({
   selector: "app-areas-list-card",
@@ -30,16 +26,12 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
   members$: Observable<MemberModel[]>;
   membersLoading: boolean = false;
   areasLoading$: Observable<boolean>;
-  animations$: Observable<string[]>;
+  animation$: Observable<string[]>;
 
-  constructor(
-    private store: Store<AppState>,
-    private router: Router,
-    private dialog: MatDialog
-  ) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
-    this.animations$ = this.store.select(state => state.ui.animated);
+    this.animation$ = this.store.select(state => state.ui.animated);
 
     this.areasLoading$ = this.store.select(
       state => state.userOrganizations.selectedOrganization.areas.areas.loading
@@ -74,7 +66,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
 
   selectArea(area: AreaModel) {
     //Redirect to Area Profile
-    this.router.navigate(["app/organizations/profile/area", area._id]);
+    this.router.navigate(["area", area._id]);
   }
 
   deleteArea(area: AreaModel) {

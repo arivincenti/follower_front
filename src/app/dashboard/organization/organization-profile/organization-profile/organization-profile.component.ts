@@ -74,11 +74,6 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
       state => state.userOrganizations.selectedOrganization.areas.areas.loading
     );
 
-    this.membersLoading$ = this.store.select(
-      state =>
-        state.userOrganizations.selectedOrganization.members.members.loading
-    );
-
     this.organizationLoading$ = this.store.select(
       state => state.userOrganizations.selectedOrganization.organization.loading
     );
@@ -99,13 +94,6 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
         state => state.userOrganizations.selectedOrganization.areas.areas.areas
       )
       .pipe(map(areas => (this.filterAreas = areas)));
-
-    this.members$ = this.store
-      .select(
-        state =>
-          state.userOrganizations.selectedOrganization.members.members.members
-      )
-      .pipe(map(members => (this.filterMembers = members)));
 
     this.memberAreas$ = this.store
       .select(
@@ -134,17 +122,6 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   createArea(): void {
     this.dialog.open(AreaFormComponent, {
-      width: "600px",
-      data: {
-        user: this.user,
-        organization: this.organization,
-        area: null
-      }
-    });
-  }
-
-  createMember(): void {
-    this.dialog.open(MemberFormComponent, {
       width: "600px",
       data: {
         user: this.user,

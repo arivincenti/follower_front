@@ -16,7 +16,7 @@
   grid-template-areas:
     "list-card-card"
     "list-card-divider";
-  grid-gap: 0px;
+  grid-gap: 10px;
 }
 
 .list-card .list-card-card {

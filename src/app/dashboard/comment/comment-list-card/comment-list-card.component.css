@@ -18,6 +18,8 @@
 }
 
 .contenedor .name {
+  font-size: 0.8em;
+  opacity: 0.7;
   max-width: 95%;
   min-width: 250px;
   display: flex;
@@ -35,7 +37,7 @@
 
 .comment-content {
   max-width: 95%;
-  min-width: 320px;
+  /* min-width: 100px; */
   height: auto;
   font-size: 0.9em;
   padding: 8px 15px;
@@ -53,10 +55,14 @@
 .contenedor .comment-info {
   display: flex;
   justify-content: flex-start;
-  font-size: 0.7em;
+  font-size: 0.8em;
   opacity: 0.4;
   grid-area: comment-info;
   font-size: 0.6em;
+}
+
+.comment-info span {
+  margin-right: 2px;
 }
 
 .message-owner {
@@ -68,8 +74,14 @@
 }
 
 .card-img {
-  object-fit: cover; /*this makes the image in src fit to the size specified below*/
-  width: 35px; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
-  height: auto;
+  object-fit: cover;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
+}
+
+@media (max-width: 767px) {
+  .comment-content {
+    max-width: 80%;
+  }
 }

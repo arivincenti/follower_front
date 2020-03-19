@@ -34,11 +34,11 @@ button {
   grid-area: tickets-section-header;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 30px;
 }
 
 .tickets-section-header .tickets-section-header-button {
-  display: flex;
-  justify-content: flex-end;
+  text-align: end;
 }
 
 .tickets-section .tickets-section-loader {
@@ -64,6 +64,7 @@ button {
   grid-area: organizations-section-header;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 30px;
 }
 
 .organizations-section-header .organizations-section-header-title {
@@ -73,8 +74,7 @@ button {
 }
 
 .organizations-section-header .organizations-section-header-button {
-  display: flex;
-  justify-content: flex-end;
+  text-align: end;
 }
 
 .tickets-section-header .tickets-section-header-title {
@@ -97,6 +97,8 @@ button {
   font-size: 1.1em;
   position: relative;
   top: 2px;
+  opacity: 0.5;
+  font-weight: bolder;
 }
 
 .button-span {

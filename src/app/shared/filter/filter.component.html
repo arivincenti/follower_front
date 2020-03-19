@@ -1,16 +1,20 @@
-<div class="col-md-12 d-flex justify-content-end">
-  <button class="mr-3" mat-button [matBadge]="originalArray | stateFilterCounter:'all'" matBadgePosition="after" matBadgeSize="small"
-    matBadgeColor="primary" (click)="filtrar('all')">
-    Todo
-  </button>
-  <mat-divider [vertical]="true"></mat-divider>
-  <button class="ml-3 mr-3" mat-button [matBadge]="originalArray | stateFilterCounter:'active'" matBadgePosition="after" matBadgeSize="small"
-    matBadgeColor="warn" (click)="filtrar('active')">
-    Activo
-  </button>
-  <mat-divider [vertical]="true"></mat-divider>
-  <button class="ml-3" mat-button [matBadge]="originalArray | stateFilterCounter:'inactive'" matBadgePosition="after" matBadgeSize="small"
-    matBadgeColor="warn" (click)="filtrar('inactive')">
-    Inactivo
-  </button>
+<div class="contenedor">
+  <div>
+    <button mat-button [matBadge]="originalArray | stateFilterCounter:'all'" matBadgePosition="after"
+      matBadgeSize="small" matBadgeColor="primary" (click)="filtrar('all')">
+      Todo
+    </button>
+  </div>
+  <div>
+    <button mat-button [matBadge]="originalArray | stateFilterCounter:'active'" matBadgePosition="after"
+      matBadgeSize="small" matBadgeColor="warn" (click)="filtrar('active')">
+      Activo
+    </button>
+  </div>
+  <div>
+    <button mat-button [matBadge]="originalArray | stateFilterCounter:'inactive'" matBadgePosition="after"
+      matBadgeSize="small" matBadgeColor="warn" (click)="filtrar('inactive')">
+      Inactivo
+    </button>
+  </div>
 </div>

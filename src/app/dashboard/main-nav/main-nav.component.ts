@@ -75,7 +75,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
       .select(state => state.userOrganizations.tickets.userTickets.tickets)
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe(tickets => {
-        console.log("nos subscribimos a todos los tickets");
         this._wsService.emit("join-all-tickets", tickets);
       });
   }

@@ -14,17 +14,16 @@
         <div class="message-section background-section">
           <!-- message section header -->
           <div class="message-section-header">
-            <h6 class="title">
-              <span>
-                <mat-icon class="icon-ticket" color="warn">local_activity</mat-icon>
-              </span>
-              <span [matTooltip]="ticket.subject" matTooltipPosition="right">
+            <div class="message-section-header-title">
+              <mat-icon class="icon-ticket" color="warn">local_activity</mat-icon>
+              <h4 class="header-title">
                 {{ ticket.subject | titlecase }}
+              </h4>
+            </div>
+            <div class="message-section-header-info">
+              <span class="number-code">Nº {{ ticket._id }}
               </span>
-            </h6>
-            <span class="ticket-card-info d-flex align-items-center">
-              <span class="number-code">Nº {{ ticket._id }}</span>
-            </span>
+            </div>
           </div>
           <!-- message section header end -->
           <!-- message section incident -->
@@ -42,14 +41,12 @@
         <div class="properties-section background-section">
           <!-- properties section header -->
           <div class="properties-section-header">
-            <h6 [matTooltip]="ticket.subject" matTooltipPosition="right">
-              <span>
-                <mat-icon class="icon-ticket" color="warn">ballot</mat-icon>
-              </span>
-              <span class="ticket-subtitle">
+            <div class="properties-section-header-title">
+              <mat-icon class="icon-ticket" color="warn">ballot</mat-icon>
+              <h4 class="header-title">
                 Propiedades del ticket
-              </span>
-            </h6>
+              </h4>
+            </div>
           </div>
           <!-- properties section header end -->
           <!-- properties section info -->
@@ -95,8 +92,10 @@
               <mat-select [formControl]="formControlMembers">
                 <mat-option *ngFor="let member of members" [value]="member._id">
                   <img class="member-card-img" [src]="member.user.img | image" alt="" />
-                  {{ member.user.name | titlecase }}
-                  {{ member.user.last_name | titlecase }}
+                  <span>
+                    {{ member.user.name | titlecase }}
+                    {{ member.user.last_name | titlecase }}
+                  </span>
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -167,12 +166,12 @@
         <!-- Comments section comments -->
         <div class="comment-section-comments">
           <div class="comment-section-comments-header">
-            <h6 [matTooltip]="ticket.subject" matTooltipPosition="right">
-              <span>
-                <mat-icon class="icon-ticket" color="warn">chat_bubble</mat-icon>
-              </span>
-              <span class="ticket-subtitle">Comentarios</span>
-            </h6>
+            <div class="comment-section-comments-header-title">
+              <mat-icon class="icon-ticket" color="warn">chat_bubble</mat-icon>
+              <h4 class="header-title">
+                Comentarios
+              </h4>
+            </div>
           </div>
 
           <div class="comment-section-comments-loader">

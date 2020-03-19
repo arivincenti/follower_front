@@ -28,8 +28,7 @@
                     {{area.name | titlecase}}
                   </h6>
                   <button mat-icon-button color="primary" matTooltip="Editar el nombre del área"
-                    matTooltipPosition="right" (click)="updateArea(area)" class="button-edit"
-                    *ngIf="!area.deleted_at">
+                    matTooltipPosition="right" (click)="updateArea(area)" class="button-edit" *ngIf="!area.deleted_at">
                     <mat-icon class="icon-edit">edit</mat-icon>
                   </button>
                 </div>
@@ -78,59 +77,6 @@
       </div>
 
       <div class="row mb-5">
-        <!-- <div class="col-md-12 mb-5">
-        <div class="row animated d-flex align-items-end mb-3" [ngClass]="animation[0]">
-
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-12 d-flex align-items-center">
-                <h4 class="text-muted title">Tickets del área</h4>
-              </div>
-            </div>
-            <div class="row mt-2">
-              <div class="col-md-12">
-                <mat-divider></mat-divider>
-              </div>
-            </div>
-            <div class="row mt-3 mb-5 d-flex justify-content-between">
-              <div class="col-md-3 animated value-container">
-                <div class="row">
-                  <div class="col-12 card-title d-flex justify-content-center danger">Pendientes</div>
-                  <div class="col-12 d-flex justify-content-center">
-                    <span class="value">0</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 animated value-container">
-                <div class="row">
-                  <div class="col-12 card-title d-flex justify-content-center secondary">Despachados</div>
-                  <div class="col-12 d-flex justify-content-center">
-                    <span class="value">0</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 animated value-container">
-                <div class="row">
-                  <div class="col-12 card-title d-flex justify-content-center success">Resueltos</div>
-                  <div class="col-12 d-flex justify-content-center">
-                    <span class="value">0</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 animated value-container">
-                <div class="row">
-                  <div class="col-12 card-title d-flex justify-content-center info">Todos</div>
-                  <div class="col-12 d-flex justify-content-center">
-                    <span class="value">0</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div> -->
-
 
         <div class="col-md-12">
           <div class="row animated d-flex justify-content-between align-items-end mb-3" [ngClass]="animation[0]">
@@ -154,8 +100,7 @@
           </div>
 
           <div class="animated delay-300ms mt-3" [ngClass]="animation[0]">
-            <app-member-list [organization]="area.organization" [members]="area.members" [user]="user" [area]="area"
-              [animation]="animation">
+            <app-member-list [area]="area">
             </app-member-list>
           </div>
 

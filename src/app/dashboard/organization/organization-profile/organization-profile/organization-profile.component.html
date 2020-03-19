@@ -1,202 +1,233 @@
-<!-- <mat-progress-bar mode="query"></mat-progress-bar> -->
+<div class="contenedor">
 
-<div class="row">
-  <div class="col-md-12 d-flex justify-content-center">
-    <mat-spinner class="mt-5" diameter="50" *ngIf="organizationLoading$ | async as organizationLoading"></mat-spinner>
+  <div class="organization-loader">
+    <mat-spinner diameter="50" *ngIf="organizationLoading$ | async as organizationLoading"></mat-spinner>
   </div>
-</div>
 
-<ng-container *ngIf="organization$ | async as organization">
-  <div class="row">
-    <div class="col-md-12">
-      <button mat-button color="warn" (click)="backToLastPage()">
-        <mat-icon>arrow_back</mat-icon>
-        Ir al dashboard
-      </button>
-    </div>
+  <div class="organization-button-back">
+    <button mat-button color="warn" (click)="backToLastPage()">
+      <mat-icon>arrow_back</mat-icon>
+      Ir al inicio
+    </button>
   </div>
-  <div class="row">
-    <div class="col-md-12 animated fadeIn" *ngIf="animation$ | async as animation" [ngClass]="animation[0]">
-      <mat-card class="mt-3">
-        <mat-card-header>
-          <mat-card-title>
-            <div class="d-flex justify-content-center">
-              <h6 class="organization-name">
-                {{organization.name | titlecase}}
-              </h6>
-              <button mat-icon-button color="primary" matTooltip="Editar el nombre de la organización"
-                matTooltipPosition="right" *ngIf="!organization.deleted_at" (click)="updateOrganization(organization)"
-                class="button-edit ml-1">
-                <mat-icon class="icon-edit">create</mat-icon>
-              </button>
-            </div>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-divider></mat-divider>
-        <div class="container">
 
-          <mat-card-content class="organization-card-info mt-4">
-            <mat-icon class="icon">favorite</mat-icon>
-            Relación /
-            <span *ngIf="organization.created_by._id === user._id" class="warning">
-              <mat-icon class="icon warning">star</mat-icon>
-              <span class="span-icon-text">
-                Propietario
-              </span>
-            </span>
-            <span *ngIf="organization.created_by._id !== user._id" class="primary" title="Miembro">
-              <mat-icon class="icon primary">account_circle</mat-icon>
-              <span class="span-icon-text">
-                Miembro
-              </span>
-            </span>
-          </mat-card-content>
-
-          <mat-card-content class="organization-card-info">
-            <span class="d-flex align-items-center">
-              <mat-icon class="icon">watch_later</mat-icon>
-              <span>Creada
-                <span class="success">
-                  {{organization.created_at | time}}
-                </span>
-              </span>
-            </span>
-          </mat-card-content>
-
-          <mat-card-content class="organization-card-info" *ngIf="organization.deleted_at">
-            <span class="d-flex align-items-center">
-              <mat-icon class="icon">delete</mat-icon>
-              <span>Dada de baja el
-                <span class="danger ml-1">
-                  {{organization.deleted_at | date:'fullDate'}}
-                </span>
-              </span>
-            </span>
-          </mat-card-content>
-
+  <ng-container *ngIf="organization$ | async as organization">
+    <div class="organization-profile background-section">
+      <div class="organization-profile-header">
+        <div class="organization-profile-header-title">
+          <span>
+            {{organization.name | titlecase}}
+          </span>
         </div>
-      </mat-card>
-
-      <div class="row mt-5">
-        <div class="col-md-12">
-          <mat-tab-group mat-stretch-tabs>
-            <mat-tab *ngIf="user._id === organization.created_by._id" label="Miembros de la organización">
-              <ng-template mat-tab-label>
-                <mat-icon class="tab-icon mr-2" matTooltip="Miembros de la organización" matTooltipPosition="above">
-                  supervised_user_circle</mat-icon>
-                <!-- Miembros de la organización -->
-              </ng-template>
-
-              <div class="organizations-section-loader">
-                <mat-progress-bar *ngIf="membersLoading$ | async" mode="indeterminate">
-                </mat-progress-bar>
-              </div>
-
-
-              <div class="row d-flex align-items-center justify-content-between" *ngIf="members$ | async as members">
-
-                <div class="col d-flex justify-content-start animated delay-500ms" [ngClass]="animation[0]"
-                  *ngIf="!organization.deleted_at">
-                  <span class="tab-title">Miembros</span>
-                  <button mat-button color="warn" (click)="createMember()" matTooltip="Agregar miembro"
-                    matTooltipPosition="right" class="m-3">
-                    <span class="tab-button-span">Nuevo miembro</span>
-                  </button>
-                </div>
-
-                <div class="col d-flex justify-content-end animated delay-500ms m-2" [ngClass]="animation[0]">
-                  <app-filter [originalArray]="members" (transformArray)="filterMembers = $event"></app-filter>
-                </div>
-              </div>
-
-              <mat-divider></mat-divider>
-
-              <div class="animated delay-500ms mt-4" [ngClass]="animation[0]">
-                <app-member-list [organization]="organization" [members]="filterMembers" [user]="user"
-                  [animation]="animation"></app-member-list>
-              </div>
-
-            </mat-tab>
-
-            <!-- Areas de la organizacion  -->
-            <mat-tab *ngIf="user._id === organization.created_by._id">
-              <ng-template mat-tab-label>
-                <mat-icon class="tab-icon mr-2" matTooltip="Áreas de la organización" matTooltipPosition="above">
-                  bookmarks</mat-icon>
-                <!-- Áreas de la organización -->
-              </ng-template>
-
-              <div class="row" *ngIf="areasLoading$ | async">
-                <div class="col-md-12 d-flex justify-content-center">
-                  <mat-spinner diameter="30" class="mt-4"></mat-spinner>
-                </div>
-              </div>
-
-
-              <div class="row d-flex align-items-center justify-content-between" *ngIf="areas$ | async as areas">
-                <div class="col d-flex justify-content-start animated delay-500ms" [ngClass]="animation[0]">
-                  <span class="tab-title">Áreas</span>
-                  <button mat-button color="warn" *ngIf="!organization.deleted_at" (click)="createArea()"
-                    matTooltip="Agregar área" matTooltipPosition="right" class="m-3">
-                    <span class="tab-button-span">
-                      Nueva área
-                    </span>
-                  </button>
-                </div>
-                <div class="col d-flex justify-content-end animated delay-500ms m-2" [ngClass]="animation[0]">
-                  <app-filter [originalArray]="areas" (transformArray)="filterAreas = $event"></app-filter>
-                </div>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="animated delay-500ms mt-4" [ngClass]="animation[0]">
-                <app-areas-list [organization]="organization" [areas]="filterAreas" [user]="user"
-                  [animation]="animation">
-                </app-areas-list>
-              </div>
-
-
-            </mat-tab>
-
-            <mat-tab label="Mis Áreas">
-              <ng-template mat-tab-label>
-                <mat-icon class="tab-icon mr-2" matTooltip="Mis áreas" matTooltipPosition="above">bookmark</mat-icon>
-                <!-- Mis Áreas -->
-              </ng-template>
-              <mat-divider></mat-divider>
-
-              <div class="row" *ngIf="memberAreasLoading">
-                <div class="col-md-12 d-flex justify-content-center">
-                  <mat-spinner diameter="30" class="mt-4"></mat-spinner>
-                </div>
-              </div>
-
-              <div class="container">
-                <div class="row d-flex align-items-center justify-content-between tab-title-conteiner"
-                  *ngIf="memberAreas$ | async as memberAreas">
-                  <div class="col d-flex justify-content-start animated delay-500ms m-3" [ngClass]="animation[0]">
-                    <span class="tab-title-2">Mis áreas</span>
-                  </div>
-                  <div class="col d-flex justify-content-end animated delay-500ms m-3" [ngClass]="animation[0]">
-                    <app-filter [originalArray]="memberAreas" (transformArray)="filterMemberAreas = $event">
-                    </app-filter>
-                  </div>
-                </div>
-                <mat-divider></mat-divider>
-                <div class="row d-flex align-items-center">
-                  <div class="col-md-12">
-                    <div class="animated delay-500ms mt-4" [ngClass]="animation[0]">
-                      <app-areas-list [organization]="organization" [areas]="filterMemberAreas" [user]="user"
-                        [animation]="animation">
-                      </app-areas-list>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </mat-tab>
-
-          </mat-tab-group>
+        <div class="organization-profile-header-subtitle">
+          <span>Creada {{organization.created_at | time}}</span>
+        </div>
+        <div class="organization-profile-header-button">
+          <button [matMenuTriggerFor]="menu" mat-icon-button *ngIf="!organization.deleted_at">
+            <mat-icon matTooltip="Opciones" matTooltipPosition="above">more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="updateOrganization(organization)">Editar nombre</button>
+          </mat-menu>
         </div>
       </div>
+      <div class="organization-profile-content">
+
+      </div>
+      <!-- <div class="row">
+        <div class="col-md-12 animated fadeIn" *ngIf="animation$ | async as animation" [ngClass]="animation[0]">
+          <mat-card class="mt-3">
+            <mat-card-header>
+              <mat-card-title>
+                <div class="d-flex justify-content-center">
+                  <h6 class="organization-name">
+                    {{organization.name | titlecase}}
+                  </h6>
+                  <button mat-icon-button color="primary" matTooltip="Editar el nombre de la organización"
+                    matTooltipPosition="right" *ngIf="!organization.deleted_at"
+                    (click)="updateOrganization(organization)" class="button-edit ml-1">
+                    <mat-icon class="icon-edit">create</mat-icon>
+                  </button>
+                </div>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+
+            <div class="container">
+              <mat-card-content class="organization-card-info mt-4">
+                <mat-icon class="icon">favorite</mat-icon>
+                Relación /
+                <span *ngIf="organization.created_by._id === user._id" class="warning">
+                  <mat-icon class="icon warning">star</mat-icon>
+                  <span class="span-icon-text">
+                    Propietario
+                  </span>
+                </span>
+                <span *ngIf="organization.created_by._id !== user._id" class="primary" title="Miembro">
+                  <mat-icon class="icon primary">account_circle</mat-icon>
+                  <span class="span-icon-text">
+                    Miembro
+                  </span>
+                </span>
+              </mat-card-content>
+
+              <mat-card-content class="organization-card-info">
+                <span class="d-flex align-items-center">
+                  <mat-icon class="icon">watch_later</mat-icon>
+                  <span>Creada
+                    <span class="success">
+                      {{organization.created_at | time}}
+                    </span>
+                  </span>
+                </span>
+              </mat-card-content>
+
+              <mat-card-content class="organization-card-info" *ngIf="organization.deleted_at">
+                <span class="d-flex align-items-center">
+                  <mat-icon class="icon">delete</mat-icon>
+                  <span>Dada de baja el
+                    <span class="danger ml-1">
+                      {{organization.deleted_at | date:'fullDate'}}
+                    </span>
+                  </span>
+                </span>
+              </mat-card-content>
+
+            </div>
+          </mat-card>
+
+          <div class="row mt-5">
+            <div class="col-md-12">
+              <mat-tab-group mat-stretch-tabs>
+                <mat-tab *ngIf="user._id === organization.created_by._id" label="Miembros de la organización">
+                  <ng-template mat-tab-label>
+                    <mat-icon class="tab-icon mr-2" matTooltip="Miembros de la organización" matTooltipPosition="above">
+                      supervised_user_circle</mat-icon>
+
+                  </ng-template>
+
+
+
+                  <mat-divider></mat-divider>
+
+                  <div class="animated delay-500ms mt-4" [ngClass]="animation[0]">
+                    <app-member-list></app-member-list>
+                  </div>
+
+                </mat-tab>
+
+
+                <mat-tab *ngIf="user._id === organization.created_by._id">
+                  <ng-template mat-tab-label>
+                    <mat-icon class="tab-icon mr-2" matTooltip="Áreas de la organización" matTooltipPosition="above">
+                      bookmarks</mat-icon>
+
+                  </ng-template>
+
+                  <div class="row" *ngIf="areasLoading$ | async">
+                    <div class="col-md-12 d-flex justify-content-center">
+                      <mat-spinner diameter="30" class="mt-4"></mat-spinner>
+                    </div>
+                  </div>
+
+
+                  <div class="row d-flex align-items-center justify-content-between" *ngIf="areas$ | async as areas">
+                    <div class="col d-flex justify-content-start animated delay-500ms" [ngClass]="animation[0]">
+                      <span class="tab-title">Áreas</span>
+                      <button mat-button color="warn" *ngIf="!organization.deleted_at" (click)="createArea()"
+                        matTooltip="Agregar área" matTooltipPosition="right" class="m-3">
+                        <span class="tab-button-span">
+                          Nueva área
+                        </span>
+                      </button>
+                    </div>
+                    <div class="col d-flex justify-content-end animated delay-500ms m-2" [ngClass]="animation[0]">
+                      <app-filter [originalArray]="areas" (transformArray)="filterAreas = $event"></app-filter>
+                    </div>
+                  </div>
+                  <mat-divider></mat-divider>
+                  <div class="animated delay-500ms mt-4" [ngClass]="animation[0]">
+                    <app-areas-list [organization]="organization" [areas]="filterAreas" [user]="user"
+                      [animation]="animation">
+                    </app-areas-list>
+                  </div>
+
+
+                </mat-tab>
+
+                <mat-tab label="Mis Áreas">
+                  <ng-template mat-tab-label>
+                    <mat-icon class="tab-icon mr-2" matTooltip="Mis áreas" matTooltipPosition="above">bookmark
+                    </mat-icon>
+
+                  </ng-template>
+                  <mat-divider></mat-divider>
+
+                  <div class="row" *ngIf="memberAreasLoading">
+                    <div class="col-md-12 d-flex justify-content-center">
+                      <mat-spinner diameter="30" class="mt-4"></mat-spinner>
+                    </div>
+                  </div>
+
+                  <div class="container">
+                    <div class="row d-flex align-items-center justify-content-between tab-title-conteiner"
+                      *ngIf="memberAreas$ | async as memberAreas">
+                      <div class="col d-flex justify-content-start animated delay-500ms m-3" [ngClass]="animation[0]">
+                        <span class="tab-title-2">Mis áreas</span>
+                      </div>
+                      <div class="col d-flex justify-content-end animated delay-500ms m-3" [ngClass]="animation[0]">
+                        <app-filter [originalArray]="memberAreas" (transformArray)="filterMemberAreas = $event">
+                        </app-filter>
+                      </div>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="row d-flex align-items-center">
+                      <div class="col-md-12">
+                        <div class="animated delay-500ms mt-4" [ngClass]="animation[0]">
+                          <app-areas-list [organization]="organization" [areas]="filterMemberAreas" [user]="user"
+                            [animation]="animation">
+                          </app-areas-list>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+
+              </mat-tab-group>
+            </div>
+          </div>
+        </div>
+      </div> -->
     </div>
-  </div>
-</ng-container>
+    <div class="organization-children background-section">
+      <div class="organization-children-buttons">
+        <div class="button">
+          <button mat-icon-button [routerLink]="['./']" routerLinkActive="active">
+            <mat-icon matTooltip="Miembros de la organización" matTooltipPosition="above">
+              supervised_user_circle</mat-icon>
+          </button>
+        </div>
+        <div class="button">
+          <button mat-icon-button routerLinkActive="active">
+            <mat-icon matTooltip="Áreas de la organización" matTooltipPosition="above">
+              bookmarks</mat-icon>
+          </button>
+        </div>
+        <!-- <div class="button">
+          <button mat-icon-button routerLinkActive="active">
+            <mat-icon matTooltip="Mis Áreas" matTooltipPosition="above">
+              bookmark</mat-icon>
+          </button>
+        </div> -->
+      </div>
+
+      <div class="organization-children-divider">
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="organization-children-container">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </ng-container>
+</div>

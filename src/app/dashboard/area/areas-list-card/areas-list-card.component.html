@@ -1,73 +1,42 @@
-<div class="content">
-  <div class="row d-flex align-items-center">
-    <div class="col d-flex align-items-center">
-      <h6 class="title">
-        <span>
-          <mat-icon class="icon-member">bookmark</mat-icon>
-        </span>
-        {{area.name | titlecase}}</h6>
-    </div>
-
-    <div class="col d-flex justify-content-end">
-      <ng-container *ngIf="organization.created_by._id === user._id">
-
-        <button class="button" mat-icon-button matTooltip="Ingresar al área" matTooltipPosition="above"
-          (click)="selectArea(area)">
-          <mat-icon class="icon-content-in">arrow_forward</mat-icon>
-        </button>
-
-        <button *ngIf="!area.deleted_at" class="button" mat-icon-button (click)="deleteArea(area)"
-          matTooltip="Dar de baja" matTooltipPosition="above">
-          <mat-icon class="icon-content-in">delete</mat-icon>
-        </button>
-
-        <button *ngIf="area.deleted_at" class="button" mat-icon-button (click)="activateArea(area)" matTooltip="Activar"
-          matTooltipPosition="above">
-          <mat-icon class="icon-content-in">history</mat-icon>
-        </button>
-
-      </ng-container>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="row mb-2">
-      <div class="col-md-12">
-
-        <span class="organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">how_to_reg</mat-icon>
-          <span *ngIf="area.responsible">Responsable /
-            {{area.responsible.user.name | titlecase}} {{area.responsible.user.last_name | titlecase}}
-          </span>
-          <span *ngIf="!area.responsible">Responsable / Sin responsable</span>
-        </span>
-
-        <span class="organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">supervised_user_circle</mat-icon>
-          <span>Miembros /
-            {{area.members.length}}
-          </span>
-        </span>
-
-        <span class="organization-card-info d-flex align-items-center">
-          <mat-icon class="icon">watch_later</mat-icon>
-          <span>Creada
-            <span class="success">
-              {{area.created_at | time}}
-            </span>
-          </span>
-        </span>
-
-        <span class="organization-card-info d-flex align-items-center" *ngIf="area.deleted_at">
-          <mat-icon class="icon">delete</mat-icon>
+<ng-container *ngIf="animation$ | async as animation">
+  <div class="contenedor">
+    <!-- Header section -->
+    <div class="header-section">
+      <!-- Header section title -->
+      <div class="header-section-title">
+        <h6 class="header-section-title-title">
           <span>
-            Dada de baja
-            <span class="danger">
-              {{area.deleted_at | time}}
-            </span>
+            <mat-icon class="icon-header warning">bookmark</mat-icon>
           </span>
+          <span [ngClass]="{'deleted': area.deleted_at}" [matTooltip]="area.name" matTooltipPosition="right">
+            {{area.name | titlecase}}
+          </span>
+        </h6>
+        <span class="header-section-title-subtitle">
+          Creada {{area.created_at | time}}
         </span>
       </div>
+      <!-- header section title end -->
+      <!-- header section buttons -->
+      <div class="header-section-buttons">
+        <button class="button" mat-icon-button (click)="selectArea(area)">
+          <mat-icon matTooltip="Ingresar al área" matTooltipPosition="above" class="button-icon">meeting_room
+          </mat-icon>
+        </button>
+
+
+        <button class="button" mat-icon-button *ngIf="!area.deleted_at" (click)="deleteArea(area)">
+          <mat-icon matTooltip="Desactivar" matTooltipPosition="above" class="button-toggle success">toggle_on
+          </mat-icon>
+        </button>
+
+        <button class="button" mat-icon-button *ngIf="area.deleted_at" (click)="activateArea(area)">
+          <mat-icon matTooltip="Activar" matTooltipPosition="above" class="button-toggle danger">toggle_off
+          </mat-icon>
+        </button>
+      </div>
+      <!-- header section buttons end -->
     </div>
+    <!-- Header section end -->
   </div>
-</div>
+</ng-container>

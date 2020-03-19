@@ -1,23 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
 html,
 body {
+  margin: 0;
   height: 100% !important;
-
+  font-family: "Helvetica";
   background-color: rgb(237, 237, 237) !important;
 }
 
-body {
-  margin: 0;
-  font-family: "Public Sans", sans-serif;
-}
-
+/* 
 mat-paginator {
   background-color: rgba(255, 255, 255, 0) !important;
 }
 
 .mat-card-img {
-  object-fit: cover; /*this makes the image in src fit to the size specified below*/
-  width: 75%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  object-fit: cover;
+  width: 75%;
   height: auto;
   border-radius: 50%;
 }
@@ -44,17 +40,12 @@ mat-paginator {
   font-size: 1.2em;
 }
 
-.organization-card-info {
-  font-size: 0.8em;
-}
-
 .empty-message {
   font-size: 0.8em;
   opacity: 0.5;
 }
 
-/* ///////////////////////////////
-ANIMATION DELAYS */
+
 .delay-300ms {
   animation-delay: 300ms;
 }
@@ -71,23 +62,19 @@ ANIMATION DELAYS */
   animation-delay: 900ms;
 }
 
-/* //////////////////////////////////// */
-/* HEADER IMG*/
+
 .header-image {
   position: relative;
   right: 10px;
   background-size: cover;
 }
 
-/* ///////////////////////////////// */
-/* PAGINATOR*/
+
 .mat-paginator-navigation-next,
 .mat-paginator-navigation-previous {
   outline: none !important;
 }
 
-/* ///////////////////////////////// */
-/* EXPANSION PANEL */
 .subtitle {
   position: relative;
   bottom: 4px;
@@ -102,4 +89,4 @@ ANIMATION DELAYS */
 .progress-bar {
   position: relative;
   bottom: 20px;
-}
+} */
