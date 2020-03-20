@@ -31,7 +31,6 @@ button {
   grid-area: header-section-title-title;
   display: flex;
   margin: 0px;
-
   font-size: 0.9em;
   overflow: hidden;
   white-space: nowrap;
@@ -90,7 +89,7 @@ button {
   border-radius: 50%;
 }
 
-@media (max-width: 990px) {
+@media (max-width: 767px) {
   .header-section-title-title {
     width: 230px;
   }

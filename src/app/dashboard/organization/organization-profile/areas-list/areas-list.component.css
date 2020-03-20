@@ -27,17 +27,16 @@ button {
 .contenedor .list-card-header {
   grid-row: 1fr;
   display: grid;
-  /* grid-template-columns: repeat(auto-fit, 1fr); */
   grid-template-columns: 1fr 1fr;
   align-items: center;
 }
 
-.list-card-header-title .list-card-header-title-subtitle {
+.list-card-header .list-card-header-title .list-card-header-title-subtitle {
   font-size: 1.1em;
   opacity: 0.5;
 }
 
-.list-card-header-title .list-card-header-button {
+.list-card-header .list-card-header-button {
   position: relative;
   bottom: 1px;
   font-size: 0.8em;

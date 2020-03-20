@@ -14,23 +14,31 @@ button {
   grid-area: header-section;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "header-section-title header-section-buttons";
 }
 
 .header-section .header-section-title {
+  grid-area: header-section-title;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: 16px auto;
   grid-template-areas:
-    "header-section-title-title"
-    "header-section-title-subtitle";
+    "header-section-image header-section-title-title"
+    "header-section-image header-section-title-subtitle";
 }
 
 .header-section-title .header-section-title-title {
   grid-area: header-section-title-title;
   display: flex;
-  align-items: center;
+  margin: 0px;
+  font-size: 0.9em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .header-section .header-section-buttons {
+  grid-area: header-section-buttons;
   display: flex;
   justify-content: flex-end;
 }
@@ -45,9 +53,6 @@ button {
 }
 
 .header-section-title .header-section-title-subtitle {
-  position: relative;
-  bottom: 11px;
-  left: 25px;
   font-size: 0.7em;
   opacity: 0.4;
   grid-area: header-section-title-subtitle;
@@ -60,13 +65,6 @@ button {
 
 .button .button-icon {
   font-size: 1.2em;
-}
-
-.header-section-title-title {
-  font-size: 1em;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .deleted {

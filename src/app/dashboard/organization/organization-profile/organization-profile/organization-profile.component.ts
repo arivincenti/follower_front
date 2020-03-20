@@ -2,16 +2,13 @@ import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { UserModel } from "src/app/models/user.model";
-import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { ActivatedRoute, Router } from "@angular/router";
 import { getOrganization } from "../../../../store/actions/userOrganizations/selectedOrganization/organization.actions";
 import { MatDialog } from "@angular/material";
-import { AreaFormComponent } from "../../../area/area-form/area-form.component";
-import { MemberFormComponent } from "../../../member/member-form/member-form.component";
-import { MemberModel } from "src/app/models/member.model";
-import { map, takeUntil } from "rxjs/operators";
+import { AreaFormComponent } from "../../../../shared/area-form/area-form.component";
+import { map } from "rxjs/operators";
 import { OrganizationFormComponent } from "../../../../shared/organization-form/organization-form.component";
 
 @Component({
@@ -32,23 +29,6 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   //Filter & counter
   param: string;
 
-  //Areas
-  areas$: Observable<AreaModel[]>;
-  areasLoading$: Observable<boolean>;
-  areasLoaded$: Observable<boolean>;
-  filterAreas: AreaModel[];
-
-  //Member Areas
-  memberAreas$: Observable<AreaModel[]>;
-  memberAreasLoading: boolean = false;
-  filterMemberAreas: AreaModel[];
-
-  //Members
-  members$: Observable<MemberModel[]>;
-  membersLoading$: Observable<boolean>;
-  membersLoaded$: Observable<boolean>;
-  filterMembers: MemberModel[];
-
   constructor(
     private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
@@ -59,20 +39,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.param = this.activatedRoute.snapshot.paramMap.get("id");
 
-    // this.store
-    //   .select(state => state.auth.user)
-    //   .pipe(takeUntil(this.unsuscribe$))
-    //   .subscribe(user => (this.user = user));
-
     var auth = JSON.parse(localStorage.getItem("auth"));
     this.user = auth.user;
 
     this.animation$ = this.store.select(state => state.ui.animated);
-
-    //Loadings
-    this.areasLoading$ = this.store.select(
-      state => state.userOrganizations.selectedOrganization.areas.areas.loading
-    );
 
     this.organizationLoading$ = this.store.select(
       state => state.userOrganizations.selectedOrganization.organization.loading
@@ -89,29 +59,23 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
       )
       .pipe(map(organization => (this.organization = organization)));
 
-    this.areas$ = this.store
-      .select(
-        state => state.userOrganizations.selectedOrganization.areas.areas.areas
-      )
-      .pipe(map(areas => (this.filterAreas = areas)));
-
-    this.memberAreas$ = this.store
-      .select(
-        state => state.userOrganizations.selectedOrganization.areas.areas.areas
-      )
-      .pipe(
-        map(areas => {
-          this.filterMemberAreas = [];
-          areas.forEach(area => {
-            if (
-              area.members.find(member => member.user._id === this.user._id)
-            ) {
-              this.filterMemberAreas.push(area);
-            }
-          });
-          return this.filterMemberAreas;
-        })
-      );
+    // this.memberAreas$ = this.store
+    //   .select(
+    //     state => state.userOrganizations.selectedOrganization.areas.areas.areas
+    //   )
+    //   .pipe(
+    //     map(areas => {
+    //       this.filterMemberAreas = [];
+    //       areas.forEach(area => {
+    //         if (
+    //           area.members.find(member => member.user._id === this.user._id)
+    //         ) {
+    //           this.filterMemberAreas.push(area);
+    //         }
+    //       });
+    //       return this.filterMemberAreas;
+    //     })
+    //   );
   }
 
   ngOnDestroy() {

@@ -1,0 +1,89 @@
+<div class="contenedor">
+
+  <div class="title">
+    <span>
+      Generar nuevo ticket
+    </span>
+  </div>
+
+  <div mat-dialog-content class="mat-content">
+    <form [formGroup]="form" class="form" (ngSubmit)="createTicket()">
+
+      <div class="organizations">
+        <mat-form-field>
+          <mat-label>Organización</mat-label>
+          <mat-select formControlName="organization" (selectionChange)="selectOrganization()">
+            <mat-option *ngFor="let organization of organizations$ | async as organization" [value]="organization">
+              {{organization.name | titlecase}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="loader" *ngIf="areasLoading$ | async">
+        <mat-progress-bar mode="indeterminate">
+        </mat-progress-bar>
+      </div>
+
+      <ng-container *ngIf="areas$ | async as areas">
+
+        <div class="message" *ngIf="!areas.length">
+          <span class="empty-message">La organización seleccionada no tiene ningun área disponible a la que se le pueda
+            asignar un ticket.</span>
+        </div>
+
+        <ng-container *ngIf="areas.length">
+
+          <div class="areas">
+            <mat-form-field>
+              <mat-label>Área</mat-label>
+              <mat-select formControlName="area">
+                <mat-option *ngFor="let area of areas" [value]="area">
+                  {{area.name | titlecase}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="priority">
+            <mat-form-field>
+              <mat-label>Prioridad</mat-label>
+              <mat-select formControlName="priority">
+                <mat-option *ngFor="let priority of priorities" [value]="priority">
+                  {{priority | titlecase}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="subject">
+            <mat-form-field>
+              <mat-label>Asunto</mat-label>
+              <input matInput #subject minlength="1" maxlength="50" type="text" formControlName="subject" name="subject"
+                autocomplete="off">
+              <mat-hint align="end">{{subject.value.length}} / 50</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="issue">
+            <mat-form-field>
+              <mat-label>Descripción del problema</mat-label>
+              <textarea matInput #issue minlength="1" maxlength="256" type="text" rows="3" formControlName="issue"
+                name="issue" autocomplete="off"></textarea>
+              <mat-hint align="end">{{issue.value.length}} / 256</mat-hint>
+            </mat-form-field>
+          </div>
+
+        </ng-container>
+      </ng-container>
+
+      <div class="button">
+        <button type="submit" mat-flat-button color="warn" [disabled]="form.invalid">
+          <span *ngIf="data.area"> Agregar miembro</span>
+          <span *ngIf="!data.area"> Generar ticket</span>
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

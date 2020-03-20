@@ -22,6 +22,7 @@ import { WebsocketService } from "src/app/services/websocket/websocket.service";
 export class TicketComponent implements OnInit, OnDestroy {
   private unsuscribe$ = new Subject();
   messageForm: FormGroup;
+  propertiesForm: FormGroup;
   messageTypes: any[] = [
     {
       value: "COMENTARIO PÚBLICO",
@@ -37,8 +38,7 @@ export class TicketComponent implements OnInit, OnDestroy {
     }
   ];
   priorities: string[] = ["BAJA", "MEDIA", "ALTA"];
-  formControlMembers: FormControl;
-  formControlPrority: FormControl;
+  status: string[] = ["PENDIENTE", "ABIERTO", "CERRADO"];
   members: MemberModel[];
   param: string;
   user: UserModel;
@@ -79,8 +79,7 @@ export class TicketComponent implements OnInit, OnDestroy {
     //Seteamos el formulario
     this.messageForm = new FormGroup({
       message: new FormControl(null),
-      type: new FormControl(this.messageTypes[0].value),
-      status: new FormControl()
+      type: new FormControl(this.messageTypes[0].value)
     });
 
     //Buscamos el usuario logueado
@@ -107,12 +106,16 @@ export class TicketComponent implements OnInit, OnDestroy {
         map((ticket: TicketModel) => {
           this.members = ticket.area.members;
 
-          if (ticket.responsible) {
-            this.formControlMembers = new FormControl(ticket.responsible._id);
-          } else {
-            this.formControlMembers = new FormControl(null);
-          }
-          this.formControlPrority = new FormControl(ticket.priority);
+          this.propertiesForm = new FormGroup({
+            status: new FormControl(ticket.status),
+            members: new FormControl(null),
+            priority: new FormControl(ticket.priority)
+          });
+
+          if (ticket.responsible)
+            this.propertiesForm.controls["members"].setValue(
+              ticket.responsible._id
+            );
 
           return ticket;
         })
@@ -154,8 +157,9 @@ export class TicketComponent implements OnInit, OnDestroy {
     let payload = {
       ticket: ticket._id,
       area: ticket.area._id,
-      responsible: this.formControlMembers.value,
-      priority: this.formControlPrority.value,
+      responsible: this.propertiesForm.controls["members"].value,
+      priority: this.propertiesForm.controls["priority"].value,
+      status: this.propertiesForm.controls["status"].value,
       created_by: this.user._id
     };
 

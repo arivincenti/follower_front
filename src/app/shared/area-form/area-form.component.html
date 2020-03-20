@@ -1,0 +1,36 @@
+<div class="contenedor">
+  <div class="title">
+    <span *ngIf="!data.area">
+      Agregar Área
+    </span>
+    <span *ngIf="data.area">
+      Editar el Área
+    </span>
+  </div>
+
+  <div mat-dialog-content class="mat-content">
+    <form class="form" [formGroup]="form" (ngSubmit)="createOrUpdateArea()">
+      <div class="input">
+        <mat-form-field>
+          <mat-label>Nombre del Área</mat-label>
+          <input matInput type="text" placeholder="Nombre del Área" formControlName="area" name="area"
+            autocomplete="off">
+          <mat-error *ngIf="form.controls['area'].errors?.avaible">
+            Ya <strong>existe</strong> un área con este nombre en esta organización.<strong>
+              Por favor elije otro.</strong>
+          </mat-error>
+          <mat-error *ngIf="form.controls['area'].errors?.required">
+            <strong>No olvides</strong> escribir arriba un nombre para el área tu organización.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="button">
+        <button type="submit" mat-flat-button color="warn" [disabled]="form.invalid">
+          <span>Guardar</span>
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

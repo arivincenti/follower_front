@@ -14,6 +14,9 @@ import { OrganizationPaginatorPipe } from "../pipes/organizations/organization-p
 import { TimePipe } from "../pipes/time/time.pipe";
 import { SnackbarComponent } from "./snackbar/snackbar.component";
 import { OrganizationFormComponent } from "./organization-form/organization-form.component";
+import { AreaFormComponent } from "./area-form/area-form.component";
+import { MemberFormComponent } from "./member-form/member-form.component";
+import { TicketFormComponent } from "./ticket-form/ticket-form.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { OrganizationFormComponent } from "./organization-form/organization-form
     OrganizationPaginatorPipe,
     TimePipe,
     SnackbarComponent,
-    OrganizationFormComponent
+    OrganizationFormComponent,
+    AreaFormComponent,
+    MemberFormComponent,
+    TicketFormComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +52,10 @@ import { OrganizationFormComponent } from "./organization-form/organization-form
     OrganizationPaginatorPipe,
     TimePipe,
     SnackbarComponent,
-    OrganizationFormComponent
+    OrganizationFormComponent,
+    AreaFormComponent,
+    MemberFormComponent,
+    TicketFormComponent
   ]
 })
 export class SharedModule {}

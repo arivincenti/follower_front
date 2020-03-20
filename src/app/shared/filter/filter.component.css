@@ -4,9 +4,8 @@ button {
 
 .contenedor {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 70px);
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
-  width: 250px;
 }
 
 .contenedor div button {

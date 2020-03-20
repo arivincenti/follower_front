@@ -6,6 +6,32 @@ body {
   background-color: rgb(237, 237, 237) !important;
 }
 
+.delay-300ms {
+  animation-delay: 300ms;
+}
+
+.delay-500ms {
+  animation-delay: 500ms;
+}
+
+.delay-700ms {
+  animation-delay: 700ms;
+}
+
+.delay-900ms {
+  animation-delay: 900ms;
+}
+
+.empty-message {
+  font-size: 0.8em;
+  opacity: 0.5;
+}
+
+.ticket-dialog {
+  height: auto;
+  width: 600px;
+}
+
 /* 
 mat-paginator {
   background-color: rgba(255, 255, 255, 0) !important;
@@ -38,28 +64,6 @@ mat-paginator {
   position: relative;
   top: 4px;
   font-size: 1.2em;
-}
-
-.empty-message {
-  font-size: 0.8em;
-  opacity: 0.5;
-}
-
-
-.delay-300ms {
-  animation-delay: 300ms;
-}
-
-.delay-500ms {
-  animation-delay: 500ms;
-}
-
-.delay-700ms {
-  animation-delay: 700ms;
-}
-
-.delay-900ms {
-  animation-delay: 900ms;
 }
 
 

@@ -1,0 +1,57 @@
+<div class="contenedor">
+
+  <div class="title">
+    <span *ngIf="!data.area">
+      Nuevo miembro
+    </span>
+    <span *ngIf="data.area">
+      Agregar miembro al área
+    </span>
+  </div>
+
+
+  <div mat-dialog-content class="mat-content">
+    <form [formGroup]="form" class="form" (ngSubmit)="createMember()">
+      <div class="input">
+        <mat-form-field>
+          <mat-label>Email del usuario</mat-label>
+          <input matInput placeholder="Email del usuario" aria-label="Buscar Usuario" [matAutocomplete]="auto"
+            formControlName="email" (keyup)="searchUsers()">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let user of users$ | async" [value]="user.email">
+              <img class="member-card-img" mat-card-avatar [src]="user.img | image" alt="">
+              <span>{{user.name | titlecase}} {{user.last_name | titlecase}}</span> |
+              <small>{{user.email | lowercase }}</small>
+            </mat-option>
+            <mat-option *ngFor="let member of members$ | async" [value]="member.user.email">
+              <img class="member-card-img" mat-card-avatar [src]="member.user.img | image" alt="">
+              <span>{{member.user.name | titlecase}} {{member.user.last_name | titlecase}}</span> |
+              <small>{{member.user.email | lowercase }}</small>
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="form.controls['email'].errors?.avaible && data.area">
+            Ya <strong>existe</strong> este miembro en el área.<strong>
+              Por favor elije otro.</strong>
+          </mat-error>
+          <mat-error *ngIf="form.controls['email'].errors?.avaible && !data.area">
+            Ya <strong>existe</strong> este miembro en la organización.<strong>
+              Por favor elije otro.</strong>
+          </mat-error>
+          <mat-error *ngIf="form.controls['email'].errors?.required && data.area">
+            <strong>Recuerda!</strong> Si el usuario no aparece en la lista es porque no es miembro de la organización.
+          </mat-error>
+          <mat-error *ngIf="form.controls['email'].errors?.required && !data.area">
+            <strong>Recuerda!</strong> Si el usuario no aparece en la lista es porque no esta registrado en Follower.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="button">
+        <button type="submit" mat-flat-button color="warn" [disabled]="form.invalid">
+          <span *ngIf="data.area"> Agregar miembro</span>
+          <span *ngIf="!data.area"> Crear nuevo miembro</span>
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -52,12 +52,6 @@
           <!-- properties section info -->
           <div class="properties-section-info">
             <span class="ticket-card-info">
-              <mat-icon class="icon">flag</mat-icon>
-              Estado /
-              <span class="badge badge-ticket-status"
-                [ngClass]="{'badge-danger': ticket.status === 'ABIERTO'}">{{ ticket.status }}</span>
-            </span>
-            <span class="ticket-card-info">
               <mat-icon class="icon">apartment</mat-icon>
               Organización /
               <span>
@@ -85,42 +79,56 @@
           </div>
           <!-- properties section info end -->
           <!-- properties section responsible -->
-          <div class="properties-section-responsible">
-            <mat-form-field>
-              <mat-label *ngIf="members">Miembro responsable</mat-label>
-              <mat-label *ngIf="!members">Asignar miembros al ticket</mat-label>
-              <mat-select [formControl]="formControlMembers">
-                <mat-option *ngFor="let member of members" [value]="member._id">
-                  <img class="member-card-img" [src]="member.user.img | image" alt="" />
-                  <span>
-                    {{ member.user.name | titlecase }}
-                    {{ member.user.last_name | titlecase }}
+          <form class="properties-section-form" [formGroup]="propertiesForm" (ngSubmit)="sendMessage()">
+            <div class="properties-section-form-responsible">
+              <mat-form-field>
+                <mat-label *ngIf="members">Miembro responsable</mat-label>
+                <mat-label *ngIf="!members">Asignar miembros al ticket</mat-label>
+                <mat-select formControlName="members">
+                  <mat-option *ngFor="let member of members" [value]="member._id">
+                    <img class="member-card-img" [src]="member.user.img | image" alt="" />
+                    <span>
+                      {{ member.user.name | titlecase }}
+                      {{ member.user.last_name | titlecase }}
+                    </span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- properties section responsible end -->
+            <!-- properties section priority -->
+            <div class="properties-section-form-priority">
+              <mat-form-field>
+                <mat-label>Prioridad</mat-label>
+                <mat-select formControlName="priority">
+                  <mat-option *ngFor="let priority of priorities" [value]="priority">
+                    {{ priority | titlecase }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- properties section priority end -->
+            <div class="properties-section-form-status">
+
+              <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                formControlName="status" name="status">
+                <mat-radio-button color="warn" class="radio-buttons" *ngFor="let status of status" [value]="status">
+                  <span [matTooltip]="status" matTooltipPosition="right">
+                    {{ status | titlecase }}
                   </span>
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <!-- properties section responsible end -->
-          <!-- properties section priority -->
-          <div class="properties-section-priority">
-            <mat-form-field>
-              <mat-label>Prioridad</mat-label>
-              <mat-select [formControl]="formControlPrority">
-                <mat-option *ngFor="let priority of priorities" [value]="priority">
-                  {{ priority | titlecase }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <!-- properties section priority end -->
-          <!-- properties section button -->
-          <div class="properties-section-button">
-            <button type="button" class="button" [disabled]="ticketLoading$ | async" (click)="saveChanges(ticket)"
-              mat-flat-button color="warn">
-              <span *ngIf="!(ticketLoading$ | async)">Guardar propiedades</span>
-              <span *ngIf="ticketLoading$ | async"> Guardando propiedades... </span>
-            </button>
-          </div>
+                </mat-radio-button>
+              </mat-radio-group>
+
+            </div>
+            <!-- properties section button -->
+            <div class="properties-section-form-button">
+              <button type="button" class="button" [disabled]="ticketLoading$ | async" (click)="saveChanges(ticket)"
+                mat-flat-button color="warn">
+                <span *ngIf="!(ticketLoading$ | async)">Guardar propiedades</span>
+                <span *ngIf="ticketLoading$ | async"> Guardando propiedades... </span>
+              </button>
+            </div>
+          </form>
         </div>
         <!-- properties section button end -->
         <!-- Property ticket end -->
@@ -134,7 +142,7 @@
           <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
             <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
               formControlName="type" name="type">
-              <mat-radio-button name="type" [checked]="type.checked" color="warn" class="radio-buttons mr-3"
+              <mat-radio-button name="type" [checked]="type.checked" color="warn" class="radio-buttons"
                 *ngFor="let type of messageTypes" [value]="type.value">
                 <span [matTooltip]="type.description" matTooltipPosition="right">
                   {{ type.value | titlecase }}
@@ -142,7 +150,7 @@
               </mat-radio-button>
             </mat-radio-group>
 
-            <mat-form-field appearance="outline" class="message-form-field mt-4">
+            <mat-form-field appearance="outline" class="message-form-field">
               <mat-label>Comenta algo...</mat-label>
               <textarea rows="3" matInput type="text" placeholder="" formControlName="message" name="message"
                 autocomplete="off"></textarea>

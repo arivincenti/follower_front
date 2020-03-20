@@ -6,8 +6,7 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { Router } from "@angular/router";
-import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas/areas.actions";
-import { MatDialog } from "@angular/material";
+import * as AreasActions from "../../../../store/actions/userOrganizations/selectedOrganization/areas/areas/areas.actions";
 import { MemberModel } from "src/app/models/member.model";
 import { map } from "rxjs/operators";
 
@@ -66,7 +65,8 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
 
   selectArea(area: AreaModel) {
     //Redirect to Area Profile
-    this.router.navigate(["area", area._id]);
+    // this.router.navigate(["./area", area._id]);
+    this.router.navigate(["app/organizations/area/", area._id]);
   }
 
   deleteArea(area: AreaModel) {

@@ -68,13 +68,38 @@ mat-form-field {
 .ticket-section .properties-section {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 10px;
   grid-template-areas:
     "properties-section-header"
     "properties-section-info"
-    "properties-section-responsible"
-    "properties-section-priority"
-    "properties-section-button";
+    "properties-section-form";
+}
+
+.properties-section .properties-section-form {
+  grid-area: properties-section-form;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  grid-template-areas:
+    "properties-section-form-responsible"
+    "properties-section-form-priority"
+    "properties-section-form-status"
+    "properties-section-form-button";
+}
+
+.properties-section-form .properties-section-form-status {
+  grid-area: properties-section-form-status;
+  display: flex;
+  justify-content: center;
+}
+.properties-section-form .properties-section-form-responsible {
+  grid-area: properties-section-form-responsible;
+}
+.properties-section-form .properties-section-form-priority {
+  grid-area: properties-section-form-priority;
+}
+.properties-section-form .properties-section-form-button {
+  grid-area: properties-section-form-button;
 }
 
 .properties-section .properties-section-header {
@@ -95,17 +120,7 @@ mat-form-field {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(auto-fill, auto);
-  grid-gap: 1px;
-}
-
-.properties-section .properties-section-responsible {
-  grid-area: properties-section-responsible;
-}
-.properties-section .properties-section-priority {
-  grid-area: properties-section-priority;
-}
-.properties-section .properties-section-button {
-  grid-area: properties-section-button;
+  gap: 0px;
 }
 
 /* COMMENT SECTION */

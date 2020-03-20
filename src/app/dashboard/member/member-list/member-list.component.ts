@@ -1,22 +1,24 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { UserModel } from "src/app/models/user.model";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { MemberModel } from "src/app/models/member.model";
 import { PageEvent, MatDialog } from "@angular/material";
 import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import { map } from "rxjs/operators";
-import { MemberFormComponent } from "../member-form/member-form.component";
+import { map, takeUntil } from "rxjs/operators";
+import { MemberFormComponent } from "../../../shared/member-form/member-form.component";
 
 @Component({
   selector: "app-member-list",
   templateUrl: "./member-list.component.html",
   styleUrls: ["./member-list.component.css"]
 })
-export class MemberListComponent implements OnInit {
+export class MemberListComponent implements OnInit, OnDestroy {
   @Input() area: AreaModel;
+
+  private unsuscribe$ = new Subject();
 
   organization$: Observable<OrganizationModel>;
   organization: OrganizationModel;
@@ -30,10 +32,10 @@ export class MemberListComponent implements OnInit {
 
   //Paginator variables
   pageIndex: number = 0;
-  pageSize: number = 3;
+  pageSize: number = 5;
   since: number;
   until: number;
-  pageSizeOptions: number[] = [3, 10, 15, 20];
+  pageSizeOptions: number[] = [5, 10, 15, 20];
 
   // MatPaginator Output
   pageEvent: PageEvent;
@@ -70,8 +72,24 @@ export class MemberListComponent implements OnInit {
       )
       .pipe(map(members => (this.filterMembers = members)));
 
+    // if(this.area){
+    //   this.filterMembers = this.area.members;
+    // }else{
+    //   this.members$ = this.store
+    //   .select(
+    //     state =>
+    //       state.userOrganizations.selectedOrganization.members.members.members
+    //   )
+    //   .pipe(map(members => (this.filterMembers = members)));
+    // }
+
     this.since = this.pageIndex;
     this.until = this.pageSize;
+  }
+
+  ngOnDestroy() {
+    this.unsuscribe$.next();
+    this.unsuscribe$.unsubscribe();
   }
 
   // ==================================================
@@ -103,7 +121,7 @@ export class MemberListComponent implements OnInit {
       data: {
         user: this.user,
         organization: this.organization,
-        area: null
+        area: this.area
       }
     });
   }

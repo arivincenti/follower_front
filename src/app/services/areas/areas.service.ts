@@ -48,9 +48,12 @@ export class AreasService {
   // Get Selcted Area
   // ==================================================
   getArea(areaId: string) {
-    return this.http
-      .get(`${environment.path}/areas/${areaId}`)
-      .pipe(map((data: any) => data.data));
+    return this.http.get(`${environment.path}/areas/${areaId}`).pipe(
+      map((data: any) => {
+        console.log(data.data);
+        return data.data;
+      })
+    );
   }
 
   // ==================================================

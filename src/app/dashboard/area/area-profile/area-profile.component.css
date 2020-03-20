@@ -1,71 +1,128 @@
 button {
-	outline: none;
+  outline: none;
+}
+/* CSS GRID */
+
+.contenedor {
+  margin-bottom: 70px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "area-loader"
+    "area-button-back"
+    "area-profile"
+    "area-children";
+  gap: 20px;
 }
 
-mat-card {
-	overflow: hidden;
+.contenedor .area-loader {
+  grid-area: area-loader;
 }
 
-.value {
-	cursor: pointer;
-	font-size: 2.1em;
-	font-weight: bolder;
+.contenedor .area-button-back {
+  grid-area: area-button-back;
 }
 
-.add-member-button {
-	font-size: 0.9em;
+.contenedor .area-profile {
+  grid-area: area-profile;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "area-profile-header"
+    "area-profile-content";
+  gap: 15px;
 }
 
-.title {
-	font-size: 1.3em;
+.area-profile .area-profile-header {
+  grid-area: area-profile-header;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 25px;
+  grid-template-areas:
+    "area-profile-header-title area-profile-header-button"
+    "area-profile-header-subtitle area-profile-header-button";
 }
 
-.area-name {
-	font-size: 1em;
-	position: relative;
-	top: 5px;
-	left: 5px;
+.area-profile-header .area-profile-header-title {
+  grid-area: area-profile-header-title;
 }
 
-.icon-edit {
-	position: relative;
-	top: 0px;
-	left: 1px;
-	font-size: 1.2em;
-}
-
-.button-edit {
-	position: relative;
-	left: 8px;
-	bottom: 3px;
-}
-
-.button-span {
-	font-size: .9em;
-}
-
-@media (max-width: 990px) {
-	.title {
-		width: 200px;
-	}
-}
-
-/* .value-container{
-height: 130px;
-}
-
-.value {
-  color: rgba(0, 0, 0, .5);
-  cursor:pointer;
-  font-size: 2.5em;
+.area-profile-header .area-profile-header-title span {
   font-weight: bolder;
+  font-size: 1.3em;
+  opacity: 0.7;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.value:hover {
-  color: rgba(0, 0, 0, 1);
-  transition: all .6s ease;
+.area-profile-header .area-profile-header-subtitle {
+  grid-area: area-profile-header-subtitle;
+  opacity: 0.5;
+  font-size: 0.7em;
 }
 
-.btn{
-  font-size: .7em;
-} */
+.area-profile-header .area-profile-header-button {
+  grid-area: area-profile-header-button;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  bottom: 10px;
+  left: 10px;
+}
+
+.area-profile .area-profile-content {
+  grid-area: area-profile-content;
+}
+
+.contenedor .area-children {
+  grid-area: area-children;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "area-children-buttons"
+    "area-children-divider"
+    "area-children-container";
+  gap: 15px;
+}
+
+.area-children .area-children-buttons {
+  grid-area: area-children-buttons;
+}
+
+.area-children-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.area-children-buttons .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button button mat-icon {
+  position: relative;
+  bottom: 1px;
+  font-size: 1.4em;
+}
+
+.active {
+  background-color: #202f3f;
+  color: white;
+}
+
+.area-children .area-children-divider {
+  grid-area: area-children-divider;
+}
+
+.area-children .area-children-container {
+  grid-area: area-children-container;
+}
+
+@media (max-width: 767px) {
+  .area-profile-header .area-profile-header-title span {
+    width: 230px;
+  }
+}

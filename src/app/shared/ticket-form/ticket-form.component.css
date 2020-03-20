@@ -28,18 +28,47 @@ button {
 
 .mat-content .form {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
   grid-template-areas:
-    "input"
-    "button";
+    "loader loader"
+    "organizations organizations"
+    "message message"
+    "areas priority"
+    "subject subject"
+    "issue issue"
+    "button button";
 }
 
-.input {
-  grid-area: input;
+.form .organizations {
+  grid-area: organizations;
 }
 
-.button {
+.form .loader {
+  grid-area: loader;
+}
+
+.form .message {
+  grid-area: message;
+}
+
+.form .areas {
+  grid-area: areas;
+}
+
+.form .priority {
+  grid-area: priority;
+}
+
+.form .subject {
+  grid-area: subject;
+}
+
+.form .issue {
+  grid-area: issue;
+}
+
+.form .button {
   grid-area: button;
 }
 

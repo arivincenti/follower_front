@@ -10,7 +10,6 @@ import * as UiActions from "../../store/actions/ui/ui.actions";
 import { OverlayContainer } from "@angular/cdk/overlay";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
 import { NotificationModel } from "src/app/models/notificationModel";
-import { AreasService } from "src/app/services/areas/areas.service";
 import { MatSnackBar } from "@angular/material";
 import {
   getNotifications,
@@ -45,7 +44,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
     private breakpointObserver: BreakpointObserver,
     private store: Store<AppState>,
     public _wsService: WebsocketService,
-    private _areasService: AreasService,
     private _snackBar: MatSnackBar
   ) {
     this._wsService.cargarStorage();
@@ -162,7 +160,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe((notification: any) => {
         this._snackBar.openFromComponent(SnackbarComponent, {
-          duration: 8000,
+          duration: 5000,
           data: {
             notification
           }

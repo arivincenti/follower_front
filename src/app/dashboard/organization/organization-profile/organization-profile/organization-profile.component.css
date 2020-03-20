@@ -51,6 +51,9 @@ button {
   font-weight: bolder;
   font-size: 1.3em;
   opacity: 0.7;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .organization-profile-header .organization-profile-header-subtitle {
@@ -116,4 +119,10 @@ button {
 
 .organization-children .organization-children-container {
   grid-area: organization-children-container;
+}
+
+@media (max-width: 767px) {
+  .organization-profile-header .organization-profile-header-title span {
+    width: 230px;
+  }
 }

@@ -52,3 +52,13 @@ button {
   top: 4px;
   font-size: 1.2em;
 }
+
+.member-card-img {
+  object-fit: cover;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  top: 9px;
+  margin-right: 5px;
+}

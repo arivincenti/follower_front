@@ -1,9 +1,8 @@
-import { UserModel } from './user.model';
-import { OrganizationModel } from './organization.model';
-import { MemberModel } from './member.model';
+import { UserModel } from "./user.model";
+import { OrganizationModel } from "./organization.model";
+import { MemberModel } from "./member.model";
 
-export class AreaModel
-{
+export class AreaModel {
   constructor(
     public _id: string,
     public name: string,
@@ -16,5 +15,5 @@ export class AreaModel
     public created_at?: Date,
     public updated_at?: Date,
     public deleted_at?: Date
-  ) { }
+  ) {}
 }

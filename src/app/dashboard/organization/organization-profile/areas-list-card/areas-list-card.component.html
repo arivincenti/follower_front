@@ -4,14 +4,13 @@
     <div class="header-section">
       <!-- Header section title -->
       <div class="header-section-title">
-        <h6 class="header-section-title-title">
-          <span>
-            <mat-icon class="icon-header warning">bookmark</mat-icon>
-          </span>
-          <span [ngClass]="{'deleted': area.deleted_at}" [matTooltip]="area.name" matTooltipPosition="right">
-            {{area.name | titlecase}}
-          </span>
-        </h6>
+        <span>
+          <mat-icon class="icon-header warning">bookmark</mat-icon>
+        </span>
+        <span class="header-section-title-title" [ngClass]="{'deleted': area.deleted_at}" [matTooltip]="area.name"
+          matTooltipPosition="right">
+          {{area.name | titlecase}}
+        </span>
         <span class="header-section-title-subtitle">
           Creada {{area.created_at | time}}
         </span>

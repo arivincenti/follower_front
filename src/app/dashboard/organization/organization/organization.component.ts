@@ -10,7 +10,7 @@ import { OrganizationFormComponent } from "../../../shared/organization-form/org
 import { MatDialog } from "@angular/material/dialog";
 import { takeUntil } from "rxjs/operators";
 import { TicketModel } from "src/app/models/ticketModel";
-import { TicketFormComponent } from "../ticket-form/ticket-form.component";
+import { TicketFormComponent } from "../../../shared/ticket-form/ticket-form.component";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
 
 @Component({

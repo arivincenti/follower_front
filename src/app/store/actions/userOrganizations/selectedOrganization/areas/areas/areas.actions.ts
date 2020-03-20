@@ -1,67 +1,67 @@
-import { createAction, props } from '@ngrx/store';
-import { AreaModel } from '../../../../../../models/area.model';
-import { OrganizationModel } from 'src/app/models/organization.model';
+import { createAction, props } from "@ngrx/store";
+import { AreaModel } from "../../../../../../models/area.model";
+import { OrganizationModel } from "src/app/models/organization.model";
 
 export const getAreas = createAction(
-  '[Areas Actions] Get Areas',
-  props<{ payload: OrganizationModel, since: number, size: number }>()
+  "[Areas Actions] Get Areas",
+  props<{ payload: OrganizationModel; since: number; size: number }>()
 );
 
 export const getAreasSuccess = createAction(
-  '[Areas Actions] Get Areas Success',
+  "[Areas Actions] Get Areas Success",
   props<{ payload: AreaModel[] }>()
 );
 
 export const getAreasFail = createAction(
-  '[Areas Actions] Get Areas Fail',
+  "[Areas Actions] Get Areas Fail",
   props<{ payload: any }>()
 );
 
 export const createArea = createAction(
-  '[Areas Actions] Create Area',
+  "[Areas Actions] Create Area",
   props<{ payload: any }>()
 );
 
 export const createAreaSuccess = createAction(
-  '[Areas Actions] Create Area Success',
+  "[Areas Actions] Create Area Success",
   props<{ payload: AreaModel }>()
 );
 
 export const createAreaFail = createAction(
-  '[Areas Actions] Create Area Fail',
+  "[Areas Actions] Create Area Fail",
   props<{ payload: any }>()
 );
 
 export const updateArea = createAction(
-  '[Areas Actions] Update Area',
-  props<{ areaId: string, payload: any }>()
+  "[Areas Actions] Update Area",
+  props<{ areaId: string; payload: any }>()
 );
 
 export const updateAreaSuccess = createAction(
-  '[Areas Actions] Update Area Success',
+  "[Areas Actions] Update Area Success",
   props<{ payload: AreaModel }>()
 );
 
 export const updateAreaFail = createAction(
-  '[Areas Actions] Update Area Fail',
+  "[Areas Actions] Update Area Fail",
   props<{ payload: any }>()
 );
 
 export const deleteArea = createAction(
-  '[Areas Actions] Delete Area',
+  "[Areas Actions] Delete Area",
   props<{ payload: any }>()
 );
 
 export const deleteAreaSuccess = createAction(
-  '[Areas Actions] Delete Area Success',
+  "[Areas Actions] Delete Area Success",
   props<{ payload: AreaModel }>()
 );
 
 export const deleteAreaFail = createAction(
-  '[Areas Actions] Delete Area Fail',
+  "[Areas Actions] Delete Area Fail",
   props<{ payload: any }>()
 );
 
 export const clearAreasState = createAction(
-  '[Areas Actions] Clear Areas State'
+  "[Areas Actions] Clear Areas State"
 );

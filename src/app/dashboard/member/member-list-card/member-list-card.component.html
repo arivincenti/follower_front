@@ -15,11 +15,16 @@
     <!-- header section buttons -->
     <div class="header-section-buttons">
       <button class="button" mat-icon-button *ngIf="area" (click)="setResponsibleMember(member)">
-        <mat-icon matTooltip="Asignar como responsable" *ngIf="area.responsible.user._id !== member.user._id"
-          matTooltipPosition="above" class="button-icon responsible">face
+        <mat-icon matTooltip="Asignar como responsable" *ngIf="!area.responsible" matTooltipPosition="above"
+          class="button-icon responsible">face
         </mat-icon>
-        <mat-icon matTooltip="Quitar como responsable" *ngIf="area.responsible.user._id === member.user._id"
-          matTooltipPosition="above" class="button-icon warning">face
+        <mat-icon matTooltip="Asignar como responsable"
+          *ngIf="area.responsible && area.responsible.user._id !== member.user._id" matTooltipPosition="above"
+          class="button-icon responsible">face
+        </mat-icon>
+        <mat-icon matTooltip="Quitar como responsable"
+          *ngIf="area.responsible && area.responsible.user._id === member.user._id" matTooltipPosition="above"
+          class="button-icon warning">face
         </mat-icon>
       </button>
 

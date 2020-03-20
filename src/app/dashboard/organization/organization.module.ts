@@ -6,11 +6,11 @@ import { OrganizationListComponent } from "./organization-list/organization-list
 import { SharedModule } from "src/app/shared/shared.module";
 import { OrganizationFormComponent } from "../../shared/organization-form/organization-form.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AngularMaterialModule } from "src/app/angular-material/angular-material.module";
 import { OrganizationRoutingModule } from "./organization-routing.module";
 import { TicketListComponent } from "./ticket-list/ticket-list.component";
 import { TicketListCardComponent } from "./ticket-list-card/ticket-list-card.component";
-import { TicketFormComponent } from "./ticket-form/ticket-form.component";
+import { TicketFormComponent } from "../../shared/ticket-form/ticket-form.component";
+import { AngularMaterialModule } from "src/app/angular-material/angular-material.module";
 
 @NgModule({
   declarations: [
@@ -18,16 +18,15 @@ import { TicketFormComponent } from "./ticket-form/ticket-form.component";
     OrganizationListComponent,
     OrganizationListCardComponent,
     TicketListComponent,
-    TicketListCardComponent,
-    TicketFormComponent
+    TicketListCardComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
+    AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    OrganizationRoutingModule,
-    AngularMaterialModule
+    OrganizationRoutingModule
   ],
   entryComponents: [TicketFormComponent, OrganizationFormComponent]
 })
