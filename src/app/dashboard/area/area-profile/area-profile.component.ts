@@ -8,7 +8,6 @@ import { UserModel } from "src/app/models/user.model";
 import { MemberModel } from "src/app/models/member.model";
 import * as AreaActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
 import { map, filter } from "rxjs/operators";
-import { MemberFormComponent } from "../../../shared/member-form/member-form.component";
 import { MatDialog } from "@angular/material";
 import { AreaFormComponent } from "../../../shared/area-form/area-form.component";
 
@@ -39,6 +38,8 @@ export class AreaProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.animation$ = this.store.select(state => state.ui.animated);
     this.param = this.activatedRoute.snapshot.paramMap.get("id");
+    var auth = JSON.parse(localStorage.getItem("auth"));
+    this.user = auth.user;
 
     this.store.dispatch(AreaActions.getArea({ payload: this.param }));
 

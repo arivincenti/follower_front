@@ -17,6 +17,7 @@ button {
 
 .contenedor .area-loader {
   grid-area: area-loader;
+  margin-top: 15px;
 }
 
 .contenedor .area-button-back {

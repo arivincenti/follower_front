@@ -7,7 +7,7 @@ import { PageEvent, MatDialog } from "@angular/material";
 import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import { map, takeUntil } from "rxjs/operators";
+import { map, takeUntil, filter } from "rxjs/operators";
 import { MemberFormComponent } from "../../../shared/member-form/member-form.component";
 
 @Component({
@@ -28,7 +28,8 @@ export class MemberListComponent implements OnInit, OnDestroy {
   members$: Observable<MemberModel[]>;
   membersLoading$: Observable<boolean>;
   membersLoaded$: Observable<boolean>;
-  filterMembers: MemberModel[];
+  areaMembers$: Observable<MemberModel[]>;
+  filterMembers: MemberModel[] = [];
 
   //Paginator variables
   pageIndex: number = 0;
@@ -65,23 +66,32 @@ export class MemberListComponent implements OnInit, OnDestroy {
         state.userOrganizations.selectedOrganization.members.members.loading
     );
 
+    //Buscamos los miembros de la organizacion cuando el area no esta seleccionada
     this.members$ = this.store
       .select(
         state =>
           state.userOrganizations.selectedOrganization.members.members.members
       )
-      .pipe(map(members => (this.filterMembers = members)));
+      .pipe(
+        map(members => {
+          if (!this.area) {
+            return (this.filterMembers = members);
+          }
+        })
+      );
 
-    // if(this.area){
-    //   this.filterMembers = this.area.members;
-    // }else{
-    //   this.members$ = this.store
-    //   .select(
-    //     state =>
-    //       state.userOrganizations.selectedOrganization.members.members.members
-    //   )
-    //   .pipe(map(members => (this.filterMembers = members)));
-    // }
+    //Buscamos los miembros del area cuando hay un area seleccionada
+    this.areaMembers$ = this.store
+      .select(
+        state =>
+          state.userOrganizations.selectedOrganization.areas.selectedArea.area
+      )
+      .pipe(
+        filter(data => data !== null),
+        map(data => {
+          if (this.area) return (this.filterMembers = data.members);
+        })
+      );
 
     this.since = this.pageIndex;
     this.until = this.pageSize;

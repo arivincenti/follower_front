@@ -40,7 +40,7 @@ export const areaReducer = createReducer(
   })),
   on(AreaActions.createAreaMember, state => ({
     ...state,
-    area: null,
+    area: { ...state.area },
     loading: true,
     loaded: false,
     error: null

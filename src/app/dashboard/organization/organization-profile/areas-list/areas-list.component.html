@@ -7,51 +7,51 @@
         </mat-progress-bar>
       </div>
 
+
+
+      <div class="list-card-header animated" [ngClass]="animation[0]">
+        <div class="list-card-header-title">
+          <span class="list-card-header-title-subtitle">
+            Áreas
+          </span>
+          <button class="list-card-header-button" mat-button color="warn" (click)="createArea()"
+            matTooltip="Agregar área" matTooltipPosition="right">
+            <span>Nueva área</span>
+          </button>
+        </div>
+
+        <div *ngIf="areas$ | async as areas" class="list-card-header-filter">
+          <app-filter [originalArray]="areas" (transformArray)="filterAreas = $event">
+          </app-filter>
+        </div>
+      </div>
+
       <ng-container *ngIf="areas$ | async as areas">
-        <ng-container *ngIf="!areasLoading$ | async">
-          <div class="mensaje animated delay-500ms" [ngClass]="animation[0]" *ngIf="!areas.length">
-            <span class="empty-message">No se encontraron áreas en esta organización.</span>
-          </div>
-        </ng-container>
+
+        <div class="mensaje animated delay-500ms" [ngClass]="animation[0]" *ngIf="!areas.length">
+          <span class="empty-message">No se encontraron áreas en esta organización.</span>
+        </div>
 
 
-        <ng-container *ngIf="areas.length">
-          <div class="list-card-header animated" [ngClass]="animation[0]">
-            <div class="list-card-header-title">
-              <span class="list-card-header-title-subtitle">
-                Áreas
-              </span>
-              <button class="list-card-header-button" mat-button color="warn" (click)="createArea()"
-                matTooltip="Agregar área" matTooltipPosition="right">
-                <span>Nueva área</span>
-              </button>
-            </div>
 
-            <div class="list-card-header-filter">
+        <div class="list-card animated delay-300ms" *ngFor="let area of areas | areasPaginator:since:until"
+          [ngClass]="animation[0]">
 
-              <app-filter [originalArray]="areas" (transformArray)="filterAreas = $event">
-              </app-filter>
-            </div>
+          <div class="list-card-card animated fadeIn">
+            <app-areas-list-card [organization]="organization" [area]="area" [user]="user"></app-areas-list-card>
           </div>
 
-          <div class="list-card animated delay-300ms" *ngFor="let area of areas | areasPaginator:since:until"
-            [ngClass]="animation[0]">
-
-            <div class="list-card-card animated fadeIn">
-              <app-areas-list-card [organization]="organization" [area]="area" [user]="user"></app-areas-list-card>
-            </div>
-
-            <div class="list-card-divider">
-              <mat-divider></mat-divider>
-            </div>
+          <div class="list-card-divider">
+            <mat-divider></mat-divider>
           </div>
+        </div>
 
-          <div class="paginador">
-            <mat-paginator [length]="areas.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-              (page)="changePage($event)">
-            </mat-paginator>
-          </div>
-        </ng-container>
+        <div class="paginador">
+          <mat-paginator [length]="areas.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+            (page)="changePage($event)">
+          </mat-paginator>
+        </div>
+
       </ng-container>
     </div>
   </ng-container>

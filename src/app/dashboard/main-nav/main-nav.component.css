@@ -22,6 +22,11 @@ mat-form-field {
   min-height: 100%;
 }
 
+.brand {
+  display: flex;
+  justify-content: center;
+}
+
 .mini-brand {
   font-size: 0.8em;
   color: white;
@@ -142,8 +147,7 @@ mat-form-field {
 
 .mat-card-img {
   position: relative;
-  right: 8px;
-  bottom: 2px;
+  right: 10px;
   object-fit: cover;
   width: 40px;
   height: 40px;
@@ -153,7 +157,7 @@ mat-form-field {
 }
 
 .mat-card-img:hover {
-  border: 3px solid rgba(150, 150, 150, 0.5);
+  border: 3px solid rgba(230, 230, 230, 0.7);
   transition: ease-in-out 200ms;
 }
 

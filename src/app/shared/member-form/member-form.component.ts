@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subscription, Subject } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { UserModel } from "src/app/models/user.model";
@@ -12,7 +12,7 @@ import { AreaModel } from "src/app/models/area.model";
 import { MembersService } from "src/app/services/members/members.service";
 import * as MembersActions from "../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions";
 import * as AreaActions from "../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
-import { map, filter } from "rxjs/operators";
+import { map, filter, takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "app-member-form",
@@ -20,6 +20,8 @@ import { map, filter } from "rxjs/operators";
   styleUrls: ["./member-form.component.css"]
 })
 export class MemberFormComponent implements OnInit, OnDestroy {
+  private unsuscribe$ = new Subject();
+
   organizationMembersSubscription: Subscription = new Subscription();
   areaMembersSubscription: Subscription = new Subscription();
   form: FormGroup;
@@ -55,15 +57,15 @@ export class MemberFormComponent implements OnInit, OnDestroy {
         map(areas => areas.members)
       );
 
-    this.areaMembersSubscription = this.areaMembers$.subscribe(members => {
+    this.areaMembers$.pipe(takeUntil(this.unsuscribe$)).subscribe(members => {
       this.areaMembers = members;
     });
 
-    this.organizationMembersSubscription = this.organizationMembers$.subscribe(
-      members => {
+    this.organizationMembers$
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe(members => {
         this.organizationMembers = members;
-      }
-    );
+      });
 
     console.log(this.data.area);
 
@@ -71,8 +73,8 @@ export class MemberFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.organizationMembersSubscription.unsubscribe();
-    this.areaMembersSubscription.unsubscribe();
+    this.unsuscribe$.next();
+    this.unsuscribe$.unsubscribe();
   }
 
   setForm(area: AreaModel) {
@@ -107,9 +109,11 @@ export class MemberFormComponent implements OnInit, OnDestroy {
     };
 
     //Operador ternario
-    this.data.area
-      ? (this.members$ = this._membersService.getMembersByEmail(payload))
-      : (this.users$ = this._usersService.getUsersByEmail(payload));
+    if (this.data.area) {
+      this.members$ = this._membersService.getMembersByEmail(payload);
+    } else {
+      this.users$ = this._usersService.getUsersByEmail(payload);
+    }
   }
 
   createMember() {

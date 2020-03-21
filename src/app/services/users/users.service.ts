@@ -11,6 +11,7 @@ export class UsersService {
   constructor(private http: HttpClient) {}
 
   getUsersByEmail(payload: any) {
+    console.log("email by user");
     return this.http
       .post(`${environment.path}/users/by_email`, payload)
       .pipe(map((data: any) => data["data"]));

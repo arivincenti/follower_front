@@ -1,11 +1,10 @@
 <div *ngIf="theme$ | async as theme" [ngClass]="theme">
   <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
       <mat-toolbar class="brand">
-
         <span class="mini-brand">Follower</span>
-
       </mat-toolbar>
 
       <mat-nav-list>
@@ -27,33 +26,6 @@
           </button>
         </div>
 
-        <!-- <div mat-list-item class="side-nav-icon">
-          <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Tema" matTooltipPosition="right"
-            [matMenuTriggerFor]="colorMenu">
-            <mat-icon>palette</mat-icon>
-          </button>
-          <mat-menu class="color-menu" #colorMenu="matMenu">
-            <mat-grid-list cols="2" rowHeight="1:1">
-              <mat-grid-tile>
-                <button class="orange d-flex" mat-button (click)="changeTheme('orange')">
-                  <mat-icon class="color-icon">brightness_1</mat-icon>
-                </button>
-              </mat-grid-tile>
-
-              <mat-grid-tile>
-                <button class="dark-pink" mat-button (click)="changeTheme('dark-pink')">
-                  <mat-icon class="color-icon">brightness_1</mat-icon>
-                </button>
-              </mat-grid-tile>
-              <mat-grid-tile>
-                <button class="default" mat-button (click)="changeTheme('default')">
-                  <mat-icon class="color-icon">brightness_1</mat-icon>
-                </button>
-              </mat-grid-tile>
-            </mat-grid-list>
-          </mat-menu>
-        </div> -->
-
         <div mat-list-item class="side-nav-icon">
           <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Subscripción"
             matTooltipPosition="right">
@@ -68,32 +40,16 @@
           </button>
         </div>
 
-        <!-- <div mat-list-item class="logout side-nav-icon">
-          <button class="sidenav-button" mat-icon-button color="basic" (click)=logout()>
-            <mat-icon matTooltip="Cerrar sesión">power_settings_new</mat-icon>
-          </button>
-        </div> -->
-
       </mat-nav-list>
     </mat-sidenav>
 
     <mat-sidenav-content class="content">
       <mat-toolbar color="accent" class="mat-toolbar">
-        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
 
         <span class="spacer"></span>
-
-        <!-- <div mat-list-item class="d-flex justify-content-start align-items-center mr-4">
-          <form class="form" #f="ngForm" (ngSubmit)="search(f)">
-            <mat-form-field>
-              <input type="text" matInput class="matInput" placeholder="Buscar ticket" autocomplete="off">
-              <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-          </form>
-        </div> -->
 
         <div class="user" *ngIf="user$ | async as user">
 
@@ -102,7 +58,6 @@
           <mat-menu #menu="matMenu" class="user-menu">
             <button mat-menu-item disabled>
               <mat-icon>account_circle</mat-icon>
-              <!-- <span>{{user.name | titlecase}} {{user.last_name | titlecase}}</span> -->
               <span>{{user.email | lowercase}}</span>
             </button>
             <button mat-menu-item>
@@ -117,7 +72,6 @@
         </div>
 
       </mat-toolbar>
-      <!-- Add Content Here -->
 
       <ng-content></ng-content>
 

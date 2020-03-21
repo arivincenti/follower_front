@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { Subscription, Observable } from "rxjs";
+import { Subscription, Observable, Subject } from "rxjs";
 import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
@@ -7,6 +7,7 @@ import * as AreasActions from "../../store/actions/userOrganizations/selectedOrg
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "app-area-form",
@@ -16,8 +17,8 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 export class AreaFormComponent implements OnInit {
   form: FormGroup;
 
-  areasSubscription: Subscription = new Subscription();
-  areaSubscription: Subscription = new Subscription();
+  private unsuscribe$ = new Subject();
+
   avaible: boolean = true;
   areas: AreaModel[];
   area$: Observable<AreaModel>;
@@ -34,10 +35,11 @@ export class AreaFormComponent implements OnInit {
 
   ngOnInit() {
     //Search organizations areas
-    this.areasSubscription = this.store
+    this.store
       .select(
         state => state.userOrganizations.selectedOrganization.areas.areas.areas
       )
+      .pipe(takeUntil(this.unsuscribe$))
       .subscribe(areas => (this.areas = areas));
 
     //FORM
@@ -59,8 +61,8 @@ export class AreaFormComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.areasSubscription.unsubscribe();
-    this.areaSubscription.unsubscribe();
+    this.unsuscribe$.next();
+    this.unsuscribe$.unsubscribe();
   }
 
   // ==================================================
@@ -84,6 +86,7 @@ export class AreaFormComponent implements OnInit {
         organization: this.data.organization._id,
         updated_by: this.data.user._id
       };
+
       this.store.dispatch(
         AreasActions.updateArea({
           areaId: this.data.area._id,

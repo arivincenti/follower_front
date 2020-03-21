@@ -1,7 +1,8 @@
 <div class="contenedor">
 
   <div class="organization-loader">
-    <mat-spinner diameter="50" *ngIf="organizationLoading$ | async as organizationLoading"></mat-spinner>
+    <mat-progress-bar *ngIf="organizationLoading$ | async as organizationLoading" mode="indeterminate">
+    </mat-progress-bar>
   </div>
 
   <div class="organization-button-back">
@@ -35,13 +36,13 @@
     <div class="organization-children background-section">
       <div class="organization-children-buttons">
         <div class="button">
-          <button mat-icon-button [routerLink]="['./members']" routerLinkActive="active">
+          <button mat-flat-button [routerLink]="['./members']" routerLinkActive="active">
             <mat-icon matTooltip="Miembros de la organización" matTooltipPosition="above">
               supervised_user_circle</mat-icon>
           </button>
         </div>
         <div class="button">
-          <button mat-icon-button [routerLink]="['./areas']" routerLinkActive="active">
+          <button mat-flat-button [routerLink]="['./areas']" routerLinkActive="active">
             <mat-icon matTooltip="Áreas de la organización" matTooltipPosition="above">
               bookmarks</mat-icon>
           </button>
@@ -49,7 +50,7 @@
       </div>
 
       <div class="organization-children-divider">
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider> -->
       </div>
 
       <div class="organization-children-container">

@@ -19,8 +19,7 @@ mat-form-field {
 
 .contenedor .loader {
   grid-area: loader;
-  display: flex;
-  justify-content: center;
+  margin-top: 15px;
 }
 
 .contenedor .ticket-section {
@@ -221,6 +220,8 @@ mat-form-field {
 
 .icon {
   font-size: 1.3em;
+  position: relative;
+  top: 4px;
 }
 
 .icon-ticket {
@@ -237,20 +238,11 @@ mat-form-field {
   left: 23px;
 }
 
-.icon {
-  position: relative;
-  top: 4px;
-}
-
-.icon-ticket-in {
-  position: relative;
-  bottom: 2px;
-  font-size: 1.2em;
-}
-
 .radio-buttons {
   margin-right: 15px;
   font-size: 0.9em;
+  position: relative;
+  bottom: 2px;
 }
 
 .radio-buttons span {

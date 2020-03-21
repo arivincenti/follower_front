@@ -6,7 +6,6 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import * as MembersActions from "../../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions";
 import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas/areas.actions";
-import { Observable } from "rxjs";
 import { AreaModel } from "src/app/models/area.model";
 
 @Component({
@@ -30,6 +29,20 @@ export class MemberListCardComponent implements OnInit {
 
   activateMember(member: MemberModel) {
     this.store.dispatch(MembersActions.updateMember({ payload: member }));
+  }
+
+  selectMember(member: MemberModel) {
+    console.log(`Se seleccionó a ${member.user.name} ${member.user.last_name}`);
+  }
+
+  deleteMember(member: MemberModel) {
+    if (member._id === this.area.responsible._id) {
+      console.log("El miembro no se puede eliiminar porq es el responsable");
+      return;
+    }
+    console.log(
+      `Se quitó del área a ${member.user.name} ${member.user.last_name}`
+    );
   }
 
   setResponsibleMember(member: MemberModel) {

@@ -18,7 +18,6 @@ import { OrganizationFormComponent } from "../../../../shared/organization-form/
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
   //Subscriptions
-  private unsuscribe$ = new Subject();
 
   organization$: Observable<OrganizationModel>;
   organizationLoading$: Observable<boolean>;
@@ -58,31 +57,9 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
           state.userOrganizations.selectedOrganization.organization.organization
       )
       .pipe(map(organization => (this.organization = organization)));
-
-    // this.memberAreas$ = this.store
-    //   .select(
-    //     state => state.userOrganizations.selectedOrganization.areas.areas.areas
-    //   )
-    //   .pipe(
-    //     map(areas => {
-    //       this.filterMemberAreas = [];
-    //       areas.forEach(area => {
-    //         if (
-    //           area.members.find(member => member.user._id === this.user._id)
-    //         ) {
-    //           this.filterMemberAreas.push(area);
-    //         }
-    //       });
-    //       return this.filterMemberAreas;
-    //     })
-    //   );
   }
 
-  ngOnDestroy() {
-    //Nos desuscribimos de los observables
-    this.unsuscribe$.next();
-    this.unsuscribe$.complete();
-  }
+  ngOnDestroy() {}
 
   createArea(): void {
     this.dialog.open(AreaFormComponent, {

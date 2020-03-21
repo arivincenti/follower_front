@@ -17,10 +17,9 @@ export class AreaEffects {
       ofType(AreaActions.getArea),
       mergeMap(action =>
         this._areasService.getArea(action.payload).pipe(
-          map((area: AreaModel) => {
-            console.log(area);
-            return AreaActions.getAreaSuccess({ payload: area });
-          }),
+          map((area: AreaModel) =>
+            AreaActions.getAreaSuccess({ payload: area })
+          ),
           catchError(error => of(AreaActions.getAreaFail({ payload: error })))
         )
       )

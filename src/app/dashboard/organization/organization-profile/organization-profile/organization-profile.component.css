@@ -17,6 +17,7 @@ button {
 
 .contenedor .organization-loader {
   grid-area: organization-loader;
+  margin-top: 15px;
 }
 
 .contenedor .organization-button-back {
@@ -88,9 +89,6 @@ button {
 
 .organization-children .organization-children-buttons {
   grid-area: organization-children-buttons;
-}
-
-.organization-children-buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
@@ -102,14 +100,19 @@ button {
   align-items: center;
 }
 
+.button button {
+  width: 100%;
+}
+
 .button button mat-icon {
   position: relative;
-  bottom: 1px;
+  top: 2px;
   font-size: 1.4em;
 }
 
 .active {
-  background-color: #202f3f;
+  background-color: rgba(34, 52, 72, 0.7);
+  transition: ease-in-out 0.3s;
   color: white;
 }
 

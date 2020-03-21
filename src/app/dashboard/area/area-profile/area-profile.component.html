@@ -1,7 +1,8 @@
 <div class="contenedor">
 
   <div class="area-loader">
-    <mat-spinner diameter="50" *ngIf="areaLoading$ | async"></mat-spinner>
+    <mat-progress-bar *ngIf="areaLoading$ | async" mode="indeterminate">
+    </mat-progress-bar>
   </div>
 
   <div class="area-button-back">

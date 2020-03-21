@@ -7,7 +7,6 @@ import { AppState } from "src/app/store/app.reducer";
 import * as UserActions from "../../store/actions/auth/auth.actions";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
-import { WebsocketService } from "src/app/services/websocket/websocket.service";
 
 @Component({
   selector: "app-login",
