@@ -30,7 +30,7 @@ export class AreaFormComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private dialogRef: MatDialogRef<AreaFormComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: DialogDataArea
+    @Inject(MAT_DIALOG_DATA) public data: DialogDataArea
   ) {}
 
   ngOnInit() {

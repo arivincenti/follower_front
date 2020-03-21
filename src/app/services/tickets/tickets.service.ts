@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { UserModel } from "src/app/models/user.model";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "src/environments/environment";
+import { environment } from "src/environments/environment.prod";
 import { WebsocketService } from "../websocket/websocket.service";
 
 @Injectable({

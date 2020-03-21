@@ -20,7 +20,7 @@
         </mat-form-field>
       </div>
 
-      <div class="loader" *ngIf="areasLoading$ | async">
+      <div class="loader" *ngIf="areasLoading">
         <mat-progress-bar mode="indeterminate">
         </mat-progress-bar>
       </div>
@@ -79,8 +79,7 @@
 
       <div class="button">
         <button type="submit" mat-flat-button color="warn" [disabled]="form.invalid">
-          <span *ngIf="data.area"> Agregar miembro</span>
-          <span *ngIf="!data.area"> Generar ticket</span>
+          <span> Generar ticket</span>
           <mat-icon>send</mat-icon>
         </button>
       </div>

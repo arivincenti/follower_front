@@ -27,7 +27,7 @@ export class TicketFormComponent implements OnInit {
     private _areasService: AreasService,
     private store: Store<AppState>,
     private dialogRef: MatDialogRef<TicketFormComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: DialogDataOrganization
+    @Inject(MAT_DIALOG_DATA) public data: DialogDataOrganization
   ) {}
 
   ngOnInit() {

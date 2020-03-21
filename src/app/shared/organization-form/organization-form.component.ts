@@ -29,7 +29,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private dialogRef: MatDialogRef<OrganizationFormComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: DialogDataOrganization
+    @Inject(MAT_DIALOG_DATA) public data: DialogDataOrganization
   ) {}
 
   ngOnInit() {

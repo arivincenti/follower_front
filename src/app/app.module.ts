@@ -11,7 +11,7 @@ import { localStorageSync } from "ngrx-store-localstorage";
 
 //Components
 import { AppComponent } from "./app.component";
-import { appReducers } from "./store/app.reducer";
+import { REDUCERS_TOKEN, reducerProvider } from "./store/app.reducer";
 import { EffectsModule } from "@ngrx/effects";
 import { effects } from "./store/effects";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -29,6 +29,7 @@ import { LOCALE_ID } from "@angular/core";
 import localeEsAr from "@angular/common/locales/es-AR";
 import { registerLocaleData } from "@angular/common";
 import { environment } from "src/environments/environment";
+
 registerLocaleData(localeEsAr, "es-Ar");
 
 export function localStorageSyncReducer(
@@ -53,7 +54,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     HttpClientModule,
     SocketIoModule,
     SocketIoModule.forRoot(config),
-    StoreModule.forRoot(appReducers, { metaReducers }),
+    StoreModule.forRoot(REDUCERS_TOKEN, { metaReducers }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false
@@ -61,6 +62,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     EffectsModule.forRoot(effects)
   ],
   providers: [
+    reducerProvider,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

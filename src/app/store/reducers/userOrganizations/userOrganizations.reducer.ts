@@ -18,12 +18,9 @@ export const initialState: state = {
   notifications: NotificationsReducer.initialNotificationsState
 };
 
-export const userOrganizationReducer = combineReducers(
-  {
-    organizations: OrganizationsReducer.OrganizationsReducer,
-    selectedOrganization: OrganizationReducer.selectedOrganizationReducer,
-    tickets: TicketsReducer.TicketReducer,
-    notifications: NotificationsReducer.NotificationsReducer
-  },
-  initialState
-);
+export const userOrganizationReducer = combineReducers({
+  organizations: OrganizationsReducer.OrganizationsReducer,
+  selectedOrganization: OrganizationReducer.selectedOrganizationReducer,
+  tickets: TicketsReducer.TicketReducer,
+  notifications: NotificationsReducer.NotificationsReducer
+});

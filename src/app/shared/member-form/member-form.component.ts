@@ -37,7 +37,7 @@ export class MemberFormComponent implements OnInit, OnDestroy {
     private _usersService: UsersService,
     private _membersService: MembersService,
     private dialogRef: MatDialogRef<MemberFormComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: DialogDataArea
+    @Inject(MAT_DIALOG_DATA) public data: DialogDataArea
   ) {}
 
   ngOnInit() {

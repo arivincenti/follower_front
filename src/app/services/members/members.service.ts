@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { MemberModel } from "src/app/models/member.model";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "src/environments/environment";
+import { environment } from "src/environments/environment.prod";
 import { map } from "rxjs/operators";
-import { UserModel } from "src/app/models/user.model";
 import { OrganizationModel } from "src/app/models/organization.model";
 
 @Injectable({
