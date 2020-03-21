@@ -33,7 +33,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private dialog: MatDialog,
-    private wsService: WebsocketService
+    private _wsService: WebsocketService
   ) {}
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
     this.store.dispatch(getOrganizations({ payload: this.user._id }));
     this.store.dispatch(getTickets({ payload: this.user }));
 
-    this.wsService
+    this._wsService
       .listen("new-ticket")
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe((res: TicketModel) => {

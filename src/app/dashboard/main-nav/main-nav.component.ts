@@ -16,6 +16,10 @@ import {
   addNotification
 } from "src/app/store/actions/userOrganizations/notifications/notifications.actions";
 import { SnackbarComponent } from "src/app/shared/snackbar/snackbar.component";
+import { AreasService } from "src/app/services/areas/areas.service";
+import { AreaModel } from "src/app/models/area.model";
+import * as TicketActions from "src/app/store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
+import { getTickets } from "src/app/store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
 
 @Component({
   selector: "app-main-nav",
@@ -23,13 +27,14 @@ import { SnackbarComponent } from "src/app/shared/snackbar/snackbar.component";
   styleUrls: ["./main-nav.component.css"]
 })
 export class MainNavComponent implements OnInit, OnDestroy {
+  private unsuscribe$ = new Subject();
   user$: Observable<UserModel>;
   unreadNotifications$: Observable<NotificationModel[]>;
   theme$: Observable<string>;
   oldTheme: string;
   newTheme: string;
 
-  private unsuscribe$ = new Subject();
+  areas: AreaModel[];
   private auth;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -44,6 +49,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     private breakpointObserver: BreakpointObserver,
     private store: Store<AppState>,
     public _wsService: WebsocketService,
+    private _areasService: AreasService,
     private _snackBar: MatSnackBar
   ) {
     this._wsService.cargarStorage();
@@ -59,14 +65,15 @@ export class MainNavComponent implements OnInit, OnDestroy {
       })
     );
 
-    //Nos unimos a todas las salas de áreas
-    // this._areasService
-    //   .getAreasByUser(this.auth.user)
-    //   .pipe(takeUntil(this.unsuscribe$))
-    //   .subscribe(areas => {
-    //     console.log("nos subscribimos a todas las areas");
-    //     this._wsService.emit("join-all-areas", areas);
-    //   });
+    // Nos unimos a todas las salas de áreas
+    this._areasService
+      .getAreasByUser(this.auth.user)
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe(areas => {
+        this.areas = areas;
+        console.log("nos subscribimos a todas las areas");
+        this._wsService.emit("join-all-areas", areas);
+      });
 
     //Nos unimos a todos nuestros tickets......
     this.store
@@ -166,6 +173,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
           }
         });
 
+        if (notification.updated_by._id !== this.auth.user._id) {
+          if (notification.objectType === "ticket") {
+            this.store.dispatch(getTickets({ payload: this.auth.user }));
+          }
+        }
+
         this.store.dispatch(
           addNotification({
             payload: notification
@@ -187,6 +200,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
       .subscribe(tickets => {
         this._wsService.emit("leave-all-tickets", tickets);
       });
+
+    this._wsService.emit("leave-all-areas", this.areas);
 
     this.store.dispatch(AuthActions.logout());
   }
