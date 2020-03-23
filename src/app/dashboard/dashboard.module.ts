@@ -5,12 +5,11 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DashboardComponent } from "./dashboard.component";
 import { SharedModule } from "../shared/shared.module";
 import { AngularMaterialModule } from "../angular-material/angular-material.module";
-import { MainNavComponent } from "./main-nav/main-nav.component";
 import { LoginGuard } from "../guards/login/login.guard";
 import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 
 @NgModule({
-  declarations: [DashboardComponent, MainNavComponent],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

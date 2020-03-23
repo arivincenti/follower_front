@@ -1,9 +1,7 @@
 .contenedor {
-  /* overflow: hidden; */
   margin: auto;
   display: grid;
   grid-template-columns: 50px minmax(20px, 1fr);
-  /* grid-template-rows: repeat(3, minmax(10px, auto)); */
   grid-template-areas:
     "image name"
     "image comment-info"

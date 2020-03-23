@@ -1,6 +1,89 @@
-<app-main-nav>
-  <div class="contenedor">
-    <router-outlet></router-outlet>
-  </div>
+<div *ngIf="theme$ | async as theme" [ngClass]="theme">
+  <mat-sidenav-container class="contenedor">
 
-</app-main-nav>
+    <mat-sidenav #sidenav class="mat-sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+
+      <div class="sidenav-header">
+        <div class="sidenav-brand">
+          <span class="brand">Follower</span>
+        </div>
+
+        <div class="sidenav-user" *ngIf="user$ | async as user">
+          <div class="user-img">
+            <img mat-card-avatar class="mat-card-img" [src]="user.img | image" alt="" [matMenuTriggerFor]="menu">
+
+            <mat-menu #menu="matMenu" class="user-menu">
+              <button mat-menu-item disabled>
+                <mat-icon>account_circle</mat-icon>
+                <span>{{user.email | lowercase}}</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>settings</mat-icon>
+                <span>Editar perfil</span>
+              </button>
+              <button mat-menu-item (click)=logout()>
+                <mat-icon>power_settings_new</mat-icon>
+                <span>Cerrar sesión</span>
+              </button>
+            </mat-menu>
+          </div>
+          <div class="mat-divider">
+            <mat-divider></mat-divider>
+          </div>
+        </div>
+      </div>
+
+      <mat-nav-list>
+        <div mat-list-item class="side-nav-icon">
+          <button class="sidenav-button" mat-icon-button color="primary" routerLink="organizations" matTooltip="Inicio"
+            matTooltipPosition="right">
+            <mat-icon>dns</mat-icon>
+          </button>
+        </div>
+
+        <div mat-list-item class="side-nav-icon">
+          <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Notificaciones"
+            routerLink="notifications" matTooltipPosition="right">
+
+            <mat-icon *ngIf="unreadNotifications$ | async as unreadNotifications"
+              [matBadge]="unreadNotifications.length" matBadgeColor="warn">
+              notifications
+            </mat-icon>
+          </button>
+        </div>
+
+        <div mat-list-item class="side-nav-icon">
+          <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Subscripción"
+            matTooltipPosition="right">
+            <mat-icon>credit_card</mat-icon>
+          </button>
+        </div>
+
+        <div mat-list-item class="side-nav-icon">
+          <button class="sidenav-button" mat-icon-button color="basic" matTooltip="Preguntas frecuentes"
+            matTooltipPosition="right">
+            <mat-icon>help_outline</mat-icon>
+          </button>
+        </div>
+
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+
+      <mat-toolbar class="mat-toolbar">
+        <button class="sidenav-button" mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      </mat-toolbar>
+
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

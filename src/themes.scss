@@ -63,7 +63,7 @@ $orange-theme: mat-light-theme($orange-primary, $orange-accent, $orange-warn);
     color: mat-color($mat-light-blue, A700);
   }
 
-  .sidenav {
+  .mat-sidenav {
     width: 85px;
     background-color: #202f3f !important;
   }
@@ -82,7 +82,7 @@ $orange-theme: mat-light-theme($orange-primary, $orange-accent, $orange-warn);
 
   .mat-toolbar {
     // background-color: #ececec;
-    background-color: mat-color($mat-yellow, 800);
+    background-color: mat-color($mat-red, 900);
   }
 
   .badge-primary {

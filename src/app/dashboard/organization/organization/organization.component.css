@@ -10,8 +10,8 @@ button {
     "user-section"
     "organizations-section"
     "tickets-section";
-  grid-gap: 30px;
-  margin-bottom: 60px;
+  grid-gap: 23px;
+  /* margin-bottom: 60px; */
 }
 
 .contenedor .user-section {

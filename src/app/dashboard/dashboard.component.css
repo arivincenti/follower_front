@@ -1,10 +1,104 @@
+button {
+  outline: none;
+}
+
 .contenedor {
+  margin: 0px;
+  height: 100vh;
+  background-color: rgb(237, 237, 237) !important;
+}
+
+.contenedor .mat-sidenav {
+  width: 90px;
+}
+
+.contenedor .mat-toolbar {
+  height: 40px;
+  position: fixed;
+  z-index: 10;
+  box-shadow: 1px 0px 4px 2px rgba(0, 0, 0, 0.4);
+}
+
+.sidenav-header {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 40px 1fr;
+  gap: 20px;
+  grid-template-areas:
+    "sidenav-brand"
+    "sidenav-user";
+}
+
+.side-nav-icon {
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.sidenav-header .sidenav-brand {
+  grid-area: sidenav-brand;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-divider {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.content {
   width: 90%;
   margin: 0 auto;
+  padding-top: 45px;
+}
+
+.brand {
+  display: flex;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1em;
+}
+
+.sidenav-header .sidenav-user {
+  grid-area: sidenav-user;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "user-img"
+    "mat-divider";
+}
+
+.sidenav-user .user-img {
+  grid-area: user-img;
+  display: flex;
+  justify-content: center;
+}
+
+mat-nav-list {
+  margin-top: 25px;
+}
+
+.mat-card-img {
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid rgba(100, 100, 100, 0);
+}
+
+.mat-card-img:hover {
+  border: 3px solid rgba(230, 230, 230, 1);
+  transition: ease-in-out 200ms;
+}
+
+.toggle-button {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 @media (max-width: 990px) {
-  .contenedor {
+  .content {
     width: 96%;
     margin: 0 auto;
   }
