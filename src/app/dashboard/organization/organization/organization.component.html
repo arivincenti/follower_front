@@ -7,6 +7,16 @@
     <!-- User Section end -->
     <!-- Organization section -->
     <div class="organizations-section background-section">
+      <!-- Organizations section search -->
+      <div class="organizations-section-search">
+        <form class="form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Buscar organización</mat-label>
+            <input matInput type="text" name="searchOrganization" [(ngModel)]="searchOrganization" autocomplete="off">
+          </mat-form-field>
+        </form>
+      </div>
+      <!-- Organizations section search end -->
       <!-- Organization section header -->
       <div class="organizations-section-header animated" [ngClass]="animation[0]">
         <div class="organizations-section-header-title">
@@ -26,10 +36,11 @@
       </div>
       <!-- Organization section loader end -->
       <!-- <ng-container *ngIf="organizationsLoaded$ | async"> -->
-      <ng-container *ngIf="organizations$ | async as organizations">
+      <ng-container *ngIf="organizations$ | async as organizations ">
         <!-- Organization section organizations -->
         <div class="organizations-section-organizations animated delay-300ms" [ngClass]="animation[0]">
-          <app-organization-list [organizations]="organizations" [user]="user"></app-organization-list>
+          <app-organization-list [organizations]="organizations | searchOrganization: searchOrganization" [user]="user">
+          </app-organization-list>
         </div>
         <!-- Organization section organizations -->
       </ng-container>
@@ -38,6 +49,16 @@
     <!-- Organization section end -->
     <!-- Tickets Section -->
     <div class="tickets-section background-section">
+      <!-- Ticket section Ticket search -->
+      <div class="tickets-section-search">
+        <form class="form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Buscar ticket</mat-label>
+            <input matInput type="text" name="searchTicket" [(ngModel)]="searchTicket" autocomplete="off">
+          </mat-form-field>
+        </form>
+      </div>
+      <!-- Ticket section Ticket search end -->
       <!-- Ticket Section Header -->
       <div class="tickets-section-header animated" [ngClass]="animation[0]">
         <div class="tickets-section-header-title">
@@ -60,7 +81,8 @@
       <ng-container *ngIf="tickets$ | async as tickets">
         <!-- Ticket section Ticket List -->
         <div class="tickets-section-tickets animated delay-300ms" [ngClass]="animation[0]">
-          <app-ticket-list [tickets]="tickets" [user]="user"></app-ticket-list>
+          <app-ticket-list [tickets]="tickets | searchTicket: searchTicket" [user]="user">
+          </app-ticket-list>
         </div>
         <!-- Ticket section Ticket List end -->
       </ng-container>

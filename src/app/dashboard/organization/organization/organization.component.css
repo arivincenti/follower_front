@@ -11,7 +11,6 @@ button {
     "organizations-section"
     "tickets-section";
   grid-gap: 23px;
-  /* margin-bottom: 60px; */
 }
 
 .contenedor .user-section {
@@ -24,6 +23,7 @@ button {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
+    "tickets-section-search"
     "tickets-section-header"
     "tickets-section-loader"
     "tickets-section-tickets";
@@ -49,15 +49,66 @@ button {
   grid-area: tickets-section-tickets;
 }
 
+.tickets-section .tickets-section-search {
+  grid-area: tickets-section-search;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tickets-section-search .form,
+mat-form-field {
+  width: 100%;
+  min-width: 250px;
+  font-size: 0.9em;
+  opacity: 0.8;
+  justify-content: end;
+}
+
+.tickets-section-search .form,
+mat-form-field {
+  width: 100%;
+}
+
+.tickets-section-search .form {
+  width: 35%;
+  min-width: 250px;
+}
+
 .contenedor .organizations-section {
   grid-area: organizations-section;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
+    "organizations-section-search"
     "organizations-section-header"
     "organizations-section-loader"
     "organizations-section-organizations";
   grid-gap: 10px;
+}
+
+.organizations-section .organizations-section-search {
+  grid-area: organizations-section-search;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.organizations-section-search .form,
+mat-form-field {
+  width: 100%;
+  min-width: 250px;
+  font-size: 0.9em;
+  opacity: 0.8;
+  justify-content: end;
+}
+
+.organizations-section-search .form,
+mat-form-field {
+  width: 100%;
+}
+
+.organizations-section-search .form {
+  width: 35%;
+  min-width: 250px;
 }
 
 .organizations-section .organizations-section-header {

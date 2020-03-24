@@ -124,7 +124,6 @@ mat-form-field {
 
 /* COMMENT SECTION */
 .contenedor .comment-section {
-  margin-bottom: 50px;
   grid-area: comment-section;
   display: grid;
   grid-template-columns: 1fr;

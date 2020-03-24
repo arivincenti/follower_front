@@ -8,10 +8,12 @@ import { getTickets } from "../../../store/actions/userOrganizations/tickets/use
 import { OrganizationModel } from "src/app/models/organization.model";
 import { OrganizationFormComponent } from "../../../shared/organization-form/organization-form.component";
 import { MatDialog } from "@angular/material/dialog";
-import { takeUntil } from "rxjs/operators";
+import { takeUntil, map } from "rxjs/operators";
 import { TicketModel } from "src/app/models/ticketModel";
 import { TicketFormComponent } from "../../../shared/ticket-form/ticket-form.component";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
+import { Label } from "ng2-charts";
+import { ChartType } from "chart.js";
 
 @Component({
   selector: "app-organization",
@@ -27,8 +29,13 @@ export class OrganizationComponent implements OnInit, OnDestroy {
   ticketsLoading$: Observable<boolean>;
   user: UserModel;
 
+  searchTicket: string = "";
+  searchOrganization: string = "";
+
   //UI Observable
   animation$: Observable<string[]>;
+
+  //Chart
 
   constructor(
     private store: Store<AppState>,

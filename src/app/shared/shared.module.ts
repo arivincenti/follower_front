@@ -17,6 +17,10 @@ import { OrganizationFormComponent } from "./organization-form/organization-form
 import { AreaFormComponent } from "./area-form/area-form.component";
 import { MemberFormComponent } from "./member-form/member-form.component";
 import { TicketFormComponent } from "./ticket-form/ticket-form.component";
+import { SearchTicketPipe } from "../pipes/searchTicket/search-ticket.pipe";
+import { MatPaginatorIntl } from "@angular/material";
+import { CustomMatPaginatorIntl } from "./paginatorCustom/paginatorCustom";
+import { SearchOrganizationPipe } from "../pipes/searchOrganization/search-organization.pipe";
 
 @NgModule({
   declarations: [
@@ -29,6 +33,8 @@ import { TicketFormComponent } from "./ticket-form/ticket-form.component";
     TicketPaginatorPipe,
     OrganizationPaginatorPipe,
     TimePipe,
+    SearchTicketPipe,
+    SearchOrganizationPipe,
     SnackbarComponent,
     OrganizationFormComponent,
     AreaFormComponent,
@@ -51,11 +57,14 @@ import { TicketFormComponent } from "./ticket-form/ticket-form.component";
     TicketPaginatorPipe,
     OrganizationPaginatorPipe,
     TimePipe,
+    SearchTicketPipe,
+    SearchOrganizationPipe,
     SnackbarComponent,
     OrganizationFormComponent,
     AreaFormComponent,
     MemberFormComponent,
     TicketFormComponent
-  ]
+  ],
+  providers: [{ provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }]
 })
 export class SharedModule {}

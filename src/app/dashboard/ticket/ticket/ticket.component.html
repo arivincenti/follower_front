@@ -15,7 +15,7 @@
           <!-- message section header -->
           <div class="message-section-header">
             <div class="message-section-header-title">
-              <mat-icon class="icon-ticket" color="warn">local_activity</mat-icon>
+              <mat-icon class="icon-ticket warning">local_activity</mat-icon>
               <h4 class="header-title">
                 {{ ticket.subject | titlecase }}
               </h4>
@@ -42,7 +42,7 @@
           <!-- properties section header -->
           <div class="properties-section-header">
             <div class="properties-section-header-title">
-              <mat-icon class="icon-ticket" color="warn">ballot</mat-icon>
+              <mat-icon class="icon-ticket warning">ballot</mat-icon>
               <h4 class="header-title">
                 Propiedades del ticket
               </h4>
@@ -123,7 +123,7 @@
             <!-- properties section button -->
             <div class="properties-section-form-button">
               <button type="button" class="button" [disabled]="ticketLoading$ | async" (click)="saveChanges(ticket)"
-                mat-flat-button color="warn">
+                mat-flat-button color="primary">
                 <span *ngIf="!(ticketLoading$ | async)">Guardar propiedades</span>
                 <span *ngIf="ticketLoading$ | async"> Guardando propiedades... </span>
               </button>
@@ -134,7 +134,6 @@
         <!-- Property ticket end -->
       </div>
       <!-- ticket section end -->
-      <mat-divider></mat-divider>
       <!-- comment section -->
       <div class="comment-section background-section animated" [ngClass]="animation[0]">
         <!-- comment section form -->
@@ -157,7 +156,7 @@
             </mat-form-field>
 
             <div>
-              <button class="button" type="submit" mat-flat-button color="warn"
+              <button class="button" type="submit" mat-flat-button color="primary"
                 [disabled]="!messageForm.controls['message'].value">
                 <span *ngIf="!(commentsLoading$ | async)">
                   <span> Publicar comentario</span>
@@ -175,7 +174,7 @@
         <div class="comment-section-comments">
           <div class="comment-section-comments-header">
             <div class="comment-section-comments-header-title">
-              <mat-icon class="icon-ticket" color="warn">chat_bubble</mat-icon>
+              <mat-icon class="icon-ticket warning">chat_bubble</mat-icon>
               <h4 class="header-title">
                 Comentarios
               </h4>

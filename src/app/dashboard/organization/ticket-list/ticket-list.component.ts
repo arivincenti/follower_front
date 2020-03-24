@@ -1,16 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { TicketModel } from 'src/app/models/ticketModel';
-import { UserModel } from 'src/app/models/user.model';
-import { PageEvent } from '@angular/material';
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { TicketModel } from "src/app/models/ticketModel";
+import { UserModel } from "src/app/models/user.model";
+import { PageEvent } from "@angular/material";
 
 @Component({
-  selector: 'app-ticket-list',
-  templateUrl: './ticket-list.component.html',
-  styleUrls: ['./ticket-list.component.css']
+  selector: "app-ticket-list",
+  templateUrl: "./ticket-list.component.html",
+  styleUrls: ["./ticket-list.component.css"]
 })
-export class TicketListComponent implements OnInit
-{
-
+export class TicketListComponent implements OnInit {
   @Input() tickets: TicketModel[];
   @Input() user: UserModel;
 
@@ -24,10 +22,9 @@ export class TicketListComponent implements OnInit
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.since = this.pageIndex;
     this.until = this.pageSize;
   }
@@ -35,28 +32,23 @@ export class TicketListComponent implements OnInit
   // ==================================================
   // Set paginator page size
   // ==================================================
-  setPageSizeOptions(setPageSizeOptionsInput: string)
-  {
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
     this.pageSizeOptions = setPageSizeOptionsInput.split(",").map(str => +str);
   }
 
   // ==================================================
   // Change Page
   // ==================================================
-  changePage($event: PageEvent)
-  {
+  changePage($event: PageEvent) {
     this.pageIndex = $event.pageIndex;
     this.pageSize = $event.pageSize;
 
     this.since = this.pageIndex * this.pageSize;
 
-    if (this.pageIndex)
-    {
+    if (this.pageIndex) {
       this.until = this.pageIndex * this.pageSize + this.pageSize;
-    } else
-    {
+    } else {
       this.until = this.pageSize;
     }
   }
-
 }
