@@ -12,8 +12,6 @@ import { takeUntil, map } from "rxjs/operators";
 import { TicketModel } from "src/app/models/ticketModel";
 import { TicketFormComponent } from "../../../shared/ticket-form/ticket-form.component";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
-import { Label } from "ng2-charts";
-import { ChartType } from "chart.js";
 
 @Component({
   selector: "app-organization",

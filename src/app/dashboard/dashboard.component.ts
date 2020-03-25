@@ -49,67 +49,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    //Restablecemos la configuracion del cliente en socket para no perder la instancia
-    this._wsService.cargarStorage();
+    this.theme$ = this.store.select(state => state.ui.theme);
 
     //Obtenemos el usuario desde el localstorage
     this.auth = JSON.parse(localStorage.getItem("auth"));
     this.user$ = this.store.select(state => state.auth.user);
 
-    //Obtenemos todas las notificaciones
+    //Restablecemos la configuracion del cliente en socket para no perder la instancia
+    this._wsService.cargarStorage();
+
+    //Obtenemos todas las notificaciones del usuario
     this.store.dispatch(
       getNotifications({
         payload: this.auth.user
       })
     );
 
-    // Nos unimos a todas las salas de áreas
-    this._areasService
-      .getAreasByUser(this.auth.user)
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe(areas => {
-        this.areas = areas;
-        console.log("nos subscribimos a todas las areas");
-        this._wsService.emit("join-all-areas", areas);
-      });
-
-    //Nos unimos a todos nuestros tickets......
-    this.store
-      .select(state => state.userOrganizations.tickets.userTickets.tickets)
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe(tickets => {
-        this._wsService.emit("join-all-tickets", tickets);
-      });
-
-    this.listenUpdateTicketSocket();
-
-    //Escuchamos el mensaje de que una nueva notificacion se creó
-    this._wsService
-      .listen("new-notification")
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((notification: any) => {
-        this._snackBar.openFromComponent(SnackbarComponent, {
-          duration: 5000,
-          data: {
-            notification
-          }
-        });
-
-        if (notification.updated_by._id !== this.auth.user._id) {
-          if (notification.objectType === "ticket") {
-            this.store.dispatch(getTickets({ payload: this.auth.user }));
-          }
-        }
-
-        this.store.dispatch(
-          addNotification({
-            payload: notification
-          })
-        );
-      });
-
-    this.theme$ = this.store.select(state => state.ui.theme);
-
+    //Cargamos las notificaciones no leidas
     this.unreadNotifications$ = this.store
       .select(state => state.userOrganizations.notifications.notifications)
       .pipe(
@@ -125,6 +81,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
           return unreadNotifications;
         })
       );
+
+    // Nos unimos a todas las salas de áreas
+    this.joinAllAreas();
+
+    //Nos unimos a todos nuestros tickets......
+    this.joinAllTickets();
+
+    //Escuchamos las actualizaciones de un ticket
+    this.listenUpdateTicketSocket();
+
+    //Escuchamos el mensaje de que una nueva notificacion se creó
+    this.listenNewNotifications();
   }
 
   log(state: any) {
@@ -158,13 +126,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
           users.push(movement.ticket.created_by);
         }
 
+        //Cargamos los cambios del ticket para que se guarden en la notificacion
         if (movement.old.priority !== movement.new.priority) {
           var message = `Cambió la prioridad de "${movement.old.priority}" a "${movement.new.priority}"`;
           changes.push(message);
         }
 
         //Emitimos la notificacion
-        this.emitNotificationSocket(
+        this.createNewNotification(
           changes,
           movement.ticket,
           "ticket",
@@ -177,7 +146,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // ==================================================
   // Emit notification socket
   // ==================================================
-  emitNotificationSocket(
+  createNewNotification(
     changes: any[],
     object: string,
     objectType: string,
@@ -193,6 +162,61 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
     //Emitimos el evento para crear la nueva notificación
     this._wsService.emit("create-notification", payload);
+  }
+
+  // ==================================================
+  // Listen New Notifications
+  // ==================================================
+  listenNewNotifications() {
+    this._wsService
+      .listen("new-notification")
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe((notification: any) => {
+        this._snackBar.openFromComponent(SnackbarComponent, {
+          duration: 5000,
+          data: {
+            notification
+          }
+        });
+
+        if (notification.updated_by._id !== this.auth.user._id) {
+          if (notification.objectType === "ticket") {
+            this.store.dispatch(getTickets({ payload: this.auth.user }));
+          }
+        }
+
+        this.store.dispatch(
+          addNotification({
+            payload: notification
+          })
+        );
+      });
+  }
+
+  // ==================================================
+  // Join All Areas
+  // ==================================================
+  joinAllAreas() {
+    this._areasService
+      .getAreasByUser(this.auth.user)
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe(areas => {
+        this.areas = areas;
+        console.log("nos subscribimos a todas las areas");
+        this._wsService.emit("join-all-areas", areas);
+      });
+  }
+
+  // ==================================================
+  // Join All Tickets
+  // ==================================================
+  joinAllTickets() {
+    this.store
+      .select(state => state.userOrganizations.tickets.userTickets.tickets)
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe(tickets => {
+        this._wsService.emit("join-all-tickets", tickets);
+      });
   }
 
   // ==================================================

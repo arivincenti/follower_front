@@ -13,6 +13,7 @@ import { UserModel } from "src/app/models/user.model";
 import { CommentModel } from "src/app/models/commentModel";
 import { CommentsService } from "src/app/services/comments/comments.service";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
+import { ticketReducer } from "src/app/store/reducers/userOrganizations/tickets/ticket/ticket/ticket.reducer";
 
 @Component({
   selector: "app-ticket",
@@ -42,6 +43,7 @@ export class TicketComponent implements OnInit, OnDestroy {
   members: MemberModel[];
   param: string;
   user: UserModel;
+  owner: boolean = true;
   ticket$: Observable<TicketModel>;
   ticketLoading$: Observable<boolean>;
   comments$: Observable<CommentModel[]>;
@@ -116,6 +118,34 @@ export class TicketComponent implements OnInit, OnDestroy {
             this.propertiesForm.controls["members"].setValue(
               ticket.responsible._id
             );
+
+          if (
+            // Si soy el creador del ticket y pertenezco al area puedo editar
+            ticket.area.members.find(
+              member => member.user._id === this.user._id
+            ) &&
+            ticket.created_by._id === this.user._id
+          ) {
+            this.owner = false;
+            console.log("entro al primero");
+          } else if (
+            // Si soy el creador del ticket y NO pertenezco al area NO puedo editar
+            !ticket.area.members.find(
+              member => member.user._id === this.user._id
+            ) &&
+            ticket.created_by._id === this.user._id
+          ) {
+            this.owner = true;
+            console.log("entro al segundo");
+          } else if (
+            // Si NO soy el creador del ticket pero pertenezco al area puedo editar
+            ticket.area.members.find(
+              member => member.user._id === this.user._id
+            ) &&
+            ticket.created_by._id !== this.user._id
+          ) {
+            this.owner = false;
+          }
 
           return ticket;
         })

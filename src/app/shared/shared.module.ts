@@ -21,6 +21,7 @@ import { SearchTicketPipe } from "../pipes/searchTicket/search-ticket.pipe";
 import { MatPaginatorIntl } from "@angular/material";
 import { CustomMatPaginatorIntl } from "./paginatorCustom/paginatorCustom";
 import { SearchOrganizationPipe } from "../pipes/searchOrganization/search-organization.pipe";
+import { TicketGraphicsComponent } from './graphics/ticket-graphics/ticket-graphics.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { SearchOrganizationPipe } from "../pipes/searchOrganization/search-organ
     OrganizationFormComponent,
     AreaFormComponent,
     MemberFormComponent,
-    TicketFormComponent
+    TicketFormComponent,
+    TicketGraphicsComponent
   ],
   imports: [
     CommonModule,

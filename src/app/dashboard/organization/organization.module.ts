@@ -12,6 +12,7 @@ import { TicketListCardComponent } from "./ticket-list-card/ticket-list-card.com
 import { TicketFormComponent } from "../../shared/ticket-form/ticket-form.component";
 import { AngularMaterialModule } from "src/app/angular-material/angular-material.module";
 import { UserProfileComponent } from "../user/user-profile/user-profile.component";
+import { TicketGraphicsComponent } from "src/app/shared/graphics/ticket-graphics/ticket-graphics.component";
 
 @NgModule({
   declarations: [

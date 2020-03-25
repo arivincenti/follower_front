@@ -122,8 +122,8 @@
             </div>
             <!-- properties section button -->
             <div class="properties-section-form-button">
-              <button type="button" class="button" [disabled]="ticketLoading$ | async" (click)="saveChanges(ticket)"
-                mat-flat-button color="primary">
+              <button type="button" class="button" [disabled]="propertiesForm.pristine || owner"
+                (click)="saveChanges(ticket)" mat-flat-button color="primary">
                 <span *ngIf="!(ticketLoading$ | async)">Guardar propiedades</span>
                 <span *ngIf="ticketLoading$ | async"> Guardando propiedades... </span>
               </button>

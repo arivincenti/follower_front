@@ -16,7 +16,7 @@
     </div>
     <div class="paginador">
       <mat-paginator [length]="organizations.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-        (page)="changePage($event)">
+        (page)="changePage($event)" showFirstLastButtons>
       </mat-paginator>
     </div>
   </ng-container>

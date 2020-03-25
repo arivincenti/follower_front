@@ -4,7 +4,6 @@ button {
 /* CSS GRID */
 
 .contenedor {
-  margin-bottom: 70px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:

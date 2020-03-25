@@ -45,10 +45,9 @@
           </div>
         </div>
 
-
         <div class="paginador">
           <mat-paginator *ngIf="members.length" [length]="members.length" [pageSize]="pageSize"
-            [pageSizeOptions]="pageSizeOptions" (page)="changePage($event)">
+            [pageSizeOptions]="pageSizeOptions" (page)="changePage($event)" showFirstLastButtons>
           </mat-paginator>
         </div>
       </ng-container>

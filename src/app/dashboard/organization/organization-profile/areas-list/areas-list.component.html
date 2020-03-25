@@ -7,8 +7,6 @@
         </mat-progress-bar>
       </div>
 
-
-
       <div class="list-card-header animated" [ngClass]="animation[0]">
         <div class="list-card-header-title">
           <span class="list-card-header-title-subtitle">
@@ -32,8 +30,6 @@
           <span class="empty-message">No se encontraron áreas en esta organización.</span>
         </div>
 
-
-
         <div class="list-card animated delay-300ms" *ngFor="let area of areas | areasPaginator:since:until"
           [ngClass]="animation[0]">
 
@@ -48,7 +44,7 @@
 
         <div class="paginador">
           <mat-paginator [length]="areas.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-            (page)="changePage($event)">
+            (page)="changePage($event)" showFirstLastButtons>
           </mat-paginator>
         </div>
 
