@@ -76,4 +76,10 @@ button {
   .header-section-title-title {
     width: 230px;
   }
+
+  .header-section .header-section-buttons {
+    grid-area: header-section-buttons;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 30px);
+  }
 }

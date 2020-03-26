@@ -4,8 +4,9 @@ import { AngularMaterialModule } from "src/app/angular-material/angular-material
 import { SharedModule } from "src/app/shared/shared.module";
 import { TicketComponent } from "./ticket/ticket.component";
 import { ReactiveFormsModule } from "@angular/forms";
-import { CommentModule } from "../comment/comment.module";
+import { CommentModule } from "./comment/comment.module";
 import { TicketRoutingModule } from "./ticket-routing.module";
+import { PipesModule } from "src/app/pipes/pipes.module";
 
 @NgModule({
   declarations: [TicketComponent],
@@ -15,7 +16,8 @@ import { TicketRoutingModule } from "./ticket-routing.module";
     TicketRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    CommentModule
+    CommentModule,
+    PipesModule
   ],
   exports: []
 })

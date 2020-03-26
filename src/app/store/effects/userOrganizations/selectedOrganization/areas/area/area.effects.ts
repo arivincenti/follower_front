@@ -42,6 +42,22 @@ export class AreaEffects {
     )
   );
 
+  deleteAreaMember$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AreaActions.deleteAreaMember),
+      mergeMap(action =>
+        this._areasService.deleteAreaMember(action.payload).pipe(
+          map((area: any) => {
+            return AreaActions.deleteAreaMemberSuccess({ payload: area });
+          }),
+          catchError(error =>
+            of(AreaActions.deleteAreaMemberFail({ payload: error }))
+          )
+        )
+      )
+    )
+  );
+
   clear$ = createEffect(() => this.actions$.pipe(ofType(AreaActions.clear)), {
     dispatch: false
   });

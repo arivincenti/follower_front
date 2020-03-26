@@ -7,9 +7,9 @@ import { AppState } from "src/app/store/app.reducer";
 import { ActivatedRoute, Router } from "@angular/router";
 import { getOrganization } from "../../../../store/actions/userOrganizations/selectedOrganization/organization.actions";
 import { MatDialog } from "@angular/material";
-import { AreaFormComponent } from "../../../../shared/area-form/area-form.component";
+import { AreaFormComponent } from "../../../../shared/forms/area-form/area-form.component";
 import { map } from "rxjs/operators";
-import { OrganizationFormComponent } from "../../../../shared/organization-form/organization-form.component";
+import { OrganizationFormComponent } from "../../../../shared/forms/organization-form/organization-form.component";
 
 @Component({
   selector: "app-organization-profile",

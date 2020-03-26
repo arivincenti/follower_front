@@ -8,9 +8,8 @@
   <span class="comment-info"><span>{{comment.type | titlecase}}</span>
     <b>{{comment.created_at | time}}</b></span>
   <div class="comment">
-    <span class="comment-content"
-      [ngClass]="{'message-owner': comment.created_by._id === user._id, 'message-partner': comment.created_by._id !== user._id}">
-      <span class="content">{{comment.message}}</span>
-    </span>
+    <div class="comment-content sb6">
+      <span class=content>{{comment.message}}</span>
+    </div>
   </div>
 </div>

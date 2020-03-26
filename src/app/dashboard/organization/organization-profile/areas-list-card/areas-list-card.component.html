@@ -11,8 +11,11 @@
           matTooltipPosition="right">
           {{area.name | titlecase}}
         </span>
-        <span class="header-section-title-subtitle">
-          Creada {{area.created_at | time}}
+        <span class="header-section-title-subtitle" *ngIf="area.responsible">
+          Responsable / {{area.responsible.user.name | titlecase}} {{area.responsible.user.last_name | titlecase}}
+        </span>
+        <span class="header-section-title-subtitle" *ngIf="!area.responsible">
+          Responsable / Sin responsable
         </span>
       </div>
       <!-- header section title end -->

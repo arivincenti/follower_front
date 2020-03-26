@@ -9,7 +9,7 @@ import { MemberModel } from "src/app/models/member.model";
 import * as AreaActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
 import { map, filter } from "rxjs/operators";
 import { MatDialog } from "@angular/material";
-import { AreaFormComponent } from "../../../shared/area-form/area-form.component";
+import { AreaFormComponent } from "../../../shared/forms/area-form/area-form.component";
 
 @Component({
   selector: "app-area-profile",

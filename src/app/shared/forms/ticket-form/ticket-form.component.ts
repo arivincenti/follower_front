@@ -9,7 +9,7 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { AreaModel } from "src/app/models/area.model";
 import { AreasService } from "src/app/services/areas/areas.service";
 import { map } from "rxjs/operators";
-import * as UserTicketsActions from "../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
+import * as UserTicketsActions from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
 
 @Component({
   selector: "app-ticket-form",

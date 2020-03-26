@@ -1,23 +1,23 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-  name: "searchOrganization"
+  name: "searchArea"
 })
-export class SearchOrganizationPipe implements PipeTransform {
+export class SearchAreaPipe implements PipeTransform {
   transform(value: any, search: string): any {
     if (search === "") {
       return value;
     }
 
-    var organizations = [];
+    var areas = [];
 
     for (let t = 0; t < value.length; t++) {
       let name: string = value[t].name.toLowerCase();
-
-      if (name.startsWith(search)) {
-        organizations.push(value[t]);
+      let lcsearch = search.toLowerCase();
+      if (name.startsWith(lcsearch)) {
+        areas.push(value[t]);
       }
     }
-    return organizations;
+    return areas;
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "../../../environments/environment.prod";
+import { environment } from "../../../environments/environment";
 import { map } from "rxjs/operators";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { UserModel } from "src/app/models/user.model";
@@ -23,16 +23,22 @@ export class AreasService {
       .get(
         `${environment.path}/areas/organization/${organization._id}?since=${since}&size=${size}`
       )
-      .pipe(map((data: any) => data.data));
+      .pipe(
+        map(data => {
+          return data["data"];
+        })
+      );
   }
 
   // ==================================================
   // Get all areas by user
   // ==================================================
   getAreasByUser(user: UserModel) {
-    return this.http
-      .get(`${environment.path}/areas/user/${user._id}`)
-      .pipe(map((data: any) => data.data));
+    return this.http.get(`${environment.path}/areas/user/${user._id}`).pipe(
+      map(data => {
+        return data["data"];
+      })
+    );
   }
 
   // ==================================================
@@ -41,52 +47,66 @@ export class AreasService {
   getAreaResponsibleMembers(areaId: string) {
     return this.http
       .get(`${environment.path}/areas/${areaId}/responsibleMembers`)
-      .pipe(map((data: any) => data.data));
+      .pipe(
+        map(data => {
+          return data["data"];
+        })
+      );
   }
 
   // ==================================================
   // Get Selcted Area
   // ==================================================
   getArea(areaId: string) {
-    return this.http
-      .get(`${environment.path}/areas/${areaId}`)
-      .pipe(map((data: any) => data.data));
+    return this.http.get(`${environment.path}/areas/${areaId}`).pipe(
+      map(data => {
+        return data["data"];
+      })
+    );
   }
 
   // ==================================================
   // Create a new Area
   // ==================================================
   createArea(payload: any) {
-    return this.http
-      .post(`${environment.path}/areas`, payload)
-      .pipe(map((data: any) => data.data));
+    return this.http.post(`${environment.path}/areas`, payload).pipe(
+      map(data => {
+        return data["data"];
+      })
+    );
   }
 
   // ==================================================
   // Update an area
   // ==================================================
   updateArea(areaId: string, payload: any) {
-    return this.http
-      .put(`${environment.path}/areas/${areaId}`, payload)
-      .pipe(map((data: any) => data.data));
+    return this.http.put(`${environment.path}/areas/${areaId}`, payload).pipe(
+      map(data => {
+        return data["data"];
+      })
+    );
   }
 
   // ==================================================
   // Delete an area
   // ==================================================
   deleteArea(payload: any) {
-    return this.http
-      .delete(`${environment.path}/areas/${payload}`)
-      .pipe(map((data: any) => data.data));
+    return this.http.delete(`${environment.path}/areas/${payload}`).pipe(
+      map(data => {
+        return data["data"];
+      })
+    );
   }
 
   // ==================================================
   // Get all Area Members
   // ==================================================
   getAreaMembers(areaId: string) {
-    return this.http
-      .get(`${environment.path}/areas/${areaId}/members`)
-      .pipe(map((data: any) => data.data));
+    return this.http.get(`${environment.path}/areas/${areaId}/members`).pipe(
+      map(data => {
+        return data["data"];
+      })
+    );
   }
 
   // ==================================================
@@ -95,6 +115,22 @@ export class AreasService {
   addAreaMember(payload: any) {
     return this.http
       .post(`${environment.path}/areas/add_member`, payload)
-      .pipe(map((data: any) => data.data));
+      .pipe(map(data => data["data"]));
+  }
+
+  // ==================================================
+  // Delete all Area Members
+  // ==================================================
+  deleteAreaMember(payload: any) {
+    return this.http
+      .put(
+        `${environment.path}/areas/delete_member/${payload.member._id}`,
+        payload
+      )
+      .pipe(
+        map(data => {
+          return data["data"];
+        })
+      );
   }
 }

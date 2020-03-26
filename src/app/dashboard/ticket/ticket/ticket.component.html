@@ -113,7 +113,7 @@
               <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
                 formControlName="status" name="status">
                 <mat-radio-button color="warn" class="radio-buttons" *ngFor="let status of status" [value]="status">
-                  <span [matTooltip]="status" matTooltipPosition="right">
+                  <span>
                     {{ status | titlecase }}
                   </span>
                 </mat-radio-button>

@@ -14,8 +14,8 @@ export class SearchTicketPipe implements PipeTransform {
     for (let t = 0; t < value.length; t++) {
       let subject: string = value[t].subject.toLowerCase();
       let status: string = value[t].status.toLowerCase();
-
-      if (subject.startsWith(search) || status.startsWith(search)) {
+      let lcsearch = search.toLowerCase();
+      if (subject.startsWith(lcsearch) || status.startsWith(lcsearch)) {
         tickets.push(value[t]);
       }
     }

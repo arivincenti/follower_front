@@ -10,7 +10,7 @@ button {
     "user-section"
     "organizations-section"
     "tickets-section";
-  grid-gap: 23px;
+  grid-gap: 15px;
 }
 
 .contenedor .user-section {
@@ -64,14 +64,9 @@ mat-form-field {
   justify-content: end;
 }
 
-.tickets-section-search .form,
-mat-form-field {
-  width: 100%;
-}
-
 .tickets-section-search .form {
-  width: 38%;
-  min-width: 250px;
+  width: 60%;
+  max-width: 300px;
 }
 
 .contenedor .organizations-section {
@@ -101,14 +96,9 @@ mat-form-field {
   justify-content: end;
 }
 
-.organizations-section-search .form,
-mat-form-field {
-  width: 100%;
-}
-
 .organizations-section-search .form {
-  width: 38%;
-  min-width: 250px;
+  width: 60%;
+  max-width: 300px;
 }
 
 .organizations-section .organizations-section-header {

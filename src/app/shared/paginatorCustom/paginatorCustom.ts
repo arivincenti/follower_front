@@ -3,11 +3,11 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class CustomMatPaginatorIntl extends MatPaginatorIntl {
-  itemsPerPageLabel = "Registros por página";
+  itemsPerPageLabel = "Registros por pág";
   nextPageLabel = "Siguiente";
   previousPageLabel = "Anterior";
-  firstPageLabel = "Primera página";
-  lastPageLabel = "Última página";
+  firstPageLabel = "Primera pág";
+  lastPageLabel = "Última pág";
 
   getRangeLabel = function(page, pageSize, length) {
     if (length === 0 || pageSize === 0) {

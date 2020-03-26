@@ -20,7 +20,13 @@
 
 
         <div *ngIf="(members$ | async) || (areaMembers$ | async) as members" class="list-card-header-filter">
-          <app-filter [originalArray]="members" (transformArray)="filterMembers = $event"></app-filter>
+          <form class="form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Buscar Miembro</mat-label>
+              <input matInput type="text" name="searchMember" [(ngModel)]="searchMember" autocomplete="off">
+            </mat-form-field>
+          </form>
+          <!-- <app-filter [originalArray]="members" (transformArray)="filterMembers = $event"></app-filter> -->
         </div>
       </div>
 
@@ -33,7 +39,8 @@
         </div>
 
 
-        <div class="list-card animated delay-300ms" *ngFor="let member of filterMembers | memberPaginator:since:until"
+        <div class="list-card animated delay-300ms"
+          *ngFor="let member of (filterMembers | searchMember: searchMember ) | memberPaginator:since:until"
           [ngClass]="animation[0]">
           <div class="list-card-card animated fadeIn">
             <app-member-list-card [organization]="organization" [member]="member" [user]="user" [area]="area">

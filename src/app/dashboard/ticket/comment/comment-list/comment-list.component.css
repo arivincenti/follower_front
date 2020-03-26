@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto auto;
-  grid-gap: 15px;
+  grid-gap: 20px;
 }
 
 .contenedor .mensaje {

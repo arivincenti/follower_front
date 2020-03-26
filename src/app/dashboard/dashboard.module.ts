@@ -6,7 +6,8 @@ import { DashboardComponent } from "./dashboard.component";
 import { SharedModule } from "../shared/shared.module";
 import { AngularMaterialModule } from "../angular-material/angular-material.module";
 import { LoginGuard } from "../guards/login/login.guard";
-import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
+import { PipesModule } from "../pipes/pipes.module";
+import { UpdatedNotificationComponent } from "../shared/snackbar/updated-notification/updated-notification.component";
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -16,9 +17,10 @@ import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    PipesModule
   ],
   providers: [LoginGuard],
-  entryComponents: [SnackbarComponent]
+  entryComponents: [UpdatedNotificationComponent]
 })
 export class DashboardModule {}

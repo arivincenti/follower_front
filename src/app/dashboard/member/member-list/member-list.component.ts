@@ -8,7 +8,7 @@ import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { map, takeUntil, filter } from "rxjs/operators";
-import { MemberFormComponent } from "../../../shared/member-form/member-form.component";
+import { MemberFormComponent } from "../../../shared/forms/member-form/member-form.component";
 
 @Component({
   selector: "app-member-list",
@@ -31,6 +31,7 @@ export class MemberListComponent implements OnInit, OnDestroy {
   areaMembers$: Observable<MemberModel[]>;
   filterMembers: MemberModel[] = [];
 
+  searchMember: string = "";
   //Paginator variables
   pageIndex: number = 0;
   pageSize: number = 5;

@@ -3,14 +3,16 @@ import { createEffect, Actions, ofType } from "@ngrx/effects";
 import { mergeMap, catchError, map } from "rxjs/operators";
 import { of } from "rxjs";
 import * as UserTicketsActions from "../../../../actions/userOrganizations/tickets/userTickets/userTickets.actions";
-import * as AreaTicketsActions from "../../../../actions/userOrganizations/tickets/areaTickets/areaTickets.actions";
 import { TicketsService } from "src/app/services/tickets/tickets.service";
+import { MatSnackBar } from "@angular/material";
+import { GenericNotificationComponent } from "src/app/shared/snackbar/generic-notification/generic-notification.component";
 
 @Injectable()
 export class UserTicketsEffects {
   constructor(
     private actions$: Actions,
-    private _ticketsService: TicketsService
+    private _ticketsService: TicketsService,
+    private _snackBar: MatSnackBar
   ) {}
 
   getTickets$ = createEffect(() =>

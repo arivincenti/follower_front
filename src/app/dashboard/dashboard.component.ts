@@ -15,8 +15,9 @@ import {
 } from "../store/actions/userOrganizations/notifications/notifications.actions";
 import { logout } from "../store/actions/auth/auth.actions";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
-import { SnackbarComponent } from "../shared/snackbar/snackbar.component";
 import { getTickets } from "../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
+import { NotificationsService } from "../services/notifications/notifications.service";
+import { UpdatedNotificationComponent } from "../shared/snackbar/updated-notification/updated-notification.component";
 
 @Component({
   selector: "app-dashboard",
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     public _wsService: WebsocketService,
+    private _notificationService: NotificationsService,
     private _areasService: AreasService,
     private _snackBar: MatSnackBar,
     private breakpointObserver: BreakpointObserver
@@ -95,10 +97,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.listenNewNotifications();
   }
 
-  log(state: any) {
-    console.log(state);
-  }
-
+  // ==================================================
+  // Log Out
+  // ==================================================
   logout() {
     this.store
       .select(state => state.userOrganizations.tickets.userTickets.tickets)
@@ -110,6 +111,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.store.dispatch(logout());
   }
 
+  // ==================================================
+  // Listen Updates in ticket
+  // ==================================================
   listenUpdateTicketSocket() {
     this._wsService
       .listen("update-ticket")
@@ -133,7 +137,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
 
         //Emitimos la notificacion
-        this.createNewNotification(
+        this._notificationService.createNewNotification(
           changes,
           movement.ticket,
           "ticket",
@@ -144,27 +148,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   // ==================================================
-  // Emit notification socket
-  // ==================================================
-  createNewNotification(
-    changes: any[],
-    object: string,
-    objectType: string,
-    updated_by: string,
-    users: string[]
-  ) {
-    var payload = {
-      changes: changes,
-      object: object,
-      objectType: objectType,
-      updated_by: updated_by,
-      users: users
-    };
-    //Emitimos el evento para crear la nueva notificación
-    this._wsService.emit("create-notification", payload);
-  }
-
-  // ==================================================
   // Listen New Notifications
   // ==================================================
   listenNewNotifications() {
@@ -172,7 +155,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .listen("new-notification")
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe((notification: any) => {
-        this._snackBar.openFromComponent(SnackbarComponent, {
+        this._snackBar.openFromComponent(UpdatedNotificationComponent, {
           duration: 5000,
           data: {
             notification

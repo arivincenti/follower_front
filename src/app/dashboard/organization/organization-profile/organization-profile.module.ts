@@ -5,9 +5,10 @@ import { MemberModule } from "../../member/member.module";
 import { OrganizationProfileRoutingModule } from "./organization-profile-routing.module";
 import { AngularMaterialModule } from "src/app/angular-material/angular-material.module";
 import { SharedModule } from "src/app/shared/shared.module";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { AreasListComponent } from "./areas-list/areas-list.component";
 import { AreasListCardComponent } from "./areas-list-card/areas-list-card.component";
+import { PipesModule } from "src/app/pipes/pipes.module";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import { AreasListCardComponent } from "./areas-list-card/areas-list-card.compon
     OrganizationProfileRoutingModule,
     AngularMaterialModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    PipesModule
   ]
 })
 export class OrganizationProfileModule {}

@@ -47,6 +47,19 @@ button {
   justify-content: flex-end;
 }
 
+.list-card-header-filter .form,
+mat-form-field {
+  width: 100%;
+  font-size: 0.9em;
+  opacity: 0.8;
+  justify-content: end;
+}
+
+.list-card-header-filter .form {
+  width: 60%;
+  max-width: 300px;
+}
+
 .list-card .list-card-card {
   grid-area: list-card-card;
 }
@@ -62,5 +75,9 @@ button {
 @media (max-width: 767px) {
   .contenedor .list-card-header {
     text-align: center;
+  }
+
+  .list-card-header-filter .form {
+    width: 180px;
   }
 }

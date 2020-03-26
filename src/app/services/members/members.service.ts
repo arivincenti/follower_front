@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { MemberModel } from "src/app/models/member.model";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "src/environments/environment.prod";
+import { environment } from "../../../environments/environment";
 import { map } from "rxjs/operators";
 import { OrganizationModel } from "src/app/models/organization.model";
 
@@ -14,13 +14,13 @@ export class MembersService {
   getMembers(organization: OrganizationModel) {
     return this.http
       .get(`${environment.path}/members/organization/${organization._id}`)
-      .pipe(map((data: any) => data.data));
+      .pipe(map(data => data["data"]));
   }
 
   getMember(memberId: string) {
     return this.http.get(`${environment.path}/members/${memberId}`).pipe(
-      map((data: any) => {
-        return data.data;
+      map(data => {
+        return data["data"];
       })
     );
   }
@@ -29,7 +29,7 @@ export class MembersService {
     console.log("email by member");
     return this.http
       .post(`${environment.path}/members/by_email`, payload)
-      .pipe(map((data: any) => data["data"]));
+      .pipe(map(data => data["data"]));
   }
 
   getMemberAreas(user_id: string, organization_id: string) {
@@ -38,8 +38,8 @@ export class MembersService {
         `${environment.path}/members/user/${user_id}/organization/${organization_id}/areas`
       )
       .pipe(
-        map((data: any) => {
-          return data.data;
+        map(data => {
+          return data["data"];
         })
       );
   }

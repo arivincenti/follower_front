@@ -11,7 +11,7 @@ button {
     "organization-button-back"
     "organization-profile"
     "organization-children";
-  gap: 20px;
+  gap: 15px;
 }
 
 .contenedor .organization-loader {

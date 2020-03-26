@@ -34,20 +34,44 @@
 }
 
 .comment-content {
-  max-width: 95%;
-  /* min-width: 100px; */
+  max-width: 94%;
   height: auto;
-  font-size: 0.9em;
-  padding: 8px 15px;
-  border-radius: 7px;
+  margin-left: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  padding: 10px;
+  text-align: left;
+  font-size: 0.8em;
+  color: rgba(0, 0, 0, 0.4);
+  position: relative;
   display: grid;
   grid-template-areas: "content content";
 }
 
-.comment-content .content {
-  margin-bottom: 5px;
-  font-size: 0.9em;
-  grid-area: content;
+.sb6:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 5px solid transparent;
+  border-right: 5px solid rgba(0, 0, 0, 0.3);
+  border-top: 5px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 5px solid transparent;
+  left: -10px;
+  top: 6px;
+}
+
+.sb6:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 5px solid transparent;
+  border-right: 5px solid #fff;
+  border-top: 5px solid #fff;
+  border-bottom: 5px solid transparent;
+  left: -8px;
+  top: 7px;
 }
 
 .contenedor .comment-info {
@@ -73,13 +97,13 @@
 
 .card-img {
   object-fit: cover;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
 }
 
 @media (max-width: 767px) {
   .comment-content {
-    max-width: 80%;
+    max-width: 77%;
   }
 }

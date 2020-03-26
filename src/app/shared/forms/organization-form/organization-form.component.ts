@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
-import * as OrganizationsActions from "../../store/actions/userOrganizations/organizations/organizations.actions";
+import * as OrganizationsActions from "../../../store/actions/userOrganizations/organizations/organizations.actions";
 import { Observable, Subject } from "rxjs";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { DialogDataOrganization } from "../../models/interfaces/dialogDataOrganization";
+import { DialogDataOrganization } from "../../../models/interfaces/dialogDataOrganization";
 import { takeUntil } from "rxjs/operators";
 
 @Component({

@@ -7,7 +7,7 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { PageEvent, MatDialog } from "@angular/material";
 import { map } from "rxjs/operators";
-import { AreaFormComponent } from "../../../../shared/area-form/area-form.component";
+import { AreaFormComponent } from "../../../../shared/forms/area-form/area-form.component";
 
 @Component({
   selector: "app-areas-list",
@@ -25,6 +25,8 @@ export class AreasListComponent implements OnInit, OnDestroy {
   areas$: Observable<AreaModel[]>;
   areasLoading$: Observable<boolean>;
   filterAreas: AreaModel[];
+
+  searchArea: string = "";
 
   //Paginator variables
   pageIndex: number = 0;

@@ -4,7 +4,6 @@ button {
 /* CSS GRID */
 
 .contenedor {
-  margin-bottom: 70px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
@@ -12,7 +11,7 @@ button {
     "area-button-back"
     "area-profile"
     "area-children";
-  gap: 20px;
+  gap: 15px;
 }
 
 .contenedor .area-loader {
@@ -80,46 +79,7 @@ button {
   grid-area: area-children;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-areas:
-    "area-children-buttons"
-    "area-children-divider"
-    "area-children-container";
   gap: 15px;
-}
-
-.area-children .area-children-buttons {
-  grid-area: area-children-buttons;
-}
-
-.area-children-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.area-children-buttons .button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.button button mat-icon {
-  position: relative;
-  bottom: 1px;
-  font-size: 1.4em;
-}
-
-.active {
-  background-color: #202f3f;
-  color: white;
-}
-
-.area-children .area-children-divider {
-  grid-area: area-children-divider;
-}
-
-.area-children .area-children-container {
-  grid-area: area-children-container;
 }
 
 @media (max-width: 767px) {

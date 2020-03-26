@@ -1,0 +1,16 @@
+<div class="contenedor">
+  <div class="header">
+    <span class="icon">
+      <mat-icon class="danger" *ngIf="data.type === 'error'">highlight_off</mat-icon>
+      <mat-icon class="success" *ngIf="data.type === 'success'">check_circle_outline</mat-icon>
+      <span>
+        {{data.title}}
+      </span>
+    </span>
+    <div class="message">
+      <span>
+        {{data.message}}
+      </span>
+    </div>
+  </div>
+</div>

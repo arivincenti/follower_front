@@ -15,7 +15,7 @@
   gap: 15px;
 }
 
-.header .user {
+.header .message {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto;
@@ -26,16 +26,24 @@
 .header .icon {
   display: grid;
   grid-template-columns: 10px 1fr;
-  gap: 15px;
-  padding-bottom: 10px;
+  gap: 20px;
+  padding-bottom: 5px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .header .icon > mat-icon {
-  font-size: 1em;
-  position: relative;
-  top: 2px;
+  font-size: 1.3em;
 }
 .header .icon > span {
-  font-size: 0.8em;
+  position: relative;
+  top: 2px;
+  font-size: 0.9em;
+}
+
+.success {
+  color: green;
+}
+
+.danger {
+  color: red;
 }

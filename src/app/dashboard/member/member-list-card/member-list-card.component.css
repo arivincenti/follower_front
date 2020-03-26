@@ -45,6 +45,8 @@ button {
   grid-area: header-section-buttons;
   display: flex;
   justify-content: flex-end;
+  position: relative;
+  bottom: 3px;
 }
 
 /* CSS GRID END */
@@ -91,6 +93,14 @@ button {
 
 @media (max-width: 767px) {
   .header-section-title-title {
-    width: 230px;
+    width: 225px;
+  }
+
+  .header-section .header-section-buttons {
+    grid-area: header-section-buttons;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 30px);
+    position: relative;
+    bottom: 7px;
   }
 }

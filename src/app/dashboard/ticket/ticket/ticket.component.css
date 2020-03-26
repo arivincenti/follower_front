@@ -14,7 +14,7 @@ mat-form-field {
     "loader"
     "ticket-section"
     "comment-section";
-  grid-gap: 20px;
+  grid-gap: 15px;
 }
 
 .contenedor .loader {

@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import { UserModel } from "src/app/models/user.model";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "src/environments/environment.prod";
+import { environment } from "../../../environments/environment";
 import { WebsocketService } from "../websocket/websocket.service";
+import { MemberModel } from "src/app/models/member.model";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -39,5 +41,14 @@ export class TicketsService {
       `${environment.path}/tickets/${payload.ticket}`,
       payload
     );
+  }
+
+  // ==================================================
+  // Get responsible member tickets
+  // ==================================================
+  getMemberResponsibleTickets(member: MemberModel) {
+    return this.http
+      .get(`${environment.path}/tickets/responsible/${member._id}`)
+      .pipe(map(data => data["data"]));
   }
 }

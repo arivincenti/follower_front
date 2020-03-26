@@ -6,11 +6,11 @@ import { AppState } from "src/app/store/app.reducer";
 import { getOrganizations } from "../../../store/actions/userOrganizations/organizations/organizations.actions";
 import { getTickets } from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
 import { OrganizationModel } from "src/app/models/organization.model";
-import { OrganizationFormComponent } from "../../../shared/organization-form/organization-form.component";
+import { OrganizationFormComponent } from "../../../shared/forms/organization-form/organization-form.component";
 import { MatDialog } from "@angular/material/dialog";
 import { takeUntil, map } from "rxjs/operators";
 import { TicketModel } from "src/app/models/ticketModel";
-import { TicketFormComponent } from "../../../shared/ticket-form/ticket-form.component";
+import { TicketFormComponent } from "../../../shared/forms/ticket-form/ticket-form.component";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
 
 @Component({
