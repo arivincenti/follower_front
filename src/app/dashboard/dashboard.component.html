@@ -12,7 +12,8 @@
 
         <div class="sidenav-user" *ngIf="user$ | async as user">
           <div class="user-img">
-            <img mat-card-avatar class="mat-card-img" [src]="user.img | image" alt="" [matMenuTriggerFor]="menu">
+            <img mat-card-avatar class="mat-card-img" [src]="user.img | image: user.genre" alt=""
+              [matMenuTriggerFor]="menu">
 
             <mat-menu #menu="matMenu" class="user-menu">
               <button mat-menu-item disabled>

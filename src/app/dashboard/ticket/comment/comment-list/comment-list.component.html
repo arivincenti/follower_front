@@ -7,7 +7,7 @@
 
   <ng-container *ngIf="comments.length">
 
-    <div class="list-card animated fadeIn" *ngFor="let comment of comments | ticketPaginator:since:until">
+    <div class="list-card animated fadeIn" *ngFor="let comment of comments | paginator:since:until">
       <app-comment-list-card [comment]="comment" [user]="user">
       </app-comment-list-card>
     </div>

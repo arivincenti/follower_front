@@ -9,18 +9,31 @@
             <span>
               <mat-icon class="icon-header warning">local_activity</mat-icon>
             </span>
-            <span [matTooltip]="ticket.subject" matTooltipPosition="right">
+            <span [matTooltip]="ticket.subject" matTooltipPosition="above">
               {{ ticket.subject | titlecase }}
             </span>
           </h4>
           <span class=" badge badge-ticket-status"
             [ngClass]="{'badge-danger': ticket.status === 'ABIERTO', 'badge-primary': ticket.status === 'PENDIENTE', 'badge-success': ticket.status === 'CERRADO'}"
-            [matTooltip]="ticket.status " matTooltipPosition="right">
+            [matTooltip]="ticket.status " matTooltipPosition="above">
             {{ticket.status | slice:0:1}}
           </span>
+          <mat-icon
+            *ngIf="(ticket.date | date:'shortDate') > (dateNow | date: 'shortDate') && ticket.status !== 'CERRADO'"
+            class="extra-icon" matTooltip="Vence {{ticket.date | time}}" matTooltipPosition="above">alarm
+          </mat-icon>
+          <mat-icon
+            *ngIf="(ticket.date | date:'shortDate') == (dateNow | date: 'shortDate') && ticket.status !== 'CERRADO'"
+            class="extra-icon" matTooltip="Vence hoy" matTooltipPosition="above">alarm
+          </mat-icon>
+          <mat-icon
+            *ngIf="(ticket.date | date:'shortDate') < (dateNow | date: 'shortDate') && ticket.status !== 'CERRADO'"
+            class="extra-icon" [ngClass]="'danger'" matTooltip="Vencio {{ticket.date | time}}"
+            matTooltipPosition="above">alarm
+          </mat-icon>
         </div>
         <div class="header-section-title-subtitle">
-          <span [matTooltip]="ticket.created_at | date:'medium'" matTooltipPosition="right">
+          <span [matTooltip]="ticket.created_at | date:'medium'" matTooltipPosition="above">
             Creado {{ ticket.created_at | time }}
           </span>
         </div>

@@ -30,7 +30,7 @@
           <div class="message-section-incident">
             <mat-form-field appearance="outline">
               <mat-label>Descripción del incidente</mat-label>
-              <textarea class="incident-description" rows="15" matInput type="text" placeholder="" autocomplete="off"
+              <textarea class="incident-description" rows="19" matInput type="text" placeholder="" autocomplete="off"
                 [value]="ticket.issue"></textarea>
             </mat-form-field>
           </div>
@@ -107,9 +107,19 @@
                 </mat-select>
               </mat-form-field>
             </div>
+            <!-- properties section date -->
+            <div class="properties-section-form-date">
+              <mat-form-field>
+                <mat-label *ngIf="ticket.date">Fecha programada</mat-label>
+                <mat-label *ngIf="!ticket.date">Programar fecha</mat-label>
+                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <!-- properties section date end -->
             <!-- properties section priority end -->
             <div class="properties-section-form-status">
-
               <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
                 formControlName="status" name="status">
                 <mat-radio-button color="warn" class="radio-buttons" *ngFor="let status of status" [value]="status">

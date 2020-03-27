@@ -3,7 +3,7 @@
   <div class="header-section">
     <!-- Header section title -->
     <div class="header-section-title">
-      <img mat-card-avatar class="mat-card-img" [src]="member.user.img | image" alt="">
+      <img mat-card-avatar class="mat-card-img" [src]="member.user.img | image: member.user.genre" alt="">
       <span class="header-section-title-title" [ngClass]="{'deleted': member.deleted_at}">
         {{member.user.name | titlecase}} {{member.user.last_name | titlecase}}
       </span>

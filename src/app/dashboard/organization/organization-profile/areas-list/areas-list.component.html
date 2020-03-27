@@ -37,7 +37,7 @@
         </div>
 
         <div class="list-card animated delay-300ms"
-          *ngFor="let area of (areas | searchArea: searchArea) | areasPaginator:since:until" [ngClass]="animation[0]">
+          *ngFor="let area of (areas | searchArea: searchArea) | paginator:since:until" [ngClass]="animation[0]">
 
           <div class="list-card-card animated fadeIn">
             <app-areas-list-card [organization]="organization" [area]="area" [user]="user"></app-areas-list-card>

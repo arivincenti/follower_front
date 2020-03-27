@@ -185,7 +185,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe(areas => {
         this.areas = areas;
-        console.log("nos subscribimos a todas las areas");
         this._wsService.emit("join-all-areas", areas);
       });
   }

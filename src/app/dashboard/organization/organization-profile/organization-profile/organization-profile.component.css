@@ -10,8 +10,24 @@ button {
     "organization-loader"
     "organization-button-back"
     "organization-profile"
-    "organization-children";
+    "organization-content";
   gap: 15px;
+}
+
+.contenedor .organization-content {
+  grid-area: organization-content;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 1fr);
+  grid-template-areas: "organization-children-members organization-children-areas";
+  gap: 15px;
+}
+
+.organization-content .organization-children-members {
+  grid-area: organization-children-members;
+}
+
+.organization-content .organization-children-areas {
+  grid-area: organization-children-areas;
 }
 
 .contenedor .organization-loader {
@@ -27,16 +43,11 @@ button {
   grid-area: organization-profile;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-areas:
-    "organization-profile-header"
-    "organization-profile-content";
-  gap: 15px;
 }
 
 .organization-profile .organization-profile-header {
-  grid-area: organization-profile-header;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, 1fr);
   grid-template-rows: 25px;
   grid-template-areas:
     "organization-profile-header-title organization-profile-header-button"
@@ -71,60 +82,8 @@ button {
   left: 10px;
 }
 
-.organization-profile .organization-profile-content {
-  grid-area: organization-profile-content;
-}
-
-.contenedor .organization-children {
-  grid-area: organization-children;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "organization-children-buttons"
-    "organization-children-divider"
-    "organization-children-container";
-  gap: 15px;
-}
-
-.organization-children .organization-children-buttons {
-  grid-area: organization-children-buttons;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.organization-children-buttons .button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.button button {
-  width: 100%;
-}
-
-.button button mat-icon {
-  position: relative;
-  top: 2px;
-  font-size: 1.4em;
-}
-
-.active {
-  background-color: #455a64 !important;
-  transition: ease-in-out 0.3s;
-  color: white;
-}
-
-.organization-children .organization-children-divider {
-  grid-area: organization-children-divider;
-}
-
-.organization-children .organization-children-container {
-  grid-area: organization-children-container;
-}
-
 @media (max-width: 767px) {
   .organization-profile-header .organization-profile-header-title span {
-    width: 230px;
+    max-width: 230px;
   }
 }

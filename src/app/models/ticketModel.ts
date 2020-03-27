@@ -10,6 +10,7 @@ export class TicketModel {
     public area: AreaModel,
     public responsible: MemberModel,
     public priority: string,
+    public date: Date,
     public status: string,
     public subject: string,
     public issue: string,

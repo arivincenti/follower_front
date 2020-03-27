@@ -1,29 +1,21 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { Pipe, PipeTransform } from "@angular/core";
+import { environment } from "../../../environments/environment";
 
 @Pipe({
-  name: 'image'
+  name: "image"
 })
-export class ImagePipe implements PipeTransform
-{
-
-  transform(img: string): any
-  {
-
+export class ImagePipe implements PipeTransform {
+  transform(img: string, genre: string): any {
     //Agregar este parametro al transform si se usa el switch
     // type: string = "usuarios"
+    let url = `${environment.path}/images/${genre}`;
 
-    let url = `${environment.path}/images`;
-
-    if (!img)
-    {
-      url += '/xxx';
-    } else
-    {
+    if (!img) {
+      url += "/xxx";
+    } else {
       url += `/${img}`;
     }
 
     return url;
   }
-
 }

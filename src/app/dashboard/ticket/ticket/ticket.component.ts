@@ -13,7 +13,6 @@ import { UserModel } from "src/app/models/user.model";
 import { CommentModel } from "src/app/models/commentModel";
 import { CommentsService } from "src/app/services/comments/comments.service";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
-import { ticketReducer } from "src/app/store/reducers/userOrganizations/tickets/ticket/ticket/ticket.reducer";
 
 @Component({
   selector: "app-ticket",
@@ -22,8 +21,8 @@ import { ticketReducer } from "src/app/store/reducers/userOrganizations/tickets/
 })
 export class TicketComponent implements OnInit, OnDestroy {
   private unsuscribe$ = new Subject();
-  messageForm: FormGroup;
   propertiesForm: FormGroup;
+  messageForm: FormGroup;
   messageTypes: any[] = [
     {
       value: "COMENTARIO PÚBLICO",
@@ -38,6 +37,7 @@ export class TicketComponent implements OnInit, OnDestroy {
         "La nota interna solo puede ser leida por los miembros del área a la que pertenece el ticket."
     }
   ];
+  minDate: Date = new Date();
   priorities: string[] = ["BAJA", "MEDIA", "ALTA"];
   status: string[] = ["PENDIENTE", "ABIERTO", "CERRADO"];
   members: MemberModel[];
@@ -111,7 +111,8 @@ export class TicketComponent implements OnInit, OnDestroy {
           this.propertiesForm = new FormGroup({
             status: new FormControl(ticket.status),
             members: new FormControl(null),
-            priority: new FormControl(ticket.priority)
+            priority: new FormControl(ticket.priority),
+            date: new FormControl(ticket.date)
           });
 
           if (ticket.responsible)
@@ -190,6 +191,7 @@ export class TicketComponent implements OnInit, OnDestroy {
       responsible: this.propertiesForm.controls["members"].value,
       priority: this.propertiesForm.controls["priority"].value,
       status: this.propertiesForm.controls["status"].value,
+      date: this.propertiesForm.controls["date"].value,
       created_by: this.user._id
     };
 

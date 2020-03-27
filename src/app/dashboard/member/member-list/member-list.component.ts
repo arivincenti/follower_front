@@ -29,7 +29,6 @@ export class MemberListComponent implements OnInit, OnDestroy {
   membersLoading$: Observable<boolean>;
   membersLoaded$: Observable<boolean>;
   areaMembers$: Observable<MemberModel[]>;
-  filterMembers: MemberModel[] = [];
 
   searchMember: string = "";
   //Paginator variables
@@ -76,7 +75,7 @@ export class MemberListComponent implements OnInit, OnDestroy {
       .pipe(
         map(members => {
           if (!this.area) {
-            return (this.filterMembers = members);
+            return members;
           }
         })
       );
@@ -90,7 +89,9 @@ export class MemberListComponent implements OnInit, OnDestroy {
       .pipe(
         filter(data => data !== null),
         map(data => {
-          if (this.area) return (this.filterMembers = data.members);
+          if (this.area) {
+            return data.members;
+          }
         })
       );
 

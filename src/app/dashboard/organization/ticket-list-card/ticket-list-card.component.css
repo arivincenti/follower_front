@@ -71,6 +71,13 @@ button {
   left: 7px;
 }
 
+.extra-icon {
+  font-size: 1.2em;
+  position: relative;
+  top: 5px;
+  left: 12px;
+}
+
 .header-section-title .header-section-title-subtitle {
   position: relative;
   left: 30px;

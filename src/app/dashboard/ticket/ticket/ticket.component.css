@@ -23,7 +23,6 @@ mat-form-field {
 }
 
 .contenedor .ticket-section {
-  /* background-color: rgba(0, 255, 0, 0.1); */
   grid-area: ticket-section;
   display: grid;
   gap: 15px;
@@ -33,7 +32,6 @@ mat-form-field {
 /* MESSAGE SECTION */
 .ticket-section .message-section {
   display: grid;
-  gap: 15px;
   grid-template-columns: 1fr;
   grid-template-areas:
     "message-section-header"
@@ -44,7 +42,7 @@ mat-form-field {
   grid-area: message-section-header;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 25px;
+  grid-template-rows: 25px 13px;
 }
 
 .message-section-header .message-section-header-title {
@@ -67,7 +65,7 @@ mat-form-field {
 .ticket-section .properties-section {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 20px;
   grid-template-areas:
     "properties-section-header"
     "properties-section-info"
@@ -82,6 +80,7 @@ mat-form-field {
   grid-template-areas:
     "properties-section-form-responsible"
     "properties-section-form-priority"
+    "properties-section-form-date"
     "properties-section-form-status"
     "properties-section-form-button";
 }
@@ -96,6 +95,9 @@ mat-form-field {
 }
 .properties-section-form .properties-section-form-priority {
   grid-area: properties-section-form-priority;
+}
+.properties-section-form .properties-section-form-date {
+  grid-area: properties-section-form-date;
 }
 .properties-section-form .properties-section-form-button {
   grid-area: properties-section-form-button;
@@ -251,7 +253,7 @@ mat-form-field {
 .save-icon {
   font-size: 1em;
   position: relative;
-  top: 2px;
+  top: 3px;
 }
 
 @media (max-width: 990px) {

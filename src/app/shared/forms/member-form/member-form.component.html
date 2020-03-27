@@ -18,12 +18,12 @@
           <input matInput placeholder="Email del usuario" aria-label="Buscar Usuario" [matAutocomplete]="auto"
             formControlName="email" (keyup)="searchUsers()">
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let user of users$ | async" [value]="user.email">
+            <mat-option *ngFor="let user of users$ | async" [value]="user.email | lowercase">
               <img class="member-card-img" mat-card-avatar [src]="user.img | image" alt="">
               <span>{{user.name | titlecase}} {{user.last_name | titlecase}}</span> |
               <small>{{user.email | lowercase }}</small>
             </mat-option>
-            <mat-option *ngFor="let member of members$ | async" [value]="member.user.email">
+            <mat-option *ngFor="let member of members$ | async" [value]="member.user.email | lowercase">
               <img class="member-card-img" mat-card-avatar [src]="member.user.img | image" alt="">
               <span>{{member.user.name | titlecase}} {{member.user.last_name | titlecase}}</span> |
               <small>{{member.user.email | lowercase }}</small>

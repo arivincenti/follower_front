@@ -59,6 +59,10 @@ button {
   height: 30px;
   border-radius: 50%;
   position: relative;
-  top: 9px;
-  margin-right: 5px;
+  top: 10px;
+  margin-right: 10px;
+}
+
+mat-option span {
+  font-size: 0.9em;
 }

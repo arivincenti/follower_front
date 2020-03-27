@@ -33,28 +33,14 @@
         </div>
       </div>
     </div>
-    <div class="organization-children background-section">
-      <div class="organization-children-buttons">
-        <div class="button">
-          <button mat-flat-button [routerLink]="['./members']" routerLinkActive="active">
-            <mat-icon matTooltip="Miembros de la organización" matTooltipPosition="above">
-              supervised_user_circle</mat-icon>
-          </button>
-        </div>
-        <div class="button">
-          <button mat-flat-button [routerLink]="['./areas']" routerLinkActive="active">
-            <mat-icon matTooltip="Áreas de la organización" matTooltipPosition="above">
-              bookmarks</mat-icon>
-          </button>
-        </div>
+    <div class="organization-content">
+
+      <div class="organization-children-members background-section">
+        <app-member-list></app-member-list>
       </div>
 
-      <div class="organization-children-divider">
-        <!-- <mat-divider></mat-divider> -->
-      </div>
-
-      <div class="organization-children-container">
-        <router-outlet></router-outlet>
+      <div class="organization-children-areas background-section">
+        <app-areas-list></app-areas-list>
       </div>
     </div>
   </ng-container>

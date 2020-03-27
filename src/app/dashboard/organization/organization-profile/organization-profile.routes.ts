@@ -7,21 +7,21 @@ import { MemberListComponent } from "../../member/member-list/member-list.compon
 import { AreasListComponent } from "./areas-list/areas-list.component";
 
 export const organizationProfileRoutes: Routes = [
-  {
-    path: "",
-    redirectTo: "members",
-    pathMatch: "full"
-  },
-  {
-    path: "members",
-    canActivate: [LoginGuard, VerifyTokenGuard],
-    component: MemberListComponent
-  },
-  {
-    path: "areas",
-    canActivate: [LoginGuard, VerifyTokenGuard],
-    component: AreasListComponent
-  },
+  // {
+  //   path: "",
+  //   redirectTo: "members",
+  //   pathMatch: "full"
+  // },
+  // {
+  //   path: "members",
+  //   canActivate: [LoginGuard, VerifyTokenGuard],
+  //   component: MemberListComponent
+  // },
+  // {
+  //   path: "areas",
+  //   canActivate: [LoginGuard, VerifyTokenGuard],
+  //   component: AreasListComponent
+  // },
   {
     path: "areas/form",
     canActivate: [LoginGuard, VerifyTokenGuard],

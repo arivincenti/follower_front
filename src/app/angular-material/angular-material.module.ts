@@ -4,6 +4,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatCardModule,
+  MatDatepickerModule,
   MatDividerModule,
   MatIconModule,
   MatMenuModule,
@@ -21,7 +22,8 @@ import {
   MatProgressSpinnerModule,
   MatSelectModule,
   MatRadioModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatNativeDateModule
 } from "@angular/material";
 import { LayoutModule } from "@angular/cdk/layout";
 import { TextFieldModule } from "@angular/cdk/text-field";
@@ -34,6 +36,7 @@ const material = [
   MatBadgeModule,
   MatCardModule,
   MatCheckboxModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatDividerModule,
   MatFormFieldModule,
@@ -41,6 +44,7 @@ const material = [
   MatIconModule,
   MatListModule,
   MatMenuModule,
+  MatNativeDateModule,
   MatPaginatorModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,

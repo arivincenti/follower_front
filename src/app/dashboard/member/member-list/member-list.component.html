@@ -40,7 +40,7 @@
 
 
         <div class="list-card animated delay-300ms"
-          *ngFor="let member of (filterMembers | searchMember: searchMember ) | memberPaginator:since:until"
+          *ngFor="let member of (members | searchMember: searchMember ) | paginator:since:until"
           [ngClass]="animation[0]">
           <div class="list-card-card animated fadeIn">
             <app-member-list-card [organization]="organization" [member]="member" [user]="user" [area]="area">

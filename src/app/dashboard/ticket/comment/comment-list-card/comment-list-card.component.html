@@ -1,6 +1,6 @@
 <div class="contenedor">
   <div class="image">
-    <img class="card-img" mat-card-avatar [src]="comment.created_by.img | image" alt="">
+    <img class="card-img" mat-card-avatar [src]="comment.created_by.img | image: comment.created_by.genre" alt="">
   </div>
   <div class="name">
     <span>{{comment.created_by.name | titlecase}} {{comment.created_by.last_name | titlecase}}</span>
