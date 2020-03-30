@@ -1,0 +1,54 @@
+<ng-container *ngIf="animation$ | async as animation">
+  <div class="contenedor background-section">
+
+    <div class="list-card-loader">
+      <mat-progress-bar *ngIf="notificationsLoading$ | async" mode="indeterminate">
+      </mat-progress-bar>
+    </div>
+
+    <div class="list-card-header animated" [ngClass]="animation[0]">
+      <div class="list-card-header-title">
+        <span class="list-card-header-title-subtitle">
+          Notificaciones
+        </span>
+      </div>
+
+
+      <div *ngIf="notifications$ | async" class="list-card-header-filter">
+        <form class="form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Buscar notificación</mat-label>
+            <input matInput type="text" name="searchNotification" [(ngModel)]="searchNotification" autocomplete="off">
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+
+    <ng-container *ngIf="notifications$ | async as notifications">
+
+      <div class="mensaje animated delay-300ms" [ngClass]="animation[0]" *ngIf="!notifications.length">
+        <span *ngIf="!(notificationsLoading$ | async)" class="empty-message">No se encontraron notificaciones</span>
+      </div>
+
+
+      <div class="list-card animated delay-300ms"
+        *ngFor="let notification of (notifications | searchNotification: searchNotification ) | paginator:since:until"
+        [ngClass]="animation[0]">
+        <div class="list-card-card animated fadeIn">
+          <app-notifications-list-card [notification]="notification">
+          </app-notifications-list-card>
+        </div>
+
+        <div class="list-card-divider">
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+
+      <div class="paginador">
+        <mat-paginator *ngIf="notifications.length" [length]="notifications.length" [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions" (page)="changePage($event)" showFirstLastButtons>
+        </mat-paginator>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

@@ -4,7 +4,6 @@ import { mergeMap, catchError, map } from "rxjs/operators";
 import { OrganizationsService } from "src/app/services/organizations/organizations.service";
 import { of } from "rxjs";
 import { OrganizationModel } from "src/app/models/organization.model";
-import { AreasService } from "src/app/services/areas/areas.service";
 import * as OrganizationsActions from "../../../actions/userOrganizations/organizations/organizations.actions";
 import * as OrganizationActions from "../../../actions/userOrganizations/selectedOrganization/organization.actions";
 
@@ -58,76 +57,6 @@ export class OrganizationsEffects {
           catchError(error =>
             of(
               OrganizationsActions.createOrganizationFail({
-                payload: error.error
-              })
-            )
-          )
-        )
-      )
-    )
-  );
-
-  updateOrganization$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(OrganizationsActions.updateOrganization),
-      mergeMap(action =>
-        this._organizationsService
-          .updateOrganization(action.organizationId, action.payload)
-          .pipe(
-            map((organization: OrganizationModel) => {
-              Swal.fire({
-                position: "top-end",
-                toast: true,
-                icon: "success",
-                title: "Genial!!",
-                text: "La organización se actualizó con éxito",
-                showConfirmButton: false,
-                timer: 2500
-              });
-
-              this.store.dispatch(
-                OrganizationActions.getOrganization({
-                  organization: organization._id
-                })
-              );
-              return OrganizationsActions.updateOrganizationSuccess({
-                organization: organization
-              });
-            }),
-            catchError(error =>
-              of(
-                OrganizationsActions.updateOrganizationFail({
-                  payload: error.error
-                })
-              )
-            )
-          )
-      )
-    )
-  );
-
-  deleteOrganization$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(OrganizationsActions.deleteOrganization),
-      mergeMap(action =>
-        this._organizationsService.deleteOrganization(action.organization).pipe(
-          map((organization: OrganizationModel) => {
-            Swal.fire({
-              position: "top-end",
-              toast: true,
-              icon: "success",
-              title: "Genial!!",
-              text: "La organización se dio de baja con éxito",
-              showConfirmButton: false,
-              timer: 2500
-            });
-            return OrganizationsActions.deleteOrganizationSuccess({
-              organization: organization
-            });
-          }),
-          catchError(error =>
-            of(
-              OrganizationsActions.deleteOrganizationFail({
                 payload: error.error
               })
             )

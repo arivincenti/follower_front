@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { map } from "rxjs/operators";
 import { WebsocketService } from "../websocket/websocket.service";
+import { OrganizationModel } from "src/app/models/organization.model";
 
 @Injectable({
   providedIn: "root"
@@ -46,7 +47,7 @@ export class OrganizationsService {
   createOrganization(payload: any) {
     return this.http
       .post(`${environment.path}/organizations`, payload)
-      .pipe(map((data: any) => data.data));
+      .pipe(map(data => data["data"]));
   }
 
   // ==================================================
@@ -55,19 +56,18 @@ export class OrganizationsService {
   updateOrganization(organization: string, name: string) {
     return this.http
       .put(`${environment.path}/organizations/${organization}`, name)
-      .pipe(map((data: any) => data.data));
+      .pipe(map(data => data["data"]));
   }
 
   // ==================================================
   // Delete an orgnization
   // ==================================================
-  deleteOrganization(organization: string) {
+  deleteOrganization(payload: any) {
     return this.http
-      .delete(`${environment.path}/organizations/${organization}`)
-      .pipe(map((data: any) => data.data));
-  }
-
-  getUpdateBySocket() {
-    return this.wsService.listen("organization-update");
+      .put(
+        `${environment.path}/organizations/delete/${payload.organization._id}`,
+        payload
+      )
+      .pipe(map(data => data["data"]));
   }
 }

@@ -13,6 +13,7 @@ import { UserModel } from "src/app/models/user.model";
 import { CommentModel } from "src/app/models/commentModel";
 import { CommentsService } from "src/app/services/comments/comments.service";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
+import { NotificationsService } from "src/app/services/notifications/notifications.service";
 
 @Component({
   selector: "app-ticket",
@@ -21,6 +22,7 @@ import { WebsocketService } from "src/app/services/websocket/websocket.service";
 })
 export class TicketComponent implements OnInit, OnDestroy {
   private unsuscribe$ = new Subject();
+
   propertiesForm: FormGroup;
   messageForm: FormGroup;
   messageTypes: any[] = [
@@ -56,7 +58,8 @@ export class TicketComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
     private commentService: CommentsService,
-    private wsService: WebsocketService
+    private _wsService: WebsocketService,
+    private _notificationService: NotificationsService
   ) {}
 
   ngOnInit() {
@@ -128,7 +131,6 @@ export class TicketComponent implements OnInit, OnDestroy {
             ticket.created_by._id === this.user._id
           ) {
             this.owner = false;
-            console.log("entro al primero");
           } else if (
             // Si soy el creador del ticket y NO pertenezco al area NO puedo editar
             !ticket.area.members.find(

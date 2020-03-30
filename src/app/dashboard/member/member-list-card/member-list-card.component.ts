@@ -26,7 +26,7 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
   @Input() user: UserModel;
   @Input() area: AreaModel;
 
-  private unsuscribe$ = new Subject();
+  private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private store: Store<AppState>,
@@ -62,7 +62,7 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
     }
     this._ticketsService
       .getMemberResponsibleTickets(member)
-      .pipe(takeUntil(this.unsuscribe$))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe(tickets => {
         if (tickets.length) {
           var notification = {
@@ -105,7 +105,7 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsuscribe$.next();
-    this.unsuscribe$.unsubscribe();
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.unsubscribe();
   }
 }

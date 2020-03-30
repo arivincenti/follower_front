@@ -4,8 +4,6 @@ import { environment } from "../../../environments/environment";
 import { map } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
 import { WebsocketService } from "../websocket/websocket.service";
-import { MatSnackBar } from "@angular/material";
-import { GenericNotificationComponent } from "src/app/shared/snackbar/generic-notification/generic-notification.component";
 
 @Injectable({
   providedIn: "root"
@@ -36,6 +34,7 @@ export class NotificationsService {
       updated_by: updated_by,
       users: users
     };
+
     //Emitimos el evento para crear la nueva notificación
     this._wsService.emit("create-notification", payload);
   }

@@ -4,7 +4,10 @@ import { UserModel } from "src/app/models/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { getOrganizations } from "../../../store/actions/userOrganizations/organizations/organizations.actions";
-import { getTickets } from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
+import {
+  getTickets,
+  createTicketSuccess
+} from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { OrganizationFormComponent } from "../../../shared/forms/organization-form/organization-form.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -53,8 +56,10 @@ export class OrganizationComponent implements OnInit, OnDestroy {
     this._wsService
       .listen("new-ticket")
       .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((res: TicketModel) => {
-        this.store.dispatch(getTickets({ payload: this.user }));
+      .subscribe((ticket: TicketModel) => {
+        if (ticket.created_by._id !== this.user._id) {
+          this.store.dispatch(createTicketSuccess({ payload: ticket }));
+        }
       });
 
     //Observamos los cambios en los loaders de las organizaciones

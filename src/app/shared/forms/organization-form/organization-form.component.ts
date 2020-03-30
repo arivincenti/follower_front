@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
 import * as OrganizationsActions from "../../../store/actions/userOrganizations/organizations/organizations.actions";
+import * as OrganizationActions from "../../../store/actions/userOrganizations/selectedOrganization/organization.actions";
 import { Observable, Subject } from "rxjs";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { Store } from "@ngrx/store";
@@ -75,7 +76,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
 
     if (!this.data.organization) {
       let payload = {
-        user: this.data.user._id,
+        user: this.data.user,
         name: this.form.controls["name"].value.toUpperCase()
       };
       console.log("se creo una nueva");
@@ -83,10 +84,10 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
     } else {
       let payload = {
         name: this.form.controls["name"].value.toUpperCase(),
-        updated_by: this.data.user._id
+        updated_by: this.data.user
       };
       this.store.dispatch(
-        OrganizationsActions.updateOrganization({
+        OrganizationActions.updateOrganization({
           organizationId: this.data.organization._id,
           payload: payload
         })

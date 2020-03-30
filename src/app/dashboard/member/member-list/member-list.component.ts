@@ -18,7 +18,7 @@ import { MemberFormComponent } from "../../../shared/forms/member-form/member-fo
 export class MemberListComponent implements OnInit, OnDestroy {
   @Input() area: AreaModel;
 
-  private unsuscribe$ = new Subject();
+  // private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
   organization$: Observable<OrganizationModel>;
   organization: OrganizationModel;
@@ -100,8 +100,8 @@ export class MemberListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsuscribe$.next();
-    this.unsuscribe$.unsubscribe();
+    // this.unsubscribe$.next();
+    // this.unsubscribe$.unsubscribe();
   }
 
   // ==================================================

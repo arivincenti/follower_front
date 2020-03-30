@@ -18,18 +18,8 @@
             [matTooltip]="ticket.status " matTooltipPosition="above">
             {{ticket.status | slice:0:1}}
           </span>
-          <mat-icon
-            *ngIf="(ticket.date | date:'shortDate') > (dateNow | date: 'shortDate') && ticket.status !== 'CERRADO'"
-            class="extra-icon" matTooltip="Vence {{ticket.date | time}}" matTooltipPosition="above">alarm
-          </mat-icon>
-          <mat-icon
-            *ngIf="(ticket.date | date:'shortDate') == (dateNow | date: 'shortDate') && ticket.status !== 'CERRADO'"
-            class="extra-icon" matTooltip="Vence hoy" matTooltipPosition="above">alarm
-          </mat-icon>
-          <mat-icon
-            *ngIf="(ticket.date | date:'shortDate') < (dateNow | date: 'shortDate') && ticket.status !== 'CERRADO'"
-            class="extra-icon" [ngClass]="'danger'" matTooltip="Vencio {{ticket.date | time}}"
-            matTooltipPosition="above">alarm
+          <mat-icon *ngIf="ticket.status !== 'CERRADO' && ticket.date" class="extra-icon"
+            matTooltip="Programado para el {{ticket.date | date: 'fullDate'}}" matTooltipPosition="above">alarm
           </mat-icon>
         </div>
         <div class="header-section-title-subtitle">

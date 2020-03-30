@@ -15,9 +15,12 @@ import {
 } from "../store/actions/userOrganizations/notifications/notifications.actions";
 import { logout } from "../store/actions/auth/auth.actions";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
-import { getTickets } from "../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
 import { NotificationsService } from "../services/notifications/notifications.service";
 import { UpdatedNotificationComponent } from "../shared/snackbar/updated-notification/updated-notification.component";
+import { updateTicketList } from "../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
+import { MemberModel } from "../models/member.model";
+import { updateOrganizationList } from "../store/actions/userOrganizations/organizations/organizations.actions";
+import { OrganizationsService } from "../services/organizations/organizations.service";
 
 @Component({
   selector: "app-dashboard",
@@ -47,11 +50,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private _notificationService: NotificationsService,
     private _areasService: AreasService,
     private _snackBar: MatSnackBar,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private _organizationService: OrganizationsService
   ) {}
 
   ngOnInit() {
     this.theme$ = this.store.select(state => state.ui.theme);
+
+    this.listenUpdateSocket();
 
     //Obtenemos el usuario desde el localstorage
     this.auth = JSON.parse(localStorage.getItem("auth"));
@@ -84,14 +90,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
         })
       );
 
+    // Nos unimos a todas las salas de organizaciones
+    this.joinAllOrganizations();
+
     // Nos unimos a todas las salas de áreas
     this.joinAllAreas();
 
     //Nos unimos a todos nuestros tickets......
     this.joinAllTickets();
-
-    //Escuchamos las actualizaciones de un ticket
-    this.listenUpdateTicketSocket();
 
     //Escuchamos el mensaje de que una nueva notificacion se creó
     this.listenNewNotifications();
@@ -112,67 +118,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   // ==================================================
-  // Listen Updates in ticket
+  // Join All Areas
   // ==================================================
-  listenUpdateTicketSocket() {
-    this._wsService
-      .listen("update-ticket")
+  joinAllOrganizations() {
+    this.store
+      .select(state => state.userOrganizations.organizations.organizations)
       .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((movement: any) => {
-        var users = [];
-        var changes = [];
-        //Agregamos a todos los miembros del area correspondiente a la notificacion
-        for (let member of movement.ticket.area.members) {
-          users.push(member.user);
-        }
-        //Agregamos al creador del ticket a la notificacion siempre y cuando no exista ya entre los miembros del area
-        if (!users.find(user => user._id === movement.ticket.created_by._id)) {
-          users.push(movement.ticket.created_by);
-        }
-
-        //Cargamos los cambios del ticket para que se guarden en la notificacion
-        if (movement.old.priority !== movement.new.priority) {
-          var message = `Cambió la prioridad de "${movement.old.priority}" a "${movement.new.priority}"`;
-          changes.push(message);
-        }
-
-        //Emitimos la notificacion
-        this._notificationService.createNewNotification(
-          changes,
-          movement.ticket,
-          "ticket",
-          movement.new.created_by._id,
-          users
-        );
-      });
-  }
-
-  // ==================================================
-  // Listen New Notifications
-  // ==================================================
-  listenNewNotifications() {
-    this._wsService
-      .listen("new-notification")
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((notification: any) => {
-        this._snackBar.openFromComponent(UpdatedNotificationComponent, {
-          duration: 5000,
-          data: {
-            notification
-          }
-        });
-
-        if (notification.updated_by._id !== this.auth.user._id) {
-          if (notification.objectType === "ticket") {
-            this.store.dispatch(getTickets({ payload: this.auth.user }));
-          }
-        }
-
-        this.store.dispatch(
-          addNotification({
-            payload: notification
-          })
-        );
+      .subscribe(organizations => {
+        this._wsService.emit("join-all-organizations", organizations);
       });
   }
 
@@ -198,6 +151,95 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe(tickets => {
         this._wsService.emit("join-all-tickets", tickets);
+      });
+  }
+
+  // ==================================================
+  // Listen Updates in ticket
+  // ==================================================
+  listenUpdateSocket() {
+    this._wsService
+      .listen("update")
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe((payload: any) => {
+        this.createNotification(payload);
+      });
+  }
+
+  createNotification(payload: any) {
+    var users = [];
+    var changes = [];
+
+    switch (payload.objectType) {
+      case "ticket":
+        //Cargamos los cambios del ticket para que se guarden en la notificacion
+        if (payload.old.priority !== payload.new.priority) {
+          var message = `Cambió la prioridad de "${payload.old.priority}" a "${payload.new.priority}"`;
+          changes.push(message);
+        }
+        break;
+    }
+
+    //Agregamos a todos los miembros del area correspondiente a la notificacion
+    users = payload.members.map(member => member.user);
+    users = users.filter(user => user._id !== payload.object.updated_by._id);
+
+    //Agregamos al creador del ticket a la notificacion siempre y cuando no exista ya entre los miembros del area
+    var userCoincidence = payload.members.find(
+      (member: MemberModel) => member.user._id === payload.object.created_by._id
+    );
+    //Si el usuario creador del ticket no es miembro del area se agrega para ser notificado
+    if (!userCoincidence) {
+      users.push(payload.object.created_by);
+    }
+
+    //Emitimos la notificacion
+    this._notificationService.createNewNotification(
+      changes,
+      payload.object,
+      payload.objectType,
+      payload.object.updated_by._id,
+      users
+    );
+  }
+
+  // ==================================================
+  // Listen New Notifications
+  // ==================================================
+  listenNewNotifications() {
+    this._wsService
+      .listen("new-notification")
+      .pipe(takeUntil(this.unsuscribe$))
+      .subscribe((socketPayload: any) => {
+        var object = socketPayload.object;
+        var notification = socketPayload.notification;
+
+        if (notification.updated_by._id !== this.auth.user._id) {
+          this._snackBar.openFromComponent(UpdatedNotificationComponent, {
+            duration: 5000,
+            data: {
+              notification,
+              object
+            }
+          });
+
+          this.store.dispatch(
+            addNotification({
+              payload: notification
+            })
+          );
+        }
+
+        switch (notification.objectType) {
+          case "ticket":
+            this.store.dispatch(updateTicketList({ payload: object }));
+            break;
+          case "organization":
+            this.store.dispatch(
+              updateOrganizationList({ organization: object })
+            );
+            break;
+        }
       });
   }
 

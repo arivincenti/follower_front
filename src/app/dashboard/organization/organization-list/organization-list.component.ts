@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { UserModel } from "src/app/models/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";

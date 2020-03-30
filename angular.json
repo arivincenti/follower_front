@@ -22,7 +22,6 @@
             "styles": [
               "src/styles.css",
               "src/themes.scss",
-
               "node_modules/animate.css/animate.min.css"
             ],
             "scripts": []
@@ -35,6 +34,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "baseHref": "https://arivincenti.github.io/",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,

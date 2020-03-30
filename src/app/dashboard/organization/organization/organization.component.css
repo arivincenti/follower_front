@@ -7,14 +7,10 @@ button {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
-    "user-section"
     "organizations-section"
     "tickets-section";
   grid-gap: 15px;
-}
-
-.contenedor .user-section {
-  grid-area: user-section;
+  margin-top: 35px;
 }
 
 /* tickets-section */

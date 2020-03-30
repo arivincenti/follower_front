@@ -11,8 +11,14 @@
         {{data.notification.updated_by.name | titlecase}}
         {{data.notification.updated_by.last_name | titlecase}}
       </span>
-      <span>
-        realizó cambios en el {{data.notification.objectType}} "{{data.notification.object.subject}}"
+      <span *ngIf="data.notification.objectType === 'ticket'">
+        realizó cambios en el {{data.notification.objectType}} "{{data.object.subject}}"
+      </span>
+      <span *ngIf="data.notification.objectType === 'organization'">
+        realizó cambios en la {{data.notification.objectType}} "{{data.object.name}}"
+      </span>
+      <span *ngIf="data.notification.objectType === 'area'">
+        realizó cambios en el {{data.notification.objectType}} "{{data.object.name}}"
       </span>
     </div>
   </div>

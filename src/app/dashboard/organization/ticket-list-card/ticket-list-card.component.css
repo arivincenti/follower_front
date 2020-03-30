@@ -76,6 +76,7 @@ button {
   position: relative;
   top: 5px;
   left: 12px;
+  opacity: 0.5;
 }
 
 .header-section-title .header-section-title-subtitle {

@@ -60,63 +60,18 @@ export const organizationsReducer = createReducer(
     loaded: false,
     error: { ...payload }
   })),
-  on(OrganizationsActions.updateOrganization, state => ({
-    ...state,
-    organizations: [...state.organizations],
-    loading: true,
-    loaded: false,
-    error: null
-  })),
-  on(
-    OrganizationsActions.updateOrganizationSuccess,
-    (state, { organization }) => {
-      var index = state.organizations.findIndex(
-        data => data._id === organization._id
-      );
-      state.organizations.splice(index, 1, { ...organization });
-      return {
-        ...state,
-        organizations: [...state.organizations],
-        loading: false,
-        loaded: true
-      };
-    }
-  ),
-  on(OrganizationsActions.updateOrganizationFail, (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error: { ...payload }
-  })),
-  on(OrganizationsActions.deleteOrganization, state => ({
-    ...state,
-    organizations: [...state.organizations],
-    loading: true,
-    loaded: false,
-    error: null
-  })),
-  on(
-    OrganizationsActions.deleteOrganizationSuccess,
-    (state, { organization }) => {
-      var index = state.organizations.findIndex(
-        data => data._id === organization._id
-      );
-      state.organizations.splice(index, 1, { ...organization });
-
-      return {
-        ...state,
-        organizations: [...state.organizations],
-        loading: false,
-        loaded: true
-      };
-    }
-  ),
-  on(OrganizationsActions.deleteOrganizationFail, (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error: { ...payload }
-  })),
+  on(OrganizationsActions.updateOrganizationList, (state, { organization }) => {
+    var index = state.organizations.findIndex(
+      data => data._id === organization._id
+    );
+    state.organizations.splice(index, 1, { ...organization });
+    return {
+      ...state,
+      organizations: [...state.organizations],
+      loading: false,
+      loaded: true
+    };
+  }),
   on(OrganizationsActions.clearState, state => ({
     ...state,
     ...initialOrganizationsState

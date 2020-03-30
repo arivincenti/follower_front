@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Subscription, Observable } from "rxjs";
+import { Subscription, Observable, Subject } from "rxjs";
 import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UserModel } from "src/app/models/user.model";
-import { MemberModel } from "src/app/models/member.model";
 import * as AreaActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
 import { map, filter } from "rxjs/operators";
 import { MatDialog } from "@angular/material";
@@ -17,8 +16,7 @@ import { AreaFormComponent } from "../../../shared/forms/area-form/area-form.com
   styleUrls: ["./area-profile.component.css"]
 })
 export class AreaProfileComponent implements OnInit, OnDestroy {
-  userSubscription: Subscription = new Subscription();
-  paramSubscription: Subscription = new Subscription();
+  private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
   animation$: Observable<string[]>;
   param: string;
@@ -60,7 +58,6 @@ export class AreaProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramSubscription.unsubscribe();
     this.store.dispatch(AreaActions.clear());
   }
 
