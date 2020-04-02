@@ -38,7 +38,7 @@ export class TicketsService {
   // ==================================================
   updateTicket(payload: any) {
     return this.http.put(
-      `${environment.path}/tickets/${payload.ticket}`,
+      `${environment.path}/tickets/${payload.ticket._id}`,
       payload
     );
   }

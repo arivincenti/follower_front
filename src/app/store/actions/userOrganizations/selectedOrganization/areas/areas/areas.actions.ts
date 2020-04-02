@@ -32,34 +32,9 @@ export const createAreaFail = createAction(
   props<{ payload: any }>()
 );
 
-export const updateArea = createAction(
-  "[Areas Actions] Update Area",
-  props<{ areaId: string; payload: any }>()
-);
-
-export const updateAreaSuccess = createAction(
-  "[Areas Actions] Update Area Success",
-  props<{ payload: AreaModel }>()
-);
-
-export const updateAreaFail = createAction(
-  "[Areas Actions] Update Area Fail",
-  props<{ payload: any }>()
-);
-
-export const deleteArea = createAction(
-  "[Areas Actions] Delete Area",
-  props<{ payload: any }>()
-);
-
-export const deleteAreaSuccess = createAction(
-  "[Areas Actions] Delete Area Success",
-  props<{ payload: AreaModel }>()
-);
-
-export const deleteAreaFail = createAction(
-  "[Areas Actions] Delete Area Fail",
-  props<{ payload: any }>()
+export const updateAreasList = createAction(
+  "[Areas Actions] Update Areas List",
+  props<{ area: AreaModel }>()
 );
 
 export const clearAreasState = createAction(

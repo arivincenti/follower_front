@@ -80,11 +80,12 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
         name: this.form.controls["name"].value.toUpperCase()
       };
       console.log("se creo una nueva");
-      this.store.dispatch(OrganizationsActions.createOrganization({ payload }));
+      this.store.dispatch(OrganizationActions.createOrganization({ payload }));
     } else {
       let payload = {
         name: this.form.controls["name"].value.toUpperCase(),
-        updated_by: this.data.user
+        updated_by: this.data.user,
+        organization: this.data.organization
       };
       this.store.dispatch(
         OrganizationActions.updateOrganization({

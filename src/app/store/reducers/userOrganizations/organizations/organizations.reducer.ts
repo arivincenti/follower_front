@@ -38,28 +38,6 @@ export const organizationsReducer = createReducer(
     loaded: false,
     error: { payload }
   })),
-  on(OrganizationsActions.createOrganization, state => ({
-    ...state,
-    organizations: [...state.organizations],
-    loading: true,
-    loaded: false,
-    error: null
-  })),
-  on(
-    OrganizationsActions.createOrganizationSuccess,
-    (state, { organization }) => ({
-      ...state,
-      organizations: [{ ...organization }, ...state.organizations],
-      loading: false,
-      loaded: true
-    })
-  ),
-  on(OrganizationsActions.createOrganizationFail, (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error: { ...payload }
-  })),
   on(OrganizationsActions.updateOrganizationList, (state, { organization }) => {
     var index = state.organizations.findIndex(
       data => data._id === organization._id

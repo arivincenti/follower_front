@@ -6,10 +6,9 @@ export class NotificationModel {
     public changes: any[],
     public object: any,
     public objectType: string,
-    // public objectName: string,
-    public updated_at: UserModel,
     public users: UserModel[],
     public readed_by: UserModel[],
+    public created_by?: UserModel,
     public created_at?: Date
   ) {}
 }

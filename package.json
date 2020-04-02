@@ -34,7 +34,6 @@
     "materialize-css": "^1.0.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
-    "ng2-charts": "^2.3.0",
     "ngrx-store-localstorage": "^8.0.0",
     "ngx-material-file-input": "^2.0.0",
     "ngx-pagination": "^5.0.0",

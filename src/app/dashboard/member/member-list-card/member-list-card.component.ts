@@ -4,8 +4,8 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { UserModel } from "src/app/models/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import * as MembersActions from "../../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions";
-import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas/areas.actions";
+import * as MemberActions from "../../../store/actions/userOrganizations/selectedOrganization/members/member/member.actions";
+import * as AreaActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
 import { AreaModel } from "src/app/models/area.model";
 import { TicketsService } from "src/app/services/tickets/tickets.service";
 import { takeUntil } from "rxjs/operators";
@@ -13,7 +13,6 @@ import { Subject } from "rxjs";
 import { deleteAreaMember } from "src/app/store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
 import { MatSnackBar } from "@angular/material";
 import { GenericNotificationComponent } from "src/app/shared/snackbar/generic-notification/generic-notification.component";
-import { NotificationsService } from "src/app/services/notifications/notifications.service";
 
 @Component({
   selector: "app-member-list-card",
@@ -31,18 +30,27 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private _ticketsService: TicketsService,
-    private _notificationService: NotificationsService,
     private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {}
 
-  inactiveMember(member: MemberModel) {
-    this.store.dispatch(MembersActions.inactiveMember({ payload: member }));
+  desactivateMember(member: MemberModel) {
+    var payload = {
+      member,
+      deleted_at: new Date(),
+      updated_by: this.user
+    };
+    this.store.dispatch(MemberActions.desactivateMember({ payload }));
   }
 
   activateMember(member: MemberModel) {
-    this.store.dispatch(MembersActions.updateMember({ payload: member }));
+    var payload = {
+      member,
+      deleted_at: undefined,
+      updated_by: this.user
+    };
+    this.store.dispatch(MemberActions.activateMember({ payload }));
   }
 
   selectMember(member: MemberModel) {
@@ -50,15 +58,17 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
   }
 
   deleteMember(member: MemberModel, area: AreaModel) {
-    if (member._id === this.area.responsible._id) {
-      var notification = {
-        type: "error",
-        title: "Oops, parece que hay un problema",
-        message:
-          "No se puede eliminar el miembro porque es el responsable del área"
-      };
-      this.genericNotification(notification);
-      return;
+    if (this.area.responsible) {
+      if (member._id === this.area.responsible._id) {
+        var notification = {
+          type: "error",
+          title: "Oops, parece que hay un problema",
+          message:
+            "No se puede eliminar el miembro porque es el responsable del área"
+        };
+        this.genericNotification(notification);
+        return;
+      }
     }
     this._ticketsService
       .getMemberResponsibleTickets(member)
@@ -76,7 +86,8 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
         }
         var payload = {
           area,
-          member
+          member,
+          updated_by: this.user
         };
         this.store.dispatch(deleteAreaMember({ payload }));
       });
@@ -89,7 +100,7 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
     };
 
     this.store.dispatch(
-      AreasActions.updateArea({ areaId: this.area._id, payload: payload })
+      AreaActions.updateArea({ areaId: this.area._id, payload: payload })
     );
   }
 

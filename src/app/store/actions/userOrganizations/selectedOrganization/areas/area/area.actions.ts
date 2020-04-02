@@ -1,6 +1,5 @@
 import { createAction, props } from "@ngrx/store";
 import { AreaModel } from "src/app/models/area.model";
-import { MemberModel } from "src/app/models/member.model";
 
 export const getArea = createAction(
   "[Area Actions] Get Area",
@@ -14,6 +13,36 @@ export const getAreaSuccess = createAction(
 
 export const getAreaFail = createAction(
   "[Area Actions] Get Area Fail",
+  props<{ payload: any }>()
+);
+
+export const updateArea = createAction(
+  "[Area Actions] Update Area",
+  props<{ areaId: string; payload: any }>()
+);
+
+export const updateAreaSuccess = createAction(
+  "[Area Actions] Update Area Success",
+  props<{ payload: AreaModel }>()
+);
+
+export const updateAreaFail = createAction(
+  "[Area Actions] Update Area Fail",
+  props<{ payload: any }>()
+);
+
+export const deleteArea = createAction(
+  "[Area Actions] Delete Area",
+  props<{ payload: any }>()
+);
+
+export const deleteAreaSuccess = createAction(
+  "[Area Actions] Delete Area Success",
+  props<{ payload: AreaModel }>()
+);
+
+export const deleteAreaFail = createAction(
+  "[Area Actions] Delete Area Fail",
   props<{ payload: any }>()
 );
 
@@ -38,12 +67,12 @@ export const deleteAreaMember = createAction(
 );
 
 export const deleteAreaMemberSuccess = createAction(
-  "[Area Actions] Detele Area Member Success",
+  "[Area Actions] Delete Area Member Success",
   props<{ payload: AreaModel }>()
 );
 
 export const deleteAreaMemberFail = createAction(
-  "[Area Actions] Detele Area Member Fail",
+  "[Area Actions] Delete Area Member Fail",
   props<{ payload: any }>()
 );
 

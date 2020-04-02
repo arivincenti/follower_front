@@ -4,7 +4,6 @@ import { createEffect, Actions, ofType } from "@ngrx/effects";
 import * as TicketActions from "../../../../../actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
 import { mergeMap, map, catchError } from "rxjs/operators";
 import { of } from "rxjs";
-import { GenericNotificationComponent } from "src/app/shared/snackbar/generic-notification/generic-notification.component";
 import { MatSnackBar } from "@angular/material";
 
 @Injectable()
@@ -36,9 +35,9 @@ export class TicketEffects {
       ofType(TicketActions.updateTicket),
       mergeMap(action =>
         this._ticketsService.updateTicket(action.payload).pipe(
-          map((data: any) => {
-            return TicketActions.updateTicketSuccess({ payload: data.data });
-          }),
+          map((data: any) =>
+            TicketActions.updateTicketSuccess({ payload: data.data })
+          ),
           catchError(error =>
             of(TicketActions.updateTicketFail({ payload: error.error }))
           )

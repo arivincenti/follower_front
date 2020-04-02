@@ -112,14 +112,14 @@ export class AreasService {
   // ==================================================
   // Get all Area Members
   // ==================================================
-  addAreaMember(payload: any) {
+  createAreaMember(payload: any) {
     return this.http
-      .post(`${environment.path}/areas/add_member`, payload)
+      .post(`${environment.path}/areas/create_member`, payload)
       .pipe(map(data => data["data"]));
   }
 
   // ==================================================
-  // Delete all Area Members
+  // Desactivate all Area Members
   // ==================================================
   deleteAreaMember(payload: any) {
     return this.http

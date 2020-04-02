@@ -24,14 +24,14 @@ export class NotificationsService {
     changes: any[],
     object: string,
     objectType: string,
-    updated_by: string,
+    created_by: string,
     users: string[]
   ) {
     var payload = {
       changes: changes,
       object: object,
       objectType: objectType,
-      updated_by: updated_by,
+      created_by: created_by,
       users: users
     };
 

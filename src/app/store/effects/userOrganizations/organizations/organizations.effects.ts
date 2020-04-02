@@ -35,37 +35,6 @@ export class OrganizationsEffects {
     )
   );
 
-  createOrganization$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(OrganizationsActions.createOrganization),
-      mergeMap(action =>
-        this._organizationsService.createOrganization(action.payload).pipe(
-          map((organization: OrganizationModel) => {
-            Swal.fire({
-              position: "top-end",
-              toast: true,
-              icon: "success",
-              title: "Genial!!",
-              text: "La organización se creó con éxito",
-              showConfirmButton: false,
-              timer: 2500
-            });
-            return OrganizationsActions.createOrganizationSuccess({
-              organization: organization
-            });
-          }),
-          catchError(error =>
-            of(
-              OrganizationsActions.createOrganizationFail({
-                payload: error.error
-              })
-            )
-          )
-        )
-      )
-    )
-  );
-
   clearOrganizationState$ = createEffect(
     () => this.actions$.pipe(ofType(OrganizationsActions.clearState)),
     { dispatch: false }

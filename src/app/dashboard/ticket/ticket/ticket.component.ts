@@ -57,9 +57,7 @@ export class TicketComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
-    private commentService: CommentsService,
-    private _wsService: WebsocketService,
-    private _notificationService: NotificationsService
+    private commentService: CommentsService
   ) {}
 
   ngOnInit() {
@@ -109,8 +107,8 @@ export class TicketComponent implements OnInit, OnDestroy {
       .pipe(
         filter(ticket => ticket !== null),
         map((ticket: TicketModel) => {
+          console.log(ticket);
           this.members = ticket.area.members;
-
           this.propertiesForm = new FormGroup({
             status: new FormControl(ticket.status),
             members: new FormControl(null),
@@ -188,13 +186,13 @@ export class TicketComponent implements OnInit, OnDestroy {
   // ==================================================
   saveChanges(ticket: any) {
     let payload = {
-      ticket: ticket._id,
-      area: ticket.area._id,
+      ticket: ticket,
+      area: ticket.area,
       responsible: this.propertiesForm.controls["members"].value,
       priority: this.propertiesForm.controls["priority"].value,
       status: this.propertiesForm.controls["status"].value,
       date: this.propertiesForm.controls["date"].value,
-      created_by: this.user._id
+      updated_by: this.user._id
     };
 
     this.store.dispatch(TicketActions.updateTicket({ payload }));

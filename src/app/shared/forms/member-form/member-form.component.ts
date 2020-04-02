@@ -10,7 +10,7 @@ import { MemberModel } from "src/app/models/member.model";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
 import { AreaModel } from "src/app/models/area.model";
 import { MembersService } from "src/app/services/members/members.service";
-import * as MembersActions from "../../../store/actions/userOrganizations/selectedOrganization/members/members/members.actions";
+import * as MemberActions from "../../../store/actions/userOrganizations/selectedOrganization/members/member/member.actions";
 import * as AreaActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
 import { map, filter, takeUntil } from "rxjs/operators";
 
@@ -124,7 +124,8 @@ export class MemberFormComponent implements OnInit, OnDestroy {
 
       let payload = {
         area: this.data.area._id,
-        member: member
+        member: member,
+        updated_by: this.data.user
       };
 
       this.store.dispatch(AreaActions.createAreaMember({ payload: payload }));
@@ -140,7 +141,7 @@ export class MemberFormComponent implements OnInit, OnDestroy {
           created_by: this.data.user
         };
 
-        this.store.dispatch(MembersActions.createMember({ payload: member }));
+        this.store.dispatch(MemberActions.createMember({ payload: member }));
       });
     }
 

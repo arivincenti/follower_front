@@ -7,19 +7,18 @@
       </span>
     </span>
     <div class="user">
-      <span class="user-name">
-        {{data.notification.updated_by.name | titlecase}}
-        {{data.notification.updated_by.last_name | titlecase}}
+      <span class="user-header">
+        <span class="user-name">
+          {{data.notification.created_by.name | titlecase}}
+          {{data.notification.created_by.last_name | titlecase}}
+        </span>
+        realizó modificaciones
       </span>
-      <span *ngIf="data.notification.objectType === 'ticket'">
-        realizó cambios en el {{data.notification.objectType}} "{{data.object.subject}}"
+
+      <span class="message background-section" *ngFor="let change of data.notification.changes">
+        {{change}}
       </span>
-      <span *ngIf="data.notification.objectType === 'organization'">
-        realizó cambios en la {{data.notification.objectType}} "{{data.object.name}}"
-      </span>
-      <span *ngIf="data.notification.objectType === 'area'">
-        realizó cambios en el {{data.notification.objectType}} "{{data.object.name}}"
-      </span>
+
     </div>
   </div>
 </div>

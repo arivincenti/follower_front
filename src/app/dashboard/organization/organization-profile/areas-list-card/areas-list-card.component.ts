@@ -6,7 +6,7 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { Router } from "@angular/router";
-import * as AreasActions from "../../../../store/actions/userOrganizations/selectedOrganization/areas/areas/areas.actions";
+import * as AreaActions from "../../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
 import { MemberModel } from "src/app/models/member.model";
 import { map } from "rxjs/operators";
 
@@ -65,7 +65,6 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
 
   selectArea(area: AreaModel) {
     //Redirect to Area Profile
-    // this.router.navigate(["./area", area._id]);
     this.router.navigate(["app/organizations/area/", area._id]);
   }
 
@@ -76,7 +75,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
       updated_by: this.user._id
     };
     //Make method to update deleted_at property from area
-    this.store.dispatch(AreasActions.deleteArea({ payload: payload }));
+    this.store.dispatch(AreaActions.deleteArea({ payload: payload }));
   }
 
   activateArea(area: AreaModel) {
@@ -87,7 +86,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
     };
 
     this.store.dispatch(
-      AreasActions.updateArea({ areaId: area._id, payload: payload })
+      AreaActions.updateArea({ areaId: area._id, payload: payload })
     );
   }
 }

@@ -30,28 +30,29 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy {
     this.router.navigate(["app/organizations/profile/", organization._id]);
   }
 
-  deleteOrganization(organization: OrganizationModel) {
+  desactivateOrganization(organization: OrganizationModel) {
     var payload = {
       organization: organization,
+      deleted_at: new Date(),
       updated_by: this.user
     };
     this.store.dispatch(
-      OrganizationActions.deleteOrganization({
+      OrganizationActions.desactivateOrganization({
         payload
       })
     );
   }
 
-  reactivateOrganization(organization: OrganizationModel) {
-    let payload = {
+  activateOrganization(organization: OrganizationModel) {
+    var payload = {
+      organization: organization,
       deleted_at: undefined,
       updated_by: this.user
     };
 
     this.store.dispatch(
-      OrganizationActions.updateOrganization({
-        organizationId: organization._id,
-        payload: payload
+      OrganizationActions.activateOrganization({
+        payload
       })
     );
   }

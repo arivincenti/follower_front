@@ -38,6 +38,29 @@ export const organizationReducer = createReducer(
     loaded: false,
     error: { ...payload }
   })),
+  on(OrganizationActions.createOrganization, state => ({
+    ...state,
+    organization: { ...state.organization },
+    loading: true,
+    loaded: false,
+    error: null
+  })),
+  on(
+    OrganizationActions.createOrganizationSuccess,
+    (state, { organization }) => ({
+      ...state,
+      organization: { ...organization },
+      loading: false,
+      loaded: true
+    })
+  ),
+  on(OrganizationActions.createOrganizationFail, (state, { payload }) => ({
+    ...state,
+    organization: { ...state.organization },
+    loading: false,
+    loaded: false,
+    error: { ...payload }
+  })),
   on(OrganizationActions.updateOrganization, state => ({
     ...state,
     organization: { ...state.organization },
@@ -61,7 +84,7 @@ export const organizationReducer = createReducer(
     loaded: false,
     error: { ...payload }
   })),
-  on(OrganizationActions.deleteOrganization, state => ({
+  on(OrganizationActions.activateOrganization, state => ({
     ...state,
     organization: { ...state.organization },
     loading: true,
@@ -69,7 +92,7 @@ export const organizationReducer = createReducer(
     error: null
   })),
   on(
-    OrganizationActions.deleteOrganizationSuccess,
+    OrganizationActions.activateOrganizationSuccess,
     (state, { organization }) => ({
       ...state,
       organization: { ...organization },
@@ -78,7 +101,30 @@ export const organizationReducer = createReducer(
       error: null
     })
   ),
-  on(OrganizationActions.deleteOrganizationFail, (state, { payload }) => ({
+  on(OrganizationActions.activateOrganizationFail, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { ...payload }
+  })),
+  on(OrganizationActions.desactivateOrganization, state => ({
+    ...state,
+    organization: { ...state.organization },
+    loading: true,
+    loaded: false,
+    error: null
+  })),
+  on(
+    OrganizationActions.desactivateOrganizationSuccess,
+    (state, { organization }) => ({
+      ...state,
+      organization: { ...organization },
+      loading: false,
+      loaded: true,
+      error: null
+    })
+  ),
+  on(OrganizationActions.desactivateOrganizationFail, (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: false,

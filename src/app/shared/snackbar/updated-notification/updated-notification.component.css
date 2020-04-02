@@ -3,7 +3,7 @@
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   align-items: center;
-  gap: 5px;
+  gap: 15px;
 }
 
 .contenedor .header {
@@ -21,10 +21,21 @@
   grid-template-rows: auto auto;
   justify-content: flex-start;
   font-size: 0.8em;
+  gap: 5px;
 }
 
-.user .user-name {
+.user-header {
+  position: relative;
+  left: 6px;
+}
+
+.user-header .user-name {
   color: #ffa000;
+}
+
+.user .message {
+  line-height: 20px;
+  font-size: 0.9em;
 }
 
 .header .icon {
@@ -40,4 +51,11 @@
 }
 .header .icon > span {
   font-size: 0.9em;
+}
+
+.background-section {
+  box-sizing: content-box;
+  padding: 3px 7px;
+  background-color: rgba(160, 160, 160, 0.1);
+  border-radius: 8px;
 }

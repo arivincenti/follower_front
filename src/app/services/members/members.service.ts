@@ -50,9 +50,25 @@ export class MembersService {
       .pipe(map(data => data["data"]));
   }
 
-  updateMember(member: MemberModel) {
+  // updateMember(member: MemberModel) {
+  //   return this.http
+  //     .put(`${environment.path}/members/${member._id}`, member)
+  //     .pipe(
+  //       map(data => {
+  //         return data["data"];
+  //       })
+  //     );
+  // }
+
+  // ==================================================
+  // Desactivate Member
+  // ==================================================
+  desactivateMember(payload: any) {
     return this.http
-      .put(`${environment.path}/members/${member._id}`, member)
+      .patch(
+        `${environment.path}/members/desactivate_member/${payload.member._id}`,
+        payload
+      )
       .pipe(
         map(data => {
           return data["data"];
@@ -60,11 +76,19 @@ export class MembersService {
       );
   }
 
-  inactiveMember(member: MemberModel) {
-    return this.http.delete(`${environment.path}/members/${member._id}`).pipe(
-      map(data => {
-        return data["data"];
-      })
-    );
+  // ==================================================
+  // Activate Member
+  // ==================================================
+  activateMember(payload: any) {
+    return this.http
+      .patch(
+        `${environment.path}/members/activate_member/${payload.member._id}`,
+        payload
+      )
+      .pipe(
+        map(data => {
+          return data["data"];
+        })
+      );
   }
 }

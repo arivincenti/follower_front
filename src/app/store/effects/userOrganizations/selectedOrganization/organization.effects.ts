@@ -36,6 +36,37 @@ export class OrganizationEffects {
     )
   );
 
+  createOrganization$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrganizationActions.createOrganization),
+      mergeMap(action =>
+        this._organizationsService.createOrganization(action.payload).pipe(
+          map((organization: OrganizationModel) => {
+            Swal.fire({
+              position: "top-end",
+              toast: true,
+              icon: "success",
+              title: "Genial!!",
+              text: "La organización se creó con éxito",
+              showConfirmButton: false,
+              timer: 2500
+            });
+            return OrganizationActions.createOrganizationSuccess({
+              organization: organization
+            });
+          }),
+          catchError(error =>
+            of(
+              OrganizationActions.createOrganizationFail({
+                payload: error.error
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   updateOrganization$ = createEffect(() =>
     this.actions$.pipe(
       ofType(OrganizationActions.updateOrganization),
@@ -60,28 +91,41 @@ export class OrganizationEffects {
     )
   );
 
-  deleteOrganization$ = createEffect(() =>
+  desactivateOrganization$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(OrganizationActions.deleteOrganization),
+      ofType(OrganizationActions.desactivateOrganization),
       mergeMap(action =>
-        this._organizationsService.deleteOrganization(action.payload).pipe(
-          map((organization: OrganizationModel) => {
-            Swal.fire({
-              position: "top-end",
-              toast: true,
-              icon: "success",
-              title: "Genial!!",
-              text: "La organización se dio de baja con éxito",
-              showConfirmButton: false,
-              timer: 2500
-            });
-            return OrganizationActions.deleteOrganizationSuccess({
+        this._organizationsService.desactivateOrganization(action.payload).pipe(
+          map((organization: OrganizationModel) =>
+            OrganizationActions.desactivateOrganizationSuccess({
               organization: organization
-            });
-          }),
+            })
+          ),
           catchError(error =>
             of(
-              OrganizationActions.deleteOrganizationFail({
+              OrganizationActions.desactivateOrganizationFail({
+                payload: error.error
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  activateOrganization$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrganizationActions.activateOrganization),
+      mergeMap(action =>
+        this._organizationsService.activateOrganization(action.payload).pipe(
+          map((organization: OrganizationModel) =>
+            OrganizationActions.activateOrganizationSuccess({
+              organization: organization
+            })
+          ),
+          catchError(error =>
+            of(
+              OrganizationActions.activateOrganizationFail({
                 payload: error.error
               })
             )

@@ -16,21 +16,6 @@ export const getOrganizationsFail = createAction(
   props<{ payload: any }>()
 );
 
-export const createOrganization = createAction(
-  "[Organizations Actions] Create Organization",
-  props<{ payload: any }>()
-);
-
-export const createOrganizationSuccess = createAction(
-  "[Organizations Actions] Create Organization Success",
-  props<{ organization: OrganizationModel }>()
-);
-
-export const createOrganizationFail = createAction(
-  "[Organizations Actions] Create Organization Fail",
-  props<{ payload: any }>()
-);
-
 export const updateOrganizationList = createAction(
   "[Organizations Actions] Update Organization List",
   props<{ organization: OrganizationModel }>()

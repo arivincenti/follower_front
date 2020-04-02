@@ -36,7 +36,7 @@
         </mat-icon>
       </button>
 
-      <button class="button" mat-icon-button *ngIf="!member.deleted_at && !area" (click)="inactiveMember(member)">
+      <button class="button" mat-icon-button *ngIf="!member.deleted_at && !area" (click)="desactivateMember(member)">
         <mat-icon matTooltip="Desactivar" matTooltipPosition="above" class="button-toggle success">toggle_on
         </mat-icon>
       </button>
