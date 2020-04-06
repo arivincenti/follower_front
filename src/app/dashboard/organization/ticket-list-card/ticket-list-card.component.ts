@@ -25,6 +25,6 @@ export class TicketListCardComponent implements OnInit {
   }
 
   ticketDetail(ticket: TicketModel) {
-    this.router.navigate(["app/ticket", ticket._id]);
+    this.router.navigate([`${this.router.url}/ticket`, ticket._id]);
   }
 }

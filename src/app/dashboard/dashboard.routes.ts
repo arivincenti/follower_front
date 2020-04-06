@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { VerifyTokenGuard } from "../guards/token/verify-token.guard";
 
 export const dashboardRoutes: Routes = [
   {
@@ -11,18 +12,17 @@ export const dashboardRoutes: Routes = [
     loadChildren: () =>
       import("./organization/organization.module").then(
         m => m.OrganizationModule
-      )
-  },
-  {
-    path: "ticket/:id",
-    loadChildren: () =>
-      import("./ticket/ticket.module").then(m => m.TicketModule)
+      ),
+    canLoad: [VerifyTokenGuard],
+    canActivate: [VerifyTokenGuard]
   },
   {
     path: "notifications",
     loadChildren: () =>
       import("./notifications/notifications.module").then(
         m => m.NotificationsModule
-      )
+      ),
+    canLoad: [VerifyTokenGuard],
+    canActivate: [VerifyTokenGuard]
   }
 ];

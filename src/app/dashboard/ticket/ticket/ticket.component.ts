@@ -107,7 +107,6 @@ export class TicketComponent implements OnInit, OnDestroy {
       .pipe(
         filter(ticket => ticket !== null),
         map((ticket: TicketModel) => {
-          console.log(ticket);
           this.members = ticket.area.members;
           this.propertiesForm = new FormGroup({
             status: new FormControl(ticket.status),

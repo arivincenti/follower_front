@@ -39,6 +39,13 @@ export const membersReducer = createReducer(
     loaded: false,
     error: { ...payload }
   })),
+  on(MembersActions.AddCreatedMemberToList, (state, { member }) => ({
+    ...state,
+    members: [...state.members, { ...member }],
+    loading: false,
+    loaded: false,
+    error: null
+  })),
   on(MembersActions.updateMemberList, (state, { member }) => {
     var index = state.members.findIndex(data => data._id === member._id);
     state.members.splice(index, 1, { ...member });

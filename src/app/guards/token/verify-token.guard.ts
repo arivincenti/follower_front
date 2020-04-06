@@ -1,28 +1,26 @@
-import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../store/app.reducer';
-import { AuthService } from '../../services/auth/auth.service';
+import { Injectable } from "@angular/core";
+import { CanActivate, CanLoad } from "@angular/router";
+import { Subscription } from "rxjs";
+import { Store } from "@ngrx/store";
+import { AppState } from "../../store/app.reducer";
+import { AuthService } from "../../services/auth/auth.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
-export class VerifyTokenGuard implements CanActivate
-{
-
+export class VerifyTokenGuard implements CanActivate, CanLoad {
   tokenSubscription: Subscription = new Subscription();
   token: string;
 
   constructor(
     private store: Store<AppState>,
     private _authService: AuthService
-  ) { }
+  ) {}
 
-  canActivate(): Promise<boolean> | boolean
-  {
-
-    this.tokenSubscription = this.store.select(state => state.auth.token).subscribe(token => this.token = token);
+  canActivate(): Promise<boolean> | boolean {
+    this.tokenSubscription = this.store
+      .select(state => state.auth.token)
+      .subscribe(token => (this.token = token));
 
     this.tokenSubscription.unsubscribe();
 
@@ -30,9 +28,28 @@ export class VerifyTokenGuard implements CanActivate
 
     let expired = this.expirado(payload.exp);
 
-    if (expired)
-    {
-      console.log('Token expirado');
+    if (expired) {
+      console.log("Token expirado");
+      this._authService.logout();
+      return false;
+    }
+
+    return this.verificaSiRenueva(payload.exp);
+  }
+
+  canLoad(): Promise<boolean> | boolean {
+    this.tokenSubscription = this.store
+      .select(state => state.auth.token)
+      .subscribe(token => (this.token = token));
+
+    this.tokenSubscription.unsubscribe();
+
+    let payload = JSON.parse(atob(this.token.split(".")[1]));
+
+    let expired = this.expirado(payload.exp);
+
+    if (expired) {
+      console.log("Token expirado");
       this._authService.logout();
       return false;
     }
@@ -43,27 +60,20 @@ export class VerifyTokenGuard implements CanActivate
   // ==================================================
   // Verificar si se renueva o no el token
   // ==================================================
-  verificaSiRenueva(dateExp: number): Promise<boolean>
-  {
-    return new Promise((resolve, reject) =>
-    {
+  verificaSiRenueva(dateExp: number): Promise<boolean> {
+    return new Promise((resolve, reject) => {
       let tokenExp = new Date(dateExp * 1000);
       let now = new Date();
 
       now.setTime(now.getTime() + 1 * 60 * 60 * 1000);
 
-      if (tokenExp.getTime() > now.getTime())
-      {
+      if (tokenExp.getTime() > now.getTime()) {
         resolve(true);
-      }
-      else
-      {
-        this._authService.refreshToken().subscribe(() =>
-        {
+      } else {
+        this._authService.refreshToken().subscribe(() => {
           resolve(true);
         }),
-          () =>
-          {
+          () => {
             reject(false);
           };
       }
@@ -73,17 +83,13 @@ export class VerifyTokenGuard implements CanActivate
   // ==================================================
   // Valida si el token expiró o no
   // ==================================================
-  expirado(dateExp: number)
-  {
+  expirado(dateExp: number) {
     let now = new Date().getTime() / 1000;
 
-    if (dateExp < now)
-    {
+    if (dateExp < now) {
       return true;
-    } else
-    {
+    } else {
       return false;
     }
   }
-
 }

@@ -1,11 +1,8 @@
 <div class="contenedor">
 
   <div class="title">
-    <span *ngIf="!data.area">
+    <span>
       Nuevo miembro
-    </span>
-    <span *ngIf="data.area">
-      Agregar miembro al área
     </span>
   </div>
 
@@ -23,32 +20,19 @@
               <span>{{user.name | titlecase}} {{user.last_name | titlecase}}</span> |
               <small>{{user.email | lowercase }}</small>
             </mat-option>
-            <mat-option *ngFor="let member of members$ | async" [value]="member.user.email | lowercase">
-              <img class="member-card-img" mat-card-avatar [src]="member.user.img | image" alt="">
-              <span>{{member.user.name | titlecase}} {{member.user.last_name | titlecase}}</span> |
-              <small>{{member.user.email | lowercase }}</small>
-            </mat-option>
           </mat-autocomplete>
-          <mat-error *ngIf="form.controls['email'].errors?.avaible && data.area">
-            Ya <strong>existe</strong> este miembro en el área.<strong>
-              Por favor elije otro.</strong>
-          </mat-error>
-          <mat-error *ngIf="form.controls['email'].errors?.avaible && !data.area">
+          <mat-error *ngIf="form.controls['email'].errors?.avaible">
             Ya <strong>existe</strong> este miembro en la organización.<strong>
               Por favor elije otro.</strong>
           </mat-error>
-          <mat-error *ngIf="form.controls['email'].errors?.required && data.area">
-            <strong>Recuerda!</strong> Si el usuario no aparece en la lista es porque no es miembro de la organización.
-          </mat-error>
-          <mat-error *ngIf="form.controls['email'].errors?.required && !data.area">
+          <mat-error *ngIf="form.controls['email'].errors?.required">
             <strong>Recuerda!</strong> Si el usuario no aparece en la lista es porque no esta registrado en Follower.
           </mat-error>
         </mat-form-field>
       </div>
       <div class="button">
         <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid">
-          <span *ngIf="data.area"> Agregar miembro</span>
-          <span *ngIf="!data.area"> Crear nuevo miembro</span>
+          <span> Crear nuevo miembro</span>
           <mat-icon>save</mat-icon>
         </button>
       </div>

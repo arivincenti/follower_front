@@ -96,7 +96,8 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
   setResponsibleMember(member: MemberModel) {
     let payload = {
       responsible: member,
-      updated_by: this.user._id
+      updated_by: this.user._id,
+      area: this.area
     };
 
     this.store.dispatch(

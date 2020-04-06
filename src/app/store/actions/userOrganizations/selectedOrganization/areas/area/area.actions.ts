@@ -76,4 +76,19 @@ export const deleteAreaMemberFail = createAction(
   props<{ payload: any }>()
 );
 
+export const setResponsibleAreaMember = createAction(
+  "[Area Actions] Set Responsible Area Member",
+  props<{ payload: any }>()
+);
+
+export const setResponsibleAreaMemberSuccess = createAction(
+  "[Area Actions] Set Responsible Area Member Success",
+  props<{ payload: AreaModel }>()
+);
+
+export const setResponsibleAreaMemberFail = createAction(
+  "[Area Actions] Set Responsible Area Member Fail",
+  props<{ payload: any }>()
+);
+
 export const clear = createAction("[Area Actions] Clear");

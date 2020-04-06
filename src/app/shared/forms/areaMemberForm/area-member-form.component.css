@@ -1,0 +1,68 @@
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  outline: none;
+}
+
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  grid-template-areas:
+    "title"
+    "mat-content";
+}
+
+.title {
+  grid-area: title;
+  font-size: 1.1em;
+  opacity: 0.5;
+  font-weight: bolder;
+}
+
+.mat-content {
+  grid-area: mat-content;
+}
+
+.mat-content .form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  grid-template-areas:
+    "input"
+    "button";
+}
+
+.input {
+  grid-area: input;
+}
+
+.button {
+  grid-area: button;
+}
+
+.button button {
+  width: 100%;
+}
+
+.button button mat-icon {
+  position: relative;
+  top: 4px;
+  font-size: 1.2em;
+}
+
+.member-card-img {
+  object-fit: cover;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  top: 10px;
+  margin-right: 10px;
+}
+
+mat-option span {
+  font-size: 0.9em;
+}

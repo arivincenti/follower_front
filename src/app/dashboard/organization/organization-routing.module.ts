@@ -7,18 +7,28 @@ import { VerifyTokenGuard } from "src/app/guards/token/verify-token.guard";
 const routes: Routes = [
   {
     path: "",
-    canActivate: [LoginGuard],
+    canActivate: [LoginGuard, VerifyTokenGuard],
     component: OrganizationComponent
+  },
+  {
+    path: "ticket/:id",
+    loadChildren: () =>
+      import("../ticket/ticket.module").then(m => m.TicketModule),
+    canLoad: [VerifyTokenGuard],
+    canActivate: [VerifyTokenGuard]
   },
   {
     path: "profile/:id",
     loadChildren: () =>
       import("./organization-profile/organization-profile.module").then(
         m => m.OrganizationProfileModule
-      )
+      ),
+    canLoad: [VerifyTokenGuard],
+    canActivate: [LoginGuard, VerifyTokenGuard]
   },
   {
     path: "area/:id",
+    canLoad: [VerifyTokenGuard],
     canActivate: [LoginGuard, VerifyTokenGuard],
     loadChildren: () => import("../area/area.module").then(m => m.AreaModule)
   }

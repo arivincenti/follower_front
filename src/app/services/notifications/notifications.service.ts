@@ -24,15 +24,17 @@ export class NotificationsService {
     changes: any[],
     object: string,
     objectType: string,
+    operationType: string,
     created_by: string,
     users: string[]
   ) {
     var payload = {
-      changes: changes,
-      object: object,
-      objectType: objectType,
-      created_by: created_by,
-      users: users
+      changes,
+      object,
+      objectType,
+      operationType,
+      created_by,
+      users
     };
 
     //Emitimos el evento para crear la nueva notificación

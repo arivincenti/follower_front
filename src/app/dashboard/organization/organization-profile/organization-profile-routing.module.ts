@@ -11,6 +11,13 @@ const routes: Routes = [
     component: OrganizationProfileComponent,
     canActivate: [LoginGuard, VerifyTokenGuard],
     children: organizationProfileRoutes
+  },
+  {
+    path: "area/:id",
+    loadChildren: () =>
+      import("../../area/area.module").then(m => m.AreaModule),
+    canLoad: [VerifyTokenGuard],
+    canActivate: [LoginGuard, VerifyTokenGuard]
   }
 ];
 

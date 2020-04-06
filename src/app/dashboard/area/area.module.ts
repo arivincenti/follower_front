@@ -7,9 +7,9 @@ import { AngularMaterialModule } from "src/app/angular-material/angular-material
 import { MemberModule } from "../member/member.module";
 import { RouterModule } from "@angular/router";
 import { AreaRoutingModule } from "./area-routing.module";
-import { MemberFormComponent } from "src/app/shared/forms/member-form/member-form.component";
 import { AreaFormComponent } from "src/app/shared/forms/area-form/area-form.component";
 import { PipesModule } from "src/app/pipes/pipes.module";
+import { AreaMemberFormComponent } from "src/app/shared/forms/areaMemberForm/area-member-form.component";
 
 @NgModule({
   declarations: [AreaProfileComponent],
@@ -24,6 +24,6 @@ import { PipesModule } from "src/app/pipes/pipes.module";
     AreaRoutingModule,
     PipesModule
   ],
-  entryComponents: [MemberFormComponent, AreaFormComponent]
+  entryComponents: [AreaMemberFormComponent, AreaFormComponent]
 })
 export class AreaModule {}

@@ -123,8 +123,24 @@ export class AreasService {
   // ==================================================
   deleteAreaMember(payload: any) {
     return this.http
-      .put(
-        `${environment.path}/areas/delete_member/${payload.member._id}`,
+      .patch(
+        `${environment.path}/areas/delete_member/${payload.area._id}`,
+        payload
+      )
+      .pipe(
+        map(data => {
+          return data["data"];
+        })
+      );
+  }
+
+  // ==================================================
+  // Desactivate all Area Members
+  // ==================================================
+  setResponsibleAreaMember(payload: any) {
+    return this.http
+      .patch(
+        `${environment.path}/areas/set_responsible/${payload.area._id}`,
         payload
       )
       .pipe(

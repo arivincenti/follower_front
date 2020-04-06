@@ -84,6 +84,24 @@ export class AreaEffects {
     )
   );
 
+  setResponsibleAreaMember$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AreaActions.setResponsibleAreaMember),
+      mergeMap(action =>
+        this._areasService.setResponsibleAreaMember(action.payload).pipe(
+          map((area: any) => {
+            return AreaActions.setResponsibleAreaMemberSuccess({
+              payload: area
+            });
+          }),
+          catchError(error =>
+            of(AreaActions.setResponsibleAreaMemberFail({ payload: error }))
+          )
+        )
+      )
+    )
+  );
+
   clear$ = createEffect(() => this.actions$.pipe(ofType(AreaActions.clear)), {
     dispatch: false
   });

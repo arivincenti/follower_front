@@ -9,6 +9,7 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { map, takeUntil, filter } from "rxjs/operators";
 import { MemberFormComponent } from "../../../shared/forms/member-form/member-form.component";
+import { AreaMemberFormComponent } from "src/app/shared/forms/areaMemberForm/area-member-form.component";
 
 @Component({
   selector: "app-member-list",
@@ -127,14 +128,25 @@ export class MemberListComponent implements OnInit, OnDestroy {
     }
   }
 
-  createMember(): void {
-    this.dialog.open(MemberFormComponent, {
-      width: "600px",
-      data: {
-        user: this.user,
-        organization: this.organization,
-        area: this.area
-      }
-    });
+  createMember() {
+    if (this.area) {
+      this.dialog.open(AreaMemberFormComponent, {
+        width: "600px",
+        data: {
+          user: this.user,
+          organization: this.organization,
+          area: this.area
+        }
+      });
+    } else {
+      this.dialog.open(MemberFormComponent, {
+        width: "600px",
+        data: {
+          user: this.user,
+          organization: this.organization,
+          area: null
+        }
+      });
+    }
   }
 }

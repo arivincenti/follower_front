@@ -65,7 +65,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
 
   selectArea(area: AreaModel) {
     //Redirect to Area Profile
-    this.router.navigate(["app/organizations/area/", area._id]);
+    this.router.navigate([`${this.router.url}/area/`, area._id]);
   }
 
   deleteArea(area: AreaModel) {

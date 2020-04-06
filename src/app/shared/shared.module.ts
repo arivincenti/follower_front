@@ -15,6 +15,7 @@ import { TicketGraphicsComponent } from "./graphics/ticket-graphics/ticket-graph
 import { PipesModule } from "../pipes/pipes.module";
 import { UpdatedNotificationComponent } from "./snackbar/updated-notification/updated-notification.component";
 import { GenericNotificationComponent } from "./snackbar/generic-notification/generic-notification.component";
+import { AreaMemberFormComponent } from "./forms/areaMemberForm/area-member-form.component";
 
 const shared = [
   FooterComponent,
@@ -22,6 +23,7 @@ const shared = [
   OrganizationFormComponent,
   AreaFormComponent,
   MemberFormComponent,
+  AreaMemberFormComponent,
   TicketFormComponent,
   TicketGraphicsComponent,
   UpdatedNotificationComponent,
