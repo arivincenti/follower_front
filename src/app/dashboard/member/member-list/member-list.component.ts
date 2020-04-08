@@ -14,7 +14,7 @@ import { AreaMemberFormComponent } from "src/app/shared/forms/areaMemberForm/are
 @Component({
   selector: "app-member-list",
   templateUrl: "./member-list.component.html",
-  styleUrls: ["./member-list.component.css"]
+  styleUrls: ["./member-list.component.css"],
 })
 export class MemberListComponent implements OnInit, OnDestroy {
   @Input() area: AreaModel;
@@ -45,14 +45,14 @@ export class MemberListComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>, private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.animation$ = this.store.select(state => state.ui.animated);
+    this.animation$ = this.store.select((state) => state.ui.animated);
 
     var auth = JSON.parse(localStorage.getItem("auth"));
     this.user = auth.user;
 
     this.organization$ = this.store
       .select(
-        state =>
+        (state) =>
           state.userOrganizations.selectedOrganization.organization.organization
       )
       .pipe(
@@ -63,18 +63,18 @@ export class MemberListComponent implements OnInit, OnDestroy {
       );
 
     this.membersLoading$ = this.store.select(
-      state =>
+      (state) =>
         state.userOrganizations.selectedOrganization.members.members.loading
     );
 
     //Buscamos los miembros de la organizacion cuando el area no esta seleccionada
     this.members$ = this.store
       .select(
-        state =>
+        (state) =>
           state.userOrganizations.selectedOrganization.members.members.members
       )
       .pipe(
-        map(members => {
+        map((members) => {
           if (!this.area) {
             return members;
           }
@@ -84,12 +84,12 @@ export class MemberListComponent implements OnInit, OnDestroy {
     //Buscamos los miembros del area cuando hay un area seleccionada
     this.areaMembers$ = this.store
       .select(
-        state =>
+        (state) =>
           state.userOrganizations.selectedOrganization.areas.selectedArea.area
       )
       .pipe(
-        filter(data => data !== null),
-        map(data => {
+        filter((data) => data !== null),
+        map((data) => {
           if (this.area) {
             return data.members;
           }
@@ -100,16 +100,15 @@ export class MemberListComponent implements OnInit, OnDestroy {
     this.until = this.pageSize;
   }
 
-  ngOnDestroy() {
-    // this.unsubscribe$.next();
-    // this.unsubscribe$.unsubscribe();
-  }
+  ngOnDestroy() {}
 
   // ==================================================
   // Set paginator page size
   // ==================================================
   setPageSizeOptions(setPageSizeOptionsInput: string) {
-    this.pageSizeOptions = setPageSizeOptionsInput.split(",").map(str => +str);
+    this.pageSizeOptions = setPageSizeOptionsInput
+      .split(",")
+      .map((str) => +str);
   }
 
   // ==================================================
@@ -135,8 +134,8 @@ export class MemberListComponent implements OnInit, OnDestroy {
         data: {
           user: this.user,
           organization: this.organization,
-          area: this.area
-        }
+          area: this.area,
+        },
       });
     } else {
       this.dialog.open(MemberFormComponent, {
@@ -144,8 +143,8 @@ export class MemberListComponent implements OnInit, OnDestroy {
         data: {
           user: this.user,
           organization: this.organization,
-          area: null
-        }
+          area: null,
+        },
       });
     }
   }

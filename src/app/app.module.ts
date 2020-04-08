@@ -17,7 +17,6 @@ import { effects } from "./store/effects";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { TokenInterceptorService } from "./services/interceptors/token/token-interceptor.service";
-import { WebComponent } from "./web/web.component";
 import { AngularMaterialModule } from "./angular-material/angular-material.module";
 
 //Socket
@@ -37,13 +36,13 @@ export function localStorageSyncReducer(
 ): ActionReducer<any> {
   return localStorageSync({
     keys: [{ ui: ["theme"] }, "auth", "userOrganizations"],
-    rehydrate: true
+    rehydrate: true,
   })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 @NgModule({
-  declarations: [AppComponent, WebComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -57,19 +56,19 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     StoreModule.forRoot(REDUCERS_TOKEN, { metaReducers }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
-      logOnly: false
+      logOnly: false,
     }),
-    EffectsModule.forRoot(effects)
+    EffectsModule.forRoot(effects),
   ],
   providers: [
     reducerProvider,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
-      multi: true
+      multi: true,
     },
-    { provide: LOCALE_ID, useValue: "es-Ar" }
+    { provide: LOCALE_ID, useValue: "es-Ar" },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

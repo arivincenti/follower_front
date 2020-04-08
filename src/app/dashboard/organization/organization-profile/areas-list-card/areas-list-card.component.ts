@@ -20,7 +20,6 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
   @Input() area: AreaModel;
   @Input() user: UserModel;
 
-  membersSubscription: Subscription = new Subscription();
   members: MemberModel[];
   members$: Observable<MemberModel[]>;
   membersLoading: boolean = false;
@@ -60,9 +59,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
       );
   }
 
-  ngOnDestroy() {
-    this.membersSubscription.unsubscribe();
-  }
+  ngOnDestroy() {}
 
   selectArea(area: AreaModel) {
     //Redirect to Area Profile

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { TicketModel } from "src/app/models/ticketModel";
 import { UserModel } from "src/app/models/user.model";
 import { PageEvent } from "@angular/material";
@@ -6,7 +6,7 @@ import { PageEvent } from "@angular/material";
 @Component({
   selector: "app-ticket-list",
   templateUrl: "./ticket-list.component.html",
-  styleUrls: ["./ticket-list.component.css"]
+  styleUrls: ["./ticket-list.component.css"],
 })
 export class TicketListComponent implements OnInit {
   @Input() tickets: TicketModel[];
@@ -33,7 +33,9 @@ export class TicketListComponent implements OnInit {
   // Set paginator page size
   // ==================================================
   setPageSizeOptions(setPageSizeOptionsInput: string) {
-    this.pageSizeOptions = setPageSizeOptionsInput.split(",").map(str => +str);
+    this.pageSizeOptions = setPageSizeOptionsInput
+      .split(",")
+      .map((str) => +str);
   }
 
   // ==================================================
