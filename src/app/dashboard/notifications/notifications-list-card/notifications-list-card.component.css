@@ -1,0 +1,128 @@
+button {
+  outline: none;
+}
+
+/* CSS GRID */
+
+.contenedor {
+  display: grid;
+  grid-template-columns: 45px 1fr;
+  gap: 5px;
+  grid-template-areas:
+    "header-section-icon header-section"
+    "header-section-icon changes-section";
+}
+
+.contenedor .header-section {
+  grid-area: header-section;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "header-section-title header-section-buttons";
+}
+
+.contenedor .header-section-icon {
+  grid-area: header-section-icon;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-section .header-section-title {
+  grid-area: header-section-title;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "header-section-title-title"
+    "header-section-title-subtitle";
+}
+
+.header-section-title .header-section-title-title {
+  margin: 0px;
+  grid-area: header-section-title-title;
+  display: flex;
+  align-items: center;
+}
+
+.header-section-title-title .title {
+  margin-left: 5px;
+  font-size: 0.9em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.header-section .header-section-buttons {
+  grid-area: header-section-buttons;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* CSS GRID END */
+
+.icon-header {
+  font-size: 1.3em;
+  position: relative;
+  top: 2px;
+  right: 0px;
+}
+
+.header-section-title .header-section-title-subtitle {
+  position: relative;
+  bottom: 0px;
+  left: 6px;
+  font-size: 0.7em;
+  opacity: 0.4;
+  grid-area: header-section-title-subtitle;
+}
+
+.contenedor .changes-section {
+  grid-area: changes-section;
+  display: grid;
+  gap: 5px;
+  grid-template-rows: auto;
+}
+
+.changes-section span {
+  position: relative;
+  left: 5px;
+  font-size: 0.8em;
+  opacity: 0.5;
+}
+
+.button {
+  position: relative;
+  bottom: 8px;
+}
+
+.button .button-icon {
+  font-size: 1.2em;
+}
+
+.deleted {
+  opacity: 0.3;
+  text-decoration: line-through;
+}
+
+.badge-notification-status {
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  position: relative;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.badge-notification-status span {
+  position: relative;
+  top: 1px;
+}
+
+@media (max-width: 990px) {
+  .header-section-title-title .title {
+    width: 230px;
+  }
+}

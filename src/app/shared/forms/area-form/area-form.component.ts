@@ -1,9 +1,8 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { Subscription, Observable, Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas/areas.actions";
 import * as AreaActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
@@ -13,7 +12,7 @@ import { takeUntil } from "rxjs/operators";
 @Component({
   selector: "app-area-form",
   templateUrl: "./area-form.component.html",
-  styleUrls: ["./area-form.component.css"]
+  styleUrls: ["./area-form.component.css"],
 })
 export class AreaFormComponent implements OnInit {
   form: FormGroup;
@@ -38,10 +37,11 @@ export class AreaFormComponent implements OnInit {
     //Search organizations areas
     this.store
       .select(
-        state => state.userOrganizations.selectedOrganization.areas.areas.areas
+        (state) =>
+          state.userOrganizations.selectedOrganization.areas.areas.areas
       )
       .pipe(takeUntil(this.unsuscribe$))
-      .subscribe(areas => (this.areas = areas));
+      .subscribe((areas) => (this.areas = areas));
 
     //FORM
     this.form = new FormGroup({
@@ -49,7 +49,7 @@ export class AreaFormComponent implements OnInit {
         null,
         Validators.required,
         this.avaibleName.bind(this)
-      )
+      ),
     });
 
     //Mark as touched
@@ -59,11 +59,6 @@ export class AreaFormComponent implements OnInit {
     if (this.data.area) {
       this.form.controls["area"].setValue(this.data.area.name);
     }
-  }
-
-  ngOnDestroy() {
-    this.unsuscribe$.next();
-    this.unsuscribe$.unsubscribe();
   }
 
   // ==================================================
@@ -77,22 +72,22 @@ export class AreaFormComponent implements OnInit {
       let payload = {
         user: this.data.user._id,
         organization: this.data.organization._id,
-        name: this.form.controls["area"].value.toUpperCase()
+        name: this.form.controls["area"].value.toUpperCase(),
       };
 
-      this.store.dispatch(AreasActions.createArea({ payload }));
+      this.store.dispatch(AreaActions.createArea({ payload }));
     } else {
       let payload = {
         name: this.form.controls["area"].value.toUpperCase(),
         organization: this.data.organization._id,
         updated_by: this.data.user._id,
-        area: this.data.area
+        area: this.data.area,
       };
 
       this.store.dispatch(
         AreaActions.updateArea({
           areaId: this.data.area._id,
-          payload: payload
+          payload: payload,
         })
       );
     }
@@ -106,7 +101,7 @@ export class AreaFormComponent implements OnInit {
   avaibleName(control: FormControl): Promise<any> | Observable<any> {
     let promise = new Promise((resolve, reject) => {
       let nombre = "";
-      this.areas.forEach(area => {
+      this.areas.forEach((area) => {
         if (
           area.name.toUpperCase() ===
           this.form.controls["area"].value.toUpperCase()
@@ -122,5 +117,10 @@ export class AreaFormComponent implements OnInit {
     });
 
     return promise;
+  }
+
+  ngOnDestroy() {
+    this.unsuscribe$.next();
+    this.unsuscribe$.unsubscribe();
   }
 }

@@ -18,7 +18,7 @@ import { NotificationsService } from "src/app/services/notifications/notificatio
 @Component({
   selector: "app-ticket",
   templateUrl: "./ticket.component.html",
-  styleUrls: ["./ticket.component.css"]
+  styleUrls: ["./ticket.component.css"],
 })
 export class TicketComponent implements OnInit, OnDestroy {
   private unsuscribe$ = new Subject();
@@ -30,14 +30,14 @@ export class TicketComponent implements OnInit, OnDestroy {
       value: "COMENTARIO PÚBLICO",
       checked: true,
       description:
-        "El comentario público puede ser leido por cualquier persona que acceda al ticket, aunque no sea miembro del área."
+        "El comentario público puede ser leido por cualquier persona que acceda al ticket, aunque no sea miembro del área.",
     },
     {
       value: "NOTA INTERNA",
       checked: false,
       description:
-        "La nota interna solo puede ser leida por los miembros del área a la que pertenece el ticket."
-    }
+        "La nota interna solo puede ser leida por los miembros del área a la que pertenece el ticket.",
+    },
   ];
   minDate: Date = new Date();
   priorities: string[] = ["BAJA", "MEDIA", "ALTA"];
@@ -45,7 +45,7 @@ export class TicketComponent implements OnInit, OnDestroy {
   members: MemberModel[];
   param: string;
   user: UserModel;
-  owner: boolean = true;
+  owner: boolean = false;
   ticket$: Observable<TicketModel>;
   ticketLoading$: Observable<boolean>;
   comments$: Observable<CommentModel[]>;
@@ -62,7 +62,7 @@ export class TicketComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     //Cargamos las animaciones y obtenemos el ID que viene por la URL
-    this.animation$ = this.store.select(state => state.ui.animated);
+    this.animation$ = this.store.select((state) => state.ui.animated);
     this.param = this.activatedRoute.snapshot.paramMap.get("id");
 
     //Aca escuchamos cuando alguien crea un nuevo comentario
@@ -82,37 +82,37 @@ export class TicketComponent implements OnInit, OnDestroy {
     //Seteamos el formulario
     this.messageForm = new FormGroup({
       message: new FormControl(null),
-      type: new FormControl(this.messageTypes[0].value)
+      type: new FormControl(this.messageTypes[0].value),
     });
 
     //Buscamos el usuario logueado
     this.store
-      .select(state => state.auth.user)
+      .select((state) => state.auth.user)
       .pipe(
         takeUntil(this.unsuscribe$),
-        filter(user => user !== null)
+        filter((user) => user !== null)
       )
-      .subscribe(user => (this.user = user));
+      .subscribe((user) => (this.user = user));
 
     //Obtenemos el estados los los loadings
     this.ticketLoading$ = this.store.select(
-      state => state.userOrganizations.tickets.selectedTicket.ticket.loading
+      (state) => state.userOrganizations.tickets.selectedTicket.ticket.loading
     );
 
     //Buscamos los datos del ticket
     this.ticket$ = this.store
       .select(
-        state => state.userOrganizations.tickets.selectedTicket.ticket.ticket
+        (state) => state.userOrganizations.tickets.selectedTicket.ticket.ticket
       )
       .pipe(
-        filter(ticket => ticket !== null),
+        filter((ticket) => ticket !== null),
         map((ticket: TicketModel) => {
           this.members = ticket.area.members;
           this.propertiesForm = new FormGroup({
             status: new FormControl(ticket.status),
             members: new FormControl(null),
             priority: new FormControl(ticket.priority),
-            date: new FormControl(ticket.date)
+            date: new FormControl(ticket.date),
           });
 
           if (ticket.responsible)
@@ -123,7 +123,7 @@ export class TicketComponent implements OnInit, OnDestroy {
           if (
             // Si soy el creador del ticket y pertenezco al area puedo editar
             ticket.area.members.find(
-              member => member.user._id === this.user._id
+              (member) => member.user._id === this.user._id
             ) &&
             ticket.created_by._id === this.user._id
           ) {
@@ -131,7 +131,7 @@ export class TicketComponent implements OnInit, OnDestroy {
           } else if (
             // Si soy el creador del ticket y NO pertenezco al area NO puedo editar
             !ticket.area.members.find(
-              member => member.user._id === this.user._id
+              (member) => member.user._id === this.user._id
             ) &&
             ticket.created_by._id === this.user._id
           ) {
@@ -140,7 +140,7 @@ export class TicketComponent implements OnInit, OnDestroy {
           } else if (
             // Si NO soy el creador del ticket pero pertenezco al area puedo editar
             ticket.area.members.find(
-              member => member.user._id === this.user._id
+              (member) => member.user._id === this.user._id
             ) &&
             ticket.created_by._id !== this.user._id
           ) {
@@ -153,10 +153,11 @@ export class TicketComponent implements OnInit, OnDestroy {
 
     //Obtenemos los comentarios
     this.comments$ = this.store.select(
-      state => state.userOrganizations.tickets.selectedTicket.comments.comments
+      (state) =>
+        state.userOrganizations.tickets.selectedTicket.comments.comments
     );
     this.commentsLoading$ = this.store.select(
-      state => state.userOrganizations.tickets.selectedTicket.comments.loading
+      (state) => state.userOrganizations.tickets.selectedTicket.comments.loading
     );
   }
 
@@ -173,7 +174,7 @@ export class TicketComponent implements OnInit, OnDestroy {
     let comment = {
       ticket: this.param,
       created_by: this.user,
-      ...this.messageForm.value
+      ...this.messageForm.value,
     };
 
     this.store.dispatch(CommentsActions.addComment({ payload: comment }));
@@ -184,14 +185,20 @@ export class TicketComponent implements OnInit, OnDestroy {
   // Guardamos los cambios de las propiedades del ticket
   // ==================================================
   saveChanges(ticket: any) {
+    let responsible = undefined;
+
+    if (this.propertiesForm.controls["members"].value) {
+      responsible = this.propertiesForm.controls["members"].value;
+    }
+
     let payload = {
       ticket: ticket,
       area: ticket.area,
-      responsible: this.propertiesForm.controls["members"].value,
+      responsible: responsible,
       priority: this.propertiesForm.controls["priority"].value,
       status: this.propertiesForm.controls["status"].value,
       date: this.propertiesForm.controls["date"].value,
-      updated_by: this.user._id
+      updated_by: this.user._id,
     };
 
     this.store.dispatch(TicketActions.updateTicket({ payload }));

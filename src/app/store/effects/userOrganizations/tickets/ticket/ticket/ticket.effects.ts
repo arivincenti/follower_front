@@ -17,14 +17,30 @@ export class TicketEffects {
   getTicket$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TicketActions.getTicket),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._ticketsService.getTicket(action.payload).pipe(
           map((data: any) =>
             TicketActions.getTicketSuccess({ payload: data.data })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(TicketActions.getTicketFail({ payload: error.error }))
           )
+        )
+      )
+    )
+  );
+
+  createTicket$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TicketActions.createTicket),
+      mergeMap((action) =>
+        this._ticketsService.createTicket(action.payload).pipe(
+          map((data: any) =>
+            TicketActions.createTicketSuccess({
+              ticket: data.data,
+            })
+          ),
+          catchError((error) => of(TicketActions.createTicketFail(error.error)))
         )
       )
     )
@@ -33,12 +49,12 @@ export class TicketEffects {
   updateTicket$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TicketActions.updateTicket),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._ticketsService.updateTicket(action.payload).pipe(
           map((data: any) =>
             TicketActions.updateTicketSuccess({ payload: data.data })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(TicketActions.updateTicketFail({ payload: error.error }))
           )
         )

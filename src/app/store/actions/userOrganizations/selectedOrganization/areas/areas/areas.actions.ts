@@ -17,19 +17,9 @@ export const getAreasFail = createAction(
   props<{ payload: any }>()
 );
 
-export const createArea = createAction(
-  "[Areas Actions] Create Area",
-  props<{ payload: any }>()
-);
-
-export const createAreaSuccess = createAction(
-  "[Areas Actions] Create Area Success",
-  props<{ payload: AreaModel }>()
-);
-
-export const createAreaFail = createAction(
-  "[Areas Actions] Create Area Fail",
-  props<{ payload: any }>()
+export const addCreatedAreaToList = createAction(
+  "[Areas Actions] Add Created Area To List",
+  props<{ area: AreaModel }>()
 );
 
 export const updateAreasList = createAction(

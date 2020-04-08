@@ -17,8 +17,8 @@ export const getMembersFail = createAction(
   props<{ payload: any }>()
 );
 
-export const AddCreatedMemberToList = createAction(
-  "[Members Actions] AddCreatedMemberToList Member Success",
+export const addCreatedMemberToList = createAction(
+  "[Members Actions] Add Created Member To List",
   props<{ member: MemberModel }>()
 );
 

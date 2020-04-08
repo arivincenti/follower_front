@@ -13,46 +13,55 @@ export const initialOrganizationsState: OrganizationsState = {
   organizations: [],
   loading: false,
   loaded: false,
-  error: null
+  error: null,
 };
 
 export const organizationsReducer = createReducer(
   initialOrganizationsState,
-  on(OrganizationsActions.getOrganizations, state => ({
+  on(OrganizationsActions.getOrganizations, (state) => ({
     ...state,
     organizations: [],
     loading: true,
     loaded: false,
-    error: null
+    error: null,
   })),
   on(OrganizationsActions.getOrganizationsSuccess, (state, { payload }) => ({
     ...state,
     organizations: [...payload],
     loading: false,
-    loaded: true
+    loaded: true,
   })),
   on(OrganizationsActions.getOrganizationsFail, (state, { payload }) => ({
     ...state,
     organizations: [],
     loading: false,
     loaded: false,
-    error: { payload }
+    error: { payload },
   })),
+  on(
+    OrganizationsActions.addCreatedOrganizationToList,
+    (state, { organization }) => ({
+      ...state,
+      organizations: [...state.organizations, { ...organization }],
+      loading: false,
+      loaded: true,
+    })
+  ),
   on(OrganizationsActions.updateOrganizationList, (state, { organization }) => {
     var index = state.organizations.findIndex(
-      data => data._id === organization._id
+      (data) => data._id === organization._id
     );
     state.organizations.splice(index, 1, { ...organization });
     return {
       ...state,
       organizations: [...state.organizations],
       loading: false,
-      loaded: true
+      loaded: true,
     };
   }),
-  on(OrganizationsActions.clearState, state => ({
+  on(OrganizationsActions.clearState, (state) => ({
     ...state,
-    ...initialOrganizationsState
+    ...initialOrganizationsState,
   }))
 );
 

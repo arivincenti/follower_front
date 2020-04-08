@@ -3,9 +3,10 @@ import { Socket } from "ngx-socket-io";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { UserModel } from "src/app/models/user.model";
+import { takeUntil } from "rxjs/operators";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class WebsocketService {
   public socketStatus: boolean = false;
@@ -41,7 +42,7 @@ export class WebsocketService {
       let auth = JSON.parse(localStorage.getItem("auth"));
       this.user = auth.user;
     }
-    this.emit("config-client", this.user, res => {
+    this.emit("config-client", this.user, (res) => {
       console.log(res);
     });
   }
@@ -50,8 +51,4 @@ export class WebsocketService {
     this.user = null;
     this.emit("config-client", this.user);
   }
-
-  // usersInTicketRoom() {
-  //   return this.listen("users-room");
-  // }
 }

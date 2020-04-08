@@ -18,31 +18,13 @@ export class UserTicketsEffects {
   getTickets$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserTicketsActions.getTickets),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._ticketsService.getTickets(action.payload).pipe(
           map((data: any) =>
             UserTicketsActions.getTicketsSuccess({ payload: data.data })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(UserTicketsActions.getTicketsFail(error.error))
-          )
-        )
-      )
-    )
-  );
-
-  createTicket$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(UserTicketsActions.createTicket),
-      mergeMap(action =>
-        this._ticketsService.createTicket(action.payload).pipe(
-          map((data: any) => {
-            return UserTicketsActions.createTicketSuccess({
-              payload: data.data
-            });
-          }),
-          catchError(error =>
-            of(UserTicketsActions.createTicketFail(error.error))
           )
         )
       )

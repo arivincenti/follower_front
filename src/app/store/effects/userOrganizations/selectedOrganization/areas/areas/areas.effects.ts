@@ -20,42 +20,17 @@ export class AreasEffects {
   getAreas$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AreasActions.getAreas),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._areasService
           .getAreas(action.payload, action.since, action.size)
           .pipe(
             map((areas: any) =>
               AreasActions.getAreasSuccess({ payload: areas })
             ),
-            catchError(error =>
+            catchError((error) =>
               of(AreasActions.getAreasFail({ payload: error }))
             )
           )
-      )
-    )
-  );
-
-  createArea$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AreasActions.createArea),
-      mergeMap(action =>
-        this._areasService.createArea(action.payload).pipe(
-          map((area: any) => {
-            Swal.fire({
-              position: "top-end",
-              toast: true,
-              icon: "success",
-              title: "Genial!!",
-              text: "El área se creó con éxito",
-              showConfirmButton: false,
-              timer: 2700
-            });
-            return AreasActions.createAreaSuccess({ payload: area });
-          }),
-          catchError(error =>
-            of(AreasActions.createAreaFail({ payload: error }))
-          )
-        )
       )
     )
   );

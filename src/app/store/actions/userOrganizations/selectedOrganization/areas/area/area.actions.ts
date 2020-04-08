@@ -16,6 +16,21 @@ export const getAreaFail = createAction(
   props<{ payload: any }>()
 );
 
+export const createArea = createAction(
+  "[Area Actions] Create Area",
+  props<{ payload: any }>()
+);
+
+export const createAreaSuccess = createAction(
+  "[Area Actions] Create Area Success",
+  props<{ area: AreaModel }>()
+);
+
+export const createAreaFail = createAction(
+  "[Area Actions] Create Area Fail",
+  props<{ payload: any }>()
+);
+
 export const updateArea = createAction(
   "[Area Actions] Update Area",
   props<{ areaId: string; payload: any }>()
@@ -31,18 +46,33 @@ export const updateAreaFail = createAction(
   props<{ payload: any }>()
 );
 
-export const deleteArea = createAction(
-  "[Area Actions] Delete Area",
-  props<{ payload: any }>()
+export const activateArea = createAction(
+  "[Area Actions] Activate Area",
+  props<{ areaId: string; payload: any }>()
 );
 
-export const deleteAreaSuccess = createAction(
-  "[Area Actions] Delete Area Success",
+export const activateAreaSuccess = createAction(
+  "[Area Actions] Activate Area Success",
   props<{ payload: AreaModel }>()
 );
 
-export const deleteAreaFail = createAction(
-  "[Area Actions] Delete Area Fail",
+export const activateAreaFail = createAction(
+  "[Area Actions] Activate Area Fail",
+  props<{ payload: any }>()
+);
+
+export const desactivateArea = createAction(
+  "[Area Actions] Desactivate Area",
+  props<{ areaId: string; payload: any }>()
+);
+
+export const desactivateAreaSuccess = createAction(
+  "[Area Actions] Desactivate Area Success",
+  props<{ payload: AreaModel }>()
+);
+
+export const desactivateAreaFail = createAction(
+  "[Area Actions] Desactivate Area Fail",
   props<{ payload: any }>()
 );
 

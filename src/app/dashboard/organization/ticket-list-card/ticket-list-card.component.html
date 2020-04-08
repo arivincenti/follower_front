@@ -13,7 +13,7 @@
               {{ ticket.subject | titlecase }}
             </span>
           </h4>
-          <span class=" badge badge-ticket-status"
+          <span class="badge badge-ticket-status"
             [ngClass]="{'badge-danger': ticket.status === 'ABIERTO', 'badge-primary': ticket.status === 'PENDIENTE', 'badge-success': ticket.status === 'CERRADO'}"
             [matTooltip]="ticket.status " matTooltipPosition="above">
             {{ticket.status | slice:0:1}}

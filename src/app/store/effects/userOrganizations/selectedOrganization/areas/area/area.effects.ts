@@ -13,12 +13,26 @@ export class AreaEffects {
   getArea$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AreaActions.getArea),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._areasService.getArea(action.payload).pipe(
           map((area: AreaModel) =>
             AreaActions.getAreaSuccess({ payload: area })
           ),
-          catchError(error => of(AreaActions.getAreaFail({ payload: error })))
+          catchError((error) => of(AreaActions.getAreaFail({ payload: error })))
+        )
+      )
+    )
+  );
+
+  createArea$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AreaActions.createArea),
+      mergeMap((action) =>
+        this._areasService.createArea(action.payload).pipe(
+          map((area: any) => AreaActions.createAreaSuccess({ area })),
+          catchError((error) =>
+            of(AreaActions.createAreaFail({ payload: error }))
+          )
         )
       )
     )
@@ -27,10 +41,10 @@ export class AreaEffects {
   updateArea$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AreaActions.updateArea),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._areasService.updateArea(action.areaId, action.payload).pipe(
           map((area: any) => AreaActions.updateAreaSuccess({ payload: area })),
-          catchError(error =>
+          catchError((error) =>
             of(AreaActions.updateAreaFail({ payload: error }))
           )
         )
@@ -38,14 +52,32 @@ export class AreaEffects {
     )
   );
 
-  deleteArea$ = createEffect(() =>
+  activateArea$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AreaActions.deleteArea),
-      mergeMap(action =>
-        this._areasService.deleteArea(action.payload.area).pipe(
-          map((area: any) => AreaActions.deleteAreaSuccess({ payload: area })),
-          catchError(error =>
-            of(AreaActions.deleteAreaFail({ payload: error }))
+      ofType(AreaActions.activateArea),
+      mergeMap((action) =>
+        this._areasService.activateArea(action.areaId, action.payload).pipe(
+          map((area: any) =>
+            AreaActions.activateAreaSuccess({ payload: area })
+          ),
+          catchError((error) =>
+            of(AreaActions.activateAreaFail({ payload: error }))
+          )
+        )
+      )
+    )
+  );
+
+  desactivateArea$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AreaActions.desactivateArea),
+      mergeMap((action) =>
+        this._areasService.desactivateArea(action.areaId, action.payload).pipe(
+          map((area: any) =>
+            AreaActions.desactivateAreaSuccess({ payload: area })
+          ),
+          catchError((error) =>
+            of(AreaActions.desactivateAreaFail({ payload: error }))
           )
         )
       )
@@ -55,12 +87,12 @@ export class AreaEffects {
   createAreaMember$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AreaActions.createAreaMember),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._areasService.createAreaMember(action.payload).pipe(
           map((area: any) => {
             return AreaActions.createAreaMemberSuccess({ payload: area });
           }),
-          catchError(error =>
+          catchError((error) =>
             of(AreaActions.createAreaMemberFail({ payload: error }))
           )
         )
@@ -71,12 +103,12 @@ export class AreaEffects {
   deleteAreaMember$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AreaActions.deleteAreaMember),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._areasService.deleteAreaMember(action.payload).pipe(
           map((area: any) => {
             return AreaActions.deleteAreaMemberSuccess({ payload: area });
           }),
-          catchError(error =>
+          catchError((error) =>
             of(AreaActions.deleteAreaMemberFail({ payload: error }))
           )
         )
@@ -87,14 +119,14 @@ export class AreaEffects {
   setResponsibleAreaMember$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AreaActions.setResponsibleAreaMember),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._areasService.setResponsibleAreaMember(action.payload).pipe(
           map((area: any) => {
             return AreaActions.setResponsibleAreaMemberSuccess({
-              payload: area
+              payload: area,
             });
           }),
-          catchError(error =>
+          catchError((error) =>
             of(AreaActions.setResponsibleAreaMemberFail({ payload: error }))
           )
         )
@@ -103,6 +135,6 @@ export class AreaEffects {
   );
 
   clear$ = createEffect(() => this.actions$.pipe(ofType(AreaActions.clear)), {
-    dispatch: false
+    dispatch: false,
   });
 }

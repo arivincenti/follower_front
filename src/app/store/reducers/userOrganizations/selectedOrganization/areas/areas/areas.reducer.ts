@@ -13,61 +13,47 @@ export const InitialStateAreas = {
   areas: [],
   loading: false,
   loaded: false,
-  error: null
+  error: null,
 };
 
 export const areasReducer = createReducer(
   InitialStateAreas,
-  on(AreasActions.getAreas, state => ({
+  on(AreasActions.getAreas, (state) => ({
     ...state,
     areas: [],
     loading: true,
     loaded: false,
-    error: null
+    error: null,
   })),
   on(AreasActions.getAreasSuccess, (state, { payload }) => ({
     ...state,
     areas: [...payload],
     loading: false,
     loaded: true,
-    error: null
+    error: null,
   })),
   on(AreasActions.getAreasFail, (state, { payload }) => ({
     ...state,
     areas: [],
     loading: false,
     loaded: true,
-    error: { ...payload }
+    error: { ...payload },
   })),
-  on(AreasActions.createArea, state => ({
+  on(AreasActions.addCreatedAreaToList, (state, { area }) => ({
     ...state,
-    areas: [...state.areas],
-    loading: true,
-    loaded: false,
-    error: null
-  })),
-  on(AreasActions.createAreaSuccess, (state, { payload }) => ({
-    ...state,
-    areas: [...state.areas, { ...payload }],
+    areas: [...state.areas, { ...area }],
     loading: false,
-    loaded: true
-  })),
-  on(AreasActions.createAreaFail, (state, { payload }) => ({
-    ...state,
-    areas: [...state.areas],
-    loading: false,
-    loaded: false,
-    error: { ...payload }
+    loaded: true,
   })),
   on(AreasActions.updateAreasList, (state, { area }) => {
-    var index = state.areas.findIndex(data => data._id === area._id);
+    var index = state.areas.findIndex((data) => data._id === area._id);
     state.areas.splice(index, 1, { ...area });
 
     return {
       ...state,
       areas: [...state.areas],
       loading: false,
-      loaded: true
+      loaded: true,
     };
   })
 );

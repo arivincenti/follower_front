@@ -13,7 +13,7 @@ import { map } from "rxjs/operators";
 @Component({
   selector: "app-areas-list-card",
   templateUrl: "./areas-list-card.component.html",
-  styleUrls: ["./areas-list-card.component.css"]
+  styleUrls: ["./areas-list-card.component.css"],
 })
 export class AreasListCardComponent implements OnInit, OnDestroy {
   @Input() organization: OrganizationModel;
@@ -30,16 +30,17 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
-    this.animation$ = this.store.select(state => state.ui.animated);
+    this.animation$ = this.store.select((state) => state.ui.animated);
 
     this.areasLoading$ = this.store.select(
-      state => state.userOrganizations.selectedOrganization.areas.areas.loading
+      (state) =>
+        state.userOrganizations.selectedOrganization.areas.areas.loading
     );
 
     //Traigo todos los miembros de la organizacion y los filtro para que cada area tenga sus respectivos miembros
     this.members$ = this.store
       .select(
-        state =>
+        (state) =>
           state.userOrganizations.selectedOrganization.members.members.members
       )
       .pipe(
@@ -68,25 +69,29 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
     this.router.navigate([`${this.router.url}/area/`, area._id]);
   }
 
-  deleteArea(area: AreaModel) {
+  desactivateArea(area: AreaModel) {
     let payload = {
-      area: area._id,
+      area: area,
+      deleted_at: new Date(),
       organization: this.organization._id,
-      updated_by: this.user._id
+      updated_by: this.user._id,
     };
     //Make method to update deleted_at property from area
-    this.store.dispatch(AreaActions.deleteArea({ payload: payload }));
+    this.store.dispatch(
+      AreaActions.desactivateArea({ areaId: area._id, payload })
+    );
   }
 
   activateArea(area: AreaModel) {
     let payload = {
+      area: area,
       deleted_at: undefined,
       organization: this.organization._id,
-      updated_by: this.user._id
+      updated_by: this.user._id,
     };
 
     this.store.dispatch(
-      AreaActions.updateArea({ areaId: area._id, payload: payload })
+      AreaActions.activateArea({ areaId: area._id, payload })
     );
   }
 }

@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from "@ngrx/store";
-import * as TicketsActions from "../../../../../actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
+import * as TicketActions from "../../../../../actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
 import { TicketModel } from "src/app/models/ticketModel";
 
 export interface TicketState {
@@ -13,47 +13,66 @@ export const initialTicketState: TicketState = {
   ticket: null,
   loading: false,
   loaded: false,
-  error: null
+  error: null,
 };
 
 export const ticketReducer = createReducer(
   initialTicketState,
-  on(TicketsActions.getTicket, state => ({
+  on(TicketActions.getTicket, (state) => ({
     ...state,
     ticket: null,
     loading: true,
     loaded: false,
-    error: null
+    error: null,
   })),
-  on(TicketsActions.getTicketSuccess, (state, { payload }) => ({
+  on(TicketActions.getTicketSuccess, (state, { payload }) => ({
     ...state,
     ticket: { ...payload },
     loading: false,
-    loaded: true
+    loaded: true,
   })),
-  on(TicketsActions.getTicketFail, (state, { payload }) => ({
+  on(TicketActions.getTicketFail, (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: false,
-    error: { payload }
+    error: { payload },
   })),
-  on(TicketsActions.updateTicket, state => ({
+  on(TicketActions.createTicket, (state) => ({
     ...state,
     loading: true,
     loaded: false,
-    error: null
+    error: null,
   })),
-  on(TicketsActions.updateTicketSuccess, (state, { payload }) => ({
+  on(TicketActions.createTicketSuccess, (state, { ticket }) => ({
+    ...state,
+    ticket: { ...ticket },
+    loading: false,
+    loaded: true,
+  })),
+  on(TicketActions.createTicketFail, (state, { payload }) => ({
+    ...state,
+    ticket: { ...state.ticket },
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+  on(TicketActions.updateTicket, (state) => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(TicketActions.updateTicketSuccess, (state, { payload }) => ({
     ...state,
     ticket: { ...payload },
     loading: false,
-    loaded: true
+    loaded: true,
   })),
-  on(TicketsActions.updateTicketFail, (state, { payload }) => ({
+  on(TicketActions.updateTicketFail, (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: false,
-    error: { payload }
+    error: { payload },
   }))
 );
 

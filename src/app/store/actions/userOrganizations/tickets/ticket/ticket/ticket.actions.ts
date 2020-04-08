@@ -16,6 +16,21 @@ export const getTicketFail = createAction(
   props<{ payload: any }>()
 );
 
+export const createTicket = createAction(
+  "[Ticket Actions] Create Ticket",
+  props<{ payload: any }>()
+);
+
+export const createTicketSuccess = createAction(
+  "[Ticket Actions] Create Ticket Success",
+  props<{ ticket: TicketModel }>()
+);
+
+export const createTicketFail = createAction(
+  "[Ticket Actions] Create Ticket Fail",
+  props<{ payload: any }>()
+);
+
 export const updateTicket = createAction(
   "[Ticket Actions] Update Ticket",
   props<{ payload: any }>()

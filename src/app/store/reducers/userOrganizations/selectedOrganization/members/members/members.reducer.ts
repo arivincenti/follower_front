@@ -13,47 +13,47 @@ export const InitialStateMembers = {
   members: [],
   loading: false,
   loaded: false,
-  error: null
+  error: null,
 };
 
 export const membersReducer = createReducer(
   InitialStateMembers,
-  on(MembersActions.getMembers, state => ({
+  on(MembersActions.getMembers, (state) => ({
     ...state,
     members: [],
     loading: true,
     loaded: false,
-    error: null
+    error: null,
   })),
   on(MembersActions.getMembersSuccess, (state, { payload }) => ({
     ...state,
     members: [...payload],
     loading: false,
     loaded: true,
-    error: null
+    error: null,
   })),
   on(MembersActions.getMembersFail, (state, { payload }) => ({
     ...state,
     members: [],
     loading: false,
     loaded: false,
-    error: { ...payload }
+    error: { ...payload },
   })),
-  on(MembersActions.AddCreatedMemberToList, (state, { member }) => ({
+  on(MembersActions.addCreatedMemberToList, (state, { member }) => ({
     ...state,
     members: [...state.members, { ...member }],
     loading: false,
     loaded: false,
-    error: null
+    error: null,
   })),
   on(MembersActions.updateMemberList, (state, { member }) => {
-    var index = state.members.findIndex(data => data._id === member._id);
+    var index = state.members.findIndex((data) => data._id === member._id);
     state.members.splice(index, 1, { ...member });
     return {
       ...state,
       members: [...state.members],
       loading: false,
-      loaded: true
+      loaded: true,
     };
   })
 );

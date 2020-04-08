@@ -106,6 +106,26 @@ $orange-theme: mat-light-theme($orange-primary, $orange-accent, $orange-warn);
     color: white;
   }
 
+  .badge-notification-success {
+    background-color: #aed581;
+    color: white;
+  }
+
+  .badge-notification-primary {
+    background-color: #b0bec5;
+    color: white;
+  }
+
+  .badge-notification-warn {
+    background-color: #ffd54f;
+    color: white;
+  }
+
+  .badge-notification-danger {
+    background-color: #ff8a80;
+    color: white;
+  }
+
   .background-section {
     box-sizing: content-box;
     padding: 22px;

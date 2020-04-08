@@ -4,10 +4,7 @@ import { UserModel } from "src/app/models/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { getOrganizations } from "../../../store/actions/userOrganizations/organizations/organizations.actions";
-import {
-  getTickets,
-  createTicketSuccess
-} from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
+import { getTickets } from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { OrganizationFormComponent } from "../../../shared/forms/organization-form/organization-form.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -15,11 +12,12 @@ import { takeUntil, map } from "rxjs/operators";
 import { TicketModel } from "src/app/models/ticketModel";
 import { TicketFormComponent } from "../../../shared/forms/ticket-form/ticket-form.component";
 import { WebsocketService } from "src/app/services/websocket/websocket.service";
+import { createTicketSuccess } from "src/app/store/actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
 
 @Component({
   selector: "app-organization",
   templateUrl: "./organization.component.html",
-  styleUrls: ["./organization.component.css"]
+  styleUrls: ["./organization.component.css"],
 })
 export class OrganizationComponent implements OnInit, OnDestroy {
   private unsuscribe$ = new Subject();
@@ -45,7 +43,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.animation$ = this.store.select(state => state.ui.animated);
+    this.animation$ = this.store.select((state) => state.ui.animated);
 
     var auth = JSON.parse(localStorage.getItem("auth"));
     this.user = auth.user;
@@ -58,28 +56,28 @@ export class OrganizationComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe((ticket: TicketModel) => {
         if (ticket.created_by._id !== this.user._id) {
-          this.store.dispatch(createTicketSuccess({ payload: ticket }));
+          this.store.dispatch(createTicketSuccess({ ticket }));
         }
       });
 
     //Observamos los cambios en los loaders de las organizaciones
     this.organizationsLoading$ = this.store.select(
-      state => state.userOrganizations.organizations.loading
+      (state) => state.userOrganizations.organizations.loading
     );
 
     //Seleccionamos las organizaciones cuando hay cambios en el store
     this.organizations$ = this.store.select(
-      state => state.userOrganizations.organizations.organizations
+      (state) => state.userOrganizations.organizations.organizations
     );
 
     //Observamos los cambios en los loaders de los tickets
     this.ticketsLoading$ = this.store.select(
-      state => state.userOrganizations.tickets.userTickets.loading
+      (state) => state.userOrganizations.tickets.userTickets.loading
     );
 
     //Seleccionamos los tickets cuando cuando hay cambios en el store
     this.tickets$ = this.store.select(
-      state => state.userOrganizations.tickets.userTickets.tickets
+      (state) => state.userOrganizations.tickets.userTickets.tickets
     );
   }
 
@@ -88,8 +86,8 @@ export class OrganizationComponent implements OnInit, OnDestroy {
       width: "600px",
       data: {
         organization: null,
-        user: this.user
-      }
+        user: this.user,
+      },
     });
   }
 
@@ -98,8 +96,8 @@ export class OrganizationComponent implements OnInit, OnDestroy {
       panelClass: ["ticket-dialog"],
       data: {
         organization: null,
-        user: this.user
-      }
+        user: this.user,
+      },
     });
   }
 

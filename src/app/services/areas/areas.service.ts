@@ -6,7 +6,7 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { UserModel } from "src/app/models/user.model";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class AreasService {
   constructor(private http: HttpClient) {}
@@ -24,7 +24,7 @@ export class AreasService {
         `${environment.path}/areas/organization/${organization._id}?since=${since}&size=${size}`
       )
       .pipe(
-        map(data => {
+        map((data) => {
           return data["data"];
         })
       );
@@ -35,7 +35,7 @@ export class AreasService {
   // ==================================================
   getAreasByUser(user: UserModel) {
     return this.http.get(`${environment.path}/areas/user/${user._id}`).pipe(
-      map(data => {
+      map((data) => {
         return data["data"];
       })
     );
@@ -48,7 +48,7 @@ export class AreasService {
     return this.http
       .get(`${environment.path}/areas/${areaId}/responsibleMembers`)
       .pipe(
-        map(data => {
+        map((data) => {
           return data["data"];
         })
       );
@@ -59,7 +59,7 @@ export class AreasService {
   // ==================================================
   getArea(areaId: string) {
     return this.http.get(`${environment.path}/areas/${areaId}`).pipe(
-      map(data => {
+      map((data) => {
         return data["data"];
       })
     );
@@ -70,7 +70,7 @@ export class AreasService {
   // ==================================================
   createArea(payload: any) {
     return this.http.post(`${environment.path}/areas`, payload).pipe(
-      map(data => {
+      map((data) => {
         return data["data"];
       })
     );
@@ -81,7 +81,7 @@ export class AreasService {
   // ==================================================
   updateArea(areaId: string, payload: any) {
     return this.http.put(`${environment.path}/areas/${areaId}`, payload).pipe(
-      map(data => {
+      map((data) => {
         return data["data"];
       })
     );
@@ -90,12 +90,27 @@ export class AreasService {
   // ==================================================
   // Delete an area
   // ==================================================
-  deleteArea(payload: any) {
-    return this.http.delete(`${environment.path}/areas/${payload}`).pipe(
-      map(data => {
-        return data["data"];
-      })
-    );
+  activateArea(area: string, payload: any) {
+    return this.http
+      .patch(`${environment.path}/areas/activate_area/${area}`, payload)
+      .pipe(
+        map((data) => {
+          return data["data"];
+        })
+      );
+  }
+
+  // ==================================================
+  // Delete an area
+  // ==================================================
+  desactivateArea(area: string, payload: any) {
+    return this.http
+      .patch(`${environment.path}/areas/desactivate_area/${area}`, payload)
+      .pipe(
+        map((data) => {
+          return data["data"];
+        })
+      );
   }
 
   // ==================================================
@@ -103,7 +118,7 @@ export class AreasService {
   // ==================================================
   getAreaMembers(areaId: string) {
     return this.http.get(`${environment.path}/areas/${areaId}/members`).pipe(
-      map(data => {
+      map((data) => {
         return data["data"];
       })
     );
@@ -115,7 +130,7 @@ export class AreasService {
   createAreaMember(payload: any) {
     return this.http
       .post(`${environment.path}/areas/create_member`, payload)
-      .pipe(map(data => data["data"]));
+      .pipe(map((data) => data["data"]));
   }
 
   // ==================================================
@@ -128,7 +143,7 @@ export class AreasService {
         payload
       )
       .pipe(
-        map(data => {
+        map((data) => {
           return data["data"];
         })
       );
@@ -144,7 +159,7 @@ export class AreasService {
         payload
       )
       .pipe(
-        map(data => {
+        map((data) => {
           return data["data"];
         })
       );

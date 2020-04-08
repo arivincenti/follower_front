@@ -9,12 +9,12 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { AreaModel } from "src/app/models/area.model";
 import { AreasService } from "src/app/services/areas/areas.service";
 import { map } from "rxjs/operators";
-import * as UserTicketsActions from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
+import * as TicketActions from "../../../store/actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
 
 @Component({
   selector: "app-ticket-form",
   templateUrl: "./ticket-form.component.html",
-  styleUrls: ["./ticket-form.component.css"]
+  styleUrls: ["./ticket-form.component.css"],
 })
 export class TicketFormComponent implements OnInit {
   form: FormGroup;
@@ -32,7 +32,7 @@ export class TicketFormComponent implements OnInit {
 
   ngOnInit() {
     this.organizations$ = this.store.select(
-      state => state.userOrganizations.organizations.organizations
+      (state) => state.userOrganizations.organizations.organizations
     );
 
     //FORM
@@ -41,7 +41,7 @@ export class TicketFormComponent implements OnInit {
       area: new FormControl(null, Validators.required),
       subject: new FormControl(null, Validators.required),
       issue: new FormControl(null, Validators.required),
-      priority: new FormControl(null, Validators.required)
+      priority: new FormControl(null, Validators.required),
     });
   }
 
@@ -49,7 +49,7 @@ export class TicketFormComponent implements OnInit {
     this.areasLoading = true;
     let organization = this.form.controls["organization"].value;
     this.areas$ = this._areasService.getAreas(organization).pipe(
-      map(areas => {
+      map((areas) => {
         this.areasLoading = false;
         return areas;
       })
@@ -62,10 +62,10 @@ export class TicketFormComponent implements OnInit {
       subject: this.form.controls["subject"].value,
       issue: this.form.controls["issue"].value,
       created_by: this.data.user,
-      priority: this.form.controls["priority"].value
+      priority: this.form.controls["priority"].value,
     };
 
-    this.store.dispatch(UserTicketsActions.createTicket({ payload: ticket }));
+    this.store.dispatch(TicketActions.createTicket({ payload: ticket }));
     this.dialogRef.close();
   }
 }

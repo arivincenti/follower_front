@@ -13,60 +13,48 @@ export const initialUserTicketsState: UserTicketsState = {
   tickets: [],
   loading: false,
   loaded: false,
-  error: null
+  error: null,
 };
 
 export const userTicketsReducer = createReducer(
   initialUserTicketsState,
-  on(UserTicketsActions.getTickets, state => ({
+  on(UserTicketsActions.getTickets, (state) => ({
     ...state,
     tickets: [],
     loading: true,
     loaded: false,
-    error: null
+    error: null,
   })),
   on(UserTicketsActions.getTicketsSuccess, (state, { payload }) => ({
     ...state,
     tickets: [...payload],
     loading: false,
-    loaded: true
+    loaded: true,
   })),
   on(UserTicketsActions.getTicketsFail, (state, { payload }) => ({
     ...state,
     tickets: [],
     loading: false,
     loaded: false,
-    error: { payload }
+    error: { payload },
   })),
-  on(UserTicketsActions.createTicket, state => ({
+  on(UserTicketsActions.addCreatedTicketToList, (state, { ticket }) => ({
     ...state,
-    loading: true,
-    loaded: false,
-    error: null
-  })),
-  on(UserTicketsActions.createTicketSuccess, (state, { payload }) => ({
-    ...state,
-    tickets: [...state.tickets, { ...payload }],
+    tickets: [...state.tickets, { ...ticket }],
     loading: false,
-    loaded: true
+    loaded: true,
+    error: null,
   })),
   on(UserTicketsActions.updateTicketList, (state, { payload }) => {
-    var index = state.tickets.findIndex(data => data._id === payload._id);
+    var index = state.tickets.findIndex((data) => data._id === payload._id);
     state.tickets.splice(index, 1, { ...payload });
     return {
       ...state,
       tickets: [...state.tickets],
       loading: false,
-      loaded: true
+      loaded: true,
     };
-  }),
-  on(UserTicketsActions.createTicketFail, (state, { payload }) => ({
-    ...state,
-    tickets: [],
-    loading: false,
-    loaded: false,
-    error: { payload }
-  }))
+  })
 );
 
 export function UserTicketsReducer(
