@@ -24,6 +24,12 @@ import { UsersService } from "../services/users/users.service";
 import { TicketModel } from "../models/ticketModel";
 import { OrganizationModel } from "../models/organization.model";
 import { getTickets } from "../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
+import { getOrganizations } from "../store/actions/userOrganizations/organizations/organizations.actions";
+import { notifications } from "../store/selectors/userOrganizations/notifications/notification.selector";
+import { organizations } from "../store/selectors/userOrganizations/organizations/organizations.selector";
+import { userTickets } from "../store/selectors/userOrganizations/tickets/tickets.selector";
+import { user } from "../store/selectors/auth/auth.selector";
+import { theme } from "../store/selectors/ui/ui.selector";
 
 @Component({
   selector: "app-dashboard",
@@ -32,9 +38,10 @@ import { getTickets } from "../store/actions/userOrganizations/tickets/userTicke
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private unsuscribe$ = new Subject();
-  private auth: any;
 
+  auth: any;
   user$: Observable<UserModel>;
+  user: UserModel;
   unreadNotifications$: Observable<NotificationModel[]>;
   theme$: Observable<string>;
 
@@ -62,68 +69,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar,
     private breakpointObserver: BreakpointObserver
   ) {
-    this.theme$ = this.store.select((state) => state.ui.theme);
-
-    this.listenMemberCreated();
-    this.listenMemberDeleted();
-    this.listenCreateSocket();
-    this.listenUpdateSocket();
-
-    //Obtenemos el usuario desde el localstorage
     this.auth = JSON.parse(localStorage.getItem("auth"));
-    this.user$ = this.store.select((state) => state.auth.user);
+    this.user = this.auth.user;
+    this.user$ = this.store.select(user);
+    this.theme$ = this.store.select(theme);
+
+    this.store.dispatch(getOrganizations({ payload: this.user._id }));
+    this.store.dispatch(getTickets({ payload: this.user }));
 
     //Restablecemos la configuracion del cliente en socket para no perder la instancia
     this._wsService.cargarStorage();
 
     //Obtenemos todas las notificaciones del usuario
-    this.store.dispatch(
-      getNotifications({
-        payload: this.auth.user,
-      })
-    );
+    this.store.dispatch(getNotifications({ payload: this.user }));
 
-    this.organizations$ = this.store.select(
-      (state) => state.userOrganizations.organizations.organizations
-    );
+    this.organizations$ = this.store.select(organizations);
+    this.tickets$ = this.store.select(userTickets);
+    this.unreadNotifications$ = this.store.select(notifications);
 
-    this.areas$ = this.store.select(
-      (state) => state.userOrganizations.selectedOrganization.areas.areas.areas
-    );
-
-    this.tickets$ = this.store.select(
-      (state) => state.userOrganizations.tickets.userTickets.tickets
-    );
-
-    //Cargamos las notificaciones no leidas
-    this.unreadNotifications$ = this.store
-      .select((state) => state.userOrganizations.notifications.notifications)
-      .pipe(
-        map((notifications: NotificationModel[]) => {
-          var unreadNotifications = [];
-          notifications.forEach((notification) => {
-            if (
-              !notification.readed_by.find(
-                (user) => user === this.auth.user._id
-              )
-            ) {
-              unreadNotifications.push(notification);
-            }
-          });
-          return unreadNotifications;
-        })
-      );
-
-    // Nos unimos a todas las salas de organizaciones
     this.joinAllOrganizations();
-
-    // Nos unimos a todas las salas de áreas
     this.joinAllAreas();
-
-    //Nos unimos a todos nuestros tickets......
     this.joinAllTickets();
 
-    //Escuchamos el mensaje de que una nueva notificacion se creó
+    this.listenMemberCreated();
+    this.listenMemberDeleted();
+    this.listenCreateSocket();
+    this.listenUpdateSocket();
     this.listenNewNotifications();
   }
 
@@ -136,7 +107,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this._wsService.emit("leave-all-organizations", this.organizations);
     this._wsService.emit("leave-all-areas", this.areas);
     this._wsService.emit("leave-all-tickets", this.tickets);
-
     this.store.dispatch(logout());
   }
 
@@ -157,7 +127,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // ==================================================
   joinAllAreas() {
     this._areasService
-      .getAreasByUser(this.auth.user)
+      .getAreasByUser(this.user)
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe((areas) => {
         this.areas = areas;
@@ -273,7 +243,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           },
         });
 
-        if (notification.created_by._id !== this.auth.user._id) {
+        if (notification.created_by._id !== this.user._id) {
           this.store.dispatch(
             addNotification({
               payload: notification,
@@ -299,7 +269,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe((payload: any) => {
         switch (payload.objectType) {
           case "area":
-            this.store.dispatch(getTickets({ payload: this.auth.user }));
+            this.store.dispatch(getTickets({ payload: this.user }));
             this.store.dispatch(updateAreasList({ area: payload.object }));
             this.store.dispatch(updateAreaSuccess({ payload: payload.object }));
             this._wsService.emit("leave-area", payload.object._id);
@@ -318,10 +288,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe((payload: any) => {
         switch (payload.objectType) {
           case "area":
-            this.store.dispatch(getTickets({ payload: this.auth.user }));
+            this.store.dispatch(getTickets({ payload: this.user }));
             this.store.dispatch(updateAreasList({ area: payload.object }));
             this.store.dispatch(updateAreaSuccess({ payload: payload.object }));
             this._wsService.emit("join-area", payload.object._id);
+            break;
+          case "member":
+            this.store.dispatch(getOrganizations({ payload: this.user._id }));
+            this._wsService.emit("join-orgnanization", payload.object._id);
             break;
         }
       });

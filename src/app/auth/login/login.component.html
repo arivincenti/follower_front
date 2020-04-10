@@ -1,50 +1,37 @@
-<div class="container">
-  <div class="row d-flex align-items-center justify-content-center">
-    <div class="col-md-12 d-flex justify-content-center">
-      <img src="assets/img/ubicacion2.png" alt="">
+<div class="contenedor">
+  <div class="section-form">
+    <div class="section-form-brand">
+      <span>Follower</span>
     </div>
-    <div class="col-md-12 d-flex justify-content-center">
-      <h4>¡Bienvenido a Follower!</h4>
-    </div>
-    <div class="form-container">
-      <div class="col-md-12 d-flex align-items-center justify-content-center">
-        <form #f="ngForm" (ngSubmit)="login(f)">
-          <div class="form-group">
-            <label class="label">Correo electrónico</label>
-            <input class="form-control" [disabled]="cargando" type="email" placeholder="Email" ngModel name="email"
-              placeholder="" autocomplete="off" required>
-          </div>
-          <div class="form-group" class="mb-4">
-            <label class="label">Constraseña</label>
-            <input class="form-control" [disabled]="cargando" type="password" placeholder="" ngModel name="password"
-              required>
-            <div class="col-md-12 d-flex justify-content-end mt-1 foot">
-              <span class="text-small">
-                <a class="text-info text-small">¿Olvidaste tu contraseña?</a>
-              </span>
-            </div>
-          </div>
-          <button *ngIf="!cargando" mat-flat-button color="primary" class="btn-block"
-            [disabled]="!f.valid">Acceder</button>
-        </form>
-      </div>
-      <div class="col-md-12 d-flex justify-content-center">
-        <mat-progress-spinner *ngIf="cargando" diameter="40" mode="indeterminate"></mat-progress-spinner>
-      </div>
-      <div class="col-md-12 d-flex justify-content-center mt-4 foot">
-        <span class="text-small">
-          <b class="text-muted mr-2">¿Aún no tenés cuenta? </b>
-          <a routerLink="/register" class="text-info text-small">¡Registrate ahora!</a>
-        </span>
-      </div>
-      <div class="col-md-12 d-flex justify-content-center mt-4 foot">
-        <span class="text-small">
-          <a routerLink="/web" class="warning text-small">Ir a la web de Follower</a>
-        </span>
-      </div>
+    <div class="section-form-content background-primary">
+
+      <form class="form" [formGroup]="form" (ngSubmit)="login()">
+
+        <mat-form-field>
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput type="text" formControlName="email" name="email" autocomplete="off">
+          <mat-error *ngIf="form.controls['email'].invalid">
+            Debe ingresar un correo electrónico válido.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="password" name="password" autocomplete="off">
+          <mat-error *ngIf="form.controls['password'].invalid">
+            Debe ingresar una contraseña.
+          </mat-error>
+        </mat-form-field>
+
+        <div class="recover-pass">
+          <a>¿Olvidaste tu contraseña?</a>
+        </div>
+        <div class="button">
+          <button *ngIf="!(logingIn$ | async)" mat-flat-button color="warn">Iniciar sesión</button>
+          <mat-spinner *ngIf="logingIn$ | async" diameter="35" color="warn"></mat-spinner>
+        </div>
+      </form>
+
     </div>
   </div>
-</div>
-<div class="fixed-bottom footer d-flex justify-content-center align-items-center">
-  <p>Follower 2020 - Beta</p>
 </div>

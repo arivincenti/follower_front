@@ -18,9 +18,9 @@ import { UpdatedNotificationComponent } from "../shared/snackbar/updated-notific
     ReactiveFormsModule,
     SharedModule,
     AngularMaterialModule,
-    PipesModule
+    PipesModule,
   ],
   providers: [LoginGuard],
-  entryComponents: [UpdatedNotificationComponent]
+  entryComponents: [UpdatedNotificationComponent],
 })
 export class DashboardModule {}

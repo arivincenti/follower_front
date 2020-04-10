@@ -1,18 +1,24 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Observable } from "rxjs";
 import { UserModel } from "src/app/models/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import { getOrganizations } from "../../../store/actions/userOrganizations/organizations/organizations.actions";
-import { getTickets } from "../../../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { OrganizationFormComponent } from "../../../shared/forms/organization-form/organization-form.component";
 import { MatDialog } from "@angular/material/dialog";
-import { takeUntil, map } from "rxjs/operators";
 import { TicketModel } from "src/app/models/ticketModel";
 import { TicketFormComponent } from "../../../shared/forms/ticket-form/ticket-form.component";
-import { WebsocketService } from "src/app/services/websocket/websocket.service";
-import { createTicketSuccess } from "src/app/store/actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
+import {
+  organizations,
+  organizationsLoading,
+} from "src/app/store/selectors/userOrganizations/organizations/organizations.selector";
+import {
+  userTickets,
+  userTicketsLoading,
+} from "src/app/store/selectors/userOrganizations/tickets/tickets.selector";
+import { user } from "src/app/store/selectors/auth/auth.selector";
+import { map } from "rxjs/operators";
+import { animation } from "src/app/store/selectors/ui/ui.selector";
 
 @Component({
   selector: "app-organization",
@@ -20,13 +26,14 @@ import { createTicketSuccess } from "src/app/store/actions/userOrganizations/tic
   styleUrls: ["./organization.component.css"],
 })
 export class OrganizationComponent implements OnInit, OnDestroy {
-  private unsuscribe$ = new Subject();
   organizations$: Observable<OrganizationModel[]>;
   organizationsLoading$: Observable<boolean>;
 
   tickets$: Observable<TicketModel[]>;
   ticketsLoading$: Observable<boolean>;
+  user$: Observable<UserModel>;
   user: UserModel;
+  auth: any;
 
   searchTicket: string = "";
   searchOrganization: string = "";
@@ -34,51 +41,18 @@ export class OrganizationComponent implements OnInit, OnDestroy {
   //UI Observable
   animation$: Observable<string[]>;
 
-  //Chart
-
-  constructor(
-    private store: Store<AppState>,
-    private dialog: MatDialog,
-    private _wsService: WebsocketService
-  ) {}
+  constructor(private store: Store<AppState>, private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.animation$ = this.store.select((state) => state.ui.animated);
+    this.auth = JSON.parse(localStorage.getItem("auth"));
+    this.user = this.auth.user;
 
-    var auth = JSON.parse(localStorage.getItem("auth"));
-    this.user = auth.user;
-
-    this.store.dispatch(getOrganizations({ payload: this.user._id }));
-    this.store.dispatch(getTickets({ payload: this.user }));
-
-    this._wsService
-      .listen("new-ticket")
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((ticket: TicketModel) => {
-        if (ticket.created_by._id !== this.user._id) {
-          this.store.dispatch(createTicketSuccess({ ticket }));
-        }
-      });
-
-    //Observamos los cambios en los loaders de las organizaciones
-    this.organizationsLoading$ = this.store.select(
-      (state) => state.userOrganizations.organizations.loading
-    );
-
-    //Seleccionamos las organizaciones cuando hay cambios en el store
-    this.organizations$ = this.store.select(
-      (state) => state.userOrganizations.organizations.organizations
-    );
-
-    //Observamos los cambios en los loaders de los tickets
-    this.ticketsLoading$ = this.store.select(
-      (state) => state.userOrganizations.tickets.userTickets.loading
-    );
-
-    //Seleccionamos los tickets cuando cuando hay cambios en el store
-    this.tickets$ = this.store.select(
-      (state) => state.userOrganizations.tickets.userTickets.tickets
-    );
+    this.animation$ = this.store.select(animation);
+    this.user$ = this.store.select(user);
+    this.organizationsLoading$ = this.store.select(organizationsLoading);
+    this.organizations$ = this.store.select(organizations);
+    this.ticketsLoading$ = this.store.select(userTicketsLoading);
+    this.tickets$ = this.store.select(userTickets);
   }
 
   createOrganization(): void {
@@ -101,9 +75,5 @@ export class OrganizationComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    //Nos desuscribimos de los observables
-    this.unsuscribe$.next();
-    this.unsuscribe$.complete();
-  }
+  ngOnDestroy() {}
 }

@@ -10,7 +10,7 @@ import { AppState } from "src/app/store/app.reducer";
 @Component({
   selector: "app-organization-list-card",
   templateUrl: "./organization-list-card.component.html",
-  styleUrls: ["./organization-list-card.component.css"]
+  styleUrls: ["./organization-list-card.component.css"],
 })
 export class OrganizationListCardComponent implements OnInit, OnDestroy {
   @Input() organization: OrganizationModel;
@@ -21,7 +21,7 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.animation$ = this.store.select(state => state.ui.animated);
+    this.animation$ = this.store.select((state) => state.ui.animated);
   }
 
   ngOnDestroy() {}
@@ -34,11 +34,11 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy {
     var payload = {
       organization: organization,
       deleted_at: new Date(),
-      updated_by: this.user
+      updated_by: this.user,
     };
     this.store.dispatch(
       OrganizationActions.desactivateOrganization({
-        payload
+        payload,
       })
     );
   }
@@ -47,12 +47,12 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy {
     var payload = {
       organization: organization,
       deleted_at: undefined,
-      updated_by: this.user
+      updated_by: this.user,
     };
 
     this.store.dispatch(
       OrganizationActions.activateOrganization({
-        payload
+        payload,
       })
     );
   }

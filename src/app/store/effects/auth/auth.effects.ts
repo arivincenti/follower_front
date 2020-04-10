@@ -5,24 +5,30 @@ import * as AuthActions from "../../actions/auth/auth.actions";
 import { mergeMap, map, catchError, tap } from "rxjs/operators";
 import { of } from "rxjs";
 import { UsersService } from "src/app/services/users/users.service";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions$: Actions,
     private _authService: AuthService,
-    private _userService: UsersService
+    private _userService: UsersService,
+    private router: Router
   ) {}
 
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.login),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._authService.login(action.credentials).pipe(
-          map((data: any) =>
-            AuthActions.loginSuccess({ user: data.data, token: data.token })
-          ),
-          catchError(error => {
+          map((data: any) => {
+            this.router.navigate(["app/organizations"]);
+            return AuthActions.loginSuccess({
+              user: data.data,
+              token: data.token,
+            });
+          }),
+          catchError((error) => {
             return of(AuthActions.loginFail({ payload: error.error }));
           })
         )
@@ -33,10 +39,10 @@ export class AuthEffects {
   updateUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.updateUser),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._userService.updateUser(action.payload).pipe(
           map((user: any) => AuthActions.updateUserSuccess({ user })),
-          catchError(error => {
+          catchError((error) => {
             return of(AuthActions.updateUserFail({ payload: error.error }));
           })
         )

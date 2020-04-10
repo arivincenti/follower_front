@@ -1,9 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Socket } from "ngx-socket-io";
-import { Store } from "@ngrx/store";
-import { AppState } from "src/app/store/app.reducer";
 import { UserModel } from "src/app/models/user.model";
-import { takeUntil } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -12,7 +9,7 @@ export class WebsocketService {
   public socketStatus: boolean = false;
   public user: UserModel = null;
 
-  constructor(private socket: Socket, private store: Store<AppState>) {
+  constructor(private socket: Socket) {
     this.checkStatus();
   }
 

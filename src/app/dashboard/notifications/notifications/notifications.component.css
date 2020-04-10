@@ -8,6 +8,7 @@ button {
   grid-template-rows: auto auto auto auto auto;
   gap: 25px;
   margin-bottom: 20px;
+  margin-top: 35px;
 }
 
 .contenedor .mensaje {
