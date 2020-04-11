@@ -1,5 +1,5 @@
 <div class="contenedor">
-  <div class="animated" *ngIf="!tickets.length">
+  <div *ngIf="!tickets.length">
     <span class="empty-message">No se encontraron tickets que puedan interesarte, prueba con generar uno y dale
       seguimiento!</span>
   </div>
@@ -7,7 +7,7 @@
   <ng-container *ngIf="tickets.length">
 
     <div class="list-card" *ngFor="let ticket of tickets |  paginator:since:until">
-      <div class="list-card-card animated fadeIn">
+      <div class="list-card-card">
         <app-ticket-list-card [ticket]="ticket" [user]="user">
         </app-ticket-list-card>
       </div>

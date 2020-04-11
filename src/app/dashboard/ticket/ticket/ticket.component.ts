@@ -12,8 +12,6 @@ import { map, filter, takeUntil } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
 import { CommentModel } from "src/app/models/commentModel";
 import { CommentsService } from "src/app/services/comments/comments.service";
-import { WebsocketService } from "src/app/services/websocket/websocket.service";
-import { NotificationsService } from "src/app/services/notifications/notifications.service";
 
 @Component({
   selector: "app-ticket",
@@ -51,9 +49,6 @@ export class TicketComponent implements OnInit, OnDestroy {
   comments$: Observable<CommentModel[]>;
   commentsLoading$: Observable<boolean>;
 
-  //UI Observable
-  animation$: Observable<string[]>;
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
@@ -62,7 +57,6 @@ export class TicketComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     //Cargamos las animaciones y obtenemos el ID que viene por la URL
-    this.animation$ = this.store.select((state) => state.ui.animated);
     this.param = this.activatedRoute.snapshot.paramMap.get("id");
 
     //Aca escuchamos cuando alguien crea un nuevo comentario

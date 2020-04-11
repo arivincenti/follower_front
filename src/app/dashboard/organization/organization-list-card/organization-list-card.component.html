@@ -1,47 +1,45 @@
-<ng-container *ngIf="animation$ | async as animation">
-  <div class="contenedor">
-    <!-- Header section -->
-    <div class="header-section">
-      <!-- Header section title -->
-      <div class="header-section-title">
-        <h4 class="header-section-title-title">
-          <span *ngIf="organization.created_by._id === user._id">
-            <mat-icon class="icon-header warning">star</mat-icon>
-          </span>
-          <span *ngIf="organization.created_by._id !== user._id">
-            <mat-icon class="icon-header primary">account_circle</mat-icon>
-          </span>
-          <span [ngClass]="{'deleted': organization.deleted_at}" [matTooltip]="organization.name"
-            matTooltipPosition="right">
-            {{organization.name | titlecase}}
-          </span>
-        </h4>
-        <span class="header-section-title-subtitle">
-          Creada {{organization.created_at | time}}
+<div class="contenedor animated fadeIn">
+  <!-- Header section -->
+  <div class="header-section">
+    <!-- Header section title -->
+    <div class="header-section-title">
+      <h4 class="header-section-title-title">
+        <span *ngIf="organization.created_by._id === user._id">
+          <mat-icon class="icon-header warning">star</mat-icon>
         </span>
-      </div>
-      <!-- header section title end -->
-      <!-- header section buttons -->
-      <div class="header-section-buttons">
-        <button class="button" mat-icon-button (click)="selectOrganization(organization)">
-          <mat-icon matTooltip="Ingresar a la organización" matTooltipPosition="above" class="button-icon">meeting_room
-          </mat-icon>
-        </button>
-
-        <button class="button" mat-icon-button *ngIf="!organization.deleted_at"
-          (click)="desactivateOrganization(organization)">
-          <mat-icon matTooltip="Desactivar" matTooltipPosition="above" class="button-toggle success">toggle_on
-          </mat-icon>
-        </button>
-
-        <button class="button" mat-icon-button *ngIf="organization.deleted_at"
-          (click)="activateOrganization(organization)">
-          <mat-icon matTooltip="Activar" matTooltipPosition="above" class="button-toggle danger">toggle_off
-          </mat-icon>
-        </button>
-      </div>
-      <!-- header section buttons end -->
+        <span *ngIf="organization.created_by._id !== user._id">
+          <mat-icon class="icon-header primary">account_circle</mat-icon>
+        </span>
+        <span [ngClass]="{'deleted': organization.deleted_at}" [matTooltip]="organization.name"
+          matTooltipPosition="right">
+          {{organization.name | titlecase}}
+        </span>
+      </h4>
+      <span class="header-section-title-subtitle">
+        Creada {{organization.created_at | time}}
+      </span>
     </div>
-    <!-- Header section end -->
+    <!-- header section title end -->
+    <!-- header section buttons -->
+    <div class="header-section-buttons">
+      <button class="button" mat-icon-button (click)="selectOrganization(organization)">
+        <mat-icon matTooltip="Ingresar a la organización" matTooltipPosition="above" class="button-icon">meeting_room
+        </mat-icon>
+      </button>
+
+      <button class="button" mat-icon-button *ngIf="!organization.deleted_at"
+        (click)="desactivateOrganization(organization)">
+        <mat-icon matTooltip="Desactivar" matTooltipPosition="above" class="button-toggle success">toggle_on
+        </mat-icon>
+      </button>
+
+      <button class="button" mat-icon-button *ngIf="organization.deleted_at"
+        (click)="activateOrganization(organization)">
+        <mat-icon matTooltip="Activar" matTooltipPosition="above" class="button-toggle danger">toggle_off
+        </mat-icon>
+      </button>
+    </div>
+    <!-- header section buttons end -->
   </div>
-</ng-container>
+  <!-- Header section end -->
+</div>

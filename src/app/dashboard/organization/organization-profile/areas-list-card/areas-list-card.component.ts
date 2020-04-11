@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { AreaModel } from "src/app/models/area.model";
 import { UserModel } from "src/app/models/user.model";
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { Router } from "@angular/router";
 import * as AreaActions from "../../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
 import { MemberModel } from "src/app/models/member.model";
-import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-areas-list-card",
@@ -20,43 +19,21 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
   @Input() area: AreaModel;
   @Input() user: UserModel;
 
-  members: MemberModel[];
-  members$: Observable<MemberModel[]>;
-  membersLoading: boolean = false;
   areasLoading$: Observable<boolean>;
-  animation$: Observable<string[]>;
+  areaLoading$: Observable<boolean>;
 
   constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
-    this.animation$ = this.store.select((state) => state.ui.animated);
-
     this.areasLoading$ = this.store.select(
       (state) =>
         state.userOrganizations.selectedOrganization.areas.areas.loading
     );
 
-    //Traigo todos los miembros de la organizacion y los filtro para que cada area tenga sus respectivos miembros
-    this.members$ = this.store
-      .select(
-        (state) =>
-          state.userOrganizations.selectedOrganization.members.members.members
-      )
-      .pipe(
-        map((members: any) => {
-          var membersFiltered = [];
-
-          members.forEach((member: MemberModel) => {
-            member.areas.forEach((area: any) => {
-              if (area === this.area._id) {
-                membersFiltered.push(member);
-              }
-            });
-          });
-
-          return membersFiltered;
-        })
-      );
+    this.areaLoading$ = this.store.select(
+      (state) =>
+        state.userOrganizations.selectedOrganization.areas.selectedArea.loading
+    );
   }
 
   ngOnDestroy() {}

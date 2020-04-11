@@ -10,7 +10,8 @@
 }
 
 .contenedor .section-form {
-  /* padding: 15px; */
+  position: relative;
+  bottom: 50px;
   width: 350px;
   height: 450px;
   display: grid;

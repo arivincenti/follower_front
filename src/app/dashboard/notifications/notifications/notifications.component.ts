@@ -4,6 +4,10 @@ import { NotificationModel } from "src/app/models/notificationModel";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { PageEvent } from "@angular/material";
+import {
+  notifications,
+  notificationsLoading,
+} from "src/app/store/selectors/userOrganizations/notifications/notification.selector";
 
 @Component({
   selector: "app-notifications",
@@ -12,6 +16,7 @@ import { PageEvent } from "@angular/material";
 })
 export class NotificationsComponent implements OnInit {
   notifications$: Observable<NotificationModel[]>;
+  notificationsLoading$: Observable<boolean>;
   animation$: Observable<string[]>;
 
   searchNotification: string = "";
@@ -29,13 +34,9 @@ export class NotificationsComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.animation$ = this.store.select((state) => state.ui.animated);
+    this.notificationsLoading$ = this.store.select(notificationsLoading);
+    this.notifications$ = this.store.select(notifications);
 
-    this.notifications$ = this.store.select(
-      (state) => state.userOrganizations.notifications.notifications
-    );
-
-    this.animation$ = this.store.select((state) => state.ui.animated);
     this.since = this.pageIndex;
     this.until = this.pageSize;
   }

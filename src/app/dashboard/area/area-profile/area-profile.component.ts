@@ -32,7 +32,6 @@ export class AreaProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.animation$ = this.store.select((state) => state.ui.animated);
     this.param = this.activatedRoute.snapshot.paramMap.get("id");
     var auth = JSON.parse(localStorage.getItem("auth"));
     this.user = auth.user;

@@ -1,32 +1,31 @@
-<ng-container *ngIf="animation$ | async as animation">
-  <div class="contenedor">
-    <div class="header-section-icon">
-      <span class="badge badge-notification-status"
-        [ngClass]="{'badge-notification-danger': notification.objectType === 'area', 'badge-notification-primary': notification.objectType === 'ticket', 'badge-notification-success': notification.objectType === 'organization', 'badge-notification-warn': notification.objectType === 'member'}"
-        matTooltip="Notificación de {{notification.objectType}}" matTooltipPosition="above">
-        <span>
-          {{notification.objectType | slice:0:1 | uppercase}}
+<div class="contenedor animated fadeIn">
+  <div class="header-section-icon">
+    <span class="badge badge-notification-status"
+      [ngClass]="{'badge-notification-danger': notification.objectType === 'area', 'badge-notification-primary': notification.objectType === 'ticket', 'badge-notification-success': notification.objectType === 'organization', 'badge-notification-warn': notification.objectType === 'member'}"
+      matTooltip="Notificación de {{notification.objectType}}" matTooltipPosition="above">
+      <span>
+        {{notification.objectType | slice:0:1 | uppercase}}
+      </span>
+    </span>
+  </div>
+  <!-- Header section -->
+  <div class="header-section">
+
+    <!-- Header section title -->
+    <div class="header-section-title">
+      <h4 class="header-section-title-title">
+        <span class="title" [matTooltip]="notification.objectType" matTooltipPosition="right">
+          {{notification.notificationTitle | titlecase}}
         </span>
+      </h4>
+      <span class="header-section-title-subtitle">
+        {{notification.created_at | time}}
       </span>
     </div>
-    <!-- Header section -->
-    <div class="header-section">
-
-      <!-- Header section title -->
-      <div class="header-section-title">
-        <h4 class="header-section-title-title">
-          <span class="title" [matTooltip]="notification.objectType" matTooltipPosition="right">
-            {{notification.notificationTitle | titlecase}}
-          </span>
-        </h4>
-        <span class="header-section-title-subtitle">
-          {{notification.created_at | time}}
-        </span>
-      </div>
-      <!-- header section title end -->
-      <!-- header section buttons -->
-      <div class="header-section-buttons">
-        <!-- <button class="button" mat-icon-button>
+    <!-- header section title end -->
+    <!-- header section buttons -->
+    <div class="header-section-buttons">
+      <!-- <button class="button" mat-icon-button>
           <mat-icon matTooltip="Ingresar a la organización" matTooltipPosition="above" class="button-icon">meeting_room
           </mat-icon>
         </button>
@@ -40,16 +39,15 @@
           <mat-icon matTooltip="Activar" matTooltipPosition="above" class="button-toggle danger">toggle_off
           </mat-icon>
         </button> -->
-      </div>
-      <!-- header section buttons end -->
     </div>
-    <!-- Header section end -->
-    <!-- Changes section end -->
-    <div class="changes-section">
-      <span *ngFor="let change of notification.changes">
-        {{change}}
-      </span>
-    </div>
-    <!-- Changes section end -->
+    <!-- header section buttons end -->
   </div>
-</ng-container>
+  <!-- Header section end -->
+  <!-- Changes section end -->
+  <div class="changes-section">
+    <span *ngFor="let change of notification.changes">
+      {{change}}
+    </span>
+  </div>
+  <!-- Changes section end -->
+</div>

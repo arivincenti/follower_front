@@ -1,5 +1,4 @@
 <div class="contenedor">
-
   <div class="organization-loader">
     <mat-progress-bar *ngIf="organizationLoading$ | async as organizationLoading" mode="indeterminate">
     </mat-progress-bar>
@@ -13,7 +12,8 @@
   </div>
 
   <ng-container *ngIf="organization$ | async as organization">
-    <div class="organization-profile background-section">
+
+    <div class="organization-profile background-section animated fadeIn">
       <div class="organization-profile-header">
         <div class="organization-profile-header-title">
           <span>
@@ -33,12 +33,12 @@
         </div>
       </div>
     </div>
-    <div class="organization-content">
+    <div class="organization-content animated fadeIn">
       <div class="organization-children-members background-section">
         <app-member-list></app-member-list>
       </div>
 
-      <div class="organization-children-areas background-section">
+      <div class="organization-children-areas background-section animated fadeIn">
         <app-areas-list></app-areas-list>
       </div>
     </div>

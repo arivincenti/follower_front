@@ -1,211 +1,208 @@
-<ng-container *ngIf="animation$ | async as animation">
-
-  <div class="contenedor">
-    <!-- loeader section -->
-    <div class="loader animated" [ngClass]="animation[0]">
-      <mat-progress-bar mode="indeterminate" *ngIf="ticketLoading$ | async">
-      </mat-progress-bar>
-    </div>
-    <!-- loeader section end-->
-    <ng-container *ngIf="ticket$ | async as ticket">
-      <!-- ticket section -->
-      <div class="ticket-section animated" [ngClass]="animation[0]">
-        <!-- message section -->
-        <div class="message-section background-section">
-          <!-- message section header -->
-          <div class="message-section-header">
-            <div class="message-section-header-title">
-              <mat-icon class="icon-ticket warning">local_activity</mat-icon>
-              <h4 class="header-title">
-                {{ ticket.subject | titlecase }}
-              </h4>
-            </div>
-            <div class="message-section-header-info">
-              <span class="number-code">Nº {{ ticket._id }}
-              </span>
-            </div>
+<div class="contenedor">
+  <!-- loeader section -->
+  <div class="loader">
+    <mat-progress-bar mode="indeterminate" *ngIf="ticketLoading$ | async">
+    </mat-progress-bar>
+  </div>
+  <!-- loeader section end-->
+  <ng-container *ngIf="ticket$ | async as ticket">
+    <!-- ticket section -->
+    <div class="ticket-section animated fadeIn">
+      <!-- message section -->
+      <div class="message-section background-section">
+        <!-- message section header -->
+        <div class="message-section-header">
+          <div class="message-section-header-title">
+            <mat-icon class="icon-ticket warning">local_activity</mat-icon>
+            <h4 class="header-title">
+              {{ ticket.subject | titlecase }}
+            </h4>
           </div>
-          <!-- message section header end -->
-          <!-- message section incident -->
-          <div class="message-section-incident">
-            <mat-form-field appearance="outline">
-              <mat-label>Descripción del incidente</mat-label>
-              <textarea class="incident-description" rows="19" matInput type="text" placeholder="" autocomplete="off"
-                [value]="ticket.issue"></textarea>
+          <div class="message-section-header-info">
+            <span class="number-code">Nº {{ ticket._id }}
+            </span>
+          </div>
+        </div>
+        <!-- message section header end -->
+        <!-- message section incident -->
+        <div class="message-section-incident">
+          <mat-form-field appearance="outline">
+            <mat-label>Descripción del incidente</mat-label>
+            <textarea class="incident-description" rows="19" matInput type="text" placeholder="" autocomplete="off"
+              [value]="ticket.issue"></textarea>
+          </mat-form-field>
+        </div>
+        <!-- message section incident end -->
+      </div>
+      <!-- message section end -->
+      <!-- Property ticket -->
+      <div class="properties-section background-section">
+        <!-- properties section header -->
+        <div class="properties-section-header">
+          <div class="properties-section-header-title">
+            <mat-icon class="icon-ticket warning">ballot</mat-icon>
+            <h4 class="header-title">
+              Propiedades del ticket
+            </h4>
+          </div>
+        </div>
+        <!-- properties section header end -->
+        <!-- properties section info -->
+        <div class="properties-section-info">
+          <span class="ticket-card-info">
+            <mat-icon class="icon">apartment</mat-icon>
+            Organización /
+            <span>
+              {{ ticket.area.organization.name | titlecase }}
+            </span>
+          </span>
+          <span class="ticket-card-info">
+            <mat-icon class="icon">bookmark</mat-icon>
+            Área /
+            <span>
+              {{ ticket.area.name | titlecase }}
+            </span>
+          </span>
+          <span class="ticket-card-info">
+            <span>
+              <mat-icon class="icon">watch_later</mat-icon>Creado
+              <span class="success">
+                {{ ticket.created_at | time }}
+              </span>
+              por
+              {{ ticket.created_by.name | titlecase }}
+              {{ ticket.created_by.last_name | titlecase }}
+            </span>
+          </span>
+        </div>
+        <!-- properties section info end -->
+        <!-- properties section responsible -->
+        <form class="properties-section-form" [formGroup]="propertiesForm" (ngSubmit)="sendMessage()">
+          <div class="properties-section-form-responsible">
+            <mat-form-field>
+              <mat-label *ngIf="members">Miembro responsable</mat-label>
+              <mat-label *ngIf="!members">Asignar miembros al ticket</mat-label>
+              <mat-select formControlName="members">
+                <mat-option *ngFor="let member of members" [value]="member._id">
+                  <img class="member-card-img" [src]="member.user.img | image" alt="" />
+                  <span>
+                    {{ member.user.name | titlecase }}
+                    {{ member.user.last_name | titlecase }}
+                  </span>
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
-          <!-- message section incident end -->
-        </div>
-        <!-- message section end -->
-        <!-- Property ticket -->
-        <div class="properties-section background-section">
-          <!-- properties section header -->
-          <div class="properties-section-header">
-            <div class="properties-section-header-title">
-              <mat-icon class="icon-ticket warning">ballot</mat-icon>
-              <h4 class="header-title">
-                Propiedades del ticket
-              </h4>
-            </div>
+          <!-- properties section responsible end -->
+          <!-- properties section priority -->
+          <div class="properties-section-form-priority">
+            <mat-form-field>
+              <mat-label>Prioridad</mat-label>
+              <mat-select formControlName="priority">
+                <mat-option *ngFor="let priority of priorities" [value]="priority">
+                  {{ priority | titlecase }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-          <!-- properties section header end -->
-          <!-- properties section info -->
-          <div class="properties-section-info">
-            <span class="ticket-card-info">
-              <mat-icon class="icon">apartment</mat-icon>
-              Organización /
-              <span>
-                {{ ticket.area.organization.name | titlecase }}
-              </span>
-            </span>
-            <span class="ticket-card-info">
-              <mat-icon class="icon">bookmark</mat-icon>
-              Área /
-              <span>
-                {{ ticket.area.name | titlecase }}
-              </span>
-            </span>
-            <span class="ticket-card-info">
-              <span>
-                <mat-icon class="icon">watch_later</mat-icon>Creado
-                <span class="success">
-                  {{ ticket.created_at | time }}
-                </span>
-                por
-                {{ ticket.created_by.name | titlecase }}
-                {{ ticket.created_by.last_name | titlecase }}
-              </span>
-            </span>
+          <!-- properties section date -->
+          <div class="properties-section-form-date">
+            <mat-form-field>
+              <mat-label *ngIf="ticket.date">Fecha programada</mat-label>
+              <mat-label *ngIf="!ticket.date">Programar fecha</mat-label>
+              <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
           </div>
-          <!-- properties section info end -->
-          <!-- properties section responsible -->
-          <form class="properties-section-form" [formGroup]="propertiesForm" (ngSubmit)="sendMessage()">
-            <div class="properties-section-form-responsible">
-              <mat-form-field>
-                <mat-label *ngIf="members">Miembro responsable</mat-label>
-                <mat-label *ngIf="!members">Asignar miembros al ticket</mat-label>
-                <mat-select formControlName="members">
-                  <mat-option *ngFor="let member of members" [value]="member._id">
-                    <img class="member-card-img" [src]="member.user.img | image" alt="" />
-                    <span>
-                      {{ member.user.name | titlecase }}
-                      {{ member.user.last_name | titlecase }}
-                    </span>
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <!-- properties section responsible end -->
-            <!-- properties section priority -->
-            <div class="properties-section-form-priority">
-              <mat-form-field>
-                <mat-label>Prioridad</mat-label>
-                <mat-select formControlName="priority">
-                  <mat-option *ngFor="let priority of priorities" [value]="priority">
-                    {{ priority | titlecase }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <!-- properties section date -->
-            <div class="properties-section-form-date">
-              <mat-form-field>
-                <mat-label *ngIf="ticket.date">Fecha programada</mat-label>
-                <mat-label *ngIf="!ticket.date">Programar fecha</mat-label>
-                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <!-- properties section date end -->
-            <!-- properties section priority end -->
-            <div class="properties-section-form-status">
-              <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                formControlName="status" name="status">
-                <mat-radio-button color="warn" class="radio-buttons" *ngFor="let status of status" [value]="status">
-                  <span>
-                    {{ status | titlecase }}
-                  </span>
-                </mat-radio-button>
-              </mat-radio-group>
-
-            </div>
-            <!-- properties section button -->
-            <div class="properties-section-form-button">
-              <button type="button" class="button" [disabled]="propertiesForm.pristine || owner"
-                (click)="saveChanges(ticket)" mat-flat-button color="primary">
-                <span *ngIf="!(ticketLoading$ | async)">Guardar propiedades</span>
-                <span *ngIf="ticketLoading$ | async"> Guardando propiedades... </span>
-              </button>
-            </div>
-          </form>
-        </div>
-        <!-- properties section button end -->
-        <!-- Property ticket end -->
-      </div>
-      <!-- ticket section end -->
-      <!-- comment section -->
-      <div class="comment-section background-section animated" [ngClass]="animation[0]">
-        <!-- comment section form -->
-        <div class="comment-section-form">
-          <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+          <!-- properties section date end -->
+          <!-- properties section priority end -->
+          <div class="properties-section-form-status">
             <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-              formControlName="type" name="type">
-              <mat-radio-button name="type" [checked]="type.checked" color="warn" class="radio-buttons"
-                *ngFor="let type of messageTypes" [value]="type.value">
-                <span [matTooltip]="type.description" matTooltipPosition="right">
-                  {{ type.value | titlecase }}
+              formControlName="status" name="status">
+              <mat-radio-button color="warn" class="radio-buttons" *ngFor="let status of status" [value]="status">
+                <span>
+                  {{ status | titlecase }}
                 </span>
               </mat-radio-button>
             </mat-radio-group>
 
-            <mat-form-field appearance="outline" class="message-form-field">
-              <mat-label>Comenta algo...</mat-label>
-              <textarea rows="3" matInput type="text" placeholder="" formControlName="message" name="message"
-                autocomplete="off"></textarea>
-            </mat-form-field>
-
-            <div>
-              <button class="button" type="submit" mat-flat-button color="primary"
-                [disabled]="!messageForm.controls['message'].value">
-                <span *ngIf="!(commentsLoading$ | async)">
-                  <span> Publicar comentario</span>
-                  <mat-icon class="save-icon">send</mat-icon>
-                </span>
-                <span *ngIf="commentsLoading$ | async">
-                  <span> Publicando comentario... </span>
-                </span>
-              </button>
-            </div>
-          </form>
-        </div>
-        <!-- comment section form end -->
-        <!-- Comments section comments -->
-        <div class="comment-section-comments">
-          <div class="comment-section-comments-header">
-            <div class="comment-section-comments-header-title">
-              <mat-icon class="icon-ticket warning">chat_bubble</mat-icon>
-              <h4 class="header-title">
-                Comentarios
-              </h4>
-            </div>
           </div>
-
-          <div class="comment-section-comments-loader">
-            <mat-progress-bar *ngIf="commentsLoading$ | async" class="progress-bar" mode="indeterminate">
-            </mat-progress-bar>
+          <!-- properties section button -->
+          <div class="properties-section-form-button">
+            <button type="button" class="button" [disabled]="propertiesForm.pristine || owner"
+              (click)="saveChanges(ticket)" mat-flat-button color="primary">
+              <span *ngIf="!(ticketLoading$ | async)">Guardar propiedades</span>
+              <span *ngIf="ticketLoading$ | async"> Guardando propiedades... </span>
+            </button>
           </div>
-
-          <div class="comment-section-comments-comment-list">
-            <app-comment-list *ngIf="comments$ | async as comments" [comments]="comments" [user]="user">
-            </app-comment-list>
-          </div>
-
-        </div>
-        <!-- Comments section comments end -->
+        </form>
       </div>
-      <!-- comment section end -->
-    </ng-container>
-  </div>
-  <!-- div contenedor end -->
-</ng-container>
+      <!-- properties section button end -->
+      <!-- Property ticket end -->
+    </div>
+    <!-- ticket section end -->
+    <!-- comment section -->
+    <div class="comment-section background-section animated fadeIn">
+      <!-- comment section form -->
+      <div class="comment-section-form">
+        <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+          <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+            formControlName="type" name="type">
+            <mat-radio-button name="type" [checked]="type.checked" color="warn" class="radio-buttons"
+              *ngFor="let type of messageTypes" [value]="type.value">
+              <span [matTooltip]="type.description" matTooltipPosition="right">
+                {{ type.value | titlecase }}
+              </span>
+            </mat-radio-button>
+          </mat-radio-group>
+
+          <mat-form-field appearance="outline" class="message-form-field">
+            <mat-label>Comenta algo...</mat-label>
+            <textarea rows="3" matInput type="text" placeholder="" formControlName="message" name="message"
+              autocomplete="off"></textarea>
+          </mat-form-field>
+
+          <div>
+            <button class="button" type="submit" mat-flat-button color="primary"
+              [disabled]="!messageForm.controls['message'].value">
+              <span *ngIf="!(commentsLoading$ | async)">
+                <span> Publicar comentario</span>
+                <mat-icon class="save-icon">send</mat-icon>
+              </span>
+              <span *ngIf="commentsLoading$ | async">
+                <span> Publicando comentario... </span>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- comment section form end -->
+      <!-- Comments section comments -->
+      <div class="comment-section-comments">
+        <div class="comment-section-comments-header">
+          <div class="comment-section-comments-header-title">
+            <mat-icon class="icon-ticket warning">chat_bubble</mat-icon>
+            <h4 class="header-title">
+              Comentarios
+            </h4>
+          </div>
+        </div>
+
+        <div class="comment-section-comments-loader">
+          <mat-progress-bar *ngIf="commentsLoading$ | async" class="progress-bar" mode="indeterminate">
+          </mat-progress-bar>
+        </div>
+
+        <div class="comment-section-comments-comment-list">
+          <app-comment-list *ngIf="comments$ | async as comments" [comments]="comments" [user]="user">
+          </app-comment-list>
+        </div>
+
+      </div>
+      <!-- Comments section comments end -->
+    </div>
+    <!-- comment section end -->
+  </ng-container>
+</div>
+<!-- div contenedor end -->

@@ -29,7 +29,6 @@ import { notifications } from "../store/selectors/userOrganizations/notification
 import { organizations } from "../store/selectors/userOrganizations/organizations/organizations.selector";
 import { userTickets } from "../store/selectors/userOrganizations/tickets/tickets.selector";
 import { user } from "../store/selectors/auth/auth.selector";
-import { theme } from "../store/selectors/ui/ui.selector";
 
 @Component({
   selector: "app-dashboard",
@@ -43,7 +42,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   user$: Observable<UserModel>;
   user: UserModel;
   unreadNotifications$: Observable<NotificationModel[]>;
-  theme$: Observable<string>;
 
   tickets$: Observable<TicketModel[]>;
   tickets: TicketModel[];
@@ -72,7 +70,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.auth = JSON.parse(localStorage.getItem("auth"));
     this.user = this.auth.user;
     this.user$ = this.store.select(user);
-    this.theme$ = this.store.select(theme);
 
     this.store.dispatch(getOrganizations({ payload: this.user._id }));
     this.store.dispatch(getTickets({ payload: this.user }));

@@ -12,12 +12,10 @@ import { AreaFormComponent } from "../../../../shared/forms/area-form/area-form.
 @Component({
   selector: "app-areas-list",
   templateUrl: "./areas-list.component.html",
-  styleUrls: ["./areas-list.component.css"]
+  styleUrls: ["./areas-list.component.css"],
 })
 export class AreasListComponent implements OnInit, OnDestroy {
   //Observable variables
-  animation$: Observable<string[]>;
-
   organization$: Observable<OrganizationModel>;
   organization: OrganizationModel;
   user: UserModel;
@@ -50,31 +48,33 @@ export class AreasListComponent implements OnInit, OnDestroy {
     var auth = JSON.parse(localStorage.getItem("auth"));
     this.user = auth.user;
 
-    this.animation$ = this.store.select(state => state.ui.animated);
-
     this.areasLoading$ = this.store.select(
-      state => state.userOrganizations.selectedOrganization.areas.areas.loading
+      (state) =>
+        state.userOrganizations.selectedOrganization.areas.areas.loading
     );
 
     this.organization$ = this.store
       .select(
-        state =>
+        (state) =>
           state.userOrganizations.selectedOrganization.organization.organization
       )
-      .pipe(map(organization => (this.organization = organization)));
+      .pipe(map((organization) => (this.organization = organization)));
 
     this.areas$ = this.store
       .select(
-        state => state.userOrganizations.selectedOrganization.areas.areas.areas
+        (state) =>
+          state.userOrganizations.selectedOrganization.areas.areas.areas
       )
-      .pipe(map(areas => (this.filterAreas = areas)));
+      .pipe(map((areas) => (this.filterAreas = areas)));
   }
 
   // ==================================================
   // Set paginator page size
   // ==================================================
   setPageSizeOptions(setPageSizeOptionsInput: string) {
-    this.pageSizeOptions = setPageSizeOptionsInput.split(",").map(str => +str);
+    this.pageSizeOptions = setPageSizeOptionsInput
+      .split(",")
+      .map((str) => +str);
   }
 
   // ==================================================
@@ -104,8 +104,8 @@ export class AreasListComponent implements OnInit, OnDestroy {
       data: {
         user: this.user,
         organization: this.organization,
-        area: null
-      }
+        area: null,
+      },
     });
   }
 }

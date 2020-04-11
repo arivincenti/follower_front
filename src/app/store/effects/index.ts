@@ -1,4 +1,3 @@
-import { UiEffects } from "./ui/ui.effects";
 import { AuthEffects } from "./auth/auth.effects";
 import { OrganizationsEffects } from "./userOrganizations/organizations/organizations.effects";
 import { OrganizationEffects } from "./userOrganizations/selectedOrganization/organization.effects";
@@ -14,7 +13,6 @@ import { CommentsEffects } from "./userOrganizations/tickets/ticket/comments/com
 import { NotificationsEffects } from "./userOrganizations/notifications/notifications.effects";
 
 export const effects: any[] = [
-  UiEffects,
   AuthEffects,
   OrganizationsEffects,
   OrganizationEffects,
@@ -27,10 +25,9 @@ export const effects: any[] = [
   AreaTicketsEffects,
   TicketEffects,
   CommentsEffects,
-  NotificationsEffects
+  NotificationsEffects,
 ];
 
-export * from "./ui/ui.effects";
 export * from "./auth/auth.effects";
 export * from "./userOrganizations/organizations/organizations.effects";
 export * from "./userOrganizations/selectedOrganization/organization.effects";

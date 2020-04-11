@@ -11,12 +11,8 @@ import { AppState } from "src/app/store/app.reducer";
   styleUrls: ["./notifications-list-card.component.css"],
 })
 export class NotificationsListCardComponent implements OnInit {
-  animation$: Observable<string[]>;
-
   @Input() notification: NotificationModel;
   constructor(private router: Router, private store: Store<AppState>) {}
 
-  ngOnInit() {
-    this.animation$ = this.store.select((state) => state.ui.animated);
-  }
+  ngOnInit() {}
 }

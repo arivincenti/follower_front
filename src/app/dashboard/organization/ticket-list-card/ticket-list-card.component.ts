@@ -9,20 +9,17 @@ import { Router } from "@angular/router";
 @Component({
   selector: "app-ticket-list-card",
   templateUrl: "./ticket-list-card.component.html",
-  styleUrls: ["./ticket-list-card.component.css"]
+  styleUrls: ["./ticket-list-card.component.css"],
 })
 export class TicketListCardComponent implements OnInit {
   @Input() ticket: TicketModel;
   @Input() user: UserModel;
 
-  animation$: Observable<string[]>;
   dateNow: Date = new Date();
 
   constructor(private store: Store<AppState>, private router: Router) {}
 
-  ngOnInit() {
-    this.animation$ = this.store.select(state => state.ui.animated);
-  }
+  ngOnInit() {}
 
   ticketDetail(ticket: TicketModel) {
     this.router.navigate([`${this.router.url}/ticket`, ticket._id]);

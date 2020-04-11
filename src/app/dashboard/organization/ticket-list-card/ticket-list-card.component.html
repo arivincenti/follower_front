@@ -1,53 +1,51 @@
-<ng-container *ngIf="animation$ | async as animation">
-  <div class="contenedor">
-    <!-- Header section -->
-    <div class="header-section">
-      <!-- Header section title -->
-      <div class="header-section-title">
-        <div class="header-section-title-title">
-          <h4>
-            <span>
-              <mat-icon class="icon-header warning">local_activity</mat-icon>
-            </span>
-            <span [matTooltip]="ticket.subject" matTooltipPosition="above">
-              {{ ticket.subject | titlecase }}
-            </span>
-          </h4>
-          <span class="badge badge-ticket-status"
-            [ngClass]="{'badge-danger': ticket.status === 'ABIERTO', 'badge-primary': ticket.status === 'PENDIENTE', 'badge-success': ticket.status === 'CERRADO'}"
-            [matTooltip]="ticket.status " matTooltipPosition="above">
-            {{ticket.status | slice:0:1}}
+<div class="contenedor animated fadeIn">
+  <!-- Header section -->
+  <div class="header-section">
+    <!-- Header section title -->
+    <div class="header-section-title">
+      <div class="header-section-title-title">
+        <h4>
+          <span>
+            <mat-icon class="icon-header warning">local_activity</mat-icon>
           </span>
-          <mat-icon *ngIf="ticket.status !== 'CERRADO' && ticket.date" class="extra-icon"
-            matTooltip="Programado para el {{ticket.date | date: 'fullDate'}}" matTooltipPosition="above">alarm
-          </mat-icon>
-        </div>
-        <div class="header-section-title-subtitle">
-          <span [matTooltip]="ticket.created_at | date:'medium'" matTooltipPosition="above">
-            Creado {{ ticket.created_at | time }}
+          <span [matTooltip]="ticket.subject" matTooltipPosition="above">
+            {{ ticket.subject | titlecase }}
           </span>
-        </div>
-      </div>
-      <!-- header section title end -->
-      <!-- header section buttons -->
-      <div class="header-section-buttons">
-        <button class="button" mat-icon-button matTooltip="Ver detalle" matTooltipPosition="above"
-          (click)="ticketDetail(ticket)">
-          <mat-icon class="button-icon">meeting_room</mat-icon>
-        </button>
-      </div>
-      <!-- header section buttons end -->
-    </div>
-    <!-- header section end -->
-    <!-- info section -->
-    <div class="info-section">
-      <span class="ticket-card-info">
-        <mat-icon class="icon">apartment</mat-icon>
-        <span>
-          {{ ticket.area.organization.name | titlecase }} / {{ ticket.area.name | titlecase }}
+        </h4>
+        <span class="badge badge-ticket-status"
+          [ngClass]="{'badge-danger': ticket.status === 'ABIERTO', 'badge-primary': ticket.status === 'PENDIENTE', 'badge-success': ticket.status === 'CERRADO'}"
+          [matTooltip]="ticket.status " matTooltipPosition="above">
+          {{ticket.status | slice:0:1}}
         </span>
-      </span>
+        <mat-icon *ngIf="ticket.status !== 'CERRADO' && ticket.date" class="extra-icon"
+          matTooltip="Programado para el {{ticket.date | date: 'fullDate'}}" matTooltipPosition="above">alarm
+        </mat-icon>
+      </div>
+      <div class="header-section-title-subtitle">
+        <span [matTooltip]="ticket.created_at | date:'medium'" matTooltipPosition="above">
+          Creado {{ ticket.created_at | time }}
+        </span>
+      </div>
     </div>
-    <!-- info section end -->
+    <!-- header section title end -->
+    <!-- header section buttons -->
+    <div class="header-section-buttons">
+      <button class="button" mat-icon-button matTooltip="Ver detalle" matTooltipPosition="above"
+        (click)="ticketDetail(ticket)">
+        <mat-icon class="button-icon">meeting_room</mat-icon>
+      </button>
+    </div>
+    <!-- header section buttons end -->
   </div>
-</ng-container>
+  <!-- header section end -->
+  <!-- info section -->
+  <div class="info-section">
+    <span class="ticket-card-info">
+      <mat-icon class="icon">apartment</mat-icon>
+      <span>
+        {{ ticket.area.organization.name | titlecase }} / {{ ticket.area.name | titlecase }}
+      </span>
+    </span>
+  </div>
+  <!-- info section end -->
+</div>

@@ -1,12 +1,12 @@
 <div class="contenedor">
-  <div class="mensaje animated" *ngIf="!organizations.length">
+  <div class="mensaje" *ngIf="!organizations.length">
     <span class="empty-message">Parece que no perteneces a ninguna organización. Créa la tuya propia y bríndales la
       mejor asistencia a tus clientes</span>
   </div>
 
   <ng-container *ngIf="organizations.length">
     <div class="list-card" *ngFor="let organization of organizations | paginator:since:until">
-      <div class="list-card-card animated fadeIn">
+      <div class="list-card-card">
         <app-organization-list-card [organization]="organization" [user]="user">
         </app-organization-list-card>
       </div>

@@ -1,6 +1,5 @@
-<div *ngIf="theme$ | async as theme" [ngClass]="theme">
+<div class="default">
   <mat-sidenav-container class="contenedor">
-
     <mat-sidenav #sidenav class="mat-sidenav" fixedInViewport="true"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
@@ -85,6 +84,5 @@
       </div>
 
     </mat-sidenav-content>
-
   </mat-sidenav-container>
 </div>

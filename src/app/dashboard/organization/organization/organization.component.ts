@@ -17,8 +17,6 @@ import {
   userTicketsLoading,
 } from "src/app/store/selectors/userOrganizations/tickets/tickets.selector";
 import { user } from "src/app/store/selectors/auth/auth.selector";
-import { map } from "rxjs/operators";
-import { animation } from "src/app/store/selectors/ui/ui.selector";
 
 @Component({
   selector: "app-organization",
@@ -39,15 +37,12 @@ export class OrganizationComponent implements OnInit, OnDestroy {
   searchOrganization: string = "";
 
   //UI Observable
-  animation$: Observable<string[]>;
 
   constructor(private store: Store<AppState>, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.auth = JSON.parse(localStorage.getItem("auth"));
     this.user = this.auth.user;
-
-    this.animation$ = this.store.select(animation);
     this.user$ = this.store.select(user);
     this.organizationsLoading$ = this.store.select(organizationsLoading);
     this.organizations$ = this.store.select(organizations);

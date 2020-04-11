@@ -16,13 +16,9 @@ export class OrganizationListCardComponent implements OnInit, OnDestroy {
   @Input() organization: OrganizationModel;
   @Input() user: UserModel;
 
-  animation$: Observable<string[]>;
-
   constructor(private router: Router, private store: Store<AppState>) {}
 
-  ngOnInit() {
-    this.animation$ = this.store.select((state) => state.ui.animated);
-  }
+  ngOnInit() {}
 
   ngOnDestroy() {}
 

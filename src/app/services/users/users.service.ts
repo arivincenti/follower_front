@@ -62,7 +62,7 @@ export class UsersService {
     switch (objectType) {
       case "ticket":
         if (operationType === "create") {
-          this._wsService.emit("join-ticket", object);
+          // this._wsService.emit("join-ticket", object);
           this.store.dispatch(addCreatedTicketToList({ ticket: object }));
         } else {
           this.store.dispatch(updateTicketList({ payload: object }));
@@ -71,7 +71,7 @@ export class UsersService {
         break;
       case "organization":
         if (operationType === "create") {
-          this._wsService.emit("join-organization", object);
+          // this._wsService.emit("join-organization", object);
           this.store.dispatch(
             addCreatedOrganizationToList({ organization: object })
           );

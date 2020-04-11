@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { UserModel } from "src/app/models/user.model";
-import { Observable, Subject } from "rxjs";
+import { Observable } from "rxjs";
 import { MemberModel } from "src/app/models/member.model";
 import { PageEvent, MatDialog } from "@angular/material";
 import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import { map, takeUntil, filter } from "rxjs/operators";
+import { map, filter } from "rxjs/operators";
 import { MemberFormComponent } from "../../../shared/forms/member-form/member-form.component";
 import { AreaMemberFormComponent } from "src/app/shared/forms/areaMemberForm/area-member-form.component";
 
@@ -25,7 +25,6 @@ export class MemberListComponent implements OnInit, OnDestroy {
   organization: OrganizationModel;
   user: UserModel;
 
-  animation$: Observable<string[]>;
   members$: Observable<MemberModel[]>;
   membersLoading$: Observable<boolean>;
   membersLoaded$: Observable<boolean>;
@@ -45,8 +44,6 @@ export class MemberListComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>, private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.animation$ = this.store.select((state) => state.ui.animated);
-
     var auth = JSON.parse(localStorage.getItem("auth"));
     this.user = auth.user;
 

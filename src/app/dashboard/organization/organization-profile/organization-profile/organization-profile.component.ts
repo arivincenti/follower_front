@@ -14,7 +14,7 @@ import { OrganizationFormComponent } from "../../../../shared/forms/organization
 @Component({
   selector: "app-organization-profile",
   templateUrl: "./organization-profile.component.html",
-  styleUrls: ["./organization-profile.component.css"]
+  styleUrls: ["./organization-profile.component.css"],
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
   //Subscriptions
@@ -22,7 +22,6 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   organization$: Observable<OrganizationModel>;
   organizationLoading$: Observable<boolean>;
   user: UserModel;
-  animation$: Observable<string[]>;
   organization: OrganizationModel;
 
   //Filter & counter
@@ -41,10 +40,9 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
     var auth = JSON.parse(localStorage.getItem("auth"));
     this.user = auth.user;
 
-    this.animation$ = this.store.select(state => state.ui.animated);
-
     this.organizationLoading$ = this.store.select(
-      state => state.userOrganizations.selectedOrganization.organization.loading
+      (state) =>
+        state.userOrganizations.selectedOrganization.organization.loading
     );
 
     /////////////////////////////////////////////////////
@@ -53,10 +51,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
     this.organization$ = this.store
       .select(
-        state =>
+        (state) =>
           state.userOrganizations.selectedOrganization.organization.organization
       )
-      .pipe(map(organization => (this.organization = organization)));
+      .pipe(map((organization) => (this.organization = organization)));
   }
 
   ngOnDestroy() {}
@@ -67,8 +65,8 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
       data: {
         user: this.user,
         organization: this.organization,
-        area: null
-      }
+        area: null,
+      },
     });
   }
 
@@ -77,8 +75,8 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
       width: "600px",
       data: {
         organization: organization,
-        user: this.user
-      }
+        user: this.user,
+      },
     });
   }
 

@@ -9,7 +9,7 @@ import { PageEvent } from "@angular/material";
 @Component({
   selector: "app-organization-list",
   templateUrl: "./organization-list.component.html",
-  styleUrls: ["./organization-list.component.css"]
+  styleUrls: ["./organization-list.component.css"],
 })
 export class OrganizationListComponent implements OnInit {
   @Input() organizations: OrganizationModel[];
@@ -25,13 +25,9 @@ export class OrganizationListComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  //UI Observables
-  animation$: Observable<string[]>;
-
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.animation$ = this.store.select(state => state.ui.animated);
     this.since = this.pageIndex;
     this.until = this.pageSize;
   }
@@ -40,7 +36,9 @@ export class OrganizationListComponent implements OnInit {
   // Set paginator page size
   // ==================================================
   setPageSizeOptions(setPageSizeOptionsInput: string) {
-    this.pageSizeOptions = setPageSizeOptionsInput.split(",").map(str => +str);
+    this.pageSizeOptions = setPageSizeOptionsInput
+      .split(",")
+      .map((str) => +str);
   }
 
   // ==================================================

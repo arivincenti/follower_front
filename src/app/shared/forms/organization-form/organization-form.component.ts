@@ -13,11 +13,10 @@ import { takeUntil } from "rxjs/operators";
 @Component({
   selector: "app-organization-form",
   templateUrl: "./organization-form.component.html",
-  styleUrls: ["./organization-form.component.css"]
+  styleUrls: ["./organization-form.component.css"],
 })
 export class OrganizationFormComponent implements OnInit, OnDestroy {
   //UI Observable
-  animation$: Observable<string[]>;
   form: FormGroup;
 
   private unsuscribe$ = new Subject();
@@ -34,13 +33,11 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.animation$ = this.store.select(state => state.ui.animated);
-
     //User organizations subscription
     this.store
-      .select(state => state.userOrganizations.organizations.organizations)
+      .select((state) => state.userOrganizations.organizations.organizations)
       .pipe(takeUntil(this.unsuscribe$))
-      .subscribe(organizations => (this.userOrganizations = organizations));
+      .subscribe((organizations) => (this.userOrganizations = organizations));
 
     //FORM
     this.form = new FormGroup({
@@ -49,7 +46,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
         Validators.required,
         this.avaibleName.bind(this)
       ),
-      user: new FormControl(this.data.user._id)
+      user: new FormControl(this.data.user._id),
     });
 
     //Mark as touched
@@ -77,7 +74,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
     if (!this.data.organization) {
       let payload = {
         user: this.data.user,
-        name: this.form.controls["name"].value.toUpperCase()
+        name: this.form.controls["name"].value.toUpperCase(),
       };
       console.log("se creo una nueva");
       this.store.dispatch(OrganizationActions.createOrganization({ payload }));
@@ -85,12 +82,12 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
       let payload = {
         name: this.form.controls["name"].value.toUpperCase(),
         updated_by: this.data.user,
-        organization: this.data.organization
+        organization: this.data.organization,
       };
       this.store.dispatch(
         OrganizationActions.updateOrganization({
           organizationId: this.data.organization._id,
-          payload: payload
+          payload: payload,
         })
       );
     }
@@ -104,7 +101,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
   avaibleName(control: FormControl): Promise<any> | Observable<any> {
     let promise = new Promise((resolve, reject) => {
       let nombre = "";
-      this.userOrganizations.forEach(organization => {
+      this.userOrganizations.forEach((organization) => {
         if (
           organization.name.toUpperCase() ===
           this.form.controls["name"].value.toUpperCase()

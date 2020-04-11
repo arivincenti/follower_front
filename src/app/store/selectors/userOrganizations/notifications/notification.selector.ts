@@ -16,3 +16,8 @@ export const notifications = createSelector(
     return unreadNotifications;
   }
 );
+
+export const notificationsLoading = createSelector(
+  notificationsSelect,
+  (notificationsSelect) => notificationsSelect.loading
+);
