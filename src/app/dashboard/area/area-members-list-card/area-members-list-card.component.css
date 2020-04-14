@@ -1,0 +1,107 @@
+button {
+  outline: none;
+}
+
+/* CSS GRID */
+
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "header-section";
+}
+
+.contenedor .header-section {
+  grid-area: header-section;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "header-section-title header-section-buttons";
+}
+
+.header-section .header-section-title {
+  grid-area: header-section-title;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: 16px auto;
+  grid-template-areas:
+    "header-section-image header-section-title-title"
+    "header-section-image header-section-title-subtitle";
+}
+
+.header-section-title .header-section-title-title {
+  grid-area: header-section-title-title;
+  display: flex;
+  margin: 0px;
+  font-size: 0.9em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.header-section-title .header-section-image {
+  grid-area: header-section-image;
+}
+
+.header-section .header-section-buttons {
+  grid-area: header-section-buttons;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  bottom: 3px;
+}
+
+/* CSS GRID END */
+
+.icon-header {
+  font-size: 1.3em;
+  position: relative;
+  top: 2px;
+  right: 2px;
+}
+
+.header-section-title .header-section-title-subtitle {
+  font-size: 0.7em;
+  opacity: 0.4;
+  grid-area: header-section-title-subtitle;
+}
+
+.button {
+  position: relative;
+  bottom: 0px;
+}
+
+.button .button-icon {
+  font-size: 1.2em;
+}
+
+.responsible {
+  opacity: 0.3;
+}
+
+.deleted {
+  opacity: 0.3;
+  text-decoration: line-through;
+}
+
+.mat-card-img {
+  position: relative;
+  bottom: 4px;
+  right: 2px;
+  object-fit: cover;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+@media (max-width: 767px) {
+  .header-section-title-title {
+    width: 225px;
+  }
+
+  .header-section .header-section-buttons {
+    grid-area: header-section-buttons;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 30px);
+    position: relative;
+    bottom: 7px;
+  }
+}

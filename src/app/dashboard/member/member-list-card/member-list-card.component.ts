@@ -4,20 +4,19 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { UserModel } from "src/app/models/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import * as MemberActions from "../../../store/actions/userOrganizations/selectedOrganization/members/member/member.actions";
-import * as AreaActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
+import * as MembersActions from "../../../store/actions/userOrganizations/selectedOrganization/members/members.actions";
+import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
 import { AreaModel } from "src/app/models/area.model";
 import { TicketsService } from "src/app/services/tickets/tickets.service";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
-import { deleteAreaMember } from "src/app/store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
 import { MatSnackBar } from "@angular/material";
 import { GenericNotificationComponent } from "src/app/shared/snackbar/generic-notification/generic-notification.component";
 
 @Component({
   selector: "app-member-list-card",
   templateUrl: "./member-list-card.component.html",
-  styleUrls: ["./member-list-card.component.css"]
+  styleUrls: ["./member-list-card.component.css"],
 })
 export class MemberListCardComponent implements OnInit, OnDestroy {
   @Input() organization: OrganizationModel;
@@ -39,18 +38,18 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
     var payload = {
       member,
       deleted_at: new Date(),
-      updated_by: this.user
+      updated_by: this.user,
     };
-    this.store.dispatch(MemberActions.desactivateMember({ payload }));
+    this.store.dispatch(MembersActions.desactivateMember({ payload }));
   }
 
   activateMember(member: MemberModel) {
     var payload = {
       member,
       deleted_at: undefined,
-      updated_by: this.user
+      updated_by: this.user,
     };
-    this.store.dispatch(MemberActions.activateMember({ payload }));
+    this.store.dispatch(MembersActions.activateMember({ payload }));
   }
 
   selectMember(member: MemberModel) {
@@ -64,7 +63,7 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
           type: "error",
           title: "Oops, parece que hay un problema",
           message:
-            "No se puede eliminar el miembro porque es el responsable del área"
+            "No se puede eliminar el miembro porque es el responsable del área",
         };
         this.genericNotification(notification);
         return;
@@ -73,13 +72,13 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
     this._ticketsService
       .getMemberResponsibleTickets(member)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(tickets => {
+      .subscribe((tickets) => {
         if (tickets.length) {
           var notification = {
             type: "error",
             title: "Oops, parece que hay un problema",
             message:
-              "No se puede eliminar el miembro porque tiene tickets asignados."
+              "No se puede eliminar el miembro porque tiene tickets asignados.",
           };
           this.genericNotification(notification);
           return;
@@ -87,9 +86,9 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
         var payload = {
           area,
           member,
-          updated_by: this.user
+          updated_by: this.user,
         };
-        this.store.dispatch(deleteAreaMember({ payload }));
+        this.store.dispatch(AreasActions.deleteAreaMember({ payload }));
       });
   }
 
@@ -97,11 +96,11 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
     let payload = {
       responsible: member,
       updated_by: this.user._id,
-      area: this.area
+      area: this.area,
     };
 
     this.store.dispatch(
-      AreaActions.updateArea({ areaId: this.area._id, payload: payload })
+      AreasActions.updateArea({ areaId: this.area._id, payload: payload })
     );
   }
 
@@ -111,8 +110,8 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
       data: {
         type: notification.type,
         title: notification.title,
-        message: notification.message
-      }
+        message: notification.message,
+      },
     });
   }
 

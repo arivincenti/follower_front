@@ -1,0 +1,56 @@
+<div class="contenedor animated fadeIn">
+
+  <div class="list-card-loader">
+    <mat-progress-bar *ngIf="areasLoading$ | async" mode="indeterminate">
+    </mat-progress-bar>
+  </div>
+
+  <div class="list-card-header animated">
+    <div class="list-card-header-title">
+      <span class="list-card-header-title-subtitle">
+        Áreas
+      </span>
+      <button class="list-card-header-button" mat-button color="warn" (click)="createArea()" matTooltip="Agregar área"
+        matTooltipPosition="right">
+        <span>Nueva área</span>
+      </button>
+    </div>
+
+    <div *ngIf="areas$ | async as areas" class="list-card-header-filter">
+      <form class="form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Buscar Área</mat-label>
+          <input matInput type="text" name="searchArea" [(ngModel)]="searchArea" autocomplete="off">
+        </mat-form-field>
+      </form>
+      <!-- <app-filter [originalArray]="areas" (transformArray)="filterAreas = $event">
+          </app-filter> -->
+    </div>
+  </div>
+
+  <ng-container *ngIf="areas$ | async as areas">
+
+    <div class="mensaje animated delay-500ms" *ngIf="!areas.length">
+      <span class="empty-message">No se encontraron áreas en esta organización.</span>
+    </div>
+
+    <div class="list-card animated delay-300ms"
+      *ngFor="let area of (areas | searchArea: searchArea) | paginator:since:until">
+
+      <div class="list-card-card animated fadeIn">
+        <app-areas-list-card [organization]="organization" [area]="area" [user]="user"></app-areas-list-card>
+      </div>
+
+      <div class="list-card-divider">
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+
+    <div class="paginador">
+      <mat-paginator [length]="areas.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="changePage($event)" showFirstLastButtons>
+      </mat-paginator>
+    </div>
+
+  </ng-container>
+</div>

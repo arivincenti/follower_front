@@ -5,24 +5,24 @@ export const dashboardRoutes: Routes = [
   {
     path: "",
     redirectTo: "organizations",
-    pathMatch: "full"
+    pathMatch: "full",
   },
   {
     path: "organizations",
     loadChildren: () =>
-      import("./organization/organization.module").then(
-        m => m.OrganizationModule
+      import("./organizations/organizations.module").then(
+        (m) => m.OrganizationsModule
       ),
     canLoad: [VerifyTokenGuard],
-    canActivate: [VerifyTokenGuard]
+    canActivate: [VerifyTokenGuard],
   },
   {
     path: "notifications",
     loadChildren: () =>
       import("./notifications/notifications.module").then(
-        m => m.NotificationsModule
+        (m) => m.NotificationsModule
       ),
     canLoad: [VerifyTokenGuard],
-    canActivate: [VerifyTokenGuard]
-  }
+    canActivate: [VerifyTokenGuard],
+  },
 ];

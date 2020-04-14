@@ -1,41 +1,27 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { LoginGuard } from "src/app/guards/login/login.guard";
-import { OrganizationComponent } from "./organization/organization.component";
 import { VerifyTokenGuard } from "src/app/guards/token/verify-token.guard";
+import { organizationProfileRoutes } from "./organization.routes";
+import { OrganizationProfileComponent } from "./organization-profile/organization-profile.component";
 
 const routes: Routes = [
   {
     path: "",
+    component: OrganizationProfileComponent,
     canActivate: [LoginGuard, VerifyTokenGuard],
-    component: OrganizationComponent
-  },
-  {
-    path: "ticket/:id",
-    loadChildren: () =>
-      import("../ticket/ticket.module").then(m => m.TicketModule),
-    canLoad: [VerifyTokenGuard],
-    canActivate: [VerifyTokenGuard]
-  },
-  {
-    path: "profile/:id",
-    loadChildren: () =>
-      import("./organization-profile/organization-profile.module").then(
-        m => m.OrganizationProfileModule
-      ),
-    canLoad: [VerifyTokenGuard],
-    canActivate: [LoginGuard, VerifyTokenGuard]
+    children: organizationProfileRoutes,
   },
   {
     path: "area/:id",
+    loadChildren: () => import("../area/area.module").then((m) => m.AreaModule),
     canLoad: [VerifyTokenGuard],
     canActivate: [LoginGuard, VerifyTokenGuard],
-    loadChildren: () => import("../area/area.module").then(m => m.AreaModule)
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class OrganizationRoutingModule {}

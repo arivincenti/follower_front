@@ -80,10 +80,9 @@
         <form class="properties-section-form" [formGroup]="propertiesForm" (ngSubmit)="sendMessage()">
           <div class="properties-section-form-responsible">
             <mat-form-field>
-              <mat-label *ngIf="members">Miembro responsable</mat-label>
-              <mat-label *ngIf="!members">Asignar miembros al ticket</mat-label>
+              <mat-label>Miembro responsable</mat-label>
               <mat-select formControlName="members">
-                <mat-option *ngFor="let member of members" [value]="member._id">
+                <mat-option *ngFor="let member of members$ | async" [value]="member._id">
                   <img class="member-card-img" [src]="member.user.img | image" alt="" />
                   <span>
                     {{ member.user.name | titlecase }}

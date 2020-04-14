@@ -13,7 +13,7 @@ import { GenericNotificationComponent } from "../../shared/snackbar/generic-noti
   declarations: [
     MemberProfileComponent,
     MemberListComponent,
-    MemberListCardComponent
+    MemberListCardComponent,
   ],
   imports: [
     CommonModule,
@@ -21,9 +21,9 @@ import { GenericNotificationComponent } from "../../shared/snackbar/generic-noti
     ReactiveFormsModule,
     SharedModule,
     AngularMaterialModule,
-    PipesModule
+    PipesModule,
   ],
   exports: [MemberListComponent, MemberListCardComponent],
-  entryComponents: [GenericNotificationComponent]
+  entryComponents: [GenericNotificationComponent],
 })
 export class MemberModule {}

@@ -5,10 +5,13 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UserModel } from "src/app/models/user.model";
-import * as AreaActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
 import { map, filter } from "rxjs/operators";
 import { MatDialog } from "@angular/material";
 import { AreaFormComponent } from "../../../shared/forms/area-form/area-form.component";
+import {
+  areaSelected,
+  areasLoading,
+} from "src/app/store/selectors/userOrganizations/selectedOrganization/areas/areas.selector";
 
 @Component({
   selector: "app-area-profile",
@@ -36,27 +39,17 @@ export class AreaProfileComponent implements OnInit, OnDestroy {
     var auth = JSON.parse(localStorage.getItem("auth"));
     this.user = auth.user;
 
-    this.store.dispatch(AreaActions.getArea({ payload: this.param }));
+    // this.store.dispatch(AreaActions.getArea({ payload: this.param }));
 
-    this.area$ = this.store
-      .select(
-        (state) =>
-          state.userOrganizations.selectedOrganization.areas.selectedArea.area
-      )
-      .pipe(
-        filter((area) => area !== null),
-        map((area) => (this.area = area))
-      );
-
-    this.areaLoading$ = this.store.select(
-      (state) =>
-        state.userOrganizations.selectedOrganization.areas.selectedArea.loading
+    this.area$ = this.store.select(areaSelected, this.param).pipe(
+      filter((area) => area !== null),
+      map((area) => (this.area = area))
     );
+
+    this.areaLoading$ = this.store.select(areasLoading);
   }
 
-  ngOnDestroy() {
-    this.store.dispatch(AreaActions.clear());
-  }
+  ngOnDestroy() {}
 
   backToLastPage() {
     this.router.navigate([

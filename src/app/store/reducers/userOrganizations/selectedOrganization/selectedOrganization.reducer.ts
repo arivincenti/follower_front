@@ -1,22 +1,18 @@
 import { combineReducers } from "@ngrx/store";
-import * as OrganizationReducer from "./organization/organization.reducer";
-import * as AreasReducer from "./areas/areasIndex.reducer";
-import * as MembersIndexReducer from "../selectedOrganization/members/membersIndex.reducer";
+import * as AreasReducer from "./areas/areas.reducer";
+import * as MembersReducer from "./members/members.reducer";
 
 export interface state {
-  organization: OrganizationReducer.OrganizationState;
-  areas: AreasReducer.state;
-  members: MembersIndexReducer.state;
+  areas: AreasReducer.AreasState;
+  members: MembersReducer.MembersState;
 }
 
 export const initialState: state = {
-  organization: OrganizationReducer.InitialStateOrganization,
-  areas: AreasReducer.initialState,
-  members: MembersIndexReducer.initialState
+  areas: AreasReducer.InitialStateAreas,
+  members: MembersReducer.InitialStateMembers,
 };
 
 export const selectedOrganizationReducer = combineReducers({
-  organization: OrganizationReducer.OrganizationReducer,
-  areas: AreasReducer.AreasIndexReducer,
-  members: MembersIndexReducer.MemberIndexReducer
+  areas: AreasReducer.AreasReducer,
+  members: MembersReducer.MembersReducer,
 });

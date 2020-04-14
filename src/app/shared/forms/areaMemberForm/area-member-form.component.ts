@@ -8,12 +8,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { MemberFormComponent } from "../member-form/member-form.component";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
 import { takeUntil, map } from "rxjs/operators";
-import { createAreaMember } from "src/app/store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
+import { createAreaMember } from "src/app/store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
+import { organizationMembers } from "src/app/store/selectors/userOrganizations/selectedOrganization/organization/organizationMembers.selector";
 
 @Component({
   selector: "app-area-member-form",
   templateUrl: "./area-member-form.component.html",
-  styleUrls: ["./area-member-form.component.css"]
+  styleUrls: ["./area-member-form.component.css"],
 })
 export class AreaMemberFormComponent implements OnInit, OnDestroy {
   private unsuscribe$ = new Subject();
@@ -29,19 +30,16 @@ export class AreaMemberFormComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: DialogDataArea
   ) {
     this.organizationMembers$ = this.store
-      .select(
-        state =>
-          state.userOrganizations.selectedOrganization.members.members.members
-      )
-      .pipe(map(members => (this.organizationMembers = members)));
+      .select(organizationMembers)
+      .pipe(map((members) => (this.organizationMembers = members)));
 
-    this.store
-      .select(
-        state =>
-          state.userOrganizations.selectedOrganization.areas.selectedArea.area
-      )
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe(area => (this.areaMembers = area.members));
+    // this.store
+    //   .select(
+    //     state =>
+    //       state.userOrganizations.selectedOrganization.areas.selectedArea.area
+    //   )
+    //   .pipe(takeUntil(this.unsuscribe$))
+    //   .subscribe(area => (this.areaMembers = area.members));
   }
 
   ngOnInit() {
@@ -64,7 +62,7 @@ export class AreaMemberFormComponent implements OnInit, OnDestroy {
         Validators.required,
         this.avaibleNameInArea.bind(this)
       ),
-      user: new FormControl("")
+      user: new FormControl(""),
     });
 
     //Mark as touched
@@ -76,7 +74,7 @@ export class AreaMemberFormComponent implements OnInit, OnDestroy {
   // ==================================================
   createMember() {
     let member = this.organizationMembers.filter(
-      member =>
+      (member) =>
         member.user.email.toLowerCase() === this.form.controls["email"].value
     );
 
@@ -88,7 +86,7 @@ export class AreaMemberFormComponent implements OnInit, OnDestroy {
     let payload = {
       area: this.data.area._id,
       member: member[0],
-      updated_by: this.data.user
+      updated_by: this.data.user,
     };
 
     this.store.dispatch(createAreaMember({ payload: payload }));
@@ -102,7 +100,7 @@ export class AreaMemberFormComponent implements OnInit, OnDestroy {
   avaibleNameInArea(control: FormControl): Promise<any> | Observable<any> {
     let promise = new Promise((resolve, reject) => {
       let email = "";
-      this.areaMembers.forEach(member => {
+      this.data.area.members.forEach((member) => {
         if (
           member.user.email.toUpperCase() ===
           this.form.controls["email"].value.toUpperCase()

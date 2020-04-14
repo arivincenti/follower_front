@@ -10,9 +10,11 @@ import { AreaRoutingModule } from "./area-routing.module";
 import { AreaFormComponent } from "src/app/shared/forms/area-form/area-form.component";
 import { PipesModule } from "src/app/pipes/pipes.module";
 import { AreaMemberFormComponent } from "src/app/shared/forms/areaMemberForm/area-member-form.component";
+import { AreaMembersListComponent } from './area-members-list/area-members-list.component';
+import { AreaMembersListCardComponent } from './area-members-list-card/area-members-list-card.component';
 
 @NgModule({
-  declarations: [AreaProfileComponent],
+  declarations: [AreaProfileComponent, AreaMembersListComponent, AreaMembersListCardComponent],
   imports: [
     RouterModule,
     CommonModule,

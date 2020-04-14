@@ -1,38 +1,30 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { OrganizationComponent } from "./organization/organization.component";
-import { OrganizationListCardComponent } from "./organization-list-card/organization-list-card.component";
-import { OrganizationListComponent } from "./organization-list/organization-list.component";
-import { SharedModule } from "src/app/shared/shared.module";
-import { OrganizationFormComponent } from "../../shared/forms/organization-form/organization-form.component";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { OrganizationProfileComponent } from "./organization-profile/organization-profile.component";
+import { MemberModule } from "../member/member.module";
 import { OrganizationRoutingModule } from "./organization-routing.module";
-import { TicketListComponent } from "./ticket-list/ticket-list.component";
-import { TicketListCardComponent } from "./ticket-list-card/ticket-list-card.component";
-import { TicketFormComponent } from "../../shared/forms/ticket-form/ticket-form.component";
 import { AngularMaterialModule } from "src/app/angular-material/angular-material.module";
-import { UserProfileComponent } from "../user/user-profile/user-profile.component";
-import { TicketGraphicsComponent } from "src/app/shared/graphics/ticket-graphics/ticket-graphics.component";
+import { SharedModule } from "src/app/shared/shared.module";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { AreasListComponent } from "../areas/areas-list/areas-list.component";
+import { AreasListCardComponent } from "../areas/areas-list-card/areas-list-card.component";
 import { PipesModule } from "src/app/pipes/pipes.module";
 
 @NgModule({
   declarations: [
-    UserProfileComponent,
-    OrganizationComponent,
-    OrganizationListComponent,
-    OrganizationListCardComponent,
-    TicketListComponent,
-    TicketListCardComponent
+    OrganizationProfileComponent,
+    AreasListComponent,
+    AreasListCardComponent,
   ],
   imports: [
     CommonModule,
-    SharedModule,
-    AngularMaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
+    MemberModule,
     OrganizationRoutingModule,
-    PipesModule
+    AngularMaterialModule,
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule,
+    PipesModule,
   ],
-  entryComponents: [TicketFormComponent, OrganizationFormComponent]
 })
-export class OrganizationModule {}
+export class OrganizationProfileModule {}

@@ -18,14 +18,13 @@ import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { NotificationsService } from "../services/notifications/notifications.service";
 import { UpdatedNotificationComponent } from "../shared/snackbar/updated-notification/updated-notification.component";
 import { MemberModel } from "../models/member.model";
-import { updateAreasList } from "../store/actions/userOrganizations/selectedOrganization/areas/areas/areas.actions";
-import { updateAreaSuccess } from "../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
+import * as AreasActions from "../store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
 import { UsersService } from "../services/users/users.service";
 import { TicketModel } from "../models/ticketModel";
 import { OrganizationModel } from "../models/organization.model";
 import { getTickets } from "../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
 import { getOrganizations } from "../store/actions/userOrganizations/organizations/organizations.actions";
-import { notifications } from "../store/selectors/userOrganizations/notifications/notification.selector";
+import { notifications } from "../store/selectors/notifications/notification.selector";
 import { organizations } from "../store/selectors/userOrganizations/organizations/organizations.selector";
 import { userTickets } from "../store/selectors/userOrganizations/tickets/tickets.selector";
 import { user } from "../store/selectors/auth/auth.selector";
@@ -204,11 +203,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     //Actualizamos los objectos del usuario que realizo la modificacion o creó alguno nuevo
     //Solo actualizamos los objectos que se modificaron.
-    this._usersService.updateObjectsState(
-      payload.objectType,
-      payload.operationType,
-      payload.object
-    );
+    // this._usersService.updateObjectsState(
+    //   payload.objectType,
+    //   payload.operationType,
+    //   payload.object
+    // );
 
     //Emitimos la notificacion
     this._notificationService.createNewNotification(
@@ -247,11 +246,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
             })
           );
 
-          this._usersService.updateObjectsState(
-            notification.objectType,
-            notification.operationType,
-            object
-          );
+          // this._usersService.updateObjectsState(
+          //   notification.objectType,
+          //   notification.operationType,
+          //   object
+          // );
         }
       });
   }
@@ -267,8 +266,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         switch (payload.objectType) {
           case "area":
             this.store.dispatch(getTickets({ payload: this.user }));
-            this.store.dispatch(updateAreasList({ area: payload.object }));
-            this.store.dispatch(updateAreaSuccess({ payload: payload.object }));
+            this.store.dispatch(
+              AreasActions.updateAreaSuccess({ payload: payload.object })
+            );
             this._wsService.emit("leave-area", payload.object._id);
             break;
         }
@@ -286,8 +286,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         switch (payload.objectType) {
           case "area":
             this.store.dispatch(getTickets({ payload: this.user }));
-            this.store.dispatch(updateAreasList({ area: payload.object }));
-            this.store.dispatch(updateAreaSuccess({ payload: payload.object }));
+            this.store.dispatch(
+              AreasActions.updateAreaSuccess({ payload: payload.object })
+            );
             this._wsService.emit("join-area", payload.object._id);
             break;
           case "member":

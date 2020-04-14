@@ -8,13 +8,14 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { MemberModel } from "src/app/models/member.model";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
-import * as MemberActions from "../../../store/actions/userOrganizations/selectedOrganization/members/member/member.actions";
+import * as MembersActions from "../../../store/actions/userOrganizations/selectedOrganization/members/members.actions";
 import { takeUntil } from "rxjs/operators";
+import { organizationMembers } from "src/app/store/selectors/userOrganizations/selectedOrganization/organization/organizationMembers.selector";
 
 @Component({
   selector: "app-member-form",
   templateUrl: "./member-form.component.html",
-  styleUrls: ["./member-form.component.css"]
+  styleUrls: ["./member-form.component.css"],
 })
 export class MemberFormComponent implements OnInit, OnDestroy {
   private unsuscribe$ = new Subject();
@@ -30,14 +31,11 @@ export class MemberFormComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<MemberFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogDataArea
   ) {
-    this.organizationMembers$ = this.store.select(
-      state =>
-        state.userOrganizations.selectedOrganization.members.members.members
-    );
+    this.organizationMembers$ = this.store.select(organizationMembers);
 
     this.organizationMembers$
       .pipe(takeUntil(this.unsuscribe$))
-      .subscribe(members => (this.organizationMembers = members));
+      .subscribe((members) => (this.organizationMembers = members));
   }
 
   ngOnInit() {
@@ -56,7 +54,7 @@ export class MemberFormComponent implements OnInit, OnDestroy {
         Validators.required,
         this.avaibleNameInOrganization.bind(this)
       ),
-      user: new FormControl("")
+      user: new FormControl(""),
     });
     //Mark as touched
     this.form.controls["email"].markAsTouched();
@@ -65,7 +63,7 @@ export class MemberFormComponent implements OnInit, OnDestroy {
   searchUsers() {
     let payload = {
       email: this.form.controls["email"].value,
-      organization: this.data.organization._id
+      organization: this.data.organization._id,
     };
 
     this.users$ = this._usersService.getUsersByEmail(payload);
@@ -73,17 +71,17 @@ export class MemberFormComponent implements OnInit, OnDestroy {
 
   createMember() {
     let payload = {
-      email: this.form.controls["email"].value
+      email: this.form.controls["email"].value,
     };
 
-    this._usersService.getUsersByEmail(payload).subscribe(user => {
+    this._usersService.getUsersByEmail(payload).subscribe((user) => {
       let member = {
         organization: this.data.organization,
         user: user[0]._id,
-        created_by: this.data.user
+        created_by: this.data.user,
       };
 
-      this.store.dispatch(MemberActions.createMember({ payload: member }));
+      this.store.dispatch(MembersActions.createMember({ payload: member }));
     });
 
     this.dialogRef.close();
@@ -97,7 +95,7 @@ export class MemberFormComponent implements OnInit, OnDestroy {
   ): Promise<any> | Observable<any> {
     let promise = new Promise((resolve, reject) => {
       let email = "";
-      this.organizationMembers.forEach(member => {
+      this.organizationMembers.forEach((member) => {
         if (
           member.user.email.toUpperCase() ===
           this.form.controls["email"].value.toUpperCase()

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
 import * as OrganizationsActions from "../../../store/actions/userOrganizations/organizations/organizations.actions";
-import * as OrganizationActions from "../../../store/actions/userOrganizations/selectedOrganization/organization.actions";
 import { Observable, Subject } from "rxjs";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { Store } from "@ngrx/store";
@@ -9,6 +8,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { DialogDataOrganization } from "../../../models/interfaces/dialogDataOrganization";
 import { takeUntil } from "rxjs/operators";
+import { organizations } from "src/app/store/selectors/userOrganizations/organizations/organizations.selector";
 
 @Component({
   selector: "app-organization-form",
@@ -35,7 +35,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     //User organizations subscription
     this.store
-      .select((state) => state.userOrganizations.organizations.organizations)
+      .select(organizations)
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe((organizations) => (this.userOrganizations = organizations));
 
@@ -77,7 +77,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
         name: this.form.controls["name"].value.toUpperCase(),
       };
       console.log("se creo una nueva");
-      this.store.dispatch(OrganizationActions.createOrganization({ payload }));
+      this.store.dispatch(OrganizationsActions.createOrganization({ payload }));
     } else {
       let payload = {
         name: this.form.controls["name"].value.toUpperCase(),
@@ -85,7 +85,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
         organization: this.data.organization,
       };
       this.store.dispatch(
-        OrganizationActions.updateOrganization({
+        OrganizationsActions.updateOrganization({
           organizationId: this.data.organization._id,
           payload: payload,
         })

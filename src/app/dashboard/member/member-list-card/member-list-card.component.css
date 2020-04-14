@@ -46,7 +46,7 @@ button {
   display: flex;
   justify-content: flex-end;
   position: relative;
-  bottom: 3px;
+  bottom: 5px;
 }
 
 /* CSS GRID END */
@@ -54,7 +54,6 @@ button {
 .icon-header {
   font-size: 1.3em;
   position: relative;
-  top: 2px;
   right: 2px;
 }
 

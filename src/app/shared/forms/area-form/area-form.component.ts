@@ -3,11 +3,12 @@ import { Observable, Subject } from "rxjs";
 import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import * as AreaActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/area/area.actions";
+import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { takeUntil } from "rxjs/operators";
+import { areas } from "src/app/store/selectors/userOrganizations/selectedOrganization/areas/areas.selector";
 
 @Component({
   selector: "app-area-form",
@@ -36,10 +37,7 @@ export class AreaFormComponent implements OnInit {
   ngOnInit() {
     //Search organizations areas
     this.store
-      .select(
-        (state) =>
-          state.userOrganizations.selectedOrganization.areas.areas.areas
-      )
+      .select(areas)
       .pipe(takeUntil(this.unsuscribe$))
       .subscribe((areas) => (this.areas = areas));
 
@@ -75,7 +73,7 @@ export class AreaFormComponent implements OnInit {
         name: this.form.controls["area"].value.toUpperCase(),
       };
 
-      this.store.dispatch(AreaActions.createArea({ payload }));
+      this.store.dispatch(AreasActions.createArea({ payload }));
     } else {
       let payload = {
         name: this.form.controls["area"].value.toUpperCase(),
@@ -85,7 +83,7 @@ export class AreaFormComponent implements OnInit {
       };
 
       this.store.dispatch(
-        AreaActions.updateArea({
+        AreasActions.updateArea({
           areaId: this.data.area._id,
           payload: payload,
         })

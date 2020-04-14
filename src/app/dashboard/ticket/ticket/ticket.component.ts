@@ -12,6 +12,15 @@ import { map, filter, takeUntil } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
 import { CommentModel } from "src/app/models/commentModel";
 import { CommentsService } from "src/app/services/comments/comments.service";
+import {
+  ticket,
+  ticketAreaMembers,
+  ticketLoading,
+} from "src/app/store/selectors/userOrganizations/selectedTicket/selectedTicket.selector";
+import {
+  comments,
+  commentsLoading,
+} from "src/app/store/selectors/userOrganizations/selectedTicket/comments.selector";
 
 @Component({
   selector: "app-ticket",
@@ -40,7 +49,7 @@ export class TicketComponent implements OnInit, OnDestroy {
   minDate: Date = new Date();
   priorities: string[] = ["BAJA", "MEDIA", "ALTA"];
   status: string[] = ["PENDIENTE", "ABIERTO", "CERRADO"];
-  members: MemberModel[];
+  members$: Observable<MemberModel[]>;
   param: string;
   user: UserModel;
   owner: boolean = false;
@@ -70,13 +79,19 @@ export class TicketComponent implements OnInit, OnDestroy {
       });
 
     //Despachamos las acciones
-    this.store.dispatch(TicketActions.getTicket({ payload: this.param }));
     this.store.dispatch(CommentsActions.getComments({ payload: this.param }));
 
     //Seteamos el formulario
     this.messageForm = new FormGroup({
       message: new FormControl(null),
       type: new FormControl(this.messageTypes[0].value),
+    });
+
+    this.propertiesForm = new FormGroup({
+      status: new FormControl(null),
+      members: new FormControl(null),
+      priority: new FormControl(null),
+      date: new FormControl(null),
     });
 
     //Buscamos el usuario logueado
@@ -89,70 +104,55 @@ export class TicketComponent implements OnInit, OnDestroy {
       .subscribe((user) => (this.user = user));
 
     //Obtenemos el estados los los loadings
-    this.ticketLoading$ = this.store.select(
-      (state) => state.userOrganizations.tickets.selectedTicket.ticket.loading
-    );
+    this.ticketLoading$ = this.store.select(ticketLoading);
 
     //Buscamos los datos del ticket
-    this.ticket$ = this.store
-      .select(
-        (state) => state.userOrganizations.tickets.selectedTicket.ticket.ticket
-      )
-      .pipe(
-        filter((ticket) => ticket !== null),
-        map((ticket: TicketModel) => {
-          this.members = ticket.area.members;
-          this.propertiesForm = new FormGroup({
-            status: new FormControl(ticket.status),
-            members: new FormControl(null),
-            priority: new FormControl(ticket.priority),
-            date: new FormControl(ticket.date),
-          });
+    this.ticket$ = this.store.select(ticket, this.param).pipe(
+      filter((ticket) => ticket !== undefined),
+      map((ticket) => {
+        this.propertiesForm.controls["status"].setValue(ticket.status);
+        this.propertiesForm.controls["priority"].setValue(ticket.priority);
+        this.propertiesForm.controls["date"].setValue(ticket.date);
 
-          if (ticket.responsible)
-            this.propertiesForm.controls["members"].setValue(
-              ticket.responsible._id
-            );
+        if (ticket.responsible)
+          this.propertiesForm.controls["members"].setValue(
+            ticket.responsible._id
+          );
 
-          if (
-            // Si soy el creador del ticket y pertenezco al area puedo editar
-            ticket.area.members.find(
-              (member) => member.user._id === this.user._id
-            ) &&
-            ticket.created_by._id === this.user._id
-          ) {
-            this.owner = false;
-          } else if (
-            // Si soy el creador del ticket y NO pertenezco al area NO puedo editar
-            !ticket.area.members.find(
-              (member) => member.user._id === this.user._id
-            ) &&
-            ticket.created_by._id === this.user._id
-          ) {
-            this.owner = true;
-            console.log("entro al segundo");
-          } else if (
-            // Si NO soy el creador del ticket pero pertenezco al area puedo editar
-            ticket.area.members.find(
-              (member) => member.user._id === this.user._id
-            ) &&
-            ticket.created_by._id !== this.user._id
-          ) {
-            this.owner = false;
-          }
+        if (
+          // Si soy el creador del ticket y pertenezco al area puedo editar
+          ticket.area.members.find(
+            (member) => member.user._id === this.user._id
+          ) &&
+          ticket.created_by._id === this.user._id
+        ) {
+          this.owner = false;
+        } else if (
+          // Si soy el creador del ticket y NO pertenezco al area NO puedo editar
+          !ticket.area.members.find(
+            (member) => member.user._id === this.user._id
+          ) &&
+          ticket.created_by._id === this.user._id
+        ) {
+          this.owner = true;
+          console.log("entro al segundo");
+        } else if (
+          // Si NO soy el creador del ticket pero pertenezco al area puedo editar
+          ticket.area.members.find(
+            (member) => member.user._id === this.user._id
+          ) &&
+          ticket.created_by._id !== this.user._id
+        ) {
+          this.owner = false;
+        }
 
-          return ticket;
-        })
-      );
-
-    //Obtenemos los comentarios
-    this.comments$ = this.store.select(
-      (state) =>
-        state.userOrganizations.tickets.selectedTicket.comments.comments
+        return ticket;
+      })
     );
-    this.commentsLoading$ = this.store.select(
-      (state) => state.userOrganizations.tickets.selectedTicket.comments.loading
-    );
+
+    this.members$ = this.store.select(ticketAreaMembers, this.param);
+    this.comments$ = this.store.select(comments, this.param);
+    this.commentsLoading$ = this.store.select(commentsLoading);
   }
 
   ngOnDestroy() {

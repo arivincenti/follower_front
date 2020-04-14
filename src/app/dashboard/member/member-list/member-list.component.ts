@@ -4,12 +4,14 @@ import { UserModel } from "src/app/models/user.model";
 import { Observable } from "rxjs";
 import { MemberModel } from "src/app/models/member.model";
 import { PageEvent, MatDialog } from "@angular/material";
-import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import { map, filter } from "rxjs/operators";
 import { MemberFormComponent } from "../../../shared/forms/member-form/member-form.component";
-import { AreaMemberFormComponent } from "src/app/shared/forms/areaMemberForm/area-member-form.component";
+import {
+  organizationMembers,
+  organizationMembersLoading,
+} from "src/app/store/selectors/userOrganizations/selectedOrganization/organization/organizationMembers.selector";
+import { getMembers } from "src/app/store/actions/userOrganizations/selectedOrganization/members/members.actions";
 
 @Component({
   selector: "app-member-list",
@@ -17,18 +19,12 @@ import { AreaMemberFormComponent } from "src/app/shared/forms/areaMemberForm/are
   styleUrls: ["./member-list.component.css"],
 })
 export class MemberListComponent implements OnInit, OnDestroy {
-  @Input() area: AreaModel;
+  @Input() organization: OrganizationModel;
 
-  // private unsubscribe$: Subject<boolean> = new Subject<boolean>();
-
-  organization$: Observable<OrganizationModel>;
-  organization: OrganizationModel;
   user: UserModel;
 
   members$: Observable<MemberModel[]>;
   membersLoading$: Observable<boolean>;
-  membersLoaded$: Observable<boolean>;
-  areaMembers$: Observable<MemberModel[]>;
 
   searchMember: string = "";
   //Paginator variables
@@ -47,51 +43,10 @@ export class MemberListComponent implements OnInit, OnDestroy {
     var auth = JSON.parse(localStorage.getItem("auth"));
     this.user = auth.user;
 
-    this.organization$ = this.store
-      .select(
-        (state) =>
-          state.userOrganizations.selectedOrganization.organization.organization
-      )
-      .pipe(
-        map(
-          (organization: OrganizationModel) =>
-            (this.organization = organization)
-        )
-      );
+    this.store.dispatch(getMembers({ payload: this.organization }));
 
-    this.membersLoading$ = this.store.select(
-      (state) =>
-        state.userOrganizations.selectedOrganization.members.members.loading
-    );
-
-    //Buscamos los miembros de la organizacion cuando el area no esta seleccionada
-    this.members$ = this.store
-      .select(
-        (state) =>
-          state.userOrganizations.selectedOrganization.members.members.members
-      )
-      .pipe(
-        map((members) => {
-          if (!this.area) {
-            return members;
-          }
-        })
-      );
-
-    //Buscamos los miembros del area cuando hay un area seleccionada
-    this.areaMembers$ = this.store
-      .select(
-        (state) =>
-          state.userOrganizations.selectedOrganization.areas.selectedArea.area
-      )
-      .pipe(
-        filter((data) => data !== null),
-        map((data) => {
-          if (this.area) {
-            return data.members;
-          }
-        })
-      );
+    this.membersLoading$ = this.store.select(organizationMembersLoading);
+    this.members$ = this.store.select(organizationMembers);
 
     this.since = this.pageIndex;
     this.until = this.pageSize;
@@ -125,24 +80,13 @@ export class MemberListComponent implements OnInit, OnDestroy {
   }
 
   createMember() {
-    if (this.area) {
-      this.dialog.open(AreaMemberFormComponent, {
-        width: "600px",
-        data: {
-          user: this.user,
-          organization: this.organization,
-          area: this.area,
-        },
-      });
-    } else {
-      this.dialog.open(MemberFormComponent, {
-        width: "600px",
-        data: {
-          user: this.user,
-          organization: this.organization,
-          area: null,
-        },
-      });
-    }
+    this.dialog.open(MemberFormComponent, {
+      width: "600px",
+      data: {
+        user: this.user,
+        organization: this.organization,
+        area: null,
+      },
+    });
   }
 }

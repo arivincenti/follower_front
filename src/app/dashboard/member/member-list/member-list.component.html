@@ -1,59 +1,46 @@
-<ng-container *ngIf="organization$ | async as organization">
-  <div class="contenedor animated fadeIn faster">
-
-    <div class="list-card-loader">
-      <mat-progress-bar *ngIf="membersLoading$ | async" mode="indeterminate">
-      </mat-progress-bar>
-    </div>
-
-    <div class="list-card-header">
-      <div class="list-card-header-title">
-        <span class="list-card-header-title-subtitle">
-          Miembros
-        </span>
-        <button class="list-card-header-button" mat-button color="warn" (click)="createMember()"
-          matTooltip="Agregar miembro" matTooltipPosition="right">
-          <span>Nuevo miembro</span>
-        </button>
-      </div>
-
-
-      <div *ngIf="(members$ | async) || (areaMembers$ | async) as members" class="list-card-header-filter">
-        <form class="form">
-          <mat-form-field class="example-full-width">
-            <mat-label>Buscar Miembro</mat-label>
-            <input matInput type="text" name="searchMember" [(ngModel)]="searchMember" autocomplete="off">
-          </mat-form-field>
-        </form>
-        <!-- <app-filter [originalArray]="members" (transformArray)="filterMembers = $event"></app-filter> -->
-      </div>
-    </div>
-
-    <ng-container *ngIf="(members$ | async) || (areaMembers$ | async) as members">
-
-      <div class="mensaje" *ngIf="!members.length">
-        <span *ngIf="!(membersLoading$ | async)" class="empty-message">No se encontró ningun miembro en la
-          organización, prueba con cargar uno
-          nuevo.</span>
-      </div>
-
-
-      <div class="list-card" *ngFor="let member of (members | searchMember: searchMember ) | paginator:since:until">
-        <div class="list-card-card animated fadeIn">
-          <app-member-list-card [organization]="organization" [member]="member" [user]="user" [area]="area">
-          </app-member-list-card>
-        </div>
-
-        <div class="list-card-divider">
-          <mat-divider></mat-divider>
-        </div>
-      </div>
-
-      <div class="paginador">
-        <mat-paginator *ngIf="members.length" [length]="members.length" [pageSize]="pageSize"
-          [pageSizeOptions]="pageSizeOptions" (page)="changePage($event)" showFirstLastButtons>
-        </mat-paginator>
-      </div>
-    </ng-container>
+<div class="contenedor animated fadeIn faster">
+  <div class="list-card-loader">
+    <mat-progress-bar *ngIf="membersLoading$ | async" mode="indeterminate">
+    </mat-progress-bar>
   </div>
-</ng-container>
+  <div class="list-card-header">
+    <div class="list-card-header-title">
+      <span class="list-card-header-title-subtitle">
+        Miembros
+      </span>
+      <button class="list-card-header-button" mat-button color="warn" (click)="createMember()"
+        matTooltip="Agregar miembro" matTooltipPosition="right">
+        <span>Nuevo miembro</span>
+      </button>
+    </div>
+    <div *ngIf="members$ | async as members" class="list-card-header-filter">
+      <form class="form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Buscar Miembro</mat-label>
+          <input matInput type="text" name="searchMember" [(ngModel)]="searchMember" autocomplete="off">
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <ng-container *ngIf="members$ | async as members">
+    <div class="mensaje" *ngIf="!members.length">
+      <span *ngIf="!(membersLoading$ | async)" class="empty-message">No se encontró ningun miembro en la
+        organización, prueba con cargar uno
+        nuevo.</span>
+    </div>
+    <div class="list-card" *ngFor="let member of (members | searchMember: searchMember ) | paginator:since:until">
+      <div class="list-card-card animated fadeIn">
+        <app-member-list-card [organization]="organization" [member]="member" [user]="user">
+        </app-member-list-card>
+      </div>
+      <div class="list-card-divider">
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+    <div class="paginador">
+      <mat-paginator *ngIf="members.length" [length]="members.length" [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions" (page)="changePage($event)" showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </ng-container>
+</div>

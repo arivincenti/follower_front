@@ -7,7 +7,7 @@ import { PageEvent } from "@angular/material";
 import {
   notifications,
   notificationsLoading,
-} from "src/app/store/selectors/userOrganizations/notifications/notification.selector";
+} from "src/app/store/selectors/notifications/notification.selector";
 
 @Component({
   selector: "app-notifications",
