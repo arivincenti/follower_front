@@ -3,16 +3,12 @@ import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
-import {
-  updateTicketList,
-  addCreatedTicketToList,
-} from "src/app/store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
-import { updateTicketSuccess } from "src/app/store/actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
+import * as ticketsActions from "src/app/store/actions/userOrganizations/tickets/tickets/tickets.actions";
 // import {
 //   updateOrganizationList,
 //   addCreatedOrganizationToList,
 // } from "src/app/store/actions/userOrganizations/organizations/organizations.actions";
-import { updateOrganizationSuccess } from "src/app/store/actions/userOrganizations/organizations/organizations.actions";
+import * as organizationsActions from "src/app/store/actions/userOrganizations/organizations/organizations.actions";
 import * as AreasActions from "src/app/store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
 // import {
 //   addCreatedMemberToList,

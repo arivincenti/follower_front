@@ -1,26 +1,26 @@
-import * as OrganizationReducer from "./selectedOrganization/selectedOrganization.reducer";
+import * as OrganizationReducer from "./organization/organization.reducer";
 import * as OrganizationsReducer from "./organizations/organizations.reducer";
-import * as TicketsReducer from "./tickets/ticket.reducer";
+import * as TicketsReducer from "./tickets/tickets.reducer";
 import * as NotificationsReducer from "./notifications/notifications.reducer";
 import { combineReducers } from "@ngrx/store";
 
 export interface state {
   organizations: OrganizationsReducer.OrganizationsState;
-  selectedOrganization: OrganizationReducer.state;
+  organization: OrganizationReducer.state;
   tickets: TicketsReducer.state;
   notifications: NotificationsReducer.NotificationsState;
 }
 
 export const initialState: state = {
   organizations: OrganizationsReducer.initialOrganizationsState,
-  selectedOrganization: OrganizationReducer.initialState,
+  organization: OrganizationReducer.initialState,
   tickets: TicketsReducer.initialState,
-  notifications: NotificationsReducer.initialNotificationsState
+  notifications: NotificationsReducer.initialNotificationsState,
 };
 
 export const userOrganizationReducer = combineReducers({
   organizations: OrganizationsReducer.OrganizationsReducer,
-  selectedOrganization: OrganizationReducer.selectedOrganizationReducer,
+  organization: OrganizationReducer.organizationReducer,
   tickets: TicketsReducer.TicketReducer,
-  notifications: NotificationsReducer.NotificationsReducer
+  notifications: NotificationsReducer.NotificationsReducer,
 });

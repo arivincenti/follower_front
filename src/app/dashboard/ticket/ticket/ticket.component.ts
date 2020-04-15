@@ -5,8 +5,8 @@ import { TicketModel } from "src/app/models/ticketModel";
 import { Observable, Subject } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import * as TicketActions from "../../../store/actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
-import * as CommentsActions from "../../../store/actions/userOrganizations/tickets/ticket/comments/comments.actions";
+import * as TicketsActions from "../../../store/actions/userOrganizations/tickets/tickets/tickets.actions";
+import * as CommentsActions from "../../../store/actions/userOrganizations/tickets/comments/comments.actions";
 import { MemberModel } from "src/app/models/member.model";
 import { map, filter, takeUntil } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
@@ -16,11 +16,11 @@ import {
   ticket,
   ticketAreaMembers,
   ticketLoading,
-} from "src/app/store/selectors/userOrganizations/selectedTicket/selectedTicket.selector";
+} from "src/app/store/selectors/userOrganizations/tickets/ticket/ticket.selector";
 import {
   comments,
   commentsLoading,
-} from "src/app/store/selectors/userOrganizations/selectedTicket/comments.selector";
+} from "src/app/store/selectors/userOrganizations/tickets/comments/comments.selector";
 
 @Component({
   selector: "app-ticket",
@@ -195,6 +195,6 @@ export class TicketComponent implements OnInit, OnDestroy {
       updated_by: this.user._id,
     };
 
-    this.store.dispatch(TicketActions.updateTicket({ payload }));
+    this.store.dispatch(TicketsActions.updateTicket({ payload }));
   }
 }

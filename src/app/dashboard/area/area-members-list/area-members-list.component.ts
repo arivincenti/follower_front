@@ -8,7 +8,7 @@ import { PageEvent, MatDialog } from "@angular/material";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { AreaMemberFormComponent } from "src/app/shared/forms/areaMemberForm/area-member-form.component";
-import { areaMembers } from "src/app/store/selectors/userOrganizations/selectedOrganization/area/areaMembers.selector";
+import { areaMembers } from "src/app/store/selectors/userOrganizations/organization/area/areaMembers.selector";
 
 @Component({
   selector: "app-area-members-list",

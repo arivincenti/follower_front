@@ -7,7 +7,7 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { Router } from "@angular/router";
 import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
-import { areasLoading } from "src/app/store/selectors/userOrganizations/selectedOrganization/areas/areas.selector";
+import { areasLoading } from "src/app/store/selectors/userOrganizations/organization/areas/areas.selector";
 
 @Component({
   selector: "app-areas-list-card",

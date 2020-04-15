@@ -22,11 +22,11 @@ import * as AreasActions from "../store/actions/userOrganizations/selectedOrgani
 import { UsersService } from "../services/users/users.service";
 import { TicketModel } from "../models/ticketModel";
 import { OrganizationModel } from "../models/organization.model";
-import { getTickets } from "../store/actions/userOrganizations/tickets/userTickets/userTickets.actions";
+import { getTickets } from "../store/actions/userOrganizations/tickets/tickets/tickets.actions";
 import { getOrganizations } from "../store/actions/userOrganizations/organizations/organizations.actions";
 import { notifications } from "../store/selectors/notifications/notification.selector";
 import { organizations } from "../store/selectors/userOrganizations/organizations/organizations.selector";
-import { userTickets } from "../store/selectors/userOrganizations/tickets/tickets.selector";
+import { userTickets } from "../store/selectors/userOrganizations/tickets/tickets/tickets.selector";
 import { user } from "../store/selectors/auth/auth.selector";
 
 @Component({

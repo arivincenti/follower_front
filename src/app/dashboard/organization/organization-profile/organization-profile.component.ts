@@ -9,7 +9,7 @@ import { MatDialog } from "@angular/material";
 import { AreaFormComponent } from "../../../shared/forms/area-form/area-form.component";
 import { map } from "rxjs/operators";
 import { OrganizationFormComponent } from "../../../shared/forms/organization-form/organization-form.component";
-import { organization } from "src/app/store/selectors/userOrganizations/selectedOrganization/organization/organization.selector";
+import { organization } from "src/app/store/selectors/userOrganizations/organization/organization/organization.selector";
 import { organizationsLoading } from "src/app/store/selectors/userOrganizations/organizations/organizations.selector";
 
 @Component({

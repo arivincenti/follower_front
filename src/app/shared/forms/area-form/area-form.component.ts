@@ -8,7 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { takeUntil } from "rxjs/operators";
-import { areas } from "src/app/store/selectors/userOrganizations/selectedOrganization/areas/areas.selector";
+import { areas } from "src/app/store/selectors/userOrganizations/organization/areas/areas.selector";
 
 @Component({
   selector: "app-area-form",

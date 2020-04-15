@@ -23,7 +23,7 @@ import {
   MatSelectModule,
   MatRadioModule,
   MatSnackBarModule,
-  MatNativeDateModule
+  MatNativeDateModule,
 } from "@angular/material";
 import { LayoutModule } from "@angular/cdk/layout";
 import { TextFieldModule } from "@angular/cdk/text-field";
@@ -54,12 +54,12 @@ const material = [
   MatSnackBarModule,
   MatToolbarModule,
   MatTooltipModule,
-  TextFieldModule
+  TextFieldModule,
 ];
 
 @NgModule({
   declarations: [],
   imports: [material],
-  exports: [material]
+  exports: [material],
 })
 export class AngularMaterialModule {}

@@ -10,7 +10,7 @@ import { MemberFormComponent } from "../../../shared/forms/member-form/member-fo
 import {
   organizationMembers,
   organizationMembersLoading,
-} from "src/app/store/selectors/userOrganizations/selectedOrganization/organization/organizationMembers.selector";
+} from "src/app/store/selectors/userOrganizations/organization/organization/organizationMembers.selector";
 import { getMembers } from "src/app/store/actions/userOrganizations/selectedOrganization/members/members.actions";
 
 @Component({

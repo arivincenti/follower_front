@@ -15,7 +15,7 @@ import {
 import {
   userTickets,
   userTicketsLoading,
-} from "src/app/store/selectors/userOrganizations/tickets/tickets.selector";
+} from "src/app/store/selectors/userOrganizations/tickets/tickets/tickets.selector";
 import { user } from "src/app/store/selectors/auth/auth.selector";
 
 @Component({

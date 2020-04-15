@@ -8,11 +8,11 @@ import { AppState } from "src/app/store/app.reducer";
 import { PageEvent, MatDialog } from "@angular/material";
 import { map } from "rxjs/operators";
 import { AreaFormComponent } from "../../../shared/forms/area-form/area-form.component";
-import { organization } from "src/app/store/selectors/userOrganizations/selectedOrganization/organization/organization.selector";
+import { organization } from "src/app/store/selectors/userOrganizations/organization/organization/organization.selector";
 import {
   areasLoading,
   areas,
-} from "src/app/store/selectors/userOrganizations/selectedOrganization/areas/areas.selector";
+} from "src/app/store/selectors/userOrganizations/organization/areas/areas.selector";
 import { getAreas } from "src/app/store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
 
 @Component({

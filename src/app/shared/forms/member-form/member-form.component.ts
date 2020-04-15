@@ -10,7 +10,7 @@ import { MemberModel } from "src/app/models/member.model";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
 import * as MembersActions from "../../../store/actions/userOrganizations/selectedOrganization/members/members.actions";
 import { takeUntil } from "rxjs/operators";
-import { organizationMembers } from "src/app/store/selectors/userOrganizations/selectedOrganization/organization/organizationMembers.selector";
+import { organizationMembers } from "src/app/store/selectors/userOrganizations/organization/organization/organizationMembers.selector";
 
 @Component({
   selector: "app-member-form",

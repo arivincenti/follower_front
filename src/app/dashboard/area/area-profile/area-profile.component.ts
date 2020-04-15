@@ -9,9 +9,9 @@ import { map, filter } from "rxjs/operators";
 import { MatDialog } from "@angular/material";
 import { AreaFormComponent } from "../../../shared/forms/area-form/area-form.component";
 import {
-  areaSelected,
-  areasLoading,
-} from "src/app/store/selectors/userOrganizations/selectedOrganization/areas/areas.selector";
+  area,
+  areaLoading,
+} from "src/app/store/selectors/userOrganizations/organization/area/area.selector";
 
 @Component({
   selector: "app-area-profile",
@@ -41,12 +41,12 @@ export class AreaProfileComponent implements OnInit, OnDestroy {
 
     // this.store.dispatch(AreaActions.getArea({ payload: this.param }));
 
-    this.area$ = this.store.select(areaSelected, this.param).pipe(
+    this.area$ = this.store.select(area, this.param).pipe(
       filter((area) => area !== null),
       map((area) => (this.area = area))
     );
 
-    this.areaLoading$ = this.store.select(areasLoading);
+    this.areaLoading$ = this.store.select(areaLoading);
   }
 
   ngOnDestroy() {}

@@ -185,11 +185,18 @@ mat-form-field {
   width: 100%;
 }
 
-.badge {
-  border-radius: 3px;
-  padding: 2px 3px;
-  font-size: 0.8em;
-  line-height: 12px;
+.btn-follow {
+  margin-left: 5px;
+  font-size: 0.7em;
+  line-height: 5px !important;
+  display: flex;
+  align-items: center;
+}
+
+.btn-follow .btn-followe-icon {
+  font-size: 1.3em;
+  position: relative;
+  top: 5px;
 }
 
 .member-card-img {

@@ -9,7 +9,7 @@ import { MemberFormComponent } from "../member-form/member-form.component";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
 import { takeUntil, map } from "rxjs/operators";
 import { createAreaMember } from "src/app/store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
-import { organizationMembers } from "src/app/store/selectors/userOrganizations/selectedOrganization/organization/organizationMembers.selector";
+import { organizationMembers } from "src/app/store/selectors/userOrganizations/organization/organization/organizationMembers.selector";
 
 @Component({
   selector: "app-area-member-form",

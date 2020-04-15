@@ -9,7 +9,7 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { AreaModel } from "src/app/models/area.model";
 import { AreasService } from "src/app/services/areas/areas.service";
 import { map } from "rxjs/operators";
-import * as TicketActions from "../../../store/actions/userOrganizations/tickets/ticket/ticket/ticket.actions";
+import * as TicketsActions from "../../../store/actions/userOrganizations/tickets/tickets/tickets.actions";
 
 @Component({
   selector: "app-ticket-form",
@@ -65,7 +65,7 @@ export class TicketFormComponent implements OnInit {
       priority: this.form.controls["priority"].value,
     };
 
-    this.store.dispatch(TicketActions.createTicket({ payload: ticket }));
+    this.store.dispatch(TicketsActions.createTicket({ payload: ticket }));
     this.dialogRef.close();
   }
 }
