@@ -10,22 +10,29 @@ import { AreaRoutingModule } from "./area-routing.module";
 import { AreaFormComponent } from "src/app/shared/forms/area-form/area-form.component";
 import { PipesModule } from "src/app/pipes/pipes.module";
 import { AreaMemberFormComponent } from "src/app/shared/forms/areaMemberForm/area-member-form.component";
-import { AreaMembersListComponent } from './area-members-list/area-members-list.component';
-import { AreaMembersListCardComponent } from './area-members-list-card/area-members-list-card.component';
+import { AreaMembersListComponent } from "./area-members-list/area-members-list.component";
+import { AreaMembersListCardComponent } from "./area-members-list-card/area-members-list-card.component";
+import { GenericNotificationComponent } from "src/app/shared/snackbar/generic-notification/generic-notification.component";
+import { ServiceModule } from "src/app/services/service.module";
 
 @NgModule({
-  declarations: [AreaProfileComponent, AreaMembersListComponent, AreaMembersListCardComponent],
+  declarations: [
+    AreaProfileComponent,
+    AreaMembersListComponent,
+    AreaMembersListCardComponent,
+  ],
   imports: [
     RouterModule,
     CommonModule,
     SharedModule,
     FormsModule,
+    ServiceModule,
     ReactiveFormsModule,
     AngularMaterialModule,
     MemberModule,
     AreaRoutingModule,
-    PipesModule
+    PipesModule,
   ],
-  entryComponents: [AreaMemberFormComponent, AreaFormComponent]
+  entryComponents: [AreaMemberFormComponent, AreaFormComponent],
 })
 export class AreaModule {}

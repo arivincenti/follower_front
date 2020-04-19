@@ -1,9 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { NotificationModel } from "src/app/models/notificationModel";
-import { Observable } from "rxjs";
-import { Router } from "@angular/router";
-import { Store } from "@ngrx/store";
-import { AppState } from "src/app/store/app.reducer";
 
 @Component({
   selector: "app-notifications-list-card",
@@ -12,7 +8,7 @@ import { AppState } from "src/app/store/app.reducer";
 })
 export class NotificationsListCardComponent implements OnInit {
   @Input() notification: NotificationModel;
-  constructor(private router: Router, private store: Store<AppState>) {}
+  constructor() {}
 
   ngOnInit() {}
 }

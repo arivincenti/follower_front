@@ -8,7 +8,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { MemberModel } from "src/app/models/member.model";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
-import * as MembersActions from "../../../store/actions/userOrganizations/selectedOrganization/members/members.actions";
+import * as MemberActions from "../../../store/actions/userOrganizations/organization/member/member.actions";
 import { takeUntil } from "rxjs/operators";
 import { organizationMembers } from "src/app/store/selectors/userOrganizations/organization/organization/organizationMembers.selector";
 
@@ -81,7 +81,7 @@ export class MemberFormComponent implements OnInit, OnDestroy {
         created_by: this.data.user,
       };
 
-      this.store.dispatch(MembersActions.createMember({ payload: member }));
+      this.store.dispatch(MemberActions.createMember({ payload: member }));
     });
 
     this.dialogRef.close();

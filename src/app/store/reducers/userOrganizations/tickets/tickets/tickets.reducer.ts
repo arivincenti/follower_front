@@ -42,16 +42,13 @@ export const ticketsReducer = createReducer(
     loaded: false,
     error: null,
   })),
-  on(TicketsActions.createTicketSuccess, (state, { ticket }) => {
-    var index = state.tickets.findIndex((data) => data._id === ticket._id);
-    state.tickets.splice(index, 1, { ...ticket });
-    return {
-      ...state,
-      tickets: [...state.tickets],
-      loading: false,
-      loaded: true,
-    };
-  }),
+  on(TicketsActions.createTicketSuccess, (state, { ticket }) => ({
+    ...state,
+    tickets: [{ ...ticket }, ...state.tickets],
+    loading: false,
+    loaded: true,
+    error: null,
+  })),
   on(TicketsActions.createTicketFail, (state, { payload }) => ({
     ...state,
     loading: false,

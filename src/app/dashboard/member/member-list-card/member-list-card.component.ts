@@ -4,14 +4,13 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { UserModel } from "src/app/models/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import * as MembersActions from "../../../store/actions/userOrganizations/selectedOrganization/members/members.actions";
-import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
+import * as MemberActions from "../../../store/actions/userOrganizations/organization/member/member.actions";
+import * as AreaActions from "../../../store/actions/userOrganizations/organization/area/area.actions";
 import { AreaModel } from "src/app/models/area.model";
 import { TicketsService } from "src/app/services/tickets/tickets.service";
-import { takeUntil } from "rxjs/operators";
-import { Subject } from "rxjs";
 import { MatSnackBar } from "@angular/material";
 import { GenericNotificationComponent } from "src/app/shared/snackbar/generic-notification/generic-notification.component";
+import { SubSink } from "subsink";
 
 @Component({
   selector: "app-member-list-card",
@@ -24,7 +23,7 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
   @Input() user: UserModel;
   @Input() area: AreaModel;
 
-  private unsubscribe$: Subject<boolean> = new Subject<boolean>();
+  subs = new SubSink();
 
   constructor(
     private store: Store<AppState>,
@@ -40,7 +39,7 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
       deleted_at: new Date(),
       updated_by: this.user,
     };
-    this.store.dispatch(MembersActions.desactivateMember({ payload }));
+    this.store.dispatch(MemberActions.desactivateMember({ payload }));
   }
 
   activateMember(member: MemberModel) {
@@ -49,7 +48,7 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
       deleted_at: undefined,
       updated_by: this.user,
     };
-    this.store.dispatch(MembersActions.activateMember({ payload }));
+    this.store.dispatch(MemberActions.activateMember({ payload }));
   }
 
   selectMember(member: MemberModel) {
@@ -69,27 +68,28 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
         return;
       }
     }
-    this._ticketsService
-      .getMemberResponsibleTickets(member)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((tickets) => {
-        if (tickets.length) {
-          var notification = {
-            type: "error",
-            title: "Oops, parece que hay un problema",
-            message:
-              "No se puede eliminar el miembro porque tiene tickets asignados.",
+    this.subs.add(
+      this._ticketsService
+        .getMemberResponsibleTickets(member)
+        .subscribe((tickets) => {
+          if (tickets.length) {
+            var notification = {
+              type: "error",
+              title: "Oops, parece que hay un problema",
+              message:
+                "No se puede eliminar el miembro porque tiene tickets asignados.",
+            };
+            this.genericNotification(notification);
+            return;
+          }
+          var payload = {
+            area,
+            member,
+            updated_by: this.user,
           };
-          this.genericNotification(notification);
-          return;
-        }
-        var payload = {
-          area,
-          member,
-          updated_by: this.user,
-        };
-        this.store.dispatch(AreasActions.deleteAreaMember({ payload }));
-      });
+          this.store.dispatch(AreaActions.deleteAreaMember({ payload }));
+        })
+    );
   }
 
   setResponsibleMember(member: MemberModel) {
@@ -100,7 +100,7 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
     };
 
     this.store.dispatch(
-      AreasActions.updateArea({ areaId: this.area._id, payload: payload })
+      AreaActions.updateArea({ areaId: this.area._id, payload: payload })
     );
   }
 
@@ -116,7 +116,6 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsubscribe$.next(true);
-    this.unsubscribe$.unsubscribe();
+    this.subs.unsubscribe();
   }
 }

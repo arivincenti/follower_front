@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from "@ngrx/store";
-import * as OrganizationsActions from "../../../actions/userOrganizations/organizations/organizations.actions";
+import * as OrganizationsActions from "@actions/organizations";
 import { OrganizationModel } from "../../../../models/organization.model";
 
 export interface OrganizationsState {
@@ -38,15 +38,8 @@ export const organizationsReducer = createReducer(
     loaded: false,
     error: { payload },
   })),
-  on(OrganizationsActions.createOrganization, (state) => ({
-    ...state,
-    organizations: [...state.organizations],
-    loading: true,
-    loaded: false,
-    error: null,
-  })),
   on(
-    OrganizationsActions.createOrganizationSuccess,
+    OrganizationsActions.addCreatedOrganizationToList,
     (state, { organization }) => ({
       ...state,
       organizations: [...state.organizations, { ...organization }],
@@ -54,117 +47,18 @@ export const organizationsReducer = createReducer(
       loaded: true,
     })
   ),
-  on(OrganizationsActions.createOrganizationFail, (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error: { ...payload },
-  })),
-  on(OrganizationsActions.updateOrganization, (state) => ({
-    ...state,
-    loading: true,
-    loaded: false,
-    error: null,
-  })),
-  on(
-    OrganizationsActions.updateOrganizationSuccess,
-    (state, { organization }) => {
-      var index = state.organizations.findIndex(
-        (data) => data._id === organization._id
-      );
-      state.organizations.splice(index, 1, { ...organization });
-      return {
-        ...state,
-        organizations: [...state.organizations],
-        loading: false,
-        loaded: true,
-      };
-    }
-  ),
-  on(OrganizationsActions.updateOrganizationFail, (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error: { ...payload },
-  })),
-  on(OrganizationsActions.activateOrganization, (state) => ({
-    ...state,
-    loading: true,
-    loaded: false,
-    error: null,
-  })),
-  on(
-    OrganizationsActions.activateOrganizationSuccess,
-    (state, { organization }) => {
-      var index = state.organizations.findIndex(
-        (data) => data._id === organization._id
-      );
-      state.organizations.splice(index, 1, { ...organization });
-      return {
-        ...state,
-        organizations: [...state.organizations],
-        loading: false,
-        loaded: true,
-      };
-    }
-  ),
-  on(OrganizationsActions.activateOrganizationFail, (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error: { ...payload },
-  })),
-  on(OrganizationsActions.desactivateOrganization, (state) => ({
-    ...state,
-    loading: true,
-    loaded: false,
-    error: null,
-  })),
-  on(
-    OrganizationsActions.desactivateOrganizationSuccess,
-    (state, { organization }) => {
-      var index = state.organizations.findIndex(
-        (data) => data._id === organization._id
-      );
-      state.organizations.splice(index, 1, { ...organization });
-      return {
-        ...state,
-        organizations: [...state.organizations],
-        loading: false,
-        loaded: true,
-      };
-    }
-  ),
-  on(
-    OrganizationsActions.desactivateOrganizationFail,
-    (state, { payload }) => ({
+  on(OrganizationsActions.updateOrganizationList, (state, { organization }) => {
+    var index = state.organizations.findIndex(
+      (data) => data._id === organization._id
+    );
+    state.organizations.splice(index, 1, { ...organization });
+    return {
       ...state,
+      organizations: [...state.organizations],
       loading: false,
-      loaded: false,
-      error: { ...payload },
-    })
-  ),
-  // on(
-  //   OrganizationsActions.addCreatedOrganizationToList,
-  //   (state, { organization }) => ({
-  //     ...state,
-  //     organizations: [...state.organizations, { ...organization }],
-  //     loading: false,
-  //     loaded: true,
-  //   })
-  // ),
-  // on(OrganizationsActions.updateOrganizationList, (state, { organization }) => {
-  //   var index = state.organizations.findIndex(
-  //     (data) => data._id === organization._id
-  //   );
-  //   state.organizations.splice(index, 1, { ...organization });
-  //   return {
-  //     ...state,
-  //     organizations: [...state.organizations],
-  //     loading: false,
-  //     loaded: true,
-  //   };
-  // }),
+      loaded: true,
+    };
+  }),
   on(OrganizationsActions.clearState, (state) => ({
     ...state,
     ...initialOrganizationsState,

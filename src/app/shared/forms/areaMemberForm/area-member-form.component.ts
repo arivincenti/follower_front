@@ -7,9 +7,9 @@ import { AppState } from "src/app/store/app.reducer";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { MemberFormComponent } from "../member-form/member-form.component";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
-import { takeUntil, map } from "rxjs/operators";
-import { createAreaMember } from "src/app/store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
+import { map } from "rxjs/operators";
 import { organizationMembers } from "src/app/store/selectors/userOrganizations/organization/organization/organizationMembers.selector";
+import { createAreaMember } from "src/app/store/actions/userOrganizations/organization/area/area.actions";
 
 @Component({
   selector: "app-area-member-form",
@@ -36,7 +36,7 @@ export class AreaMemberFormComponent implements OnInit, OnDestroy {
     // this.store
     //   .select(
     //     state =>
-    //       state.userOrganizations.selectedOrganization.areas.selectedArea.area
+    //       state.userOrganizations.organization.areas.selectedArea.area
     //   )
     //   .pipe(takeUntil(this.unsuscribe$))
     //   .subscribe(area => (this.areaMembers = area.members));
@@ -89,7 +89,7 @@ export class AreaMemberFormComponent implements OnInit, OnDestroy {
       updated_by: this.data.user,
     };
 
-    this.store.dispatch(createAreaMember({ payload: payload }));
+    this.store.dispatch(createAreaMember({ payload }));
 
     this.dialogRef.close();
   }

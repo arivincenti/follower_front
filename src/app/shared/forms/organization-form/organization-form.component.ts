@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
-import * as OrganizationsActions from "../../../store/actions/userOrganizations/organizations/organizations.actions";
+import * as OrganizationActions from "../../../store/actions/userOrganizations/organization/organization/organization.actions";
 import { Observable, Subject } from "rxjs";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { Store } from "@ngrx/store";
@@ -77,7 +77,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
         name: this.form.controls["name"].value.toUpperCase(),
       };
       console.log("se creo una nueva");
-      this.store.dispatch(OrganizationsActions.createOrganization({ payload }));
+      this.store.dispatch(OrganizationActions.createOrganization({ payload }));
     } else {
       let payload = {
         name: this.form.controls["name"].value.toUpperCase(),
@@ -85,7 +85,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
         organization: this.data.organization,
       };
       this.store.dispatch(
-        OrganizationsActions.updateOrganization({
+        OrganizationActions.updateOrganization({
           organizationId: this.data.organization._id,
           payload: payload,
         })

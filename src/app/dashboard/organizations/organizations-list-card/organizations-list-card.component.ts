@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { OrganizationModel } from "src/app/models/organization.model";
 import { UserModel } from "src/app/models/user.model";
-import * as OrganizationsActions from "../../../store/actions/userOrganizations/organizations/organizations.actions";
+import * as OrganizationActions from "../../../store/actions/userOrganizations/organization/organization/organization.actions";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
@@ -32,7 +32,7 @@ export class OrganizationsListCardComponent implements OnInit, OnDestroy {
       updated_by: this.user,
     };
     this.store.dispatch(
-      OrganizationsActions.desactivateOrganization({
+      OrganizationActions.desactivateOrganization({
         payload,
       })
     );
@@ -46,7 +46,7 @@ export class OrganizationsListCardComponent implements OnInit, OnDestroy {
     };
 
     this.store.dispatch(
-      OrganizationsActions.activateOrganization({
+      OrganizationActions.activateOrganization({
         payload,
       })
     );

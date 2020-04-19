@@ -2,10 +2,36 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "types": []
+    "types": [],
+    "paths": {
+      "@actions/notifications": [
+        "src/app/store/actions/userOrganizations/notifications/notifications.actions"
+      ],
+      "@actions/organization": [
+        "src/app/store/actions/userOrganizations/organization/organization/organization.actions"
+      ],
+      "@actions/organizations": [
+        "src/app/store/actions/userOrganizations/organizations/organizations.actions"
+      ],
+      "@actions/area": [
+        "src/app/store/actions/userOrganizations/organization/area/area.actions"
+      ],
+      "@actions/areas": [
+        "src/app/store/actions/userOrganizations/organization/areas/areas.actions"
+      ],
+      "@actions/member": [
+        "src/app/store/actions/userOrganizations/organization/member/member.actions"
+      ],
+      "@actions/members": [
+        "src/app/store/actions/userOrganizations/organization/members/members.actions"
+      ],
+      "@actions/ticket": [
+        "src/app/store/actions/userOrganizations/organization/member/member.actions"
+      ],
+      "@actions/tickets": [
+        "src/app/store/actions/userOrganizations/organization/member/member.actions"
+      ]
+    }
   },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
-  ]
+  "exclude": ["test.ts", "**/*.spec.ts"]
 }

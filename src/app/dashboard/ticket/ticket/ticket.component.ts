@@ -21,6 +21,8 @@ import {
   comments,
   commentsLoading,
 } from "src/app/store/selectors/userOrganizations/tickets/comments/comments.selector";
+import { SubSink } from "subsink";
+import { TicketsService } from "src/app/services/tickets/tickets.service";
 
 @Component({
   selector: "app-ticket",
@@ -28,7 +30,7 @@ import {
   styleUrls: ["./ticket.component.css"],
 })
 export class TicketComponent implements OnInit, OnDestroy {
-  private unsuscribe$ = new Subject();
+  subs = new SubSink();
 
   propertiesForm: FormGroup;
   messageForm: FormGroup;
@@ -61,7 +63,8 @@ export class TicketComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
-    private commentService: CommentsService
+    private commentService: CommentsService,
+    private _ticketService: TicketsService
   ) {}
 
   ngOnInit() {
@@ -69,14 +72,15 @@ export class TicketComponent implements OnInit, OnDestroy {
     this.param = this.activatedRoute.snapshot.paramMap.get("id");
 
     //Aca escuchamos cuando alguien crea un nuevo comentario
-    this.commentService
-      .listenCommentsSocket()
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((res: CommentModel) => {
-        this.store.dispatch(
-          CommentsActions.addCommentSuccess({ payload: res })
-        );
-      });
+    this.subs.add(
+      this.commentService
+        .listenCommentsSocket()
+        .subscribe((res: CommentModel) => {
+          this.store.dispatch(
+            CommentsActions.addCommentSuccess({ payload: res })
+          );
+        })
+    );
 
     //Despachamos las acciones
     this.store.dispatch(CommentsActions.getComments({ payload: this.param }));
@@ -95,13 +99,12 @@ export class TicketComponent implements OnInit, OnDestroy {
     });
 
     //Buscamos el usuario logueado
-    this.store
-      .select((state) => state.auth.user)
-      .pipe(
-        takeUntil(this.unsuscribe$),
-        filter((user) => user !== null)
-      )
-      .subscribe((user) => (this.user = user));
+    this.subs.add(
+      this.store
+        .select((state) => state.auth.user)
+        .pipe(filter((user) => user !== null))
+        .subscribe((user) => (this.user = user))
+    );
 
     //Obtenemos el estados los los loadings
     this.ticketLoading$ = this.store.select(ticketLoading);
@@ -119,32 +122,7 @@ export class TicketComponent implements OnInit, OnDestroy {
             ticket.responsible._id
           );
 
-        if (
-          // Si soy el creador del ticket y pertenezco al area puedo editar
-          ticket.area.members.find(
-            (member) => member.user._id === this.user._id
-          ) &&
-          ticket.created_by._id === this.user._id
-        ) {
-          this.owner = false;
-        } else if (
-          // Si soy el creador del ticket y NO pertenezco al area NO puedo editar
-          !ticket.area.members.find(
-            (member) => member.user._id === this.user._id
-          ) &&
-          ticket.created_by._id === this.user._id
-        ) {
-          this.owner = true;
-          console.log("entro al segundo");
-        } else if (
-          // Si NO soy el creador del ticket pero pertenezco al area puedo editar
-          ticket.area.members.find(
-            (member) => member.user._id === this.user._id
-          ) &&
-          ticket.created_by._id !== this.user._id
-        ) {
-          this.owner = false;
-        }
+        this.owner = this._ticketService.canEdit(ticket, this.user);
 
         return ticket;
       })
@@ -157,8 +135,7 @@ export class TicketComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     //Nos desuscribimos de los observables
-    this.unsuscribe$.next();
-    this.unsuscribe$.complete();
+    this.subs.unsubscribe();
   }
 
   // ==================================================

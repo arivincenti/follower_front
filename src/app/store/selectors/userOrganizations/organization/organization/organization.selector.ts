@@ -2,13 +2,20 @@ import { AppState } from "src/app/store/app.reducer";
 import { createSelector } from "@ngrx/store";
 import { OrganizationModel } from "src/app/models/organization.model";
 
-const organizationsState = (state: AppState) =>
-  state.userOrganizations.organizations;
+const organizationState = (state: AppState) =>
+  state.userOrganizations.organization.organization;
 
 export const organization = createSelector(
-  organizationsState,
-  (organizationsState, organization_id: string) =>
-    organizationsState.organizations.find(
-      (organization: OrganizationModel) => organization._id === organization_id
-    )
+  organizationState,
+  (organizationState) => organizationState.organization
+);
+
+export const organizationLoading = createSelector(
+  organizationState,
+  (organizationState) => organizationState.loading
+);
+
+export const organizationError = createSelector(
+  organizationState,
+  (organizationState) => organizationState.error
 );

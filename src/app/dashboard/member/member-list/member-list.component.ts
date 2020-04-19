@@ -11,7 +11,7 @@ import {
   organizationMembers,
   organizationMembersLoading,
 } from "src/app/store/selectors/userOrganizations/organization/organization/organizationMembers.selector";
-import { getMembers } from "src/app/store/actions/userOrganizations/selectedOrganization/members/members.actions";
+import { getMembers } from "src/app/store/actions/userOrganizations/organization/members/members.actions";
 
 @Component({
   selector: "app-member-list",

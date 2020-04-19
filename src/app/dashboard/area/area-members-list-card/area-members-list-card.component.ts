@@ -3,14 +3,12 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { MemberModel } from "src/app/models/member.model";
 import { UserModel } from "src/app/models/user.model";
 import { AreaModel } from "src/app/models/area.model";
-import { Subject } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { TicketsService } from "src/app/services/tickets/tickets.service";
-import { MatSnackBar } from "@angular/material";
-import { takeUntil } from "rxjs/operators";
-import { GenericNotificationComponent } from "src/app/shared/snackbar/generic-notification/generic-notification.component";
-import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
+import * as AreaActions from "../../../store/actions/userOrganizations/organization/area/area.actions";
+import { SubSink } from "subsink";
+import { NotificationsService } from "src/app/services/notifications/notifications.service";
 
 @Component({
   selector: "app-area-members-list-card",
@@ -23,12 +21,13 @@ export class AreaMembersListCardComponent implements OnInit, OnDestroy {
   @Input() user: UserModel;
   @Input() area: AreaModel;
 
-  private unsubscribe$: Subject<boolean> = new Subject<boolean>();
+  subs = new SubSink();
+  // private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private store: Store<AppState>,
     private _ticketsService: TicketsService,
-    private _snackBar: MatSnackBar
+    private _notificationService: NotificationsService
   ) {}
 
   ngOnInit() {}
@@ -42,31 +41,33 @@ export class AreaMembersListCardComponent implements OnInit, OnDestroy {
           message:
             "No se puede eliminar el miembro porque es el responsable del área",
         };
-        this.genericNotification(notification);
+        this._notificationService.genericNotification(notification);
         return;
       }
     }
-    this._ticketsService
-      .getMemberResponsibleTickets(member)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((tickets) => {
-        if (tickets.length) {
-          var notification = {
-            type: "error",
-            title: "Oops, parece que hay un problema",
-            message:
-              "No se puede eliminar el miembro porque tiene tickets asignados.",
+
+    this.subs.add(
+      this._ticketsService
+        .getMemberResponsibleTickets(member)
+        .subscribe((tickets) => {
+          if (tickets.length) {
+            var notification = {
+              type: "error",
+              title: "Oops, parece que hay un problema",
+              message:
+                "No se puede eliminar el miembro porque tiene tickets asignados.",
+            };
+            this._notificationService.genericNotification(notification);
+            return;
+          }
+          var payload = {
+            area,
+            member,
+            updated_by: this.user,
           };
-          this.genericNotification(notification);
-          return;
-        }
-        var payload = {
-          area,
-          member,
-          updated_by: this.user,
-        };
-        this.store.dispatch(AreasActions.deleteAreaMember({ payload }));
-      });
+          this.store.dispatch(AreaActions.deleteAreaMember({ payload }));
+        })
+    );
   }
 
   setResponsibleMember(member: MemberModel) {
@@ -77,23 +78,11 @@ export class AreaMembersListCardComponent implements OnInit, OnDestroy {
     };
 
     this.store.dispatch(
-      AreasActions.updateArea({ areaId: this.area._id, payload: payload })
+      AreaActions.updateArea({ areaId: this.area._id, payload: payload })
     );
   }
 
-  genericNotification(notification: any) {
-    this._snackBar.openFromComponent(GenericNotificationComponent, {
-      duration: 5000,
-      data: {
-        type: notification.type,
-        title: notification.title,
-        message: notification.message,
-      },
-    });
-  }
-
   ngOnDestroy() {
-    this.unsubscribe$.next(true);
-    this.unsubscribe$.unsubscribe();
+    this.subs.unsubscribe();
   }
 }

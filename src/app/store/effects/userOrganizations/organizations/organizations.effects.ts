@@ -3,17 +3,13 @@ import { createEffect, Actions, ofType } from "@ngrx/effects";
 import { mergeMap, catchError, map } from "rxjs/operators";
 import { OrganizationsService } from "src/app/services/organizations/organizations.service";
 import { of } from "rxjs";
-import { OrganizationModel } from "src/app/models/organization.model";
-import * as OrganizationsActions from "../../../actions/userOrganizations/organizations/organizations.actions";
-import { Store } from "@ngrx/store";
-import { AppState } from "src/app/store/app.reducer";
+import * as OrganizationsActions from "@actions/organizations";
 
 @Injectable()
 export class OrganizationsEffects {
   constructor(
     private actions$: Actions,
-    private _organizationsService: OrganizationsService,
-    private store: Store<AppState>
+    private _organizationsService: OrganizationsService
   ) {}
 
   getOrganizations$ = createEffect(() =>
@@ -26,96 +22,6 @@ export class OrganizationsEffects {
           ),
           catchError((error) =>
             of(OrganizationsActions.getOrganizationsFail(error.error))
-          )
-        )
-      )
-    )
-  );
-
-  createOrganization$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(OrganizationsActions.createOrganization),
-      mergeMap((action) =>
-        this._organizationsService.createOrganization(action.payload).pipe(
-          map((organization: OrganizationModel) =>
-            OrganizationsActions.createOrganizationSuccess({
-              organization: organization,
-            })
-          ),
-          catchError((error) =>
-            of(
-              OrganizationsActions.createOrganizationFail({
-                payload: error.error,
-              })
-            )
-          )
-        )
-      )
-    )
-  );
-
-  updateOrganization$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(OrganizationsActions.updateOrganization),
-      mergeMap((action) =>
-        this._organizationsService
-          .updateOrganization(action.organizationId, action.payload)
-          .pipe(
-            map((organization: OrganizationModel) =>
-              OrganizationsActions.updateOrganizationSuccess({
-                organization: organization,
-              })
-            ),
-            catchError((error) =>
-              of(
-                OrganizationsActions.updateOrganizationFail({
-                  payload: error.error,
-                })
-              )
-            )
-          )
-      )
-    )
-  );
-
-  desactivateOrganization$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(OrganizationsActions.desactivateOrganization),
-      mergeMap((action) =>
-        this._organizationsService.desactivateOrganization(action.payload).pipe(
-          map((organization: OrganizationModel) =>
-            OrganizationsActions.desactivateOrganizationSuccess({
-              organization: organization,
-            })
-          ),
-          catchError((error) =>
-            of(
-              OrganizationsActions.desactivateOrganizationFail({
-                payload: error.error,
-              })
-            )
-          )
-        )
-      )
-    )
-  );
-
-  activateOrganization$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(OrganizationsActions.activateOrganization),
-      mergeMap((action) =>
-        this._organizationsService.activateOrganization(action.payload).pipe(
-          map((organization: OrganizationModel) =>
-            OrganizationsActions.activateOrganizationSuccess({
-              organization: organization,
-            })
-          ),
-          catchError((error) =>
-            of(
-              OrganizationsActions.activateOrganizationFail({
-                payload: error.error,
-              })
-            )
           )
         )
       )

@@ -5,7 +5,7 @@ import { AppState } from "../store/app.reducer";
 import { WebsocketService } from "../services/websocket/websocket.service";
 import { AreasService } from "../services/areas/areas.service";
 import { MatSnackBar } from "@angular/material";
-import { takeUntil, map, shareReplay } from "rxjs/operators";
+import { map, shareReplay } from "rxjs/operators";
 import { UserModel } from "../models/user.model";
 import { NotificationModel } from "../models/notificationModel";
 import { AreaModel } from "../models/area.model";
@@ -18,7 +18,7 @@ import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { NotificationsService } from "../services/notifications/notifications.service";
 import { UpdatedNotificationComponent } from "../shared/snackbar/updated-notification/updated-notification.component";
 import { MemberModel } from "../models/member.model";
-import * as AreasActions from "../store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
+import * as AreaActions from "../store/actions/userOrganizations/organization/area/area.actions";
 import { UsersService } from "../services/users/users.service";
 import { TicketModel } from "../models/ticketModel";
 import { OrganizationModel } from "../models/organization.model";
@@ -28,6 +28,7 @@ import { notifications } from "../store/selectors/notifications/notification.sel
 import { organizations } from "../store/selectors/userOrganizations/organizations/organizations.selector";
 import { userTickets } from "../store/selectors/userOrganizations/tickets/tickets/tickets.selector";
 import { user } from "../store/selectors/auth/auth.selector";
+import { SubSink } from "subsink";
 
 @Component({
   selector: "app-dashboard",
@@ -35,7 +36,7 @@ import { user } from "../store/selectors/auth/auth.selector";
   styleUrls: ["./dashboard.component.css"],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  private unsuscribe$ = new Subject();
+  subs = new SubSink();
 
   auth: any;
   user$: Observable<UserModel>;
@@ -110,59 +111,58 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // Join All Areas
   // ==================================================
   joinAllOrganizations() {
-    this.organizations$
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((organizations) => {
+    this.subs.add(
+      this.organizations$.subscribe((organizations) => {
         this.organizations = organizations;
         return this._wsService.emit("join-all-organizations", organizations);
-      });
+      })
+    );
   }
 
   // ==================================================
   // Join All Areas
   // ==================================================
   joinAllAreas() {
-    this._areasService
-      .getAreasByUser(this.user)
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((areas) => {
+    this.subs.add(
+      this._areasService.getAreasByUser(this.user).subscribe((areas) => {
         this.areas = areas;
         this._wsService.emit("join-all-areas", areas);
-      });
+      })
+    );
   }
 
   // ==================================================
   // Join All Tickets
   // ==================================================
   joinAllTickets() {
-    this.tickets$.pipe(takeUntil(this.unsuscribe$)).subscribe((tickets) => {
-      this.tickets = tickets;
-      return this._wsService.emit("join-all-tickets", tickets);
-    });
+    this.subs.add(
+      this.tickets$.subscribe((tickets) => {
+        this.tickets = tickets;
+        return this._wsService.emit("join-all-tickets", tickets);
+      })
+    );
   }
 
   // ==================================================
   // Listen create objects
   // ==================================================
   listenCreateSocket() {
-    this._wsService
-      .listen("create")
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((payload: any) => {
+    this.subs.add(
+      this._wsService.listen("create").subscribe((payload: any) => {
         this.createNotification(payload, "create");
-      });
+      })
+    );
   }
 
   // ==================================================
   // Listen Updates objects
   // ==================================================
   listenUpdateSocket() {
-    this._wsService
-      .listen("update")
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((payload: any) => {
+    this.subs.add(
+      this._wsService.listen("update").subscribe((payload: any) => {
         this.createNotification(payload, "update");
-      });
+      })
+    );
   }
 
   // ==================================================
@@ -224,70 +224,68 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // Listen New Notifications
   // ==================================================
   listenNewNotifications() {
-    this._wsService
-      .listen("new-notification")
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((socketPayload: any) => {
-        var object = socketPayload.object;
-        var notification = socketPayload.notification;
+    this.subs.add(
+      this._wsService
+        .listen("new-notification")
+        .subscribe((socketPayload: any) => {
+          var object = socketPayload.object;
+          var notification = socketPayload.notification;
 
-        this._snackBar.openFromComponent(UpdatedNotificationComponent, {
-          duration: 5000,
-          data: {
-            notification,
-            object,
-          },
-        });
+          this._snackBar.openFromComponent(UpdatedNotificationComponent, {
+            duration: 5000,
+            data: {
+              notification,
+              object,
+            },
+          });
 
-        if (notification.created_by._id !== this.user._id) {
-          this.store.dispatch(
-            addNotification({
-              payload: notification,
-            })
-          );
+          if (notification.created_by._id !== this.user._id) {
+            this.store.dispatch(
+              addNotification({
+                payload: notification,
+              })
+            );
 
-          // this._usersService.updateObjectsState(
-          //   notification.objectType,
-          //   notification.operationType,
-          //   object
-          // );
-        }
-      });
+            // this._usersService.updateObjectsState(
+            //   notification.objectType,
+            //   notification.operationType,
+            //   object
+            // );
+          }
+        })
+    );
   }
 
   // ==================================================
   // Socket Member Deleted
   // ==================================================
   listenMemberDeleted() {
-    this._wsService
-      .listen("member-deleted")
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((payload: any) => {
+    this.subs.add(
+      this._wsService.listen("member-deleted").subscribe((payload: any) => {
         switch (payload.objectType) {
           case "area":
             this.store.dispatch(getTickets({ payload: this.user }));
             this.store.dispatch(
-              AreasActions.updateAreaSuccess({ payload: payload.object })
+              AreaActions.updateAreaSuccess({ area: payload.object })
             );
             this._wsService.emit("leave-area", payload.object._id);
             break;
         }
-      });
+      })
+    );
   }
 
   // ==================================================
   // Socket Member created
   // ==================================================
   listenMemberCreated() {
-    this._wsService
-      .listen("member-created")
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((payload: any) => {
+    this.subs.add(
+      this._wsService.listen("member-created").subscribe((payload: any) => {
         switch (payload.objectType) {
           case "area":
             this.store.dispatch(getTickets({ payload: this.user }));
             this.store.dispatch(
-              AreasActions.updateAreaSuccess({ payload: payload.object })
+              AreaActions.updateAreaSuccess({ area: payload.object })
             );
             this._wsService.emit("join-area", payload.object._id);
             break;
@@ -296,14 +294,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this._wsService.emit("join-orgnanization", payload.object._id);
             break;
         }
-      });
+      })
+    );
   }
 
   // ==================================================
   // Ng OnDestroy
   // ==================================================
   ngOnDestroy() {
-    this.unsuscribe$.next();
-    this.unsuscribe$.complete();
+    this.subs.unsubscribe();
   }
 }

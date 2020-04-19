@@ -9,8 +9,11 @@ import { MatDialog } from "@angular/material";
 import { AreaFormComponent } from "../../../shared/forms/area-form/area-form.component";
 import { map } from "rxjs/operators";
 import { OrganizationFormComponent } from "../../../shared/forms/organization-form/organization-form.component";
-import { organization } from "src/app/store/selectors/userOrganizations/organization/organization/organization.selector";
-import { organizationsLoading } from "src/app/store/selectors/userOrganizations/organizations/organizations.selector";
+import {
+  organization,
+  organizationLoading,
+} from "src/app/store/selectors/userOrganizations/organization/organization/organization.selector";
+import * as OrganizationActions from "../../../store/actions/userOrganizations/organization/organization/organization.actions";
 
 @Component({
   selector: "app-organization-profile",
@@ -19,7 +22,6 @@ import { organizationsLoading } from "src/app/store/selectors/userOrganizations/
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
   //Subscriptions
-
   organization$: Observable<OrganizationModel>;
   organizationLoading$: Observable<boolean>;
   user: UserModel;
@@ -41,14 +43,17 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
     var auth = JSON.parse(localStorage.getItem("auth"));
     this.user = auth.user;
 
-    this.organizationLoading$ = this.store.select(organizationsLoading);
+    this.store.dispatch(
+      OrganizationActions.getOrganization({ payload: this.param })
+    );
+    this.organizationLoading$ = this.store.select(organizationLoading);
 
     /////////////////////////////////////////////////////
 
     // this.store.dispatch(getOrganization({ organization: this.param }));
 
     this.organization$ = this.store
-      .select(organization, this.param)
+      .select(organization)
       .pipe(map((organization) => (this.organization = organization)));
   }
 

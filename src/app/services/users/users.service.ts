@@ -9,11 +9,11 @@ import * as ticketsActions from "src/app/store/actions/userOrganizations/tickets
 //   addCreatedOrganizationToList,
 // } from "src/app/store/actions/userOrganizations/organizations/organizations.actions";
 import * as organizationsActions from "src/app/store/actions/userOrganizations/organizations/organizations.actions";
-import * as AreasActions from "src/app/store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
+import * as AreasActions from "src/app/store/actions/userOrganizations/organization/areas/areas.actions";
 // import {
 //   addCreatedMemberToList,
 //   updateMemberList,
-// } from "src/app/store/actions/userOrganizations/selectedOrganization/members/members/members.actions";
+// } from "src/app/store/actions/userOrganizations/organization/members/members/members.actions";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { WebsocketService } from "../websocket/websocket.service";

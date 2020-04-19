@@ -2,14 +2,17 @@ import { AppState } from "src/app/store/app.reducer";
 import { createSelector } from "@ngrx/store";
 import { AreaModel } from "src/app/models/area.model";
 
-const areasState = (state: AppState) =>
-  state.userOrganizations.organization.areas;
+const areaState = (state: AppState) =>
+  state.userOrganizations.organization.area;
 
-export const area = createSelector(areasState, (areasState, area_id: string) =>
-  areasState.areas.find((area: AreaModel) => area._id === area_id)
-);
+export const area = createSelector(areaState, (areaState) => areaState.area);
 
 export const areaLoading = createSelector(
-  areasState,
+  areaState,
   (areasState) => areasState.loading
+);
+
+export const areaError = createSelector(
+  areaState,
+  (areasState) => areasState.error
 );

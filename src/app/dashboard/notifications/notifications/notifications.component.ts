@@ -17,7 +17,6 @@ import {
 export class NotificationsComponent implements OnInit {
   notifications$: Observable<NotificationModel[]>;
   notificationsLoading$: Observable<boolean>;
-  animation$: Observable<string[]>;
 
   searchNotification: string = "";
 

@@ -13,7 +13,7 @@ import {
   areasLoading,
   areas,
 } from "src/app/store/selectors/userOrganizations/organization/areas/areas.selector";
-import { getAreas } from "src/app/store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
+import { getAreas } from "src/app/store/actions/userOrganizations/organization/areas/areas.actions";
 
 @Component({
   selector: "app-areas-list",

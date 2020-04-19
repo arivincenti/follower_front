@@ -6,7 +6,7 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { Router } from "@angular/router";
-import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
+import * as AreaActions from "../../../store/actions/userOrganizations/organization/area/area.actions";
 import { areasLoading } from "src/app/store/selectors/userOrganizations/organization/areas/areas.selector";
 
 @Component({
@@ -44,7 +44,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
     };
     //Make method to update deleted_at property from area
     this.store.dispatch(
-      AreasActions.desactivateArea({ areaId: area._id, payload })
+      AreaActions.desactivateArea({ areaId: area._id, payload })
     );
   }
 
@@ -57,7 +57,7 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
     };
 
     this.store.dispatch(
-      AreasActions.activateArea({ areaId: area._id, payload })
+      AreaActions.activateArea({ areaId: area._id, payload })
     );
   }
 }

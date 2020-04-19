@@ -3,7 +3,7 @@ import { Observable, Subject } from "rxjs";
 import { AreaModel } from "src/app/models/area.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import * as AreasActions from "../../../store/actions/userOrganizations/selectedOrganization/areas/areas.actions";
+import * as AreaActions from "../../../store/actions/userOrganizations/organization/area/area.actions";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -73,7 +73,7 @@ export class AreaFormComponent implements OnInit {
         name: this.form.controls["area"].value.toUpperCase(),
       };
 
-      this.store.dispatch(AreasActions.createArea({ payload }));
+      this.store.dispatch(AreaActions.createArea({ payload }));
     } else {
       let payload = {
         name: this.form.controls["area"].value.toUpperCase(),
@@ -83,7 +83,7 @@ export class AreaFormComponent implements OnInit {
       };
 
       this.store.dispatch(
-        AreasActions.updateArea({
+        AreaActions.updateArea({
           areaId: this.data.area._id,
           payload: payload,
         })
