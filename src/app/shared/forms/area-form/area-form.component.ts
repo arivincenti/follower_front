@@ -9,6 +9,7 @@ import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { takeUntil } from "rxjs/operators";
 import { areas } from "src/app/store/selectors/userOrganizations/organization/areas/areas.selector";
+import { SubSink } from "subsink";
 
 @Component({
   selector: "app-area-form",
@@ -18,7 +19,7 @@ import { areas } from "src/app/store/selectors/userOrganizations/organization/ar
 export class AreaFormComponent implements OnInit {
   form: FormGroup;
 
-  private unsuscribe$ = new Subject();
+  subs = new SubSink();
 
   avaible: boolean = true;
   areas: AreaModel[];
@@ -36,10 +37,9 @@ export class AreaFormComponent implements OnInit {
 
   ngOnInit() {
     //Search organizations areas
-    this.store
-      .select(areas)
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((areas) => (this.areas = areas));
+    this.subs.add(
+      this.store.select(areas).subscribe((areas) => (this.areas = areas))
+    );
 
     //FORM
     this.form = new FormGroup({
@@ -118,7 +118,6 @@ export class AreaFormComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.unsuscribe$.next();
-    this.unsuscribe$.unsubscribe();
+    this.subs.unsubscribe();
   }
 }

@@ -10,6 +10,7 @@ import { SearchAreaPipe } from "./search/searchArea/search-area.pipe";
 import { PaginatorPipe } from "./paginator/paginator.pipe";
 import { SearchNotificationPipe } from "./search/searchNotification/search-notification.pipe";
 import { SearchOrganizationMemberPipe } from "./search/searchOrganizationMember/search-organization-member.pipe";
+import { TicketFollowerPipe } from "./ticketFollowers/ticket-follower.pipe";
 
 const pipes = [
   StateFilterCounterPipe,
@@ -21,12 +22,13 @@ const pipes = [
   SearchMemberPipe,
   SearchAreaPipe,
   SearchNotificationPipe,
-  SearchOrganizationMemberPipe
+  SearchOrganizationMemberPipe,
+  TicketFollowerPipe,
 ];
 
 @NgModule({
   declarations: pipes,
   imports: [CommonModule],
-  exports: pipes
+  exports: pipes,
 })
 export class PipesModule {}

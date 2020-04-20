@@ -5,7 +5,7 @@ import { WebsocketService } from "../websocket/websocket.service";
 import { map } from "rxjs/operators";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class CommentsService {
   constructor(private http: HttpClient, private wsService: WebsocketService) {}
@@ -22,7 +22,7 @@ export class CommentsService {
   // ==================================================
   addComment(payload: any) {
     return this.http
-      .put(`${environment.path}/comments/${payload.ticket}`, payload)
+      .post(`${environment.path}/comments`, payload)
       .pipe(map((res: any) => res.data));
   }
 

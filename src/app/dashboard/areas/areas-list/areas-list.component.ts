@@ -14,6 +14,7 @@ import {
   areas,
 } from "src/app/store/selectors/userOrganizations/organization/areas/areas.selector";
 import { getAreas } from "src/app/store/actions/userOrganizations/organization/areas/areas.actions";
+import { areaLoading } from "src/app/store/selectors/userOrganizations/organization/area/area.selector";
 
 @Component({
   selector: "app-areas-list",
@@ -27,6 +28,7 @@ export class AreasListComponent implements OnInit, OnDestroy {
 
   areas$: Observable<AreaModel[]>;
   areasLoading$: Observable<boolean>;
+  areaLoading$: Observable<boolean>;
   filterAreas: AreaModel[];
 
   searchArea: string = "";
@@ -58,6 +60,7 @@ export class AreasListComponent implements OnInit, OnDestroy {
     );
 
     this.areasLoading$ = this.store.select(areasLoading);
+    this.areaLoading$ = this.store.select(areaLoading);
 
     this.areas$ = this.store
       .select(areas)

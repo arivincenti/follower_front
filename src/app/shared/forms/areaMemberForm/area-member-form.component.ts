@@ -8,8 +8,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { MemberFormComponent } from "../member-form/member-form.component";
 import { DialogDataArea } from "src/app/models/interfaces/dialogDataArea";
 import { map } from "rxjs/operators";
-import { organizationMembers } from "src/app/store/selectors/userOrganizations/organization/organization/organizationMembers.selector";
+import { members } from "src/app/store/selectors/userOrganizations/organization/organization/members/members.selector";
 import { createAreaMember } from "src/app/store/actions/userOrganizations/organization/area/area.actions";
+import { SubSink } from "subsink";
 
 @Component({
   selector: "app-area-member-form",
@@ -17,7 +18,7 @@ import { createAreaMember } from "src/app/store/actions/userOrganizations/organi
   styleUrls: ["./area-member-form.component.css"],
 })
 export class AreaMemberFormComponent implements OnInit, OnDestroy {
-  private unsuscribe$ = new Subject();
+  subs = new SubSink();
 
   form: FormGroup;
   organizationMembers$: Observable<MemberModel[]>;
@@ -30,16 +31,8 @@ export class AreaMemberFormComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: DialogDataArea
   ) {
     this.organizationMembers$ = this.store
-      .select(organizationMembers)
+      .select(members)
       .pipe(map((members) => (this.organizationMembers = members)));
-
-    // this.store
-    //   .select(
-    //     state =>
-    //       state.userOrganizations.organization.areas.selectedArea.area
-    //   )
-    //   .pipe(takeUntil(this.unsuscribe$))
-    //   .subscribe(area => (this.areaMembers = area.members));
   }
 
   ngOnInit() {
@@ -47,12 +40,7 @@ export class AreaMemberFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsuscribe$.next();
-    this.unsuscribe$.unsubscribe();
-  }
-
-  displayFn(subject) {
-    return subject ? subject.user.email : undefined;
+    this.subs.unsubscribe();
   }
 
   setForm() {

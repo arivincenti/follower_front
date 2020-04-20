@@ -36,19 +36,20 @@
         </mat-icon>
       </button>
 
-      <button class="button" mat-icon-button *ngIf="!member.deleted_at && !area" (click)="desactivateMember(member)">
+      <button class="button" mat-icon-button *ngIf="!member.deleted_at && !(memberLoading$ | async)"
+        (click)="desactivateMember(member)">
         <mat-icon matTooltip="Desactivar" matTooltipPosition="above" class="button-toggle success">toggle_on
         </mat-icon>
       </button>
 
-      <button class="button" mat-icon-button *ngIf="member.deleted_at && !area" (click)="activateMember(member)">
+      <button class="button" mat-icon-button *ngIf="member.deleted_at && !(memberLoading$ | async)"
+        (click)="activateMember(member)">
         <mat-icon matTooltip="Activar" matTooltipPosition="above" class="button-toggle danger">toggle_off
         </mat-icon>
       </button>
 
-      <button class="button" mat-icon-button *ngIf="area" (click)="deleteMember(member, area)">
-        <mat-icon matTooltip="Quitar miembro" matTooltipPosition="above" class="button-icon danger">delete
-        </mat-icon>
+      <button class="button" mat-icon-button *ngIf="memberLoading$ | async">
+        <mat-spinner class="button-spinner" diameter="15"></mat-spinner>
       </button>
     </div>
     <!-- header section buttons end -->

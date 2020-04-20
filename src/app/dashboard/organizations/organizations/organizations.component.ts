@@ -17,6 +17,7 @@ import {
   userTicketsLoading,
 } from "src/app/store/selectors/userOrganizations/tickets/tickets/tickets.selector";
 import { user } from "src/app/store/selectors/auth/auth.selector";
+import { organizationLoading } from "src/app/store/selectors/userOrganizations/organization/organization/organization.selector";
 
 @Component({
   selector: "app-organization",
@@ -26,6 +27,7 @@ import { user } from "src/app/store/selectors/auth/auth.selector";
 export class OrganizationsComponent implements OnInit, OnDestroy {
   organizations$: Observable<OrganizationModel[]>;
   organizationsLoading$: Observable<boolean>;
+  organizationLoading$: Observable<boolean>;
 
   tickets$: Observable<TicketModel[]>;
   ticketsLoading$: Observable<boolean>;
@@ -47,6 +49,7 @@ export class OrganizationsComponent implements OnInit, OnDestroy {
     this.organizationsLoading$ = this.store.select(organizationsLoading);
     this.organizations$ = this.store.select(organizations);
     this.ticketsLoading$ = this.store.select(userTicketsLoading);
+    this.organizationLoading$ = this.store.select(organizationLoading);
     this.tickets$ = this.store.select(userTickets);
   }
 

@@ -44,15 +44,15 @@ export class AreasService {
   // ==================================================
   // Get Responsible Member
   // ==================================================
-  getAreaResponsibleMembers(areaId: string) {
-    return this.http
-      .get(`${environment.path}/areas/${areaId}/responsibleMembers`)
-      .pipe(
-        map((data) => {
-          return data["data"];
-        })
-      );
-  }
+  // getAreaResponsibleMembers(areaId: string) {
+  //   return this.http
+  //     .get(`${environment.path}/areas/${areaId}/responsibleMembers`)
+  //     .pipe(
+  //       map((data) => {
+  //         return data["data"];
+  //       })
+  //     );
+  // }
 
   // ==================================================
   // Get Selcted Area

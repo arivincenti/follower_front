@@ -22,7 +22,7 @@
         <h4 class="header-title">Mis organizaciones</h4>
       </div>
       <div class="organizations-section-header-button">
-        <button mat-button color="warn" (click)="createOrganization()">
+        <button [disabled]="organizationLoading$ | async" mat-button color="warn" (click)="createOrganization()">
           <span class="button-span">Nueva Organización</span>
         </button>
       </div>

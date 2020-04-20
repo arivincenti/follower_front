@@ -7,11 +7,12 @@ import { PageEvent, MatDialog } from "@angular/material";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { MemberFormComponent } from "../../../shared/forms/member-form/member-form.component";
+import { getMembers } from "@actions/members";
 import {
-  organizationMembers,
-  organizationMembersLoading,
-} from "src/app/store/selectors/userOrganizations/organization/organization/organizationMembers.selector";
-import { getMembers } from "src/app/store/actions/userOrganizations/organization/members/members.actions";
+  membersLoading,
+  members,
+} from "src/app/store/selectors/userOrganizations/organization/organization/members/members.selector";
+import { memberLoading } from "src/app/store/selectors/userOrganizations/organization/organization/member/member.selector";
 
 @Component({
   selector: "app-member-list",
@@ -25,6 +26,7 @@ export class MemberListComponent implements OnInit, OnDestroy {
 
   members$: Observable<MemberModel[]>;
   membersLoading$: Observable<boolean>;
+  memberLoading$: Observable<boolean>;
 
   searchMember: string = "";
   //Paginator variables
@@ -45,8 +47,9 @@ export class MemberListComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(getMembers({ payload: this.organization }));
 
-    this.membersLoading$ = this.store.select(organizationMembersLoading);
-    this.members$ = this.store.select(organizationMembers);
+    this.membersLoading$ = this.store.select(membersLoading);
+    this.members$ = this.store.select(members);
+    this.memberLoading$ = this.store.select(memberLoading);
 
     this.since = this.pageIndex;
     this.until = this.pageSize;

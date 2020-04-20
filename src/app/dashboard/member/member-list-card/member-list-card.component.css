@@ -76,6 +76,12 @@ button {
   opacity: 0.3;
 }
 
+.button-spinner {
+  position: relative;
+  top: 2px;
+  left: 12px;
+}
+
 .deleted {
   opacity: 0.3;
   text-decoration: line-through;

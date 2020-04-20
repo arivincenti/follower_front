@@ -9,6 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { DialogDataOrganization } from "../../../models/interfaces/dialogDataOrganization";
 import { takeUntil } from "rxjs/operators";
 import { organizations } from "src/app/store/selectors/userOrganizations/organizations/organizations.selector";
+import { SubSink } from "subsink";
 
 @Component({
   selector: "app-organization-form",
@@ -19,7 +20,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
   //UI Observable
   form: FormGroup;
 
-  private unsuscribe$ = new Subject();
+  subs = new SubSink();
 
   userOrganizations: OrganizationModel[];
   organization$: Observable<OrganizationModel>;
@@ -34,10 +35,11 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     //User organizations subscription
-    this.store
-      .select(organizations)
-      .pipe(takeUntil(this.unsuscribe$))
-      .subscribe((organizations) => (this.userOrganizations = organizations));
+    this.subs.add(
+      this.store
+        .select(organizations)
+        .subscribe((organizations) => (this.userOrganizations = organizations))
+    );
 
     //FORM
     this.form = new FormGroup({
@@ -56,12 +58,6 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
     if (this.data.organization) {
       this.form.controls["name"].setValue(this.data.organization.name);
     }
-  }
-
-  ngOnDestroy() {
-    //Nos desuscribimos de los observables
-    this.unsuscribe$.next();
-    this.unsuscribe$.complete();
   }
 
   // ==================================================
@@ -117,5 +113,9 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
     });
 
     return promise;
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }

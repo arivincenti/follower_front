@@ -4,13 +4,15 @@ import { OrganizationModel } from "src/app/models/organization.model";
 import { UserModel } from "src/app/models/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import * as MemberActions from "../../../store/actions/userOrganizations/organization/member/member.actions";
-import * as AreaActions from "../../../store/actions/userOrganizations/organization/area/area.actions";
+import * as MemberActions from "@actions/member";
+import * as AreaActions from "@actions/area";
 import { AreaModel } from "src/app/models/area.model";
 import { TicketsService } from "src/app/services/tickets/tickets.service";
 import { MatSnackBar } from "@angular/material";
 import { GenericNotificationComponent } from "src/app/shared/snackbar/generic-notification/generic-notification.component";
 import { SubSink } from "subsink";
+import { Observable } from "rxjs";
+import { memberLoading } from "src/app/store/selectors/userOrganizations/organization/organization/member/member.selector";
 
 @Component({
   selector: "app-member-list-card",
@@ -24,6 +26,7 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
   @Input() area: AreaModel;
 
   subs = new SubSink();
+  memberLoading$: Observable<boolean>;
 
   constructor(
     private store: Store<AppState>,
@@ -31,7 +34,9 @@ export class MemberListCardComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.memberLoading$ = this.store.select(memberLoading);
+  }
 
   desactivateMember(member: MemberModel) {
     var payload = {

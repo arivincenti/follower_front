@@ -19,7 +19,7 @@ export const initialStateTicket: TicketState = {
 export const ticketReducer = createReducer(
   initialStateTicket,
   on(TicketActions.getTicket, (state) => ({
-    ticket: { ...state.ticket },
+    ticket: null,
     loading: true,
     loaded: false,
     error: null,

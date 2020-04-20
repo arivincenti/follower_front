@@ -81,7 +81,8 @@ button {
 
 .header-section-title .header-section-title-subtitle {
   position: relative;
-  left: 30px;
+  bottom: 2px;
+  left: 28px;
   font-size: 0.7em;
   opacity: 0.4;
   grid-area: header-section-title-subtitle;

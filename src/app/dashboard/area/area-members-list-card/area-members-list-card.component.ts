@@ -77,9 +77,7 @@ export class AreaMembersListCardComponent implements OnInit, OnDestroy {
       area: this.area,
     };
 
-    this.store.dispatch(
-      AreaActions.updateArea({ areaId: this.area._id, payload: payload })
-    );
+    this.store.dispatch(AreaActions.setResponsibleAreaMember({ payload }));
   }
 
   ngOnDestroy() {

@@ -5,6 +5,8 @@ import * as OrganizationActions from "../../../store/actions/userOrganizations/o
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
+import { Observable } from "rxjs";
+import { organizationLoading } from "src/app/store/selectors/userOrganizations/organization/organization/organization.selector";
 
 @Component({
   selector: "app-organization-list-card",
@@ -15,9 +17,13 @@ export class OrganizationsListCardComponent implements OnInit, OnDestroy {
   @Input() organization: OrganizationModel;
   @Input() user: UserModel;
 
+  organizationLoading$: Observable<boolean>;
+
   constructor(private router: Router, private store: Store<AppState>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.organizationLoading$ = this.store.select(organizationLoading);
+  }
 
   ngOnDestroy() {}
 

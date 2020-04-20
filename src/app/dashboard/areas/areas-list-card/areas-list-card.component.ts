@@ -8,6 +8,7 @@ import { AppState } from "src/app/store/app.reducer";
 import { Router } from "@angular/router";
 import * as AreaActions from "../../../store/actions/userOrganizations/organization/area/area.actions";
 import { areasLoading } from "src/app/store/selectors/userOrganizations/organization/areas/areas.selector";
+import { areaLoading } from "src/app/store/selectors/userOrganizations/organization/area/area.selector";
 
 @Component({
   selector: "app-areas-list-card",
@@ -19,13 +20,12 @@ export class AreasListCardComponent implements OnInit, OnDestroy {
   @Input() area: AreaModel;
   @Input() user: UserModel;
 
-  areasLoading$: Observable<boolean>;
   areaLoading$: Observable<boolean>;
 
   constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
-    this.areasLoading$ = this.store.select(areasLoading);
+    this.areaLoading$ = this.store.select(areaLoading);
   }
 
   ngOnDestroy() {}
