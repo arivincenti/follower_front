@@ -6,6 +6,7 @@ import { MemberEffects } from "./userOrganizations/organization/member/member.ef
 import { MembersEffects } from "./userOrganizations/organization/members/members.effects";
 import { CommentsEffects } from "./userOrganizations/tickets/comments/comments.effects";
 import { NotificationsEffects } from "./userOrganizations/notifications/notifications.effects";
+import { TicketEffects } from "./userOrganizations/tickets/ticket/ticket.effects";
 import { TicketsEffects } from "./userOrganizations/tickets/tickets/tickets.effects";
 import { AreaEffects } from "./userOrganizations/organization/area/area.effects";
 
@@ -17,6 +18,7 @@ export const effects: any[] = [
   MembersEffects,
   AreasEffects,
   AreaEffects,
+  TicketEffects,
   TicketsEffects,
   CommentsEffects,
   NotificationsEffects,
@@ -29,6 +31,7 @@ export * from "./userOrganizations/organization/areas/areas.effects";
 export * from "./userOrganizations/organization/area/area.effects";
 export * from "./userOrganizations/organization/member/member.effects";
 export * from "./userOrganizations/organization/members/members.effects";
+export * from "./userOrganizations/tickets/ticket/ticket.effects";
 export * from "./userOrganizations/tickets/tickets/tickets.effects";
 export * from "./userOrganizations/tickets/comments/comments.effects";
 export * from "./userOrganizations/notifications/notifications.effects";

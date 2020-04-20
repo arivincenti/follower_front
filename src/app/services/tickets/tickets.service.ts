@@ -17,31 +17,36 @@ export class TicketsService {
   // get tickets
   // ==================================================
   getTickets(user: UserModel) {
-    return this.http.get(`${environment.path}/tickets/user/${user._id}`);
+    return this.http
+      .get(`${environment.path}/tickets/user/${user._id}`)
+      .pipe(map((data) => data["data"]));
   }
 
   // ==================================================
   // get ticket
   // ==================================================
   getTicket(ticket: string) {
-    return this.http.get(`${environment.path}/tickets/${ticket}`);
+    return this.http
+      .get(`${environment.path}/tickets/${ticket}`)
+      .pipe(map((data) => data["data"]));
   }
 
   // ==================================================
   // create a new ticket
   // ==================================================
   createTicket(ticket: any) {
-    return this.http.post(`${environment.path}/tickets`, ticket);
+    return this.http
+      .post(`${environment.path}/tickets`, ticket)
+      .pipe(map((data) => data["data"]));
   }
 
   // ==================================================
   // Update ticket properties
   // ==================================================
   updateTicket(payload: any) {
-    return this.http.put(
-      `${environment.path}/tickets/${payload.ticket._id}`,
-      payload
-    );
+    return this.http
+      .put(`${environment.path}/tickets/${payload.ticket._id}`, payload)
+      .pipe(map((data) => data["data"]));
   }
 
   // ==================================================

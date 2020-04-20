@@ -21,6 +21,6 @@ export const initialState: state = {
 export const userOrganizationReducer = combineReducers({
   organizations: OrganizationsReducer.OrganizationsReducer,
   organization: OrganizationReducer.indexOrganizationReducer,
-  tickets: TicketsReducer.TicketReducer,
+  tickets: TicketsReducer.IndexTicketsReducer,
   notifications: NotificationsReducer.NotificationsReducer,
 });

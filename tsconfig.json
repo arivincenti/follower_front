@@ -25,10 +25,13 @@
         "src/app/store/actions/userOrganizations/organization/members/members.actions"
       ],
       "@actions/ticket": [
-        "src/app/store/actions/userOrganizations/organization/member/member.actions"
+        "src/app/store/actions/userOrganizations/tickets/ticket/ticket.actions"
       ],
       "@actions/tickets": [
-        "src/app/store/actions/userOrganizations/organization/member/member.actions"
+        "src/app/store/actions/userOrganizations/tickets/tickets/tickets.actions"
+      ],
+      "@actions/comments": [
+        "src/app/store/actions/userOrganizations/tickets/comments/comments.actions"
       ]
     },
     "downlevelIteration": true,

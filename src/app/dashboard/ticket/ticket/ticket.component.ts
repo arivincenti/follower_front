@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { TicketModel } from "src/app/models/ticketModel";
-import { Observable, Subject } from "rxjs";
+import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
-import * as TicketsActions from "../../../store/actions/userOrganizations/tickets/tickets/tickets.actions";
-import * as CommentsActions from "../../../store/actions/userOrganizations/tickets/comments/comments.actions";
+import * as TicketActions from "@actions/ticket";
+import * as CommentsActions from "@actions/comments";
 import { MemberModel } from "src/app/models/member.model";
-import { map, filter, takeUntil } from "rxjs/operators";
+import { map, filter } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
 import { CommentModel } from "src/app/models/commentModel";
 import { CommentsService } from "src/app/services/comments/comments.service";
@@ -23,6 +23,7 @@ import {
 } from "src/app/store/selectors/userOrganizations/tickets/comments/comments.selector";
 import { SubSink } from "subsink";
 import { TicketsService } from "src/app/services/tickets/tickets.service";
+import { user } from "src/app/store/selectors/auth/auth.selector";
 
 @Component({
   selector: "app-ticket",
@@ -71,6 +72,10 @@ export class TicketComponent implements OnInit, OnDestroy {
     //Cargamos las animaciones y obtenemos el ID que viene por la URL
     this.param = this.activatedRoute.snapshot.paramMap.get("id");
 
+    //Despachamos las acciones
+    this.store.dispatch(TicketActions.getTicket({ payload: this.param }));
+    this.store.dispatch(CommentsActions.getComments({ payload: this.param }));
+
     //Aca escuchamos cuando alguien crea un nuevo comentario
     this.subs.add(
       this.commentService
@@ -81,9 +86,6 @@ export class TicketComponent implements OnInit, OnDestroy {
           );
         })
     );
-
-    //Despachamos las acciones
-    this.store.dispatch(CommentsActions.getComments({ payload: this.param }));
 
     //Seteamos el formulario
     this.messageForm = new FormGroup({
@@ -101,7 +103,7 @@ export class TicketComponent implements OnInit, OnDestroy {
     //Buscamos el usuario logueado
     this.subs.add(
       this.store
-        .select((state) => state.auth.user)
+        .select(user)
         .pipe(filter((user) => user !== null))
         .subscribe((user) => (this.user = user))
     );
@@ -110,8 +112,8 @@ export class TicketComponent implements OnInit, OnDestroy {
     this.ticketLoading$ = this.store.select(ticketLoading);
 
     //Buscamos los datos del ticket
-    this.ticket$ = this.store.select(ticket, this.param).pipe(
-      filter((ticket) => ticket !== undefined),
+    this.ticket$ = this.store.select(ticket).pipe(
+      filter((ticket) => ticket !== null),
       map((ticket) => {
         this.propertiesForm.controls["status"].setValue(ticket.status);
         this.propertiesForm.controls["priority"].setValue(ticket.priority);
@@ -128,8 +130,8 @@ export class TicketComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.members$ = this.store.select(ticketAreaMembers, this.param);
-    this.comments$ = this.store.select(comments, this.param);
+    this.members$ = this.store.select(ticketAreaMembers);
+    this.comments$ = this.store.select(comments);
     this.commentsLoading$ = this.store.select(commentsLoading);
   }
 
@@ -172,6 +174,6 @@ export class TicketComponent implements OnInit, OnDestroy {
       updated_by: this.user._id,
     };
 
-    this.store.dispatch(TicketsActions.updateTicket({ payload }));
+    this.store.dispatch(TicketActions.updateTicket({ payload }));
   }
 }

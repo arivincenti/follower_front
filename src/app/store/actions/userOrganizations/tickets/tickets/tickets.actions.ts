@@ -9,41 +9,11 @@ export const getTickets = createAction(
 
 export const getTicketsSuccess = createAction(
   "[Tickets Actions] Get Tickets Success",
-  props<{ payload: TicketModel[] }>()
+  props<{ tickets: TicketModel[] }>()
 );
 
 export const getTicketsFail = createAction(
   "[Tickets Actions] Get Tickets Fail",
-  props<{ payload: any }>()
-);
-
-export const createTicket = createAction(
-  "[Ticket Actions] Create Ticket",
-  props<{ payload: any }>()
-);
-
-export const createTicketSuccess = createAction(
-  "[Ticket Actions] Create Ticket Success",
-  props<{ ticket: TicketModel }>()
-);
-
-export const createTicketFail = createAction(
-  "[Ticket Actions] Create Ticket Fail",
-  props<{ payload: any }>()
-);
-
-export const updateTicket = createAction(
-  "[Tickets Actions] Update Ticket",
-  props<{ payload: any }>()
-);
-
-export const updateTicketSuccess = createAction(
-  "[Tickets Actions] Update Ticket Success",
-  props<{ payload: TicketModel }>()
-);
-
-export const updateTicketFail = createAction(
-  "[Tickets Actions] Update Ticket Fail",
   props<{ payload: any }>()
 );
 
@@ -54,5 +24,5 @@ export const addCreatedTicketToList = createAction(
 
 export const updateTicketList = createAction(
   "[Tickets Actions] Update Ticket list Success",
-  props<{ payload: TicketModel }>()
+  props<{ ticket: TicketModel }>()
 );
