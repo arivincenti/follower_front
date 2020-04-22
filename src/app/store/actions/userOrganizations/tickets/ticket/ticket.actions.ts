@@ -46,3 +46,33 @@ export const updateTicketFail = createAction(
   "[Ticket Actions] Update Ticket Fail",
   props<{ payload: any }>()
 );
+
+export const followTicket = createAction(
+  "[Ticket Actions] Follow Ticket",
+  props<{ payload: any }>()
+);
+
+export const followTicketSuccess = createAction(
+  "[Ticket Actions] Follow Ticket Success",
+  props<{ ticket: TicketModel }>()
+);
+
+export const followTicketFail = createAction(
+  "[Ticket Actions] Follow Ticket Fail",
+  props<{ payload: any }>()
+);
+
+export const unfollowTicket = createAction(
+  "[Ticket Actions] Unfollow Ticket",
+  props<{ payload: any }>()
+);
+
+export const unfollowTicketSuccess = createAction(
+  "[Ticket Actions] Unfollow Ticket Success",
+  props<{ ticket: TicketModel }>()
+);
+
+export const unfollowTicketFail = createAction(
+  "[Ticket Actions] Unfollow Ticket Fail",
+  props<{ payload: any }>()
+);

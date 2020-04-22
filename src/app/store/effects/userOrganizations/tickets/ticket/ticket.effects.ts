@@ -65,4 +65,38 @@ export class TicketEffects {
       )
     )
   );
+
+  followTicket$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TicketActions.followTicket),
+      switchMap((action) =>
+        this._ticketsService.followTicket(action.payload).pipe(
+          mergeMap((ticket: TicketModel) => [
+            TicketActions.followTicketSuccess({ ticket }),
+            TicketsActions.updateTicketList({ ticket }),
+          ]),
+          catchError((error) =>
+            of(TicketActions.followTicketFail({ payload: error.error }))
+          )
+        )
+      )
+    )
+  );
+
+  unfollowTicket$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TicketActions.unfollowTicket),
+      switchMap((action) =>
+        this._ticketsService.unfollowTicket(action.payload).pipe(
+          mergeMap((ticket: TicketModel) => [
+            TicketActions.unfollowTicketSuccess({ ticket }),
+            TicketsActions.updateTicketList({ ticket }),
+          ]),
+          catchError((error) =>
+            of(TicketActions.unfollowTicketFail({ payload: error.error }))
+          )
+        )
+      )
+    )
+  );
 }

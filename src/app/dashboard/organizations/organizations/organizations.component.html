@@ -1,9 +1,4 @@
 <div class="contenedor animated fadeIn">
-  <!-- User Section -->
-  <!-- <div class="user-section">
-      <app-user-profile></app-user-profile>
-    </div> -->
-  <!-- User Section end -->
   <!-- Organization section -->
   <div class="organizations-section background-section">
     <!-- Organizations section search -->
@@ -19,7 +14,7 @@
     <!-- Organization section header -->
     <div class="organizations-section-header">
       <div class="organizations-section-header-title">
-        <h4 class="header-title">Mis organizaciones</h4>
+        <span class="header-title">Mis organizaciones</span>
       </div>
       <div class="organizations-section-header-button">
         <button [disabled]="organizationLoading$ | async" mat-button color="warn" (click)="createOrganization()">
@@ -61,8 +56,8 @@
     <!-- Ticket Section Header -->
     <div class="tickets-section-header">
       <div class="tickets-section-header-title">
-        <h4 class="header-title">Mis tickets
-        </h4>
+        <span class="header-title">Mis tickets
+        </span>
       </div>
       <div class="tickets-section-header-button">
         <button class="header-button" mat-button color="warn" (click)="createTicket()">

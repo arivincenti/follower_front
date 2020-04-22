@@ -114,14 +114,20 @@ button {
   top: 2px;
 }
 
-h4 {
+.header-section-title-title-container {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
+.header-section-title-title-container .title {
+  font-size: 0.9em;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
 @media (max-width: 767px) {
-  h4 {
+  .header-section-title-title-container {
     max-width: 230px;
   }
 

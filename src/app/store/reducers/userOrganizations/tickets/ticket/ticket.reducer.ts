@@ -71,6 +71,42 @@ export const ticketReducer = createReducer(
     loading: false,
     loaded: false,
     error: { payload },
+  })),
+  on(TicketActions.followTicket, (state) => ({
+    ticket: { ...state.ticket },
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(TicketActions.followTicketSuccess, (state, { ticket }) => ({
+    ticket: { ...ticket },
+    loading: false,
+    loaded: true,
+    error: null,
+  })),
+  on(TicketActions.followTicketFail, (state, { payload }) => ({
+    ticket: { ...state.ticket },
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+  on(TicketActions.unfollowTicket, (state) => ({
+    ticket: { ...state.ticket },
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(TicketActions.unfollowTicketSuccess, (state, { ticket }) => ({
+    ticket: { ...ticket },
+    loading: false,
+    loaded: true,
+    error: null,
+  })),
+  on(TicketActions.unfollowTicketFail, (state, { payload }) => ({
+    ticket: { ...state.ticket },
+    loading: false,
+    loaded: false,
+    error: { payload },
   }))
 );
 

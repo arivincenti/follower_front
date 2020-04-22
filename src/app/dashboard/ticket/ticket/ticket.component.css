@@ -186,17 +186,13 @@ mat-form-field {
 }
 
 .btn-follow {
-  margin-left: 5px;
-  font-size: 0.7em;
-  line-height: 5px !important;
-  display: flex;
-  align-items: center;
+  position: relative;
+  bottom: 1px;
+  left: 2px;
 }
 
-.btn-follow .btn-followe-icon {
-  font-size: 1.3em;
-  position: relative;
-  top: 5px;
+.btn-follow mat-icon {
+  font-size: 1.2em;
 }
 
 .member-card-img {
@@ -232,41 +228,25 @@ mat-form-field {
   top: 4px;
 }
 
-.image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: none;
+.followers-container {
+  display: grid;
+  grid-template-columns: 25px repeat(auto-fill, 35px);
+  gap: 3px;
 }
 
 .card-img {
   position: relative;
-  bottom: 1px;
+  bottom: 5px;
   width: 30px;
   height: auto;
   border-radius: 50%;
   cursor: pointer;
-}
-
-.button-follower {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: red;
+  border: 2px solid white;
 }
 
 .card-img:hover {
-  opacity: 0.5;
-  transition: all ease 0.2s;
-}
-
-.followers-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 35px);
-  gap: 2px;
+  border: 2px solid rgb(255, 163, 3);
+  transition: ease-in-out 300ms;
 }
 
 .icon-ticket {
@@ -303,5 +283,14 @@ mat-form-field {
 @media (max-width: 990px) {
   .header-title {
     width: 200px;
+  }
+
+  .btn-follow {
+    position: relative;
+    right: 15px;
+    font-size: 0.7em;
+    line-height: 20px !important;
+    display: flex;
+    align-items: center;
   }
 }

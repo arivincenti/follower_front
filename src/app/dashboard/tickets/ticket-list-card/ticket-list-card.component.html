@@ -4,14 +4,14 @@
     <!-- Header section title -->
     <div class="header-section-title">
       <div class="header-section-title-title">
-        <h4>
+        <span class="header-section-title-title-container">
           <span>
             <mat-icon class="icon-header warning">local_activity</mat-icon>
           </span>
-          <span [matTooltip]="ticket.subject" matTooltipPosition="above">
+          <span class="title" [matTooltip]="ticket.subject" matTooltipPosition="above">
             {{ ticket.subject | firstUpperCase }}
           </span>
-        </h4>
+        </span>
         <span class="badge badge-ticket-status"
           [ngClass]="{'badge-danger': ticket.status === 'ABIERTO', 'badge-primary': ticket.status === 'PENDIENTE', 'badge-success': ticket.status === 'CERRADO'}"
           [matTooltip]="ticket.status " matTooltipPosition="above">

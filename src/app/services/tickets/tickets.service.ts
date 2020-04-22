@@ -58,6 +58,24 @@ export class TicketsService {
       .pipe(map((data) => data["data"]));
   }
 
+  followTicket(payload: any) {
+    return this.http
+      .patch(
+        `${environment.path}/tickets/follow/${payload.ticket._id}`,
+        payload
+      )
+      .pipe(map((data) => data["data"]));
+  }
+
+  unfollowTicket(payload: any) {
+    return this.http
+      .patch(
+        `${environment.path}/tickets/unfollow/${payload.ticket._id}`,
+        payload
+      )
+      .pipe(map((data) => data["data"]));
+  }
+
   // ==================================================
   // Can edit
   // ==================================================

@@ -3,18 +3,20 @@
   <div class="header-section">
     <!-- Header section title -->
     <div class="header-section-title">
-      <h4 class="header-section-title-title">
-        <span *ngIf="organization.created_by._id === user._id">
-          <mat-icon class="icon-header warning">star</mat-icon>
+      <div class="header-section-title-title">
+        <span class="header-section-title-title-container">
+          <span *ngIf="organization.created_by._id === user._id">
+            <mat-icon class="icon-header warning">star</mat-icon>
+          </span>
+          <span *ngIf="organization.created_by._id !== user._id">
+            <mat-icon class="icon-header primary">account_circle</mat-icon>
+          </span>
+          <span class="title" [ngClass]="{'deleted': organization.deleted_at}" [matTooltip]="organization.name"
+            matTooltipPosition="right">
+            {{organization.name | titlecase}}
+          </span>
         </span>
-        <span *ngIf="organization.created_by._id !== user._id">
-          <mat-icon class="icon-header primary">account_circle</mat-icon>
-        </span>
-        <span [ngClass]="{'deleted': organization.deleted_at}" [matTooltip]="organization.name"
-          matTooltipPosition="right">
-          {{organization.name | titlecase}}
-        </span>
-      </h4>
+      </div>
       <span class="header-section-title-subtitle">
         Creada {{organization.created_at | time}}
       </span>

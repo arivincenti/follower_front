@@ -44,24 +44,26 @@
             <h4 class="header-title">
               Propiedades del ticket
             </h4>
+            <button class="btn-follow" mat-icon-button [disabled]="ticketLoading$ | async" *ngIf="isFollower"
+              color="accent" (click)="follow(ticket, user)" matTooltip="Seguir" matTooltipPosition="above">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button class="btn-follow" mat-icon-button [disabled]="ticketLoading$ | async" *ngIf="!isFollower"
+              color="warn" (click)="unfollow(ticket, user)" matTooltip="Dejar de seguir" matTooltipPosition="above">
+              <mat-icon>visibility_off</mat-icon>
+            </button>
+
           </div>
         </div>
         <!-- properties section header end -->
         <!-- properties section info -->
         <div class="properties-section-info">
-          <span class="ticket-card-info">
+          <span class="ticket-card-info followers-container">
+            <mat-icon class="icon" matTooltip="Seguidores" matTooltipPosition="above">account_circle</mat-icon>
+            <img *ngFor="let follower of ticket.followers"
+              matTooltip="{{follower.name | titlecase}} {{follower.last_name | titlecase}}" matTooltipPosition="above"
+              class="card-img" mat-card-avatar [src]="follower.img | image: follower.genre">
 
-            <mat-icon class="icon">visibility</mat-icon>
-            <span>Seguidores</span>
-            <div class="followers-container">
-              <div *ngFor="let follower of ticket.followers">
-                <img class="card-img" mat-card-avatar [src]="follower.img | image: follower.genre"
-                  (click)="followOut(follower)">
-              </div>
-              <div>
-                <button class="image button-follower"></button>
-              </div>
-            </div>
           </span>
           <span class="ticket-card-info">
             <mat-icon class="icon">apartment</mat-icon>

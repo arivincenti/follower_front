@@ -60,6 +60,7 @@ export class TicketComponent implements OnInit, OnDestroy {
   ticketLoading$: Observable<boolean>;
   comments$: Observable<CommentModel[]>;
   commentsLoading$: Observable<boolean>;
+  isFollower: boolean = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -115,6 +116,16 @@ export class TicketComponent implements OnInit, OnDestroy {
     this.ticket$ = this.store.select(ticket).pipe(
       filter((ticket) => ticket !== null),
       map((ticket) => {
+        let follower = ticket.followers.find(
+          (follower) => follower._id === this.user._id
+        );
+
+        if (follower === undefined) {
+          this.isFollower = true;
+        } else {
+          this.isFollower = false;
+        }
+
         this.propertiesForm.controls["status"].setValue(ticket.status);
         this.propertiesForm.controls["priority"].setValue(ticket.priority);
         this.propertiesForm.controls["date"].setValue(ticket.date);
@@ -177,7 +188,21 @@ export class TicketComponent implements OnInit, OnDestroy {
     this.store.dispatch(TicketActions.updateTicket({ payload }));
   }
 
-  followOut(user: UserModel) {
-    console.log(user);
+  follow(ticket: TicketModel, user: UserModel) {
+    let payload = {
+      user,
+      ticket,
+    };
+
+    this.store.dispatch(TicketActions.followTicket({ payload }));
+  }
+
+  unfollow(ticket: TicketModel, user: UserModel) {
+    let payload = {
+      user,
+      ticket,
+    };
+
+    this.store.dispatch(TicketActions.unfollowTicket({ payload }));
   }
 }

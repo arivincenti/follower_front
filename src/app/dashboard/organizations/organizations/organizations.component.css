@@ -131,11 +131,11 @@ mat-form-field {
 /* CSS GRID END */
 
 .header-title {
-  font-size: 1.1em;
+  font-size: 1em;
   position: relative;
   top: 2px;
   opacity: 0.5;
-  font-weight: bolder;
+  font-weight: 600;
 }
 
 .button-span {
