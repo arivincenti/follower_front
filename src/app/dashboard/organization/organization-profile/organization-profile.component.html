@@ -23,6 +23,10 @@
         <div class="organization-profile-header-subtitle">
           <span>Creada {{organization.created_at | time}}</span>
         </div>
+        <div class="organization-profile-header-message">
+          <span *ngIf="organization.deleted_at"><b>La organización está inactiva</b>. Recuerda que no podrás realizar
+            modificaciones en ella.</span>
+        </div>
         <div class="organization-profile-header-button">
           <button [matMenuTriggerFor]="menu" mat-icon-button *ngIf="!organization.deleted_at">
             <mat-icon matTooltip="Opciones" matTooltipPosition="above">more_vert</mat-icon>

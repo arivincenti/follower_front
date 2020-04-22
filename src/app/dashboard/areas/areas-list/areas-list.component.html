@@ -10,8 +10,8 @@
       <span class="list-card-header-title-subtitle">
         Áreas
       </span>
-      <button [disabled]="areaLoading$ | async" class="list-card-header-button" mat-button color="warn"
-        (click)="createArea()" matTooltip="Agregar área" matTooltipPosition="right">
+      <button [disabled]="(areaLoading$ | async) || organization.deleted_at" class="list-card-header-button" mat-button
+        color="warn" (click)="createArea()" matTooltip="Agregar área" matTooltipPosition="right">
         <span>Nueva área</span>
       </button>
     </div>

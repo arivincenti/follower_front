@@ -232,6 +232,43 @@ mat-form-field {
   top: 4px;
 }
 
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+}
+
+.card-img {
+  position: relative;
+  bottom: 1px;
+  width: 30px;
+  height: auto;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.button-follower {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+.card-img:hover {
+  opacity: 0.5;
+  transition: all ease 0.2s;
+}
+
+.followers-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 35px);
+  gap: 2px;
+}
+
 .icon-ticket {
   font-size: 1.2em;
   position: relative;

@@ -9,6 +9,7 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { AreaMemberFormComponent } from "src/app/shared/forms/areaMemberForm/area-member-form.component";
 import { areaMembers } from "src/app/store/selectors/userOrganizations/organization/area/areaMembers.selector";
+import { areaLoading } from "src/app/store/selectors/userOrganizations/organization/area/area.selector";
 
 @Component({
   selector: "app-area-members-list",
@@ -19,10 +20,11 @@ export class AreaMembersListComponent implements OnInit {
   @Input() area: AreaModel;
   @Input() organization: OrganizationModel;
 
-  // private unsubscribe$: Subject<boolean> = new Subject<boolean>();
   user: UserModel;
   areaMembers$: Observable<MemberModel[]>;
   searchMember: string = "";
+  areaLoading$: Observable<boolean>;
+
   //Paginator variables
   pageIndex: number = 0;
   pageSize: number = 5;
@@ -36,11 +38,12 @@ export class AreaMembersListComponent implements OnInit {
   constructor(private store: Store<AppState>, private dialog: MatDialog) {}
 
   ngOnInit() {
+    this.areaLoading$ = this.store.select(areaLoading);
     var auth = JSON.parse(localStorage.getItem("auth"));
     this.user = auth.user;
 
     //Buscamos los miembros del area cuando hay un area seleccionada
-    this.areaMembers$ = this.store.select(areaMembers, this.area._id);
+    this.areaMembers$ = this.store.select(areaMembers);
 
     this.since = this.pageIndex;
     this.until = this.pageSize;

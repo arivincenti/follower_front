@@ -4,8 +4,8 @@
       <span class="list-card-header-title-subtitle">
         Miembros
       </span>
-      <button class="list-card-header-button" mat-button color="warn" (click)="createMember()"
-        matTooltip="Agregar miembro" matTooltipPosition="right">
+      <button [disabled]="area.deleted_at || (areaLoading$ | async)" class="list-card-header-button" mat-button
+        color="warn" (click)="createMember()" matTooltip="Agregar miembro" matTooltipPosition="right">
         <span>Nuevo miembro</span>
       </button>
     </div>

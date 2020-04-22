@@ -11,6 +11,7 @@ import { PaginatorPipe } from "./paginator/paginator.pipe";
 import { SearchNotificationPipe } from "./search/searchNotification/search-notification.pipe";
 import { SearchOrganizationMemberPipe } from "./search/searchOrganizationMember/search-organization-member.pipe";
 import { TicketFollowerPipe } from "./ticketFollowers/ticket-follower.pipe";
+import { FirstUpperCasePipe } from "./firstUpperCase/first-upper-case.pipe";
 
 const pipes = [
   StateFilterCounterPipe,
@@ -24,6 +25,7 @@ const pipes = [
   SearchNotificationPipe,
   SearchOrganizationMemberPipe,
   TicketFollowerPipe,
+  FirstUpperCasePipe,
 ];
 
 @NgModule({

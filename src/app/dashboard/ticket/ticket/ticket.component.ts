@@ -176,4 +176,8 @@ export class TicketComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(TicketActions.updateTicket({ payload }));
   }
+
+  followOut(user: UserModel) {
+    console.log(user);
+  }
 }

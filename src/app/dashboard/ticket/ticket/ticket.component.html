@@ -15,7 +15,7 @@
           <div class="message-section-header-title">
             <mat-icon class="icon-ticket warning">local_activity</mat-icon>
             <h4 class="header-title">
-              {{ ticket.subject | titlecase }}
+              {{ ticket.subject | firstUpperCase }}
             </h4>
           </div>
           <div class="message-section-header-info">
@@ -44,23 +44,25 @@
             <h4 class="header-title">
               Propiedades del ticket
             </h4>
-            <button *ngIf="!(ticket | ticketFollower: user)" class="btn-follow" mat-button color="primary">
-              <mat-icon class="btn-followe-icon">visibility_off</mat-icon>
-              <span>
-                Empezar a seguir
-              </span>
-            </button>
-            <button *ngIf="ticket | ticketFollower: user" class="btn-follow" mat-button color="warn">
-              <mat-icon class="btn-followe-icon">visibility</mat-icon>
-              <span>
-                Dejar de seguir
-              </span>
-            </button>
           </div>
         </div>
         <!-- properties section header end -->
         <!-- properties section info -->
         <div class="properties-section-info">
+          <span class="ticket-card-info">
+
+            <mat-icon class="icon">visibility</mat-icon>
+            <span>Seguidores</span>
+            <div class="followers-container">
+              <div *ngFor="let follower of ticket.followers">
+                <img class="card-img" mat-card-avatar [src]="follower.img | image: follower.genre"
+                  (click)="followOut(follower)">
+              </div>
+              <div>
+                <button class="image button-follower"></button>
+              </div>
+            </div>
+          </span>
           <span class="ticket-card-info">
             <mat-icon class="icon">apartment</mat-icon>
             Organización /

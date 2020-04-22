@@ -40,7 +40,9 @@ button {
   grid-template-rows: 25px;
   grid-template-areas:
     "area-profile-header-title area-profile-header-button"
-    "area-profile-header-subtitle area-profile-header-button";
+    "area-profile-header-subtitle area-profile-header-button"
+    "area-profile-header-message area-profile-header-button";
+  gap: 2px;
 }
 
 .area-profile-header .area-profile-header-title {
@@ -59,6 +61,12 @@ button {
 .area-profile-header .area-profile-header-subtitle {
   grid-area: area-profile-header-subtitle;
   opacity: 0.5;
+  font-size: 0.7em;
+}
+
+.area-profile-header .area-profile-header-message {
+  grid-area: area-profile-header-message;
+  color: rgb(210, 0, 0);
   font-size: 0.7em;
 }
 

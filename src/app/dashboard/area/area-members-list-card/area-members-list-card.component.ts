@@ -9,6 +9,8 @@ import { TicketsService } from "src/app/services/tickets/tickets.service";
 import * as AreaActions from "../../../store/actions/userOrganizations/organization/area/area.actions";
 import { SubSink } from "subsink";
 import { NotificationsService } from "src/app/services/notifications/notifications.service";
+import { Observable } from "rxjs";
+import { areaLoading } from "src/app/store/selectors/userOrganizations/organization/area/area.selector";
 
 @Component({
   selector: "app-area-members-list-card",
@@ -22,7 +24,7 @@ export class AreaMembersListCardComponent implements OnInit, OnDestroy {
   @Input() area: AreaModel;
 
   subs = new SubSink();
-  // private unsubscribe$: Subject<boolean> = new Subject<boolean>();
+  areaLoading$: Observable<boolean>;
 
   constructor(
     private store: Store<AppState>,
@@ -30,7 +32,9 @@ export class AreaMembersListCardComponent implements OnInit, OnDestroy {
     private _notificationService: NotificationsService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.areaLoading$ = this.store.select(areaLoading);
+  }
 
   deleteMember(member: MemberModel, area: AreaModel) {
     if (this.area.responsible) {

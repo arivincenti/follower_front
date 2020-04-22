@@ -16,8 +16,8 @@
     </div>
     <!-- header section title end -->
     <!-- header section buttons -->
-    <div class="header-section-buttons">
-      <button class="button" mat-icon-button *ngIf="area" (click)="setResponsibleMember(member)">
+    <div class="header-section-buttons" *ngIf="!area.deleted_at">
+      <button *ngIf="!(areaLoading$ | async)" class="button" mat-icon-button (click)="setResponsibleMember(member)">
         <mat-icon matTooltip="Asignar como responsable" *ngIf="!area.responsible" matTooltipPosition="above"
           class="button-icon responsible">face
         </mat-icon>
@@ -31,9 +31,12 @@
         </mat-icon>
       </button>
 
-      <button class="button" mat-icon-button (click)="deleteMember(member, area)">
+      <button *ngIf="!(areaLoading$ | async)" class="button" mat-icon-button (click)="deleteMember(member, area)">
         <mat-icon matTooltip="Quitar miembro" matTooltipPosition="above" class="button-icon danger">delete
         </mat-icon>
+      </button>
+      <button class="button" mat-icon-button *ngIf="areaLoading$ | async">
+        <mat-spinner class="button-spinner" diameter="15"></mat-spinner>
       </button>
     </div>
     <!-- header section buttons end -->

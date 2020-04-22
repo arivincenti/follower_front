@@ -25,6 +25,10 @@
             {{area.responsible.user.last_name | titlecase}}</span>
           <span *ngIf="!area.responsible">Responsable / Sin responsable</span>
         </div>
+        <div class="area-profile-header-message">
+          <span *ngIf="area.deleted_at"><b>El área está inactiva</b>. Recuerda que no podrás realizar
+            modificaciones en ella.</span>
+        </div>
         <div class="area-profile-header-button">
           <button [matMenuTriggerFor]="menu" mat-icon-button *ngIf="!area.deleted_at">
             <mat-icon matTooltip="Opciones" matTooltipPosition="above">more_vert</mat-icon>

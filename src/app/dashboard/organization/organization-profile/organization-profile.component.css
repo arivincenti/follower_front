@@ -51,7 +51,9 @@ button {
   grid-template-rows: 25px;
   grid-template-areas:
     "organization-profile-header-title organization-profile-header-button"
-    "organization-profile-header-subtitle organization-profile-header-button";
+    "organization-profile-header-subtitle organization-profile-header-button"
+    "organization-profile-header-message organization-profile-header-button";
+  gap: 2px;
 }
 
 .organization-profile-header .organization-profile-header-title {
@@ -70,6 +72,12 @@ button {
 .organization-profile-header .organization-profile-header-subtitle {
   grid-area: organization-profile-header-subtitle;
   opacity: 0.5;
+  font-size: 0.7em;
+}
+
+.organization-profile-header .organization-profile-header-message {
+  grid-area: organization-profile-header-message;
+  color: rgb(210, 0, 0);
   font-size: 0.7em;
 }
 

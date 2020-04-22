@@ -8,6 +8,7 @@ export class TicketModel {
     public _id: string,
     public area: AreaModel,
     public responsible: MemberModel,
+    public followers: UserModel[],
     public priority: string,
     public date: Date,
     public status: string,

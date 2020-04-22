@@ -9,7 +9,7 @@
             <mat-icon class="icon-header warning">local_activity</mat-icon>
           </span>
           <span [matTooltip]="ticket.subject" matTooltipPosition="above">
-            {{ ticket.subject | titlecase }}
+            {{ ticket.subject | firstUpperCase }}
           </span>
         </h4>
         <span class="badge badge-ticket-status"
@@ -43,7 +43,7 @@
     <span class="ticket-card-info">
       <mat-icon class="icon">apartment</mat-icon>
       <span>
-        {{ ticket.area.organization.name | titlecase }} / {{ ticket.area.name | titlecase }}
+        <b>{{ ticket.area.organization.name | titlecase }}</b> / {{ ticket.area.name | titlecase }}
       </span>
     </span>
   </div>

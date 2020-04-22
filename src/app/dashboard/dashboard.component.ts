@@ -88,11 +88,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.joinAllAreas();
     this.joinAllTickets();
 
-    this.listenMemberCreated();
-    this.listenMemberDeleted();
-    this.listenCreateSocket();
-    this.listenUpdateSocket();
-    this.listenNewNotifications();
+    // this.listenMemberCreated();
+    // this.listenMemberDeleted();
+    // this.listenCreateSocket();
+    // this.listenUpdateSocket();
+    // this.listenNewNotifications();
   }
 
   ngOnInit() {}
