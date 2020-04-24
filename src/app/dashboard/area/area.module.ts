@@ -14,12 +14,15 @@ import { AreaMembersListComponent } from "./area-members-list/area-members-list.
 import { AreaMembersListCardComponent } from "./area-members-list-card/area-members-list-card.component";
 import { GenericNotificationComponent } from "src/app/shared/snackbar/generic-notification/generic-notification.component";
 import { ServiceModule } from "src/app/services/service.module";
+import { ChartsModule } from "ng2-charts";
+import { AreaChartComponent } from './area-chart/area-chart.component';
 
 @NgModule({
   declarations: [
     AreaProfileComponent,
     AreaMembersListComponent,
     AreaMembersListCardComponent,
+    AreaChartComponent,
   ],
   imports: [
     RouterModule,
@@ -32,6 +35,7 @@ import { ServiceModule } from "src/app/services/service.module";
     MemberModule,
     AreaRoutingModule,
     PipesModule,
+    ChartsModule,
   ],
   entryComponents: [AreaMemberFormComponent, AreaFormComponent],
 })

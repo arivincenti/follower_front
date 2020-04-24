@@ -14,11 +14,14 @@
         </span>
         <span class="badge badge-ticket-status"
           [ngClass]="{'badge-danger': ticket.status === 'ABIERTO', 'badge-primary': ticket.status === 'PENDIENTE', 'badge-success': ticket.status === 'CERRADO'}"
-          [matTooltip]="ticket.status " matTooltipPosition="above">
+          [matTooltip]="ticket.status" matTooltipPosition="above">
           {{ticket.status | slice:0:1}}
         </span>
         <mat-icon *ngIf="ticket.status !== 'CERRADO' && ticket.date" class="extra-icon"
           matTooltip="Programado para el {{ticket.date | date: 'fullDate'}}" matTooltipPosition="above">alarm
+        </mat-icon>
+        <mat-icon *ngIf="isFollower" class="extra-icon" matTooltip="Estas siguiendo este ticket"
+          matTooltipPosition="above">visibility
         </mat-icon>
       </div>
       <div class="header-section-title-subtitle">

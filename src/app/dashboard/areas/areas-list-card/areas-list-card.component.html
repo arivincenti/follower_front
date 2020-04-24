@@ -8,7 +8,7 @@
       </span>
       <span class="header-section-title-title" [ngClass]="{'deleted': area.deleted_at}" [matTooltip]="area.name"
         matTooltipPosition="right">
-        {{area.name | titlecase}}
+        {{area.name}}
       </span>
       <span class="header-section-title-subtitle" *ngIf="area.responsible">
         Responsable / {{area.responsible.user.name | titlecase}} {{area.responsible.user.last_name | titlecase}}

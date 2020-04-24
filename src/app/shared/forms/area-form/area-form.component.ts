@@ -66,17 +66,21 @@ export class AreaFormComponent implements OnInit {
     // Validation name before create or update an organization
     if (this.form.invalid) return;
 
+    let name =
+      this.form.controls["area"].value.charAt(0).toUpperCase() +
+      this.form.controls["area"].value.slice(1);
+
     if (!this.data.area) {
       let payload = {
         user: this.data.user._id,
         organization: this.data.organization._id,
-        name: this.form.controls["area"].value.toUpperCase(),
+        name,
       };
 
       this.store.dispatch(AreaActions.createArea({ payload }));
     } else {
       let payload = {
-        name: this.form.controls["area"].value.toUpperCase(),
+        name,
         organization: this.data.organization._id,
         updated_by: this.data.user._id,
         area: this.data.area,

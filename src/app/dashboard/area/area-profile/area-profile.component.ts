@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UserModel } from "src/app/models/user.model";
-import { map, filter, tap } from "rxjs/operators";
+import { tap } from "rxjs/operators";
 import { MatDialog } from "@angular/material";
 import { AreaFormComponent } from "../../../shared/forms/area-form/area-form.component";
 import {

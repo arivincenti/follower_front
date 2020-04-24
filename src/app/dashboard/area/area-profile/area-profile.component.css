@@ -10,7 +10,8 @@ button {
     "area-loader"
     "area-button-back"
     "area-profile"
-    "area-children";
+    "area-children"
+    "chart-section";
   gap: 15px;
 }
 
@@ -88,6 +89,10 @@ button {
   display: grid;
   grid-template-columns: 1fr;
   gap: 15px;
+}
+
+.contenedor .chart-section {
+  grid: chart-section;
 }
 
 @media (max-width: 767px) {

@@ -3,7 +3,8 @@ import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { UserModel } from "src/app/models/user.model";
-import * as ticketsActions from "src/app/store/actions/userOrganizations/tickets/tickets/tickets.actions";
+import * as ticketsActions from "@actions/tickets";
+import * as ticketActions from "@actions/ticket";
 // import {
 //   updateOrganizationList,
 //   addCreatedOrganizationToList,
@@ -50,45 +51,51 @@ export class UsersService {
       .pipe(map((data: any) => data.data));
   }
 
-  // updateObjectsState(objectType: string, operationType: string, object: any) {
-  //   switch (objectType) {
-  //     case "ticket":
-  //       if (operationType === "create") {
-  //         // this._wsService.emit("join-ticket", object);
-  //         this.store.dispatch(addCreatedTicketToList({ ticket: object }));
-  //       } else {
-  //         this.store.dispatch(updateTicketList({ payload: object }));
-  //         this.store.dispatch(updateTicketSuccess({ payload: object }));
-  //       }
-  //       break;
-  //     case "organization":
-  //       if (operationType === "create") {
-  //         // this._wsService.emit("join-organization", object);
-  //         this.store.dispatch(
-  //           addCreatedOrganizationToList({ organization: object })
-  //         );
-  //       } else {
-  //         this.store.dispatch(updateOrganizationList({ organization: object }));
-  //         this.store.dispatch(
-  //           updateOrganizationSuccess({ organization: object })
-  //         );
-  //       }
-  //       break;
-  //     case "area":
-  //       if (operationType === "create") {
-  //         this.store.dispatch(addCreatedAreaToList({ area: object }));
-  //       } else {
-  //         this.store.dispatch(updateAreasList({ area: object }));
-  //         this.store.dispatch(updateAreaSuccess({ payload: object }));
-  //       }
-  //       break;
-  //     case "member": //Organization member
-  //       if (operationType === "create") {
-  //         this.store.dispatch(addCreatedMemberToList({ member: object }));
-  //       } else {
-  //         this.store.dispatch(updateMemberList({ member: object }));
-  //       }
-  //       break;
-  //   }
-  // }
+  updateObjectsState(objectType: string, operationType: string, object: any) {
+    switch (objectType) {
+      case "ticket":
+        if (operationType === "create") {
+          // this._wsService.emit("join-ticket", object);
+          this.store.dispatch(
+            ticketsActions.addCreatedTicketToList({ ticket: object })
+          );
+        } else {
+          this.store.dispatch(
+            ticketsActions.updateTicketList({ ticket: object })
+          );
+          this.store.dispatch(
+            ticketActions.updateTicketSuccess({ ticket: object })
+          );
+        }
+        break;
+      // case "organization":
+      //   if (operationType === "create") {
+      //     // this._wsService.emit("join-organization", object);
+      //     this.store.dispatch(
+      //       addCreatedOrganizationToList({ organization: object })
+      //     );
+      //   } else {
+      //     this.store.dispatch(updateOrganizationList({ organization: object }));
+      //     this.store.dispatch(
+      //       updateOrganizationSuccess({ organization: object })
+      //     );
+      //   }
+      //   break;
+      // case "area":
+      //   if (operationType === "create") {
+      //     this.store.dispatch(addCreatedAreaToList({ area: object }));
+      //   } else {
+      //     this.store.dispatch(updateAreasList({ area: object }));
+      //     this.store.dispatch(updateAreaSuccess({ payload: object }));
+      //   }
+      //   break;
+      // case "member": //Organization member
+      //   if (operationType === "create") {
+      //     this.store.dispatch(addCreatedMemberToList({ member: object }));
+      //   } else {
+      //     this.store.dispatch(updateMemberList({ member: object }));
+      //   }
+      //   break;
+    }
+  }
 }

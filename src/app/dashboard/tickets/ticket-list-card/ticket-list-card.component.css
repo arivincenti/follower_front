@@ -34,7 +34,7 @@ button {
   grid-area: header-section-title-title;
   display: flex;
   align-items: center;
-  font-size: 0.9em;
+  font-size: 1em;
 }
 
 .header-section .header-section-buttons {

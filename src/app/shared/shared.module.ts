@@ -16,6 +16,7 @@ import { PipesModule } from "../pipes/pipes.module";
 import { UpdatedNotificationComponent } from "./snackbar/updated-notification/updated-notification.component";
 import { GenericNotificationComponent } from "./snackbar/generic-notification/generic-notification.component";
 import { AreaMemberFormComponent } from "./forms/areaMemberForm/area-member-form.component";
+import { ChartsModule } from "ng2-charts";
 
 const shared = [
   FooterComponent,
@@ -27,7 +28,7 @@ const shared = [
   TicketFormComponent,
   TicketGraphicsComponent,
   UpdatedNotificationComponent,
-  GenericNotificationComponent
+  GenericNotificationComponent,
 ];
 @NgModule({
   declarations: shared,
@@ -37,9 +38,9 @@ const shared = [
     FormsModule,
     ReactiveFormsModule,
     AngularMaterialModule,
-    PipesModule
+    PipesModule,
   ],
   exports: shared,
-  providers: [{ provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }]
+  providers: [{ provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }],
 })
 export class SharedModule {}

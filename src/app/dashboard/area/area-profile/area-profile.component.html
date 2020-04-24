@@ -17,7 +17,7 @@
       <div class="area-profile-header">
         <div class="area-profile-header-title">
           <span>
-            {{area.name | titlecase}}
+            {{area.name}}
           </span>
         </div>
         <div class="area-profile-header-subtitle">
@@ -43,6 +43,9 @@
       <div class="area-children-container">
         <app-area-members-list [area]="area" [organization]="area.organization"></app-area-members-list>
       </div>
+    </div>
+    <div class="chart-section background-section">
+      <app-area-chart [area]="area"></app-area-chart>
     </div>
   </ng-container>
 </div>

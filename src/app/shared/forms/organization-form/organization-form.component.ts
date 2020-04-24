@@ -67,16 +67,20 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
     // Validation name before create or update an organization
     if (this.form.invalid) return;
 
+    let name =
+      this.form.controls["name"].value.charAt(0).toUpperCase() +
+      this.form.controls["name"].value.slice(1);
+
     if (!this.data.organization) {
       let payload = {
         user: this.data.user,
-        name: this.form.controls["name"].value.toUpperCase(),
+        name,
       };
       console.log("se creo una nueva");
       this.store.dispatch(OrganizationActions.createOrganization({ payload }));
     } else {
       let payload = {
-        name: this.form.controls["name"].value.toUpperCase(),
+        name,
         updated_by: this.data.user,
         organization: this.data.organization,
       };

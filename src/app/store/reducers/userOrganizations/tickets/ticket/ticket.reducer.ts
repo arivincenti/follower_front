@@ -55,7 +55,7 @@ export const ticketReducer = createReducer(
     error: { payload },
   })),
   on(TicketActions.updateTicket, (state) => ({
-    ticket: null,
+    ticket: { ...state.ticket },
     loading: true,
     loaded: false,
     error: null,

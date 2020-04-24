@@ -90,9 +90,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     // this.listenMemberCreated();
     // this.listenMemberDeleted();
-    // this.listenCreateSocket();
-    // this.listenUpdateSocket();
-    // this.listenNewNotifications();
+    this.listenCreateSocket();
+    this.listenUpdateSocket();
+    this.listenNewNotifications();
   }
 
   ngOnInit() {}
@@ -246,11 +246,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
               })
             );
 
-            // this._usersService.updateObjectsState(
-            //   notification.objectType,
-            //   notification.operationType,
-            //   object
-            // );
+            this._usersService.updateObjectsState(
+              notification.objectType,
+              notification.operationType,
+              object
+            );
           }
         })
     );
