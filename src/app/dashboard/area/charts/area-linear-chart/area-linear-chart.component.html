@@ -1,0 +1,10 @@
+<div class="mensaje" *ngIf="!(tickets$ | async).length">
+  <span class="empty-message">El área no tiene tickets asignados, por lo tanto no se puede mostrar ninguna
+    estadística</span>
+</div>
+
+<div *ngIf="(tickets$ | async).length">
+  <canvas baseChart [colors]="lineChartColors" [datasets]="barChartData" [labels]="barChartLabels"
+    [chartType]="barChartType" [options]="barChartOptions">
+  </canvas>
+</div>

@@ -19,7 +19,8 @@
         </span>
       </h4>
       <span class="header-section-title-subtitle">
-        {{notification.created_at | time}}
+        {{notification.created_at | time}} por {{notification.created_by.name | titlecase}}
+        {{notification.created_by.last_name | titlecase}}
       </span>
     </div>
     <!-- header section title end -->

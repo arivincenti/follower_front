@@ -7,12 +7,18 @@
       </span>
     </span>
     <div class="user">
-      <span class="user-header">
+      <span class="user-header" *ngIf="data.user._id !== data.notification.created_by._id">
         <span class="user-name">
           {{data.notification.created_by.name | titlecase}}
           {{data.notification.created_by.last_name | titlecase}}
         </span>
         realizó modificaciones
+      </span>
+
+      <span class="user-header" *ngIf="data.user._id === data.notification.created_by._id">
+        <span class="user-name">
+          Realizaste modificaciones
+        </span>
       </span>
 
       <span class="message background-section" *ngFor="let change of data.notification.changes">

@@ -46,8 +46,8 @@ button {
 
 .header-section-title-title-container .title {
   font-size: 1em;
+  color: rgba(0, 0, 0, 0.7);
   font-weight: 600;
-  opacity: 0.8;
 }
 
 .header-section .header-section-buttons {

@@ -12,17 +12,16 @@ import { PipesModule } from "src/app/pipes/pipes.module";
 import { AreaMemberFormComponent } from "src/app/shared/forms/areaMemberForm/area-member-form.component";
 import { AreaMembersListComponent } from "./area-members-list/area-members-list.component";
 import { AreaMembersListCardComponent } from "./area-members-list-card/area-members-list-card.component";
-import { GenericNotificationComponent } from "src/app/shared/snackbar/generic-notification/generic-notification.component";
 import { ServiceModule } from "src/app/services/service.module";
 import { ChartsModule } from "ng2-charts";
-import { AreaChartComponent } from './area-chart/area-chart.component';
+import { AreaLinearChartComponent } from "./charts/area-linear-chart/area-linear-chart.component";
 
 @NgModule({
   declarations: [
     AreaProfileComponent,
     AreaMembersListComponent,
     AreaMembersListCardComponent,
-    AreaChartComponent,
+    AreaLinearChartComponent,
   ],
   imports: [
     RouterModule,

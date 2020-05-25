@@ -24,6 +24,7 @@ import {
 import { SubSink } from "subsink";
 import { TicketsService } from "src/app/services/tickets/tickets.service";
 import { user } from "src/app/store/selectors/auth/auth.selector";
+import { WebsocketService } from "src/app/services/websocket/websocket.service";
 
 @Component({
   selector: "app-ticket",
@@ -66,12 +67,15 @@ export class TicketComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
     private commentService: CommentsService,
-    private _ticketService: TicketsService
+    private _ticketService: TicketsService,
+    private _wsService: WebsocketService
   ) {}
 
   ngOnInit() {
     //Cargamos las animaciones y obtenemos el ID que viene por la URL
     this.param = this.activatedRoute.snapshot.paramMap.get("id");
+
+    this._wsService.emit("join-ticket", this.param);
 
     //Despachamos las acciones
     this.store.dispatch(TicketActions.getTicket({ payload: this.param }));
@@ -147,6 +151,7 @@ export class TicketComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this._wsService.emit("leave-ticket", this.param);
     //Nos desuscribimos de los observables
     this.subs.unsubscribe();
   }

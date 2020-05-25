@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "../store/app.reducer";
 import { WebsocketService } from "../services/websocket/websocket.service";
-import { AreasService } from "../services/areas/areas.service";
 import { MatSnackBar } from "@angular/material";
 import { map, shareReplay } from "rxjs/operators";
 import { UserModel } from "../models/user.model";
@@ -17,7 +16,6 @@ import { logout } from "../store/actions/auth/auth.actions";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { NotificationsService } from "../services/notifications/notifications.service";
 import { UpdatedNotificationComponent } from "../shared/snackbar/updated-notification/updated-notification.component";
-import { MemberModel } from "../models/member.model";
 import * as AreaActions from "../store/actions/userOrganizations/organization/area/area.actions";
 import { UsersService } from "../services/users/users.service";
 import { TicketModel } from "../models/ticketModel";
@@ -63,7 +61,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public _wsService: WebsocketService,
     private _usersService: UsersService,
     private _notificationService: NotificationsService,
-    private _areasService: AreasService,
     private _snackBar: MatSnackBar,
     private breakpointObserver: BreakpointObserver
   ) {
@@ -84,14 +81,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.tickets$ = this.store.select(userTickets);
     this.unreadNotifications$ = this.store.select(notifications);
 
-    this.joinAllOrganizations();
-    this.joinAllAreas();
-    this.joinAllTickets();
-
     // this.listenMemberCreated();
     // this.listenMemberDeleted();
-    this.listenCreateSocket();
-    this.listenUpdateSocket();
     this.listenNewNotifications();
   }
 
@@ -101,123 +92,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // Log Out
   // ==================================================
   logout() {
-    this._wsService.emit("leave-all-organizations", this.organizations);
-    this._wsService.emit("leave-all-areas", this.areas);
-    this._wsService.emit("leave-all-tickets", this.tickets);
     this.store.dispatch(logout());
-  }
-
-  // ==================================================
-  // Join All Areas
-  // ==================================================
-  joinAllOrganizations() {
-    this.subs.add(
-      this.organizations$.subscribe((organizations) => {
-        this.organizations = organizations;
-        return this._wsService.emit("join-all-organizations", organizations);
-      })
-    );
-  }
-
-  // ==================================================
-  // Join All Areas
-  // ==================================================
-  joinAllAreas() {
-    this.subs.add(
-      this._areasService.getAreasByUser(this.user).subscribe((areas) => {
-        this.areas = areas;
-        this._wsService.emit("join-all-areas", areas);
-      })
-    );
-  }
-
-  // ==================================================
-  // Join All Tickets
-  // ==================================================
-  joinAllTickets() {
-    this.subs.add(
-      this.tickets$.subscribe((tickets) => {
-        this.tickets = tickets;
-        return this._wsService.emit("join-all-tickets", tickets);
-      })
-    );
-  }
-
-  // ==================================================
-  // Listen create objects
-  // ==================================================
-  listenCreateSocket() {
-    this.subs.add(
-      this._wsService.listen("create").subscribe((payload: any) => {
-        this.createNotification(payload, "create");
-      })
-    );
-  }
-
-  // ==================================================
-  // Listen Updates objects
-  // ==================================================
-  listenUpdateSocket() {
-    this.subs.add(
-      this._wsService.listen("update").subscribe((payload: any) => {
-        this.createNotification(payload, "update");
-      })
-    );
-  }
-
-  // ==================================================
-  // Create notification
-  // ==================================================
-  createNotification(payload: any, type: string) {
-    var notification_created_by = null;
-    var notification_users = payload.members.map((member) => member.user);
-
-    switch (type) {
-      case "create":
-        notification_created_by = payload.object.created_by;
-        notification_users = notification_users.filter(
-          (user) => user._id !== payload.object.created_by._id
-        );
-        break;
-      case "update":
-        notification_created_by = payload.object.updated_by;
-        notification_users = notification_users.filter(
-          (user) => user._id !== payload.object.updated_by._id
-        );
-        break;
-    }
-
-    switch (payload.objectType) {
-      case "ticket":
-        //Agregamos al creador del ticket a la notificacion siempre y cuando no exista ya entre los miembros del area
-        var userCoincidence = payload.members.find(
-          (member: MemberModel) =>
-            member.user._id === payload.object.created_by._id
-        );
-        //Si el usuario creador del ticket no es miembro del area se agrega para ser notificado
-        if (!userCoincidence) {
-          notification_users.push(payload.object.created_by);
-        }
-        break;
-    }
-
-    //Actualizamos los objectos del usuario que realizo la modificacion o creó alguno nuevo
-    //Solo actualizamos los objectos que se modificaron.
-    // this._usersService.updateObjectsState(
-    //   payload.objectType,
-    //   payload.operationType,
-    //   payload.object
-    // );
-
-    //Emitimos la notificacion
-    this._notificationService.createNewNotification(
-      payload.changes,
-      payload.object,
-      payload.objectType,
-      payload.operationType,
-      notification_created_by,
-      notification_users
-    );
   }
 
   // ==================================================
@@ -234,18 +109,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this._snackBar.openFromComponent(UpdatedNotificationComponent, {
             duration: 5000,
             data: {
+              user: this.user,
               notification,
               object,
             },
           });
 
-          if (notification.created_by._id !== this.user._id) {
-            this.store.dispatch(
-              addNotification({
-                payload: notification,
-              })
-            );
+          this.store.dispatch(
+            addNotification({
+              payload: notification,
+            })
+          );
 
+          if (notification.created_by._id !== this.user._id) {
             this._usersService.updateObjectsState(
               notification.objectType,
               notification.operationType,
@@ -268,7 +144,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.store.dispatch(
               AreaActions.updateAreaSuccess({ area: payload.object })
             );
-            this._wsService.emit("leave-area", payload.object._id);
             break;
         }
       })
@@ -287,11 +162,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.store.dispatch(
               AreaActions.updateAreaSuccess({ area: payload.object })
             );
-            this._wsService.emit("join-area", payload.object._id);
             break;
           case "member":
             this.store.dispatch(getOrganizations({ payload: this.user._id }));
-            this._wsService.emit("join-orgnanization", payload.object._id);
             break;
         }
       })

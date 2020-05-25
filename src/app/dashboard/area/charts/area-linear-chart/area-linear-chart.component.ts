@@ -1,28 +1,23 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnDestroy,
-  OnChanges,
-  SimpleChanges,
-} from "@angular/core";
+import { Component, OnInit, Input, SimpleChanges } from "@angular/core";
+import { AreaModel } from "src/app/models/area.model";
 import { SubSink } from "subsink";
+import { Observable } from "rxjs";
+import { TicketModel } from "src/app/models/ticketModel";
+import { Label, Color } from "ng2-charts";
+import { ChartType, ChartDataSets, ChartOptions } from "chart.js";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.reducer";
 import { areaTicketsChart } from "src/app/store/selectors/userOrganizations/tickets/tickets/tickets.selector";
-import { AreaModel } from "src/app/models/area.model";
-import { ChartType, ChartDataSets, ChartOptions } from "chart.js";
-import { Label, Color } from "ng2-charts";
 
 @Component({
-  selector: "app-area-chart",
-  templateUrl: "./area-chart.component.html",
-  styleUrls: ["./area-chart.component.css"],
+  selector: "app-area-linear-chart",
+  templateUrl: "./area-linear-chart.component.html",
+  styleUrls: ["./area-linear-chart.component.css"],
 })
-export class AreaChartComponent implements OnInit, OnDestroy, OnChanges {
+export class AreaLinearChartComponent implements OnInit {
   @Input() area: AreaModel;
   subs = new SubSink();
-
+  tickets$: Observable<TicketModel[]>;
   public barChartLabels: Label[] = [
     "Ene",
     "Feb",
@@ -67,30 +62,30 @@ export class AreaChartComponent implements OnInit, OnDestroy, OnChanges {
   public lineChartColors: Color[] = [
     {
       // Pendientes
-      backgroundColor: "#455A64",
-      borderColor: "#455A64",
-      pointBackgroundColor: "rgba(148,159,177,1)",
+      backgroundColor: "#CFD8DC",
+      borderColor: "#CFD8DC",
+      pointBackgroundColor: "rgba(148,159,177,.5)",
       pointBorderColor: "#fff",
       pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(148,159,177,0.8)",
+      pointHoverBorderColor: "rgba(148,159,177,0.5)",
     },
     {
       // Abiertos
-      backgroundColor: "#E53935",
-      borderColor: "#E53935",
-      pointBackgroundColor: "rgba(77,83,96,1)",
+      backgroundColor: "#FF8A80",
+      borderColor: "#FF8A80",
+      pointBackgroundColor: "rgba(77,83,96,.5)",
       pointBorderColor: "#fff",
       pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(77,83,96,1)",
+      pointHoverBorderColor: "rgba(77,83,96,.5)",
     },
     {
       // Cerrados
-      backgroundColor: "#2E7D32",
-      borderColor: "#2E7D32",
-      pointBackgroundColor: "rgba(148,159,177,1)",
+      backgroundColor: "#AED581",
+      borderColor: "#AED581",
+      pointBackgroundColor: "rgba(148,159,177,.5)",
       pointBorderColor: "#fff",
       pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(148,159,177,0.8)",
+      pointHoverBorderColor: "rgba(148,159,177,0.5)",
     },
   ];
 
@@ -99,8 +94,10 @@ export class AreaChartComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(change: SimpleChanges) {
+    this.tickets$ = this.store.select(areaTicketsChart, this.area);
     this.subs.add(
-      this.store.select(areaTicketsChart, this.area).subscribe((data) => {
+      this.tickets$.subscribe((data) => {
+        console.log(data);
         let pendientes = [];
         let abiertos = [];
         let cerrados = [];

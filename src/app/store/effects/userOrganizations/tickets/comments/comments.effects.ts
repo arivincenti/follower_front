@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { createEffect, Actions, ofType } from "@ngrx/effects";
 import * as CommentsActions from "../../../../actions/userOrganizations/tickets/comments/comments.actions";
-import { mergeMap, map, catchError } from "rxjs/operators";
+import { mergeMap, map, catchError, switchMap } from "rxjs/operators";
 import { of } from "rxjs";
 import Swal from "sweetalert2";
 import { CommentsService } from "src/app/services/comments/comments.service";
@@ -16,7 +16,7 @@ export class CommentsEffects {
   getComments$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CommentsActions.getComments),
-      mergeMap((action) =>
+      switchMap((action) =>
         this._commentsService.getComments(action.payload).pipe(
           map((data: any) =>
             CommentsActions.getCommentsSuccess({ payload: data.data })
@@ -33,11 +33,8 @@ export class CommentsEffects {
     () =>
       this.actions$.pipe(
         ofType(CommentsActions.addComment),
-        mergeMap((action) => {
+        switchMap((action) => {
           return this._commentsService.addComment(action.payload).pipe(
-            map((res) => {
-              return true;
-            }),
             catchError((error) =>
               Swal.fire({
                 position: "top-end",
